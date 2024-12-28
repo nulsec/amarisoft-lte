@@ -1,0 +1,371 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.6, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Building an Arm based Amarisoft Base station</title>
+
+<meta name="description" content="Building an Arm based Amarisoft Base station">
+<meta name="keywords" content="Building an Arm based Amarisoft Base station">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+
+th {
+    border: 1px solid black;
+    background-color: #c0f585;
+    font-size: 14px;
+    padding: 5px;
+}
+
+td {
+    border: 1px solid black;
+    padding: 2px 4px;
+}
+
+p>img {
+    display: initial;
+}
+
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">Building an Arm based Amarisoft Base station</h1>
+
+<span id="SEC_Contents"></span>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+<ul class="no-bullet">
+<li><a id="toc-Introduction" href="#Introduction">1 Introduction</a></li>
+<li><a id="toc-Hardware-Requirements" href="#Hardware-Requirements">2 Hardware Requirements</a></li>
+<li><a id="toc-Install-Guide" href="#Install-Guide">3 Install Guide</a>
+<ul class="no-bullet">
+  <li><a id="toc-Honeycomb-Board-Bring_002dup" href="#Honeycomb-Board-Bring_002dup">3.1 Honeycomb Board Bring-up</a></li>
+  <li><a id="toc-Software-Install" href="#Software-Install">3.2 Software Install</a></li>
+  <li><a id="toc-Amarisoft-Release-Install" href="#Amarisoft-Release-Install">3.3 Amarisoft Release Install</a></li>
+  <li><a id="toc-Manual-Compile-of-the-SDR-driver" href="#Manual-Compile-of-the-SDR-driver">3.4 Manual Compile of the SDR driver</a></li>
+</ul></li>
+<li><a id="toc-Order-Information" href="#Order-Information">4 Order Information</a></li>
+<li><a id="toc-Additional-Information" href="#Additional-Information">5 Additional Information</a></li>
+
+</ul>
+</div>
+
+
+
+<span id="Introduction"></span><h2 class="chapter">1 Introduction</h2>
+
+<p>Arm processors are designed to minimize power consumption. Thanks to their low cost, low energy consumption and low heat generation, they are ideal for light, portable and battery-powered systems such as small cells.
+</p>
+<p>This application note describes all you need to build your own Arm based Amarisoft base station. It explains the hardware requirements as well as the software install procedure. 
+</p>
+
+<span id="Hardware-Requirements"></span><h2 class="chapter">2 Hardware Requirements</h2>
+
+<ul class="no-bullet">
+<li>- an Arm platform. <br>
+In this application note we use the SolidRun Honeycomb board based on NXP LX2160A multicore Arm processor with 16x Arm Cortex A72 processor. <br>
+<a href="https://www.solid-run.com/wp-content/uploads/2023/01/HoneyComb-LX2-Datasheet-2023.pdf">https://www.solid-run.com/wp-content/uploads/2023/01/HoneyComb-LX2-Datasheet-2023.pdf</a>. 
+</li><li>- Accessories for Arm Platform. <br>
+The required accessories for Honeycomb platform are:
+<ul class="no-bullet">
+<li>- 32 GB of RAM such as Kingston HyperX 32GB SO-DIMM DDR4 (2x16GB).
+</li><li>- 16 GB Micro SD 
+</li><li>- Micro USB to USB cable
+</li><li>- Power supply. Honeycomb board can use any ATX standard 150W+ power supply. For a small form factor, a Pico PSU 5A 12V ATX power supply can be used.
+</li></ul>
+</li><li>- Radio frontend. <br>
+In this application note, we use the AMARI PCIe SDR100 card. 
+</li><li>- Antennas. 5G antennas for over the air testing if needed.
+</li><li>- A Linux machine for the board bringup.
+</li></ul>
+
+<span id="Install-Guide"></span><h2 class="chapter">3 Install Guide</h2>
+
+<span id="Honeycomb-Board-Bring_002dup"></span><h3 class="section">3.1 Honeycomb Board Bring-up</h3>
+
+<p>A complete step by step start guide is provided by Solidrun at <br> <br>
+<a href="https://solidrun.atlassian.net/wiki/spaces/developer/pages/197494288/HoneyComb+LX2+ClearFog+CX+LX2+Quick+Start+Guide">https://solidrun.atlassian.net/wiki/spaces/developer/pages/197494288/HoneyComb+LX2+ClearFog+CX+LX2+Quick+Start+Guide</a>.<br> <br>
+Please follow this guide until the end of the section <code>Final Stages</code>.
+Some clarifications are:
+</p><ul class="no-bullet">
+<li>- The image name should match the speed of your DDR. The 3200 in the image name refers to 3200 DDR speed. Images with xspi or clearfrog prefixes should not be used. The image <code>lx2160acex7_2000_700_3200_8_5_2-3fbd680.img.xz</code> has been tested in our end. 
+</li><li>- <code>tio</code> has been used as a serial device tool to connect to the Honeycomb board. <code>tio</code> can be installed on a Linux machine by typing <br>
+<code>dnf install tio</code> <br>
+in Fedora systems.
+</li><li>- The idea is to flash the image into the embedded memory eMMC so that the board can boot directly from it. After resizing the eMMC, the boot switches should be changed to boot directly from eMMC. A complete power cycle would allow to verify if the boot from eMMC works as expected.
+</li></ul>
+
+<span id="Software-Install"></span><h3 class="section">3.2 Software Install</h3>
+
+<p>The default OS used in the image is Ubuntu. The following steps are needed before installing Amarisoft software release.
+</p>
+<ul class="no-bullet">
+<li>- install the following packages. <br> <br>
+<code>apt-get install nano wget screen php php-json libapache2-mod-php lksctp-tools iperf</code>
+<br>
+</li><li>- Allow root login with remote access.
+<div class="example">
+<pre class="example">
+
+nano /etc/ssh/sshd_config (Set PermitRootLogin yes)
+service sshd restart
+
+</pre></div>
+
+</li><li>- configure the network interface. Each time the board is power cycled, the command <code>dhclient</code> should be used to configure the network interface and to acquire an IP address from a DHCP server. This step can be automatized by creating a script which is run at boot time as follows:
+<ul>
+<li> create a script under root directory. <br>
+<code>nano /root/nw.sh</code>
+</li><li> Add the follwoing line in the script and save it. <br>
+<code>dhclient</code> <br>
+In case a fixed IP address is required, <code>dhclient</code> should be replaced by these commands. <br>
+<code>ifconfig eth0 up</code> <br>
+<code>ifconfig eth0 &lt;IP addr&gt; </code>
+</li><li> change the permissions so that the script can be executed. <br>
+<code>chmod 755 nw.sh</code>
+</li><li> Add a network service that executes this script at each boot. Create file <samp>nw.service</samp> under <code>/lib/systemd/system/</code> with the follwoing content.
+<div class="example">
+<pre class="example"># Copyright (C) 2012-2024 Amarisoft
+# Network systemd script version 2024-06-15
+
+[Unit]
+Description=Start Network service
+
+[Service]
+Type=oneshot
+ExecStart=/root/nw.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+</pre></div>
+</li><li> Enable the service at boot by typing
+<code>systemctl enable nw</code>
+
+</li></ul>
+
+</li><li>- Install Tuned service that optimizes the performance of the system and sets the workload profile to latency-performance to optimize performance as well as the latency.
+
+<div class="example">
+<pre class="example">
+
+apt-get install tuned
+tuned-adm profile latency-performance
+
+</pre></div>
+
+<p>This service is not activated at boot time. In order to activate it, edit the file <samp>/usr/lib/systemd/system/tuned.service</samp> and add the following lines in Service section: <br>
+</p>
+<div class="example">
+<pre class="example">Restart=always
+User=root
+</pre></div>
+
+</li></ul>
+
+<span id="Amarisoft-Release-Install"></span><h3 class="section">3.3 Amarisoft Release Install</h3>
+
+<p>The standard x86 install procedure is detailed in: <br>
+</p> 
+<p><a href="https://tech-academy.amarisoft.com/Install_Callbox.html">https://tech-academy.amarisoft.com/Install_Callbox.html</a>
+<br>
+There are 2 major differences in the install phase compared to x86:
+</p>
+<ul class="no-bullet">
+<li>- Once you have uncompressed the tarball, you should be seeing aarch64 prefix as shown in the following. If there is no component with aarch64, please contact the support team to add Arm builds in your release. 
+
+<div align="center"><img src="img/arm_install.webp" alt="img/arm_install">
+</div>
+</li><li>- After running the <code>install.sh</code> script, some errors occur during the SDR driver install phase as can be seen below.
+<div class="example">
+<pre class="example">./install.sh 
+Ubuntu 20 found
+*************************************************************
+* Installing Amarisoft LTE 2024-06-15 (2024-06-26 15:05:43) *
+*************************************************************
+
+1) Configuration
+  You can exit install script during this step, nothing will be changed
+  until next step
+  * Do you want to install LTE automatic service ?
+    Package screen may be installed. [Yn] y
+      - Do you want to enable LTE automatic service ? [Yn] y
+      - Do you want to use NAT for IPv4 ? [Yn] y
+      - Do you want to use IPv6 ? [Yn] n
+  * Do you want to install EPC ?
+    Package lksctp-tools may be installed. [Yn] y
+      - Do you want to install IMS ? [Yn] y
+  * Do you want to install eNB ?
+    Package lksctp-tools may be installed. [Yn] y
+    - Select TRX radio frontend:
+      1) sdr (default)
+      &gt; 1 (sdr)
+      - Do you want to use MIMO ? [Yn] y
+  * Do you want to install Web interface ?
+    Package apache php may be installed.
+    and enable your web server. [Yn] y
+2) Install LTE automatic service
+3) Install Web interface
+cp: cannot stat '/root/lteots-aarch64-2024-06-15/libnuma.so': No such file or directory
+chcon: can't apply partial context to unlabeled file 'lte_toolbox'
+chcon: can't apply partial context to unlabeled file 'libc_wrapper.so'
+chcon: cannot access 'libnuma.so': No such file or directory
+4) Install TRX sdr
+5) Install EPC
+  Configure IMS
+6) Install eNB
+  Use TRX sdr
+    [TRX] Ubuntu 20 found
+    [TRX] N: Unable to locate package linux-headers-5.10.35-00078-g2d74411d5cf2
+    [TRX] N: Couldn't find any package by glob 'linux-headers-5.10.35-00078-g2d74411d5cf2'
+    [TRX] N: Couldn't find any package by regex 'linux-headers-5.10.35-00078-g2d74411d5cf2'
+    [TRX]   Install package linux-headers-5.10.35-00078-g2d74411d5cf2 (this may take a while)...
+    [TRX]   Can't install package linux-headers-5.10.35-00078-g2d74411d5cf2
+    [TRX] make[1]: *** No rule to make target 'modules'.  Stop.
+    [TRX] make: *** [Makefile:14: sdr.ko] Error 2
+    [TRX] Error while compiling kernel driver.
+    [TRX] Your kernel may not be up to date.
+    [TRX] Reboot your system and process install again.
+    TRX sdr driver installation has failed
+7) Finalize LTE automatic service
+  Start service
+
+**********************************
+* 1 error(s) during installation *
+**********************************
+</pre></div>
+
+<p>This is due to the fact that the SDR driver should be recompiled with the right kernel headers. Next section explains how to compile the SDR driver manually in order to finalize the installation of the Amarisoft software release. 
+</p></li></ul>
+
+<span id="Manual-Compile-of-the-SDR-driver"></span><h3 class="section">3.4 Manual Compile of the SDR driver</h3>
+
+<p>The uboot image installed in the Honeycomb platform does not include kernel files by default. Compiling the SDR driver kernel module, however, requires these files to be present. So first step would be to download the kernel header files.
+The kernel header files are located at the same directory as the Honeyomb image. <br>
+Assuming the image directory is located at <a href="https://images.solid-run.com/LX2k/lx2160a_build/20240530-3fbd680">https://images.solid-run.com/LX2k/lx2160a_build/20240530-3fbd680</a>, you can use <code>wget</code> command to download the headers directly on the platform. 
+</p>
+<div class="example">
+<pre class="example">cd /root
+wget https://images.solid-run.com/LX2k/lx2160a_build/20240530-3fbd680/linux-headers-3fbd680.tar.xz
+mkdir linux-headers-x86
+tar -C linux-headers-x86 -xf linux-headers-3fbd680.tar.xz
+</pre></div>
+
+<p>Solidrun provides the kernel headers package including the binary programs built for x86_64. For a native build on an Arm platform, QEMU user-mode emulation packages must be installed and configured, to allow transparent execution of these programs as below:
+</p><ul class="no-bullet">
+<li>- Install QEMU
+
+<p><code>apt-get install qemu-user-binfmt</code>
+</p>
+</li><li>- Install amd64 library dependencies:
+<div class="example">
+<pre class="example">apt-get install libc6-amd64-cross
+ln -sv /lib /lib64
+ln -sv /usr/x86_64-linux-gnu/lib/ld-linux-x86-64.so.2 /lib/ld-linux-x86-64.so.2
+ln -sv /usr/x86_64-linux-gnu/lib /usr/lib/x86_64-linux-gnu
+</pre></div>
+</li><li>- Install native toolchain <br>
+<code>apt-get install build-essential ca-certificates</code>
+</li></ul>
+
+<p>Now that everything is in place, we can compile the SDR kernel driver by patching the <samp>Makefile</samp> as in the following:
+</p>
+<ul class="no-bullet">
+<li>- Edit the <samp>Makefile</samp>
+
+<p><code>cd /root/trx_sdr/kernel</code> <br>
+<code>nano Makefile</code>
+</p></li><li>- Change the KERNEL_PATH variable as follows:<br>
+<code>KERNEL_PATH:=/root/linux-headers-x86</code>
+</li><li>- Add CROSS_COMPILE=aarch64-linux-gnu- ARCH=arm64 to the make command as follows: <br>
+<code>make -C $(KERNEL_PATH) CFLAGS_MODULE='-DCONFIG_VERSION=\&quot;$(CONFIG_VERSION)\&quot;'  CROSS_COMPILE=aarch64-linux-gnu-  ARCH=arm64 M=$(shell pwd) modules</code>
+</li><li>- Save the <samp>Makefile</samp> and compile the driver as follows: <br>
+<code>make clean</code> <br>
+<code>make</code>
+</li><li>- Load the SDR driver. <br>
+<code>./root/trx_sdr/kernel/init.sh</code>
+</li><li>- Create a <code>.amarisoft</code> directory under <code>/root</code>, download and copy the license file inside.
+<code>mkdir /root/.amarisoft</code>
+</li><li>- The last step is to restart the service for the changes to take effect. <br>
+<code>service lte restart</code>
+</li></ul>
+
+
+<span id="Order-Information"></span><h2 class="chapter">4 Order Information</h2>
+
+<ul>
+<li> Following items could be purchased directly from Solidrun.
+<ul class="no-bullet">
+<li>- SolidRun Honeycomb board. <br>
+<a href="https://shop.solid-run.com/product/SRLX216S00D00GE064H09CH/">https://shop.solid-run.com/product/SRLX216S00D00GE064H09CH/</a>
+</li><li>- 32 GB of RAM. <br>
+<a href="https://shop.solid-run.com/product/SO-DIMM216/">https://shop.solid-run.com/product/SO-DIMM216/</a>
+</li><li>- 16 GB Micro SD. <br>
+<a href="https://shop.solid-run.com/product/MSD016B/">https://shop.solid-run.com/product/MSD016B/</a>
+</li></ul>
+</li><li> Following items could be purchased directly from Amarisoft
+<ul class="no-bullet">
+<li>- Software binary license for RAN and CN. We suggest to go with AMARI NW 2000.
+</li><li>- AMARI PCIe SDR100 card
+</li><li>- Antennas for over the air testing.
+</li></ul>
+</li><li> Following items could be purchased directly from online shops such as Amazon. 
+<ul class="no-bullet">
+<li>- Micro USB to USB cable. <br>
+<a href="https://www.amazon.fr/dp/B0C8FZZB83?ref=ppx_yo2ov_dt_b_product_details&amp;th=1">https://www.amazon.fr/dp/B0C8FZZB83?ref=ppx_yo2ov_dt_b_product_details&amp;th=1</a>
+
+</li><li>- PicoPSU Power Supply ATX 150 W 12 V DC-DC.<br>
+<a href="https://www.amazon.fr/dp/B0045IXKTQ?psc=1&amp;ref=ppx_yo2ov_dt_b_product_details">https://www.amazon.fr/dp/B0045IXKTQ?psc=1&amp;ref=ppx_yo2ov_dt_b_product_details</a>
+</li><li>- LEICKE AC/DC Adapter 150W 12V 12.5A to go with Pico PSU Power supply.<br>
+<a href="https://www.amazon.fr/dp/B00YXXAG7C?psc=1&amp;ref=ppx_yo2ov_dt_b_product_details">https://www.amazon.fr/dp/B00YXXAG7C?psc=1&amp;ref=ppx_yo2ov_dt_b_product_details</a>
+</li></ul>
+</li></ul>
+
+<span id="Additional-Information"></span><h2 class="chapter">5 Additional Information</h2>
+
+<p>This document is copyright (C) 2012-2024 Amarisoft. Its redistribution
+without authorization is prohibited.
+</p>
+<p>This document is available without any express or implied warranty and is subject to change without notice. In
+no event will Amarisoft be held liable for any damages arising from the use of this document.
+</p>
+<p>For any technical issue, please raise a ticket from our support site at <a href="https://support.amarisoft.com/">https://support.amarisoft.com/</a>.
+<br>
+To learn more about our technology and solutions, e-mail us at <a href="mailto:customer@amarisoft.com">customer@amarisoft.com</a> or visit <a href="https://www.amarisoft.com">https://www.amarisoft.com</a>.
+</p>
+
+
+<hr>
+
+
+
+</body>
+</html>

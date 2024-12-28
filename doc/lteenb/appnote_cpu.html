@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.6, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>eNodeB Load Testing</title>
+
+<meta name="description" content="eNodeB Load Testing">
+<meta name="keywords" content="eNodeB Load Testing">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+
+th {
+    border: 1px solid black;
+    background-color: #c0f585;
+    font-size: 14px;
+    padding: 5px;
+}
+
+td {
+    border: 1px solid black;
+    padding: 2px 4px;
+}
+
+p>img {
+    display: initial;
+}
+
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">eNodeB Load Testing</h1>
+
+<span id="SEC_Contents"></span>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+<ul class="no-bullet">
+<li><a id="toc-Introduction" href="#Introduction">1 Introduction</a>
+<ul class="no-bullet">
+  <li><a id="toc-Background-1" href="#Background-1">1.1 Background</a></li>
+</ul></li>
+<li><a id="toc-eNodeB-Test-Mode" href="#eNodeB-Test-Mode">2 eNodeB Test Mode</a></li>
+<li><a id="toc-Benchmarking-Methodology" href="#Benchmarking-Methodology">3 Benchmarking Methodology</a></li>
+<li><a id="toc-Additional-Information" href="#Additional-Information">4 Additional Information</a></li>
+
+</ul>
+</div>
+
+
+
+<span id="Introduction"></span><h2 class="chapter">1 Introduction</h2>
+
+<p>This application note explains how to evaluate a hardware platform to host Amarisoft eNodeB. A common question frequently asked is whether a hardware is efficient enough to run Amarisoft eNodeB and how many active UEs with ongoing traffic could be served within a cell. This application note explains the eNodeB test mode functionality and how it can be used to benchmark a specific processor and hardware platform.   
+</p>
+<span id="Background"></span><span id="Background-1"></span><h3 class="section">1.1 Background</h3>
+
+<p>In order to check the performance of a processor, 2 parameters need to be checked.
+</p><ul>
+<li> eNodeB CPU load: This is the total CPU load of the processor when running eNodeB. As the eNodeB runs on multiple cores, it is effectively the sum of each CPU core load running the eNodeB software
+</li><li> Baseband latency: It is defined to be the processing latency at baseband side.
+</li></ul>
+
+
+<p>In LTE network, there are 4 msec between RX and TX which means that the system has 4 msec to:
+</p><ol>
+<li> Convert the received analog signal to digital.
+</li><li> Transmit the IQ samples to baseband depending on used RF. For a PCIe SDR card, it would be over a PCIe bus while for a N210, it would be over Ethernet. 
+</li><li> Process the DL data at physical layer (demodulation, decoding, etc) before sending it to protocol stack for further analysis.
+</li><li> Generate UL date and process it at protocol stack side as well as at physical layer side (coding, modulation, etc).
+</li><li> Transmit UL IQ samples toward RF. 
+</li><li> Convert digital signal to analog.
+</li></ol>
+
+<p>Steps 3 and 4 correspond to pure baseband processing while steps 1, 2, 5 and 6 correspond to the IQ data transfer and radio frontend processing. The most important factor when evaluating a hardware performance is to measure the LTE baseband processing latency. It allows to assess the interaction between Amarisoft software architecture and the CPU. 
+</p>
+
+<p>Amarisoft software monitors the baseband latency (steps 3 and 4) and displays the remaining time left for radio front end (steps 1, 2, 5 and 6 ) via <code>t cpu</code> command.
+</p>
+<p>This command can be run in eNodeB screen. Its output is as follows:
+</p>
+<div class="example">
+<pre class="example">-Proc-  ---RX--------   ---TX--------   --- TX/RX diff (ms)
+   CPU    MS/s    CPU     MS/s    CPU   min/avg/max sigma
+ 22.6%  11.519   9.4%   11.518   1.8%   2.8/3.3/3.8 0.3
+</pre></div>
+
+<p><code>Proc/CPU</code> indicates the total CPU load of the eNodeB process. <code>RX/CPU</code> corresponds to the time passed when reading IQ samples from RF driver and <code>TX/CPU</code> is the time spent writing IQ samples to RF driver.
+</p>
+<p>The interesting part is the <code>TX/RX diff</code> and particularly the <code>min</code> value that corresponds to the minimum available time for radio front end processing.  
+When benchmarking a CPU, first thing to do is to check that this value is higher than a threshold depending on the radio front end.
+</p>
+
+<p>The following screenshot depicts the output of <code>t cpu</code> command taken during a UDP DL transfer at 150 Mbps (20MHz cell 2x2 MIMO) with a Samsung Galaxy S5 using Amarisoft eNodeB coupled with a PCIe SDR card.
+</p>
+<div align="center"><img src="img/tcpu_s5.webp" alt="img/tcpu_s5">
+</div>
+<p>We can see that there is a large margin for RF processing as the <code>min</code> value is around 2.6 msec which means that the baseband took at worst case 1.4 msec to finish its processing leaving 2.6 msec at the RF side.
+</p>
+<span id="eNodeB-Test-Mode"></span><h2 class="chapter">2 eNodeB Test Mode</h2>
+<p>In order to facilitate the load and latency measurements without a complicated test setup, we can use eNodeB test mode. This mode enables specific tests where UE contexts are automatically created. The goal is to define an environment close enough to what we are targeting in terms of number of UEs and average throughput. For more details about test mode, please refer to eNodeB documentation. 
+</p>
+<p>The following screenshot depicts the output of <code>t cpu</code> command taken with eNodeB in PDSCH test mode using PCIe SDR card simulating one single UE with continuous PDSCH reception. In this mode, the cell properties <code>pdcch_format, pdsch_mcs, forced_ri, forced_cqi, transmission_mode, dl_256qam</code> can be used to force specific PDSCH parameters.
+</p>
+<div align="center"><img src="img/tcpu_tm_sdr.webp" alt="img/tcpu_tm_sdr">
+</div>
+<p>In our example, the simulation is done by adding the following lines to configuration file <samp>config/mimo-2x2-20mhz.cfg</samp>. By setting parameters <code>forced_ri: 2, forced_cqi: 15</code>, the PDSCH is transmitted using DL MCS of 28 in MIMO mode.
+</p><div class="example">
+<pre class="example">    forced_cqi: 15,
+    forced_ri: 2,
+
+    test_mode: {
+      type: &quot;pdsch&quot;, /* PDSCH continuous reception */
+      pdsch_retx: false, /* if false, don't force the UE to retransmit in case of error */
+      rnti: 0x100, /* RNTI for PUSCH */
+    },
+</pre></div>
+
+<p>It is not always possible to measure the performance of a certain hardware with a radio front end as the radio might not be available. In this case, the eNodeB software could be run with a dummy RF allowing to make measurement without any radio front end. 
+</p>
+<p>The following screenshot depicts the output of <code>t cpu</code> command taken with eNodeB in test mode using a dummy RF driver and simulating one single UE with continuous PDSCH reception at MCS 28. The same configuration file as the previous test is used but this time the eNodeB has been launched with <code>-n</code> option which forces the use of dummy RF driver.
+</p>
+<div align="center"><img src="img/tcpu_tm_dummy.webp" alt="img/tcpu_tm_dummy">
+</div> 
+<p>Using a dummy RF ignores the impact of radio front end, specially the I/O part (Ethernet, USB, PCIe...), on the overall system performance. A precise measurement can only be performed in real conditions in the presence of a radio front end and real UEs. The test mode only gives an approximate indication of load and latency. This could easily be observed when comparing the results of <code>t cpu</code> command using the dummy RF driver versus Samsung Galaxy S5.
+</p>
+<p>Finally, the most interesting test mode type to use is the <code>load</code> test mode. In this mode, several UEs are instantiated and all are transmitting and receiving at the same time. You can specify the number of UEs as well as a defined error rate in UL/DL. The cell properties <code>pusch_mcs, forced_ri, forced_cqi</code> can be used to set the simulated radio conditions. It provides a convenient way to benchmark the processor in the presence of multiple UEs with simultaneous UL and DL traffic.
+</p>
+<p>The following screenshot depicts the output of <code>t cpu</code> command taken with eNodeB in load test mode using a dummy RF driver and simulating 100 UEs with continuous PDSCH and PUSCH. 
+</p>
+<div align="center"><img src="img/tcpu_load_dummy.webp" alt="img/tcpu_load_dummy">
+</div>
+<p>This is generated by adding the following lines to the eNodeB configuration file.
+</p><div class="example">
+<pre class="example">    pusch_mcs: 20,
+    forced_cqi: 15,
+    test_mode: {
+      type: &quot;load&quot;,
+      ue_count: 100,
+      pusch_fer: 0.01,
+      pdsch_fer: 0.01,
+    },
+</pre></div>
+
+<span id="Benchmarking-Methodology"></span><h2 class="chapter">3 Benchmarking Methodology</h2>
+<p>Based on what we explained above, evaluating a hardware platform requires the following steps:
+</p><ul>
+<li> Prepare the eNodeB configuration file as per your cell configuration.
+</li><li> Add <code>load</code> test mode to your eNodeB configuration file by setting the number of users within the cell and the error rate as per your nominal use case. 
+</li><li> Use the <code>pdsch_mcs, forced_cqi, forced_ri</code> to set a certain data rate in DL.
+</li><li> Use the <code>pusch_mcs</code> to set the data rate in UL.
+</li><li> Start eNodeB with <code>-n</code> option if you do not have access to the radio head. Run the <code>t cpu</code> command in eNodeB screen and check <code>TX/RX diff min</code>. This value should be higher than a threshold depending on your target radio front end.
+</li><li> If you have access to the radio head, then you can run the eNodeB and check the output of <code>t cpu</code> command. You should have at least <code>TX/RX diff min &gt; 0.5 msec</code>. Having a couple of bad values does not impact the overall functionality of the system statistically.
+</li></ul>
+
+<span id="Additional-Information"></span><h2 class="chapter">4 Additional Information</h2>
+
+<p>This document is copyright (C) 2012-2024 Amarisoft. Its redistribution
+without authorization is prohibited.
+</p>
+<p>This document is available without any express or implied warranty and is subject to change without notice. In
+no event will Amarisoft be held liable for any damages arising from the use of this document.
+</p>
+<p>For any technical issue, please raise a ticket from our support site at <a href="https://support.amarisoft.com/">https://support.amarisoft.com/</a>.
+<br>
+To learn more about our technology and solutions, e-mail us at <a href="mailto:customer@amarisoft.com">customer@amarisoft.com</a> or visit <a href="https://www.amarisoft.com">https://www.amarisoft.com</a>.
+</p>
+
+
+<hr>
+
+
+
+</body>
+</html>
