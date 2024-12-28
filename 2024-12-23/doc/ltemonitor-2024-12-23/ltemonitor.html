@@ -1,0 +1,1874 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.6, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Monitoring daemon</title>
+
+<meta name="description" content="Monitoring daemon">
+<meta name="keywords" content="Monitoring daemon">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+
+th {
+    border: 1px solid black;
+    background-color: #c0f585;
+    font-size: 14px;
+    padding: 5px;
+}
+
+td {
+    border: 1px solid black;
+    padding: 2px 4px;
+}
+
+p>img {
+    display: initial;
+}
+
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">Monitoring daemon</h1>
+
+
+<span id="SEC_Contents"></span>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+<ul class="no-bullet">
+<li><a id="toc-Introduction" href="#Introduction">1 Introduction</a></li>
+<li><a id="toc-Requirements" href="#Requirements">2 Requirements</a>
+<ul class="no-bullet">
+  <li><a id="toc-Software-requirements" href="#Software-requirements">2.1 Software requirements</a></li>
+</ul></li>
+<li><a id="toc-Installation" href="#Installation">3 Installation</a>
+<ul class="no-bullet">
+  <li><a id="toc-Linux-setup" href="#Linux-setup">3.1 Linux setup</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Packages" href="#Packages">3.1.1 Packages</a></li>
+  </ul></li>
+  <li><a id="toc-License-key-installation" href="#License-key-installation">3.2 License key installation</a></li>
+</ul></li>
+<li><a id="toc-Events" href="#Events">4 Events</a>
+<ul class="no-bullet">
+  <li><a id="toc-Level" href="#Level">4.1 Level</a></li>
+  <li><a id="toc-State-event" href="#State-event">4.2 State event</a></li>
+  <li><a id="toc-Network-link-events" href="#Network-link-events">4.3 Network link events</a></li>
+  <li><a id="toc-Error-events" href="#Error-events">4.4 Error events</a></li>
+</ul></li>
+<li><a id="toc-Email-configuration" href="#Email-configuration">5 Email configuration</a></li>
+<li><a id="toc-Statistics-1" href="#Statistics-1">6 Statistics</a>
+<ul class="no-bullet">
+  <li><a id="toc-Stats" href="#Stats">6.1 Stats</a></li>
+  <li><a id="toc-cdr" href="#cdr">6.2 cdr</a></li>
+</ul></li>
+<li><a id="toc-Configuration-reference" href="#Configuration-reference">7 Configuration reference</a>
+<ul class="no-bullet">
+  <li><a id="toc-Configuration-file-syntax" href="#Configuration-file-syntax">7.1 Configuration file syntax</a>
+  <ul class="no-bullet">
+    <li><a id="toc-JSON-merge-rules-1" href="#JSON-merge-rules-1">7.1.1 JSON merge rules</a></li>
+  </ul></li>
+  <li><a id="toc-Properties" href="#Properties">7.2 Properties</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Proxy-1" href="#Proxy-1">7.2.1 Proxy</a></li>
+    <li><a id="toc-Email-template-1" href="#Email-template-1">7.2.2 Email template</a></li>
+    <li><a id="toc-Alarms-1" href="#Alarms-1">7.2.3 Alarms</a></li>
+    <li><a id="toc-Statistics-configuration-1" href="#Statistics-configuration-1">7.2.4 Statistics configuration</a></li>
+    <li><a id="toc-Backup-configuration-1" href="#Backup-configuration-1">7.2.5 Backup configuration</a></li>
+  </ul></li>
+</ul></li>
+<li><a id="toc-Remote-API-1" href="#Remote-API-1">8 Remote API</a>
+<ul class="no-bullet">
+  <li><a id="toc-Messages" href="#Messages">8.1 Messages</a></li>
+  <li><a id="toc-Startup" href="#Startup">8.2 Startup</a></li>
+  <li><a id="toc-Errors" href="#Errors">8.3 Errors</a></li>
+  <li><a id="toc-Sample-nodejs-program" href="#Sample-nodejs-program">8.4 Sample nodejs program</a></li>
+  <li><a id="toc-Common-messages" href="#Common-messages">8.5 Common messages</a></li>
+  <li><a id="toc-LTE-messages-1" href="#LTE-messages-1">8.6 LTE messages</a></li>
+  <li><a id="toc-Remote-events" href="#Remote-events">8.7 Remote events</a></li>
+  <li><a id="toc-Examples" href="#Examples">8.8 Examples</a></li>
+</ul></li>
+<li><a id="toc-Log-file-format-1" href="#Log-file-format-1">9 Log file format</a>
+<ul class="no-bullet">
+  <li><a id="toc-EVENT-layer" href="#EVENT-layer">9.1 EVENT layer</a></li>
+  <li><a id="toc-Other-layers" href="#Other-layers">9.2 Other layers</a></li>
+</ul></li>
+<li><a id="toc-Change-history" href="#Change-history">10 Change history</a>
+<ul class="no-bullet">
+  <li><a id="toc-Version-2024_002d09_002d13" href="#Version-2024_002d09_002d13">10.1 Version 2024-09-13</a></li>
+  <li><a id="toc-Version-2023_002d03_002d17" href="#Version-2023_002d03_002d17">10.2 Version 2023-03-17</a></li>
+  <li><a id="toc-Version-2022_002d12_002d16" href="#Version-2022_002d12_002d16">10.3 Version 2022-12-16</a></li>
+  <li><a id="toc-Version-2022_002d09_002d16" href="#Version-2022_002d09_002d16">10.4 Version 2022-09-16</a></li>
+  <li><a id="toc-Version-2022_002d06_002d17" href="#Version-2022_002d06_002d17">10.5 Version 2022-06-17</a></li>
+</ul></li>
+<li><a id="toc-License" href="#License">11 License</a></li>
+<li><a id="toc-Abbreviations" href="#Abbreviations">Abbreviations</a></li>
+
+</ul>
+</div>
+
+
+<span id="Introduction"></span><h2 class="chapter">1 Introduction</h2>
+
+<p>Monitoring daemon is a software daemon allowing to monitor state of
+other Amarisoft software components:
+</p><ul>
+<li> eNB
+  </li><li> MME
+  </li><li> IMS
+  </li><li> UE
+  </li><li> MBMSGW
+</li></ul>
+
+<p>It allows to log events such as component starting, stopping or related errors.<br>
+It can also trigger alarms sent by email.<br>
+A daemon instance can be set as a proxy to gather information from other remote daemon
+on different machines.
+</p>
+
+<span id="Requirements"></span><h2 class="chapter">2 Requirements</h2>
+
+<span id="Software-requirements"></span><h3 class="section">2.1 Software requirements</h3>
+
+<ul>
+<li> A 64 bit Linux distribution. Fedora 39 is the officially supported distribution.<br>
+The following distributions are known as compatible:
+<ul>
+<li> Fedora 22 to 39
+</li><li> Cent OS 7
+</li><li> Ubuntu 14 to 22
+</li></ul>
+
+<p>Your system requires at least GLIBC 2.17.
+</p>
+
+
+</li></ul>
+
+<span id="Installation"></span><h2 class="chapter">3 Installation</h2>
+
+<p>LTEMONITOR can be run directly from the directory when it was unpacked.<br>
+However, for convenience, we recommend to install it from the <code>install.sh</code>
+script of your Amarisoft release tarball.
+</p>
+
+<span id="Linux-setup"></span><h3 class="section">3.1 Linux setup</h3>
+
+<span id="Packages"></span><h4 class="subsection">3.1.1 Packages</h4>
+<p>LTEMONITOR requires <code>nodejs</code> to run.<br>
+<code>ssmtp</code> may also be required to send alarms through emails.<br>
+Note that those package are automatically installed by <code>install.sh</code> script.
+</p>
+
+<span id="License-key-installation"></span><h3 class="section">3.2 License key installation</h3>
+
+<p>LTEMONITOR does not require any license key to run.
+</p>
+
+<span id="Events"></span><h2 class="chapter">4 Events</h2>
+
+<p>Purpose of LTEMONITOR is to monitor events coming from software components.<br>
+Events are dumped into log file and may generate alarms.<br>
+An event is defined by the following properties:
+</p>
+<ul>
+<li> time Timestamp of the event.
+</li><li> hostname Name of the machine the event has occurred on.
+</li><li> level Criticity of the event.
+</li><li> component Software component.
+</li><li> section Section within software component.
+</li><li> title Title of the event.
+</li><li> message Message of the event.
+</li></ul>
+
+
+<span id="Level"></span><h3 class="section">4.1 Level</h3>
+
+<p>Event level can be:
+</p><ul>
+<li> ERROR
+</li><li> WARN
+</li><li> INFO
+</li><li> DEBUG
+</li></ul>
+
+
+<span id="State-event"></span><h3 class="section">4.2 State event</h3>
+
+<p>Those events apply to all software components.<br>
+</p>
+<table>
+<thead><tr><th width="20%">Components</th><th width="20%">Sections</th><th width="20%">Titles</th><th width="40%">Level</th></tr></thead>
+<tr><td width="20%">All</td><td width="20%">STATE</td><td width="20%">started<br>stopped</td><td width="40%"><code>INFO</code> or <code>WARN</code> if component was previously in error state<br>
+<code>INFO</code></td></tr>
+</table>
+
+
+<span id="Network-link-events"></span><h3 class="section">4.3 Network link events</h3>
+
+<p>Network link of software component generate event when their state is changing.<br>
+The <code>section</code> is the link name and the <code>title</code> can be:
+</p><ul>
+<li> connected
+</li><li> disconnected
+</li></ul>
+
+<p>In case of connection error, <code>disconnected</code> event will be raised with <code>WARN</code> level.<br>
+When the connection becomes up again, <code>connected</code> event will be raise with <code>WARN</code> level.<br>
+For other cases, the level is always <code>INFO</code>.
+</p>
+<p><code>section</code> will identify link type and depends on <code>component</code> as below:
+</p>
+<table>
+<thead><tr><th width="20%">Components</th><th width="40%">Sections</th><th width="40%">Titles</th></tr></thead>
+<tr><td width="20%">eNB</td><td width="40%">S1, NG</td><td width="40%">connected<br>disconnected</td></tr>
+<tr><td width="20%">MME</td><td width="40%">Rx, Cx, S6, S13, SGs, N12</td><td width="40%">connected<br>disconnected</td></tr>
+<tr><td width="20%">IMS</td><td width="40%">Rx, Cx</td><td width="40%">connected<br>disconnected</td></tr>
+<tr><td width="20%">PROXY</td><td width="40%">proxy-link</td><td width="40%">connected<br>disconnected</td></tr>
+</table>
+
+
+<span id="Error-events"></span><h3 class="section">4.4 Error events</h3>
+
+<p>The following events always have a level set to <code>ERROR</code>.<br>
+</p>
+<table>
+<thead><tr><th width="20%">Components</th><th width="20%">Section</th><th width="20%">Title</th><th width="40%">Definition</th></tr></thead>
+<tr><td width="20%">All</td><td width="20%">AUTH</td><td width="20%">failure</td><td width="40%">Occurs when monitor fails to connect to component</td></tr>
+<tr><td width="20%">All</td><td width="20%">CONFIG</td><td width="20%">Syntax error<br>
+Missing <br>
+internal error</td><td width="40%"><br>
+Config file syntax error<br>
+Config file is missing<br>
+Internal error</td></tr>
+<tr><td width="20%">All</td><td width="20%">INIT</td><td width="20%">Unexpected termination<br>
+License error<br>
+Config error</td><td width="40%">Software component has accidentaly stopped (crash, signal...)<br>
+Component can&rsquo;t start because of license<br>
+Component can&rsquo;t start because of invalid configuration file</td></tr>
+<tr><td width="20%">All</td><td width="20%">RUNTIME</td><td width="20%">Unexpected termination<br>
+License error</td><td width="40%">Software component has accidentaly stopped (crash, signal...)
+Component stops working because of license</td></tr>
+<tr><td width="20%">eNB<br>UE</td><td width="20%">INIT</td><td width="20%">RF frontend</td><td width="40%">Radio frontend initialization error</td></tr>
+<tr><td width="20%">Monitor</td><td width="20%">SYSTEM</td><td width="20%">High disk usage</td><td width="40%">System disk is being full</td></tr>
+</table>
+
+<span id="SSMTP"></span><span id="Email-configuration"></span><h2 class="chapter">5 Email configuration</h2>
+
+<p>LTEMONITOR uses ssmtp to end emails.<br>
+Thus, you need a file to configure your SMTP server.<br>
+The syntax of the file can be found on <a href="https://wiki.archlinux.org/index.php/SSMTP">https://wiki.archlinux.org/index.php/SSMTP</a>
+or by looking at /etc/ssmtp/ssmtp.conf.
+</p>
+<p>Once you have created your configuration file, you may try it with the <code>test-email.sh</code>
+script you will find under LTEMONITOR directory.
+</p>
+<p>Example:
+</p><pre class="verbatim">./test-email.sh send@amarisoft.com receiver@amarisoft.com ssmtp.conf
+[&lt;-] 220 xxxxxxxxxxxxxxxxxxxx ESMTP Postfix
+[-&gt;] EHLO amarisoft.com
+[&lt;-] 250 DSN
+[-&gt;] AUTH LOGIN
+[&lt;-] 334 xxxxxxxxxxxx
+[-&gt;] xxxxxxxxxxxxxxxxxxxxxxxx
+[&lt;-] 334 xxxxxxxxxxxx
+[&lt;-] 235 2.7.0 Authentication successful
+[-&gt;] MAIL FROM:&lt;sender@amarisoft.com&gt;
+[&lt;-] 250 2.1.0 Ok
+[-&gt;] RCPT TO:&lt;receiver@amarisoft.com&gt;
+[&lt;-] 250 2.1.5 Ok
+[-&gt;] DATA
+[&lt;-] 354 End data with &lt;CR&gt;&lt;LF&gt;.&lt;CR&gt;&lt;LF&gt;
+[-&gt;] Received: by amarisoft.com (sSMTP sendmail emulation); Thu, 04 Jun 2020 18:32:09 +0200
+[-&gt;] Date: Thu, 04 Jun 2020 18:32:09 +0200
+[-&gt;] From: receiver@amarisoft.com
+[-&gt;] To: sender@amarisoft.com
+[-&gt;] Subject: Amarisoft monitor e-mail test
+[-&gt;] 
+[-&gt;] Sent from xxxxxxxxxxxxxxx at Thu 04 Jun 2020 06:32:09 PM CEST
+[-&gt;] 
+[-&gt;] .
+[&lt;-] 250 2.0.0 Ok: queued as 30B2D40008
+[-&gt;] QUIT
+[&lt;-] 221 2.0.0 Bye
+</pre>
+<p>You can also test emails sent by LTEMONITOR by running it in command line this way:
+</p><pre class="verbatim">./ltemonitor.js config/monitor.cfg --test-email 'emailID'
+</pre>
+<p>This will send an email from template according to your configuration file.<br>
+Note that <code>lte</code> service should be stopped.
+</p>
+
+<span id="Statistics"></span><span id="Statistics-1"></span><h2 class="chapter">6 Statistics</h2>
+
+<p>Software component are able to provide statistics via <code>stats</code> remote API.<br>
+LTEMONITOR is able to aggregate those statistics over time and provide perdiodical reports.
+</p>
+<p>See <a href="#Statistics-configuration">Statistics configuration</a>.
+</p>
+<p>Statistics are stored in a directory defined by configuration.<br>
+A subdirectory named by hostname will contain the information for the local machine and
+each machine connected via proxy.
+</p>
+<p>Inside each host subdirectory, LTEMONITOR will store files with the following pattern:
+</p>
+<pre class="verbatim">YYYYMMDD-HH:MM:SS-&lt;COMPONENT ID&gt;.&lt;STATS TYPE&gt;
+</pre>
+<p>Statistics type can be:
+</p><ul>
+<li> stats Global statistics
+</li><li> cdr Common usage statistics
+</li></ul>
+
+<p>Each file is in JSON format representing an object.<br>
+All statistics files have the following common members:
+</p><dl compact="compact">
+<dt><code>type</code></dt>
+<dd><p>String. <code>stats</code> or <code>cdr</code>.
+</p>
+</dd>
+<dt><code>info</code></dt>
+<dd><p>Object with following members:
+  </p><dl compact="compact">
+<dt><code>version</code></dt>
+<dd><p>Integer. Statistic version
+  </p></dd>
+<dt><code>id</code></dt>
+<dd><p>String. Component ID.
+  </p></dd>
+<dt><code>name</code></dt>
+<dd><p>String. Component name.
+  </p></dd>
+<dt><code>start</code></dt>
+<dd><p>Number. Start time in seconds (Since Jan 1st 1970).
+  </p></dd>
+<dt><code>end</code></dt>
+<dd><p>Number. End time in seconds (Since Jan 1st 1970).
+  </p></dd>
+<dt><code>hostname</code></dt>
+<dd><p>String. Component hostname
+  </p></dd>
+<dt><code>custom_fields</code></dt>
+<dd><p>Optional array. Custom fields from host monitor custom_fields configuration (See <a href="#custom_005ffields">custom_fields</a>).<br>
+  Each element of the array is an object representing a custom field with its
+  <code>id</code>, <code>title</code> and <code>value</code>.
+</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+<span id="Stats"></span><h3 class="section">6.1 Stats</h3>
+
+<p>Global statistics depend on software components and have following members
+</p>
+<dl compact="compact">
+<dt><code>counters</code></dt>
+<dd><p>Protocol message counters.<br>
+Check definition in <code>stats</code> remote API message
+(Remote API/Common message section) of the associated software
+component documentation.
+</p>
+</dd>
+<dt><code>pdn_list</code></dt>
+<dd><p>PDN statistics for <code>MME</code> component.<br>
+Check definition in <code>stats</code> remote API message
+(Remote API/Common message section) of <code>MME</code> component documentation.
+</p>
+</dd>
+<dt><code>cells</code></dt>
+<dd><p>Per cells statistics for <code>ENB</code> component.<br>
+Check definition in <code>stats</code> remote API message
+(Remote API/Common message section) of <code>ENB</code> component documentation.
+</p>
+</dd>
+</dl>
+
+
+<span id="cdr"></span><h3 class="section">6.2 cdr</h3>
+
+<p>CDR data can have following members:
+</p><dl compact="compact">
+<dt><code>bearers</code></dt>
+<dd><p>For <code>MME</code> component.<br>
+Array of bearers with following properties:
+  </p><dl compact="compact">
+<dt><code>imsi</code></dt>
+<dd><p>String. Associated UE IMSI.
+  </p></dd>
+<dt><code>imei</code></dt>
+<dd><p>String. Associated UE IMEI.
+  </p></dd>
+<dt><code>apn</code></dt>
+<dd><p>String. Access point name
+  </p></dd>
+<dt><code>pdn_type</code></dt>
+<dd><p>String. <code>ipv4</code>, <code>ipv6</code>, <code>ipv4v6</code>, <code>non-ip</code> or <code>unstructured</code>.
+  </p></dd>
+<dt><code>ipv4_addr</code></dt>
+<dd><p>String. IPv4 address.
+  </p></dd>
+<dt><code>ipv6_prefix</code></dt>
+<dd><p>String: IPv6 address prefix
+  </p></dd>
+<dt><code>dl_bytes</code></dt>
+<dd><p>Integer. Number of downlink bytes gone through this bearer.
+  </p></dd>
+<dt><code>ul_bytes</code></dt>
+<dd><p>Integer. Number of uplink bytes gone through this bearer.
+  </p></dd>
+<dt><code>duration</code></dt>
+<dd><p>Number. Bearer lifetime in seconds.
+  </p></dd>
+<dt><code>start_date</code></dt>
+<dd><p>Integer. Bearer establishment date in seconds since Jan 1st 1970.
+  </p></dd>
+</dl>
+
+</dd>
+<dt><code>sms</code></dt>
+<dd><p>For <code>IMS</code> component.<br>
+Array of SMS event with following properties:
+  </p><dl compact="compact">
+<dt><code>sender</code></dt>
+<dd><p>String. SMS sender IMPU.
+  </p></dd>
+<dt><code>destination</code></dt>
+<dd><p>String. SMS destination IMPU.
+  </p></dd>
+<dt><code>type</code></dt>
+<dd><p>String. <code>MO</code> or <code>MT</code>.
+  </p></dd>
+</dl>
+
+
+</dd>
+<dt><code>calls</code></dt>
+<dd><p>For <code>IMS</code> component.<br>
+Array of IMS calls with following properties:
+  </p><dl compact="compact">
+<dt><code>type</code></dt>
+<dd><p>String. <code>MO</code> or <code>MT</code>.
+  </p></dd>
+<dt><code>from</code></dt>
+<dd><p>String. SMS sender IMPU.
+  </p></dd>
+<dt><code>to</code></dt>
+<dd><p>String. SMS destination IMPU.
+  </p></dd>
+<dt><code>date</code></dt>
+<dd><p>Integer. Call establishment date in seconds since Jan 1st 1970.
+  </p></dd>
+<dt><code>duration</code></dt>
+<dd><p>Number. Call duration in seconds.
+  </p></dd>
+<dt><code>send_size</code></dt>
+<dd><p>Integer. Number of media data sent in bytes.
+  </p></dd>
+<dt><code>recv_size</code></dt>
+<dd><p>Integer. Number of media data received in bytes.
+  </p></dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<span id="Configuration-reference"></span><h2 class="chapter">7 Configuration reference</h2>
+
+<span id="Configuration-file-syntax"></span><h3 class="section">7.1 Configuration file syntax</h3>
+
+<p>The main configuration file uses a syntax very similar to the
+Javascript Object Notation (JSON) with few extensions.
+</p>
+<ol>
+<li> Supported types:
+
+<ul class="no-bullet">
+<li>- Numbers (64 bit floating point). Notation: <code>13.4</code>
+</li><li>- Complex numbers. Notation: <code>1.2+3*I</code>
+</li><li>- Strings. Notation: <code> &quot;string&quot; </code>
+</li><li>- Booleans. Notation: <code>true</code> or <code>false</code>.
+</li><li>- Objects. Notation: <code> { field1: <var>value1</var>, field2: <var>value2</var>, .... } </code>
+</li><li>- Arrays. Notation: <code> [ <var>value1</var>, <var>value2</var>, .... ] </code>
+</li></ul>
+
+</li><li> The basic operations <code>+</code>, <code>-</code>, <code>*</code> and <code>/</code> are
+supported with numbers and complex numbers. <code>+</code> also concatenates
+strings. The operators <code>!</code>, <code>||</code>, <code>&amp;&amp;</code>, <code>==</code>,
+<code>!=</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;=</code>, <code>&gt;</code> are supported too.
+
+</li><li> The numbers <code>0</code> and <code>1</code> are accepted as synonyms for the
+boolean values <code>false</code> and <code>true</code>.
+
+</li><li> {} at top level are optional.
+
+</li><li> &quot; for property names are optional, unless the name starts with a number.
+
+</li><li> Properties can be duplicated.<br>
+If properties are duplicated, they will be merged following <a href="#JSON-merge-rules">JSON merge rules</a> with overriding
+occuring in reading direction (last overrides previous).<br>
+Ex:
+<pre class="verbatim">{
+    value: &quot;foo&quot;,
+    value: &quot;bar&quot;,
+    sub: {
+        value: &quot;foo&quot;
+    },
+    sub: {
+        value: &quot;bar&quot;
+    }
+}
+</pre><p>Will be equivalent to:
+</p><pre class="verbatim">{
+    value: &quot;bar&quot;,
+    sub: {
+        value: &quot;bar&quot;
+    }
+}
+</pre>
+
+
+</li><li> Files can be included using <var>include</var> keyword (must not be quoted) followed by a string (without :) representing the file to include (path is relative to current file) and terminating by a comma.<br>
+Arrays can&rsquo;t be included.<br>
+Merge will be done as for duplicate properties.<br>
+If <var>file1.cfg</var> is:
+<pre class="verbatim">    value: &quot;foo&quot;,
+    include &quot;file2.cfg&quot;,
+    foo: &quot;foo&quot;
+</pre><p>And <var>file2.cfg</var> is:
+</p><pre class="verbatim">    value: &quot;bar&quot;,
+    foo: &quot;bar&quot;
+</pre><p>Final config will be:
+</p><pre class="verbatim">{
+    value: &quot;bar&quot;,
+    foo: &quot;foo&quot;
+}
+</pre>
+</li><li> A C like preprocessor is supported. The following preprocessor commands are available:
+  <dl compact="compact">
+<dt><code>#define <var>var</var> <var>expr</var></code></dt>
+<dd><p>Define a new variable with value <var>expr</var>. <var>expr</var> must be a
+  valid JSON expression. Note that unlike the standard C preprocessor,
+  <var>expr</var> is evaluated by the preprocessor.
+  </p></dd>
+<dt><code>#undef <var>var</var></code></dt>
+<dd><p>Undefine the variable <var>var</var>.
+  </p></dd>
+<dt><code>#include <var>expr</var></code></dt>
+<dd><p>Include the file whose filename is the evaluation of the string
+  expression <var>expr</var>.
+  </p></dd>
+<dt><code>#if <var>expr</var></code></dt>
+<dd><p>Consider the following text if <var>expr</var> is true.
+  </p></dd>
+<dt><code>#else</code></dt>
+<dd><p>Alternative of <code>#if</code> block.
+  </p></dd>
+<dt><code>#elif</code></dt>
+<dd><p>Composition of <code>#else</code> and <code>#if</code>.
+  </p></dd>
+<dt><code>#endif</code></dt>
+<dd><p>End of <code>#if</code> block.
+  </p></dd>
+<dt><code>#ifdef <var>var</var></code></dt>
+<dd><p>Shortcut for <code>#if defined(var)</code>
+  </p></dd>
+<dt><code>#ifndef <var>var</var></code></dt>
+<dd><p>Shortcut for <code>#if !defined(var)</code>
+  </p></dd>
+</dl>
+
+<p>In the JSON source, every occurrence of a defined preprocessor
+  variable is replaced by its value.
+</p>
+</li><li> Backquote strings: JSON expression can be inserted in backquote delimited strings with the <code>${expr}</code> syntax. Example: <code>`abc${1+2}d`</code> is evaluated as the string <code>&quot;abc3d&quot;</code>. Preprocessor variables can be used inside the expression. Backquote strings may span several lines.
+
+</li></ol>
+
+
+<span id="JSON-merge-rules"></span><span id="JSON-merge-rules-1"></span><h4 class="subsection">7.1.1 JSON merge rules</h4>
+
+<p>Merge overriding direction depends on context, i.e source may override destination or the opposite.<br>
+JSON merge is recursive for Objects and Arrays.<br>
+</p>
+<p>Example, merging
+</p><pre class="verbatim">{
+    foo: { value: &quot;bar&quot; },
+    same: &quot;one&quot;,
+    one: 1
+}
+</pre><p>with
+</p><pre class="verbatim">{
+    foo: { value: &quot;none&quot;, second: true },
+    same: &quot;two&quot;,
+    two: 1
+}
+</pre>
+<p>Will become:
+</p><pre class="verbatim">{
+    foo: { value: &quot;bar&quot;, second: true },
+    same: &quot;one&quot;,
+    one: 1
+    two: 1
+}
+</pre><p>assuming first object overrides second one.<br>
+</p>
+
+<p>In case of Array merging, the final array length will be the maximum length of all merged arrays.<br>
+For each element of the final array, merge will be done considering defined elements only.<br>
+Ex:
+</p><pre class="verbatim">{
+    array: [0, 1, 2, { foo: &quot;bar&quot; } ],
+    array: [3, 4],
+    array: [5, 6, 7, { bar: &quot;foo&quot; }, 8 ]
+}
+</pre><p>Will be merged to:
+</p><pre class="verbatim">{
+    array: [5, 6, 7, { foo: &quot;bar&quot;, bar: &quot;foo&quot; }, 8 ],
+}
+</pre>
+
+
+<span id="Properties"></span><h3 class="section">7.2 Properties</h3>
+
+<dl compact="compact">
+<dt><code>log_filename</code></dt>
+<dd>
+<p>String. Set the log filename. If no leading <code>/</code>, it is relative to the
+configuration file path. See <a href="#Log-file-format">Log file format</a>.
+</p>
+<span id="log_005foptions"></span></dd>
+<dt><code>log_options</code></dt>
+<dd>
+<p>String. Set the logging options as a comma separated list of assignments.
+</p>
+<ul>
+<li> <var>layer</var>.level=<var>verbosity</var>. For each layer, the log verbosity can be set
+to <code>none</code>, <code>error</code>, <code>info</code> or <code>debug</code>. In debug
+level, the content of the transmitted data is logged.
+
+</li><li> <var>layer</var>.max_size=<var>n</var>. When dumping data content, at
+most <code>n</code> bytes are shown in hexa. For ASN.1, NAS or Diameter content, show the full content of the message if <code>n &gt; 0</code>.
+
+</li><li> <var>layer</var>.payload=[0|1]. Dump ASN.1, NAS, SGsAP or Diameter payload in hexadecimal.
+
+</li><li> <var>layer</var>.key=[0|1]. Dump security keys (NAS and RRC layers).
+
+</li><li> <var>layer</var>.crypto=[0|1]. Dump plain and ciphered data (NAS and PCDP layers).
+
+
+
+
+
+</li><li> time=[sec|short|full]. Display the time as seconds, time only
+or full date and time (default = time only).
+
+</li><li> time.us=[0|1]. Dump time with microseconds precision.
+
+</li><li> file=cut. Close current file log and open a new one.
+
+</li><li> file.rotate=now. Rename current log with timestamp and open new one.
+
+</li><li> file.rotate=<var>size</var>. Rename current log every time it reaches <var>size</var> bytes open new one.
+  Size is an integer and can be followed by K, M or G.
+
+</li><li> file.path=<var>path</var>. When log rotation is enabled, move current log to this path instead of
+  initial log path.
+
+</li><li> append=[0|1]. (default=0). If 0, truncate the log file when
+  opening it. Otherwise, append to it.
+
+</li></ul>
+
+<p>Available layers are: <code>MON</code>, <code>EVENT</code> or <code>&lt;component name&gt;</code>
+</p>
+</dd>
+<dt><code>log_sync</code></dt>
+<dd><p>Optional boolean (default = false). If true, logs will be synchronously dumped to file.<br>
+  Warning, this may lead to performances decrease.
+</p>
+
+</dd>
+<dt><code>com_addr</code></dt>
+<dd><p>Optional string. Address of the WebSocket server remote API. See <a href="#Remote-API">Remote API</a>.<br>
+If set, the WebSocket server for remote API will be enabled and bound to this address.<br>
+Default port is 9007.<br>
+Setting IP address to [::] will make remote API reachable through all network interfaces.
+</p>
+</dd>
+<dt><code>com_name</code></dt>
+<dd><p>Optional string. Sets server name. MONITOR by default
+</p>
+
+</dd>
+<dt><code>com_log_lock</code></dt>
+<dd><p>Optional boolean (default is false). If <var>true</var>, logs configuration can&rsquo;t be changed
+via <code>config_set</code> remote API.
+</p>
+</dd>
+<dt><code>com_log_us</code></dt>
+<dd><p>Optional boolean (default is false). If <var>true</var>, logs sent by <code>log_get</code> remote API
+response will have a <code>timestamp_us</code> parameters instead of <code>timestamp</code>
+</p>
+</dd>
+<dt><code>com_auth</code></dt>
+<dd><p>Optional object. If set, remote API access will require authentication.<br>
+Authentication mechanism is describe in <a href="#Remote-API-Startup">Remote API Startup</a> section.<br>
+</p>
+<dl compact="compact">
+<dt><code>passfile</code></dt>
+<dd><p>Optional string. Defines filename where password is stored (plaintext).<br>
+    If not set, <code>password</code> must be set
+</p>
+</dd>
+<dt><code>password</code></dt>
+<dd><p>Optional string. Defines password.<br>
+    If not set, <code>passfile</code> must be set.
+</p>
+</dd>
+<dt><code>unsecure</code></dt>
+<dd><p>Optional boolean (default  false). If set, allow password to be sent plaintext.<br>
+    NB: you should set it to true if you access it from a Web Browser (Ex: Amarisoft GUI)
+    without SSL (https) as your Web Browser may prevent secure access to work.
+</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>com_log_count</code></dt>
+<dd><p>Optional number (Default = 8192). Defines number of logs to keep in memory before dropping them.<br>
+Must be between 4096 and 2097152).
+</p>
+</dd>
+<dt><code>proxy</code></dt>
+<dd><p>Optional object. If set, events and alarms will be forwarded to other instance of
+LTEMONITOR on its remote API interface (<code>com_addr</code>), See <a href="#Proxy">Proxy</a>.
+</p>
+</dd>
+<dt><code>stats</code></dt>
+<dd><p>Optional object. If set, statistics will be aggregated to generate periodical reports.
+See <a href="#Statistics">Statistics</a> and See <a href="#Statistics-configuration">Statistics configuration</a>
+</p>
+</dd>
+<dt><code>backup.</code></dt>
+<dd><p>Optional object. If set, configuration directories of each software component will be
+backed-up. See <a href="#Backup-configuration">Backup configuration</a>
+</p>
+</dd>
+<dt><code>emails</code></dt>
+<dd><p>Optional array of object. Each object represent an email configuration that may be used to send alarms.<br>
+Each email has the following properties:
+</p>
+<dl compact="compact">
+<dt><code>id</code></dt>
+<dd><p>String. Alarm ID. If not set, this email configuration will be the default one, else alarms with
+  same ID will use this configuration.<br>
+  Note that <code>id</code> must be unique and only one default configuration is allowed.
+</p>
+</dd>
+<dt><code>from</code></dt>
+<dd><p>String. Sender email address.
+</p>
+</dd>
+<dt><code>to</code></dt>
+<dd><p>String. Email address to send email alarm to.
+</p>
+</dd>
+<dt><code>smtp</code></dt>
+<dd><p>String. SSMTP configuration file, See <a href="#SSMTP">SSMTP</a>.<br>
+</p>
+</dd>
+<dt><code>template</code></dt>
+<dd><p>String. Email template file.<br>
+  Emails will be generated using this template file (See <a href="#Email-template">Email template</a>).
+</p>
+<span id="alarms-aggregation"></span></dd>
+<dt><code>aggregation</code></dt>
+<dd><p>Optional object. If present, defines the aggregation method to avoid sending too many emails for an alarm.<br>
+  The object is defined this way:
+    </p><dl compact="compact">
+<dt><code>delay</code></dt>
+<dd><p>Number. Time in seconds for alarm aggregation aggregation.
+    </p></dd>
+<dt><code>count</code></dt>
+<dd><p>Integer. Minimum amount of generated alarms to trigger an email sending.
+    </p></dd>
+</dl>
+<p>When an alarm is triggered, a first email is sent. If same alarm is generated within the <code>delay</code> period,
+    no email will be sent. When the <code>delay</code> has expired, an email with aggregated information will be sent if
+    at least <code>count</code> alarms have been triggered.<br>
+    In that case, the <code>delay</code> period will be restarted, else, the aggregation mechanism is disabled until a
+    new alarm happens.<br>
+    Alarms will be aggregated if they have same <code>LEVEL</code>, <code>HOST</code>, <code>COMP</code> and <code>TITLE</code>.
+</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>alarms</code></dt>
+<dd><p>Array of object. Each item will represent an alarm trigger (See <a href="#Alarms">Alarms</a>).<br>
+Each event will be compared to alarms filter and if it matches one of them, alarm will be generated.<br>
+If multiple alarms definition matches, multiple alarms may be raised.
+</p>
+</dd>
+<dt><code>custom_definition</code></dt>
+<dd><p>Optional array of object. Each item will represent a custom column displayed within monitor tab of web interface.
+Each column has the following parameters:<br>
+  </p><ul>
+<li> title Title of the column
+  </li><li> id ID of the field
+  </li><li> stats Optional boolean (default: true). If set to false, custom field won&rsquo;t be dumped inside stats files.
+  </li></ul>
+<br>
+
+<span id="custom_005ffields"></span></dd>
+<dt><code>custom_fields</code></dt>
+<dd><p>Optional object. Each property name represents the ID of the field and each property value represents
+its value to be displayd in web interface.
+</p>
+</dd>
+<dt><code>system</code></dt>
+<dd><p>Optional object. If set, LTEMONITOR will monitor system state.<br>
+Properties are the following:
+  </p><dl compact="compact">
+<dt><code>poll_delay</code></dt>
+<dd><p>Optional number (default = 60). Delay in seconds for polling system state and generating alarms.
+    </p></dd>
+<dt><code>disk_usage</code></dt>
+<dd><p>Optional number (default = 95). Percentage of disk usage to consider disk as full
+    and generating alarm.
+  </p></dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<span id="Proxy"></span><span id="Proxy-1"></span><h4 class="subsection">7.2.1 Proxy</h4>
+
+<p>When a proxy is set, events will be sent to the designated LTEMONITOR.<br>
+Alarms will be triggered by local <code>alarms</code> configuration but email sending
+will be up to remote proxy.<br>
+</p>
+<p>State of the component will also be forwarded to remote proxy.<br>
+</p>
+<p>If remote proxy is not reachable, local LTEMONITOR may store events on local storage
+until connection is successful.
+</p>
+<dl compact="compact">
+<dt><code>addr</code></dt>
+<dd><p>String. IP address of the remote LTEMONITOR instance.
+</p>
+</dd>
+<dt><code>store</code></dt>
+<dd><p>String. If set, represents directory name where not forwarded events are stored.<br>
+Events are permanently stored and will resist upon service restart.<br>
+If value is not an absolute path, it will be relative to configuration file location.
+</p>
+</dd>
+<dt><code>timeout</code></dt>
+<dd><p>Number. Maximum lifetime in seconds of events in store.<br>
+Events will be removed if proxy has not been reached for longer than this value.
+</p>
+</dd>
+<dt><code>keepalive</code></dt>
+<dd><p>Optional number (default = 30). Connection timeout in seconds.
+</p>
+</dd>
+<dt><code>bulk</code></dt>
+<dd><p>Optional integer (default = 20). Represents maximum number of events sent at once to proxy.
+</p>
+</dd>
+</dl>
+
+
+<span id="Email-template"></span><span id="Email-template-1"></span><h4 class="subsection">7.2.2 Email template</h4>
+
+<p>Emails template is a file from which emails will be generated.<br>
+It can include comments delimited by # character.<br>
+</p>
+<p>It has to follow <a href="https://tools.ietf.org/html/rfc2822">rfc2822</a>.
+</p>
+<p>Which means that it must starts with headers terminated by an empty line and followed by email body.
+</p>
+<p>Note that at least <code>Subject</code> header as <code>From</code> and <code>To</code> headers are generated by LTEMONITOR.
+</p>
+<p>You may take a look at <code>alarm.tpl</code> example provided in <code>config</code> subdirectory.<br>
+</p>
+<p>Inside email template, you can use variables that will be replaced during email generation
+by the information related to event.<br>
+Here is the list of variables:
+</p>
+<ul>
+<li> &lt;HOST&gt; Hostname of the system where the event has occurred
+</li><li> &lt;LEVEL&gt; Level of the event
+</li><li> &lt;COMPONENT&gt; Component name
+</li><li> &lt;SECTION&gt; Section of the event
+</li><li> &lt;TITLE&gt; Title of the event
+</li><li> &lt;ALARM&gt; Alarm ID associated to event
+</li><li> &lt;DATE&gt; Date of the event
+</li><li> &lt;VERSION&gt; Software version of the component
+</li><li> &lt;MESSAGE&gt; Message of the event
+</li><li> &lt;COUNT&gt; Number of associated alarms. 1 or greater in case of aggregation (See <a href="#alarms-aggregation">alarms aggregation</a>)
+</li></ul>
+
+
+<span id="Alarms"></span><span id="Alarms-1"></span><h4 class="subsection">7.2.3 Alarms</h4>
+
+<p>Each alarm has following properties:
+</p>
+<dl compact="compact">
+<dt><code>id</code></dt>
+<dd><p>String. Alarm ID. Used to match email configuration.
+</p>
+</dd>
+<dt><code>priority</code></dt>
+<dd><p>Optional number (default = 0). When an event matches multiple alarms filters, only the alarm with the highest
+priority will be triggered.<br>
+Multiple alarms can have the same priority.
+</p>
+</dd>
+<dt><code>filters</code></dt>
+<dd><p>Array of object. To trigger an alarm, event must match one of the filters.<br>
+A filter is an object where each property/value couple represents an event property and the pattern to apply on its value.<br>
+Property names are:
+</p><ul>
+<li> level
+</li><li> component
+</li><li> section
+</li><li> title
+</li></ul>
+
+<p>Value of each property is a string representing a regular expression (JavaScript convention).<br>
+All properties must match to trigger the alarm.<br>
+If no property is set (Filter is an empty object), filter will always match.
+</p>
+<p>Examples:
+</p><pre class="verbatim">{
+  level: 'ERROR|WARN'
+}
+</pre><p>Here, alarms will be triggered for all events that has a level of ERROR or WARN
+</p>
+<pre class="verbatim">{
+  section: 'Rx|Cx',
+  title: '.*connected'
+}
+</pre><p>Here, alarms will be triggered on events <code>connected</code> and <code>disconnected</code>
+generated by <code>Rx</code> or <code>Cx</code> section.
+</p>
+</dd>
+</dl>
+
+
+<span id="Statistics-configuration"></span><span id="Statistics-configuration-1"></span><h4 class="subsection">7.2.4 Statistics configuration</h4>
+
+<p>Stats configuration is defined as followed:
+</p>
+<dl compact="compact">
+<dt><code>time</code></dt>
+<dd><p>String. CRON style string defining when to generate report.<br>
+The format is &quot;&lt;week day&gt;:&lt;month&gt;:&lt;month day&gt;:&lt;hour&gt;:&lt;minute&gt;:&lt;seconds&gt;&quot; where each element can be:
+</p><ul>
+<li> * meaning report will be generate on each value.
+</li><li> &lt;n&gt; where &lt;n&gt; is a number defining the report generation time.
+</li><li> &lt;a&gt;-&lt;b&gt; where &lt;a&gt; and &lt;b&gt; are numbers defining a range when the report generation will occur
+</li><li> &lt;n1&gt;,&lt;n2&gt;,...,&lt;ni&gt; where each &lt;nx&gt; is one of the other definition above.
+</li></ul>
+<p>If less than 6 elements are defined, <code>time</code> is completed (on right side) by * for each missing elements
+(Ex: &quot;2:0:0&quot; means &quot;*:*:*:2:0:0:&quot;).<br>
+</p>
+<p>Examples:<br>
+</p>
+<div class="example">
+<pre class="example">&quot;22:0:0&quot;
+1 report will be generated every day at 10pm.
+
+</pre></div>
+
+<div class="example">
+<pre class="example">&quot;4,22:0:0&quot;
+2 reports will be generated every day at 4am and 10pm.
+
+</pre></div>
+
+<div class="example">
+<pre class="example">&quot;0:*/5:0&quot;
+A report will be generated every 5 minutes.
+
+</pre></div>
+
+<div class="example">
+<pre class="example">&quot;*:5-10,15:0&quot;
+6 reports will be generated every hour at minutes 5, 6, 7, 8, 9, 10 and 15.
+
+</pre></div>
+
+<div class="example">
+<pre class="example">&quot;1:*:*:14:0:0&quot;
+One report will be generated each monday at 2pm.
+
+</pre></div>
+
+</dd>
+<dt><code>utc</code></dt>
+<dd><p>Optional boolean (default = true). Defines whether <code>time</code> parameter is considered as UTC time or local time.
+</p>
+</dd>
+<dt><code>store</code></dt>
+<dd><p>String. If set, represents directory name where report will be stored in JSON format.<br>
+If value is not an absolute path, it will be relative to configuration file location.
+This parameter is mandatory if <code>proxy</code> is not set.<br>
+If proxy is set, the store won&rsquo;t be used and reports will be forwarded to remote LTEMONITOR.<br>
+See <a href="#Statistics">Statistics</a> for details about data format
+</p>
+</dd>
+<dt><code>timeout</code></dt>
+<dd><p>Number. Mandatory if <code>proxy</code> is not set. Lifetime in seconds of generated report files.
+</p>
+</dd>
+<dt><code>indent</code></dt>
+<dd><p>Optional number (default = 0). If set, statistics dumped to store will be indented.
+</p>
+</dd>
+<dt><code>group</code></dt>
+<dd><p>Optional string. If set, group owner of stats file will be set to this value.
+</p>
+</dd>
+<dt><code>permission</code></dt>
+<dd><p>Optional number (default = 0640). Stats file unix style permission.
+</p>
+</dd>
+<dt><code>enabled</code></dt>
+<dd><p>Optional boolean (default = true). Enable or disable statistics gathering on local machine. It
+does not prevent proxy client/server communication.
+</p>
+</dd>
+<dt><code>comp_poll_delay</code></dt>
+<dd><p>Optional number (default = 5). Poll interval in seconds of stats for each component.
+</p>
+</dd>
+<dt><code>sub_sampling</code></dt>
+<dd><p>Optional number. If set, some statistics will have a shorter sampling time and will be aggregate inside
+stat files with an array. The value represents the stats sampling time in seconds.
+</p>
+</dd>
+</dl>
+
+
+<span id="Backup-configuration"></span><span id="Backup-configuration-1"></span><h4 class="subsection">7.2.5 Backup configuration</h4>
+
+<p>Backup mechanism allows to backup configuration of each software component, including
+remote one connected through proxy.
+</p>
+<dl compact="compact">
+<dt><code>time</code></dt>
+<dd><p>See <a href="#Statistics-configuration">Statistics configuration</a>
+</p>
+</dd>
+<dt><code>utc</code></dt>
+<dd><p>See <a href="#Statistics-configuration">Statistics configuration</a>
+</p>
+</dd>
+<dt><code>store</code></dt>
+<dd><p>String. If set, represents directory name where report will be stored in JSON format.<br>
+If value is not an absolute path, it will be relative to configuration file location.
+</p>
+</dd>
+<dt><code>timeout</code></dt>
+<dd><p>See <a href="#Statistics-configuration">Statistics configuration</a>
+</p>
+</dd>
+<dt><code>group</code></dt>
+<dd><p>Optional string. If set, group owner of stats file will be set to this value.
+</p>
+</dd>
+<dt><code>permission</code></dt>
+<dd><p>See <a href="#Statistics-configuration">Statistics configuration</a>
+</p>
+</dd>
+</dl>
+
+
+
+
+<span id="Remote-API"></span><span id="Remote-API-1"></span><h2 class="chapter">8 Remote API</h2>
+
+<p>You can access LTEMONITOR via a remote API.<br>
+Protocol used is WebSocket as defined in RFC 6455
+(<a href="https://tools.ietf.org/html/rfc6455">https://tools.ietf.org/html/rfc6455</a>).<br>
+</p>
+<p>Note that Origin header is mandatory for the server to accept connections.<br>
+This behavior is determined by the use of <code>nopoll</code> library.<br>
+Any value will be accepted.
+</p>
+<span id="Messages"></span><h3 class="section">8.1 Messages</h3>
+
+<p>Messages exchanged between client and LTEMONITOR server are in strict JSON
+format.<br>
+</p>
+<p>Each message is represented by an object. Multiple message can be sent to
+server using an array of message objects.<br>
+</p>
+<p>Time and delay values are floating number in seconds.<br>
+</p>
+<p>There are 3 types of messages:
+</p>
+<ul>
+<li> Request
+
+<p>Message sent by client.<br>
+Common definition:
+</p>
+<!-- prop:request -->
+
+<dl compact="compact">
+<dt><code>message</code></dt>
+<dd><p>String. Represent type of message. This parameter is mandatory and depending
+  on its value, other parameters will apply.<br>
+</p>
+</dd>
+<dt><code>message_id</code></dt>
+<dd><p>Optional any type. If set, response sent by the server to this message will
+  have same message_id. This is used to identify response as WebSocket does not
+  provide such a concept.
+</p>
+</dd>
+<dt><code>start_time</code></dt>
+<dd><p>Optional float. Represent the delay before executing the message.<br>
+  If not set, the message is executed when received.<br>
+</p>
+</dd>
+<dt><code>absolute_time</code></dt>
+<dd><p>Optional boolean (default = false). If set, <code>start_time</code> is interpreted as absolute.<br>
+  You can get current clock of system using <code>time</code> member of any response.
+</p>
+</dd>
+<dt><code>standalone</code></dt>
+<dd><p>Optional boolean (default = false). If set, message will survive WebSocket disconnection,
+  else, if socket is disconnected before end of processing, the message will be cancelled.
+</p>
+<span id="loop_005fcount"></span></dd>
+<dt><code>loop_count</code></dt>
+<dd><p>Optional integer (default = 0, max = 1000000). If set, message will be repeated <code>loop_count</code> time(s)
+  after <code>loop_delay</code> (From message beginning of event).<br>
+  Response will have a <code>loop_index</code> to indicate iteration number.
+</p>
+<span id="loop_005fdelay"></span></dd>
+<dt><code>loop_delay</code></dt>
+<dd><p>Optional number (min = 0.1, max = 86400). Delay in seconds to repeat message from its <code>start_time</code>.
+  Mandatory when <code>loop_count</code> is set &gt; 0.
+</p>
+</dd>
+</dl>
+
+</li><li> Response
+
+<p>Message sent by server after any request message as been processed.<br>
+Common definition:
+</p>
+<!-- prop:response -->
+
+<dl compact="compact">
+<dt><code>message</code></dt>
+<dd><p>String. Same as request.
+</p>
+</dd>
+<dt><code>message_id</code></dt>
+<dd><p>Optional any type. Same as in request.
+</p>
+</dd>
+<dt><code>time</code></dt>
+<dd><p>Number representing time in seconds since start of the process.<br>
+  Usefull to send command with absolute time.
+</p>
+</dd>
+<dt><code>utc</code></dt>
+<dd><p>Number representing UTC seconds.
+</p>
+</dd>
+</dl>
+
+</li><li> Events
+
+<p>Message sent by server on its own initiative.<br>
+Common definition:
+</p>
+<!-- prop:event -->
+
+<dl compact="compact">
+<dt><code>message</code></dt>
+<dd><p>String. Event name.
+</p>
+</dd>
+<dt><code>time</code></dt>
+<dd><p>Number representing time in seconds.<br>
+  Usefull to send command with absolute time.
+</p>
+</dd>
+</dl>
+
+</li></ul>
+
+
+<span id="Remote-API-Startup"></span><span id="Startup"></span><h3 class="section">8.2 Startup</h3>
+
+
+<p>When WebSocket connections is setup, LTEMONITOR will send a first message with
+name set to <code>com_name</code> and type set to MONITOR.<br>
+</p>
+<p>If authentication is not set, message will be <code>ready</code>:
+</p>
+<div class="example">
+<pre class="example">{
+    &quot;message&quot;: &quot;ready&quot;,
+    &quot;type&quot;: &quot;MONITOR&quot;,
+    &quot;name&quot;: &lt;com_name&gt;,
+    &quot;version&quot;: &lt;software version&gt;,
+    &quot;product&quot;: &lt;Amarisoft product name (optional)&gt;
+}
+</pre></div>
+
+<p>If authentication is set, message will be <code>authenticate</code> :
+</p>
+<div class="example">
+<pre class="example">{
+    &quot;message&quot;: &quot;authenticate&quot;,
+    &quot;type&quot;: &quot;MONITOR&quot;,
+    &quot;name&quot;: &lt;com_name&gt;,
+    &quot;challenge&quot;: &lt;random challenge&gt;
+}
+</pre></div>
+
+<p>To authenticate, the client must answer with a <code>authenticate</code> message
+and a <code>res</code> parameter where:
+</p>
+<div class="example">
+<pre class="example">res = HMAC-SHA256( &quot;&lt;type&gt;:&lt;password&gt;:&lt;name&gt;&quot;, &quot;&lt;challenge&gt;&quot; )
+</pre></div>
+
+<p><code>res</code> is a string and HMAC-SHA256 refers to the standard algorithm
+(<a href="https://en.wikipedia.org/wiki/HMAC">https://en.wikipedia.org/wiki/HMAC</a>)
+</p>
+<p>If the authentication succeeds, the response will have a <code>ready</code> field
+set to <code>true</code>.
+</p>
+<div class="example">
+<pre class="example">{
+    &quot;message&quot;: &quot;authenticate&quot;,
+    &quot;message_id&quot;: &lt;message id&gt;,
+    &quot;ready&quot;: true
+}
+</pre></div>
+
+<p>If authentication fails, the response will have an <code>error</code> field and will
+provide a new challenge.
+</p>
+<div class="example">
+<pre class="example">{
+    &quot;message&quot;: &quot;authenticate&quot;,
+    &quot;message_id&quot;: &lt;message id&gt;,
+    &quot;error&quot;: &lt;error message&gt;,
+    &quot;type&quot;: &quot;MONITOR&quot;,
+    &quot;name: &lt;name&gt;,
+    &quot;challenge&quot;: &lt;new random challenge&gt;
+}
+</pre></div>
+
+
+<p>If any other message is sent before authentication succeeds,
+the error <code>&quot;Authentication not done&quot;</code> will be sent as a response.
+</p>
+
+<span id="Errors"></span><h3 class="section">8.3 Errors</h3>
+
+<p>If a message produces an error, response will have an error string field
+representing the error.
+</p>
+
+<span id="Sample-nodejs-program"></span><h3 class="section">8.4 Sample nodejs program</h3>
+
+<p>You will find in this documentation a sample program: <code>ws.js</code>.<br>
+It is located in <code>doc</code> subdirectory.<br>
+This is a nodejs program that allow to send message to LTEMONITOR.<br>
+It requires nodejs to be installed:
+</p><div class="example">
+<pre class="example">dnf install nodejs npm
+npm install nodejs-websocket
+</pre></div>
+
+<p>Use relevant package manager instead of NPM depending on your Linux distribution.<br>
+</p>
+<p>Then simply start it with server name and message you want to send:
+</p><div class="example">
+<pre class="example">./ws.js 127.0.0.1:9007 '{&quot;message&quot;: &quot;config_get&quot;}'
+</pre></div>
+
+
+<span id="Common-messages"></span><h3 class="section">8.5 Common messages</h3>
+
+<dl compact="compact">
+<dt><code>config_get</code></dt>
+<dd><p>Retrieve current config.<br>
+</p>
+<p>Response definition:
+    </p><dl compact="compact">
+<dt><code>type</code></dt>
+<dd><p>Always &quot;MONITOR&quot;
+</p>
+</dd>
+<dt><code>name</code></dt>
+<dd><p>String representing server name.
+</p>
+<span id="config_005fget-logs-member"></span></dd>
+<dt><code>logs</code></dt>
+<dd><p>Object representing log configuration.<br>
+      With following elements:
+        </p><dl compact="compact">
+<dt><code>layers</code></dt>
+<dd><p>Object. Each member of the object represent a log layer configuration:
+</p>
+<dl compact="compact">
+<dt><code>layer name</code></dt>
+<dd><p>Object. The member name represent log layer name and parameters are:
+</p>
+<dl compact="compact">
+<dt><code>level</code></dt>
+<dd><p>See <a href="#log_005foptions">log_options</a>
+                  </p></dd>
+<dt><code>max_size</code></dt>
+<dd><p>See <a href="#log_005foptions">log_options</a>
+                  </p></dd>
+<dt><code>key</code></dt>
+<dd><p>See <a href="#log_005foptions">log_options</a>
+                  </p></dd>
+<dt><code>crypto</code></dt>
+<dd><p>See <a href="#log_005foptions">log_options</a>
+                  </p></dd>
+<dt><code>payload</code></dt>
+<dd><p>See <a href="#log_005foptions">log_options</a>
+                </p></dd>
+</dl>
+
+</dd>
+</dl>
+
+</dd>
+<dt><code>count</code></dt>
+<dd><p>Number. Number of bufferizer logs.
+</p>
+</dd>
+<dt><code>rotate</code></dt>
+<dd><p>Optional number. Max log file size before rotation.
+</p>
+</dd>
+<dt><code>path</code></dt>
+<dd><p>Optional string. Log rotation path.
+</p>
+</dd>
+<dt><code>bcch</code></dt>
+<dd><p>Boolean. True if BCCH dump is enabled (eNB only).
+</p>
+</dd>
+<dt><code>mib</code></dt>
+<dd><p>Boolean. True if MIB dump is enabled (eNB only).
+        </p></dd>
+</dl>
+
+</dd>
+<dt><code>locked</code></dt>
+<dd><p>Optional boolean. If <code>true</code>, logs configuration can&rsquo;t be changed
+      with <code>config_set</code> API.
+</p>
+
+</dd>
+</dl>
+
+</dd>
+<dt><code>config_set</code></dt>
+<dd><p>Change current config.<br>
+  Each member is optional.<br>
+  Message definition:
+    </p><dl compact="compact">
+<dt><code>logs</code></dt>
+<dd><p>Optional object. Represent logs configuration. Same structure as config_get (See <a href="#config_005fget-logs-member">config_get logs member</a>).<br>
+      All elements are optional.<br>
+      Layer name can be set to <code>all</code> to set same configuration for all layers.<br>
+      If set and logs are locked, response will have <code>logs</code> property set to <code>locked</code>.
+</p>
+
+</dd>
+</dl>
+
+</dd>
+<dt><code>log_get</code></dt>
+<dd><p>Get logs.<br>
+  This API has a per connection behavior. This means that the response will depend on previous calls
+  to this API within the same WebSocket connection.<br>
+  In practice, logs that have been provided in a response won&rsquo;t be part of subsequent request unless
+  connection is reestablished. To keep on receiving logs, client should send a new <code>log_get</code> request
+  as soon as the previous response has been received.<br>
+  If a request is sent before previous request has been replied, previous request will be replied right now
+  without considering specific min/max/timeout conditions.
+</p>
+<p>Message definition:
+    </p><dl compact="compact">
+<dt><code>min</code></dt>
+<dd><p>Optional number (default = 1). Minimum amount of logs to retrieve.<br>
+      Response won&rsquo;t be sent until this limit is reached (Unless timeout occurs).
+</p>
+</dd>
+<dt><code>max</code></dt>
+<dd><p>Optional number (default = 4096). Maximum logs sent in a response.
+</p>
+</dd>
+<dt><code>timeout</code></dt>
+<dd><p>Optional number (default = 1). If at least 1 log is available and no
+      more logs have been generated for this time, response will be sent.
+</p>
+</dd>
+<dt><code>allow_empty</code></dt>
+<dd><p>Optional boolean (default = false). If set, response will be sent after timeout,
+      event if no logs are available.
+</p>
+</dd>
+<dt><code>rnti</code></dt>
+<dd><p>Optional number. If set, send only logs matching rnti.
+</p>
+</dd>
+<dt><code>ue_id</code></dt>
+<dd><p>Optional number. If set, send only logs with matching ue_id.
+</p>
+</dd>
+<dt><code>layers</code></dt>
+<dd><p>Optional Object. Each member name represents a log layer and values must be
+      string representing maximum level. See <a href="#log_005foptions">log_options</a>.<br>
+      If <var>layers</var> is not set, all layers level will be set to <var>debug</var>,
+      else it will be set to <var>none</var>.<br>
+      Note also the logs is also limited by general log level. See <a href="#log_005foptions">log_options</a>.<br>
+</p>
+</dd>
+<dt><code>short</code></dt>
+<dd><p>Optional boolean (default = false). If set, only first line of logs will be dumped.
+</p>
+</dd>
+<dt><code>headers</code></dt>
+<dd><p>Optional boolean. If set, send log file headers.
+</p>
+</dd>
+<dt><code>start_timestamp</code></dt>
+<dd><p>Optional number. Is set, filter logs older than this value in milliseconds.
+</p>
+</dd>
+<dt><code>end_timestamp</code></dt>
+<dd><p>Optional number. Is set, filter logs more recent than this value in milliseconds.
+</p>
+</dd>
+<dt><code>max_size</code></dt>
+<dd><p>Optional number (default = 1048576, i.e. 1MB). Maximum size in bytes of the generated
+      JSON message. If the response exceeds this size, the sending of logs will be
+      forced independently from other parameters.
+</p>
+</dd>
+</dl>
+
+<p>Response definition:
+    </p><dl compact="compact">
+<dt><code>logs</code></dt>
+<dd><p>Array. List of logs. Each item is a an object with following members:
+        </p><dl compact="compact">
+<dt><code>data</code></dt>
+<dd><p>Array. Each item is a string representing a line of log.
+</p>
+</dd>
+<dt><code>timestamp</code></dt>
+<dd><p>Number. Milliseconds since January 1st 1970. Not present if <code>com_log_us</code> is set in configuration.<br>
+</p>
+</dd>
+<dt><code>timestamp_us</code></dt>
+<dd><p>Number. Microseconds since January 1st 1970. Only present if <code>com_log_us</code> is set in configuration.<br>
+</p>
+</dd>
+<dt><code>layer</code></dt>
+<dd><p>String. Log layer.
+</p>
+</dd>
+<dt><code>level</code></dt>
+<dd><p>String. Log level: <var>error</var>, <var>warn</var>, <var>info</var> or <var>debug</var>.
+</p>
+</dd>
+<dt><code>dir</code></dt>
+<dd><p>Optional string. Log direction: <var>UL</var>, <var>DL</var>, <var>FROM</var> or <var>TO</var>.
+</p>
+</dd>
+<dt><code>ue_id</code></dt>
+<dd><p>Optional number. UE_ID.
+</p>
+</dd>
+<dt><code>cell</code></dt>
+<dd><p>Optional number (only for PHY layer logs). Cell ID.
+</p>
+</dd>
+<dt><code>rnti</code></dt>
+<dd><p>Optional number (only for PHY layer logs). RNTI.
+</p>
+</dd>
+<dt><code>frame</code></dt>
+<dd><p>Optional number (only for PHY layer logs). Frame number (Subframe is decimal part).
+</p>
+</dd>
+<dt><code>channel</code></dt>
+<dd><p>Optional string (only for PHY layer logs). Channel name.
+</p>
+</dd>
+<dt><code>src</code></dt>
+<dd><p>String. Server name.
+</p>
+</dd>
+<dt><code>idx</code></dt>
+<dd><p>Integer. Log index.
+</p>
+</dd>
+<dt><code>headers</code></dt>
+<dd><p>Optional array. Array of strings.
+</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>discontinuity</code></dt>
+<dd><p>Optional number. If set, this means some logs have been discarded due to log buffer overflow.
+</p>
+</dd>
+<dt><code>microseconds</code></dt>
+<dd><p>Optional boolean. Present and set to true if <code>com_log_us</code> is set in configuration file.
+    </p></dd>
+</dl>
+
+</dd>
+<dt><code>log_set</code></dt>
+<dd><p>Add log.<br>
+  Message definition:
+    </p><dl compact="compact">
+<dt><code>log</code></dt>
+<dd><p>Optional string. Log message to add. If set, <var>layer</var> and <var>level</var> are mandatory.
+</p>
+</dd>
+<dt><code>layer</code></dt>
+<dd><p>String. Layer name. Only mandatory if <var>log</var> is set.
+</p>
+</dd>
+<dt><code>level</code></dt>
+<dd><p>String. Log level: <var>error</var>, <var>warn</var>, <var>info</var> or <var>debug</var>. Only mandatory if <var>log</var> is set.
+</p>
+</dd>
+<dt><code>dir</code></dt>
+<dd><p>Optional string. Log direction: <var>UL</var>, <var>DL</var>, <var>FROM</var> or <var>TO</var>.
+</p>
+</dd>
+<dt><code>ue_id</code></dt>
+<dd><p>Optional number. UE_ID.
+</p>
+</dd>
+<dt><code>flush</code></dt>
+<dd><p>Optional boolean (default = false). If set, flushes fog file.
+</p>
+</dd>
+<dt><code>rotate</code></dt>
+<dd><p>Optional boolean (default = false). If set, forces log file rotation.
+</p>
+</dd>
+<dt><code>cut</code></dt>
+<dd><p>Optional boolean (default = false). If set, forces log file reset.
+</p>
+</dd>
+</dl>
+
+
+</dd>
+<dt><code>log_reset</code></dt>
+<dd><p>Resets logs buffer.
+</p>
+
+</dd>
+<dt><code>quit</code></dt>
+<dd><p>Terminates ltemonitor.
+</p>
+</dd>
+<dt><code>help</code></dt>
+<dd><p>Provides list of available messages in <var>messages</var> array of strings
+  and events to register in <var>events</var> array of strings.<br>
+</p>
+</dd>
+<dt><code>stats</code></dt>
+<dd><p>Report statistics for LTEMONITOR.<br>
+  Every time this message is received by server, statistics are reset.<br>
+  Warning, calling this message from multiple connections simultaneously will modify the
+  statistics sampling time.
+</p>
+
+<p>Response definition:
+    </p><dl compact="compact">
+<dt><code>cpu</code></dt>
+<dd><p>Object. Each member name defines a type and its value cpu load in % of one core.
+</p>
+</dd>
+<dt><code>instance_id</code></dt>
+<dd><p>Number. Constant over process lifetime. Changes on process restart.
+</p>
+
+</dd>
+<dt><code>counters</code></dt>
+<dd><p>Object. List of counters, with following sub members:
+</p>
+<dl compact="compact">
+<dt><code>messages</code></dt>
+<dd><p>Object. Each member name is the message name and its value is its occurence.<br>
+      To get list of message, type <var>cevent help msg</var> in LTEMONITOR monitor.
+</p>
+</dd>
+<dt><code>errors</code></dt>
+<dd><p>Object. Each member name is the error name and its value is its occurence.<br>
+      To get list of message, type <var>cevent help error</var> in LTEMONITOR monitor.
+</p>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+
+</dd>
+<dt><code>register</code></dt>
+<dd><p>Register client to message generated by server.
+  Message definition:
+    </p><dl compact="compact">
+<dt><code>register</code></dt>
+<dd><p>String or array of string. List of message to register to.<br>
+      Can be <code>components</code>
+</p>
+</dd>
+<dt><code>unregister</code></dt>
+<dd><p>String or array of string. List of message to unregister.<br>
+      Can be <code>components</code>
+</p>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+
+
+
+<span id="LTE-messages"></span><span id="LTE-messages-1"></span><h3 class="section">8.6 LTE messages</h3>
+
+<dl compact="compact">
+<dt><code>state_get</code></dt>
+<dd><p>Get components informations.<br>
+</p>
+<p>Response definition:
+    </p><dl compact="compact">
+<dt><code>components</code></dt>
+<dd><span id="Components"></span><p>Object. Each property name represents component ID and property value its state:
+        </p><dl compact="compact">
+<dt><code>state</code></dt>
+<dd><p>String. Component state.
+          </p></dd>
+<dt><code>id</code></dt>
+<dd><p>String. Component ID.
+          </p></dd>
+<dt><code>name</code></dt>
+<dd><p>String. Component name.
+          </p></dd>
+<dt><code>type</code></dt>
+<dd><p>String. Component type.
+          </p></dd>
+<dt><code>info</code></dt>
+<dd><p>String. Additional information depending on state.
+        </p></dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+<span id="Remote-events"></span><h3 class="section">8.7 Remote events</h3>
+
+<p>Following events are sent by <var>PROG</var> if they have been registered on WebSocket.
+</p>
+<dl compact="compact">
+<dt><code>components</code></dt>
+<dd><p>Generated when any component state has changed.
+    </p><dl compact="compact">
+<dt><code>sender</code></dt>
+<dd><p>Object. See <a href="#Components">Components</a>.
+    </p></dd>
+</dl>
+
+</dd>
+</dl>
+
+<span id="Examples"></span><h3 class="section">8.8 Examples</h3>
+
+<ol>
+<li> Config
+    <ol>
+<li> Client sends
+<pre class="verbatim">{
+    &quot;message&quot;: &quot;config_get&quot;,
+    &quot;message_id&quot;: &quot;foo&quot;
+}
+</pre>
+</li><li> Server replies
+<pre class="verbatim">{
+    &quot;message_id&quot;: &quot;foo&quot;,
+    &quot;message&quot;: &quot;config_get&quot;,
+    &quot;name&quot;: &quot;UE&quot;,
+    &quot;logs&quot;: {
+        &quot;phy&quot;: {
+            &quot;level&quot;: &quot;error&quot;,
+            &quot;max_size&quot;: 0
+        },
+        ...
+        &quot;rrc&quot;: {
+            &quot;level&quot;: &quot;debug&quot;,
+            &quot;max_size&quot;: 1
+        }
+    }
+}
+</pre>
+</li></ol>
+
+</li><li> Error
+    <ol>
+<li> Client sends
+<pre class="verbatim">{
+    &quot;message&quot;: &quot;bar&quot;,
+    &quot;message_id&quot;: &quot;foo&quot;
+}
+</pre>
+</li><li> Server replies
+<pre class="verbatim">{
+    &quot;message_id&quot;: &quot;foo&quot;,
+    &quot;message&quot;: &quot;bar&quot;,
+    &quot;error&quot;: &quot;Unknown message: bar&quot;
+}
+</pre>
+</li></ol>
+</li></ol>
+
+
+
+
+<span id="Log-file-format"></span><span id="Log-file-format-1"></span><h2 class="chapter">9 Log file format</h2>
+
+
+<span id="EVENT-layer"></span><h3 class="section">9.1 EVENT layer</h3>
+
+<p>When an EVENT message is dumped, the format is:
+</p><div class="example">
+<pre class="example">time [layer] timestamp|hostname|level|component|section|title|message
+</pre></div>
+
+<p>Note that time of log may differ from event timestamp as event may come from
+a remote machine.
+</p>
+<span id="Other-layers"></span><h3 class="section">9.2 Other layers</h3>
+
+<div class="example">
+<pre class="example">time [layer] message
+</pre></div>
+
+<span id="Change-history"></span><h2 class="chapter">10 Change history</h2>
+
+
+<span id="Version-2024_002d09_002d13"></span><h3 class="section">10.1 Version 2024-09-13</h3>
+
+<ul>
+<li> <code>com_logs_lock</code> parameter is renamed to <code>com_log_lock</code>. <code>com_logs_lock</code> is still supported for backward compatibility
+</li><li> <code>com_log_us</code> parameter is added
+</li></ul>
+
+<span id="Version-2023_002d03_002d17"></span><h3 class="section">10.2 Version 2023-03-17</h3>
+
+<ul>
+<li> <code>com_addr</code> parameter now uses [::] address instead of 0.0.0.0 in the delivered configuration file to allow IPv6 connection
+</li></ul>
+
+<span id="Version-2022_002d12_002d16"></span><h3 class="section">10.3 Version 2022-12-16</h3>
+
+<ul>
+<li> <code>utc</code> parameter is added to remote API response messages
+</li></ul>
+
+<span id="Version-2022_002d09_002d16"></span><h3 class="section">10.4 Version 2022-09-16</h3>
+
+<ul>
+<li> <code>priority</code> parameter is added to alarms
+</li></ul>
+
+<span id="Version-2022_002d06_002d17"></span><h3 class="section">10.5 Version 2022-06-17</h3>
+
+<ul>
+<li> <code>start_timestamp</code> and <code>end_timestamp</code> are added to <code>log_get</code> API
+</li></ul>
+
+
+<span id="License"></span><h2 class="chapter">11 License</h2>
+
+<p><code>ltemonitor</code> is copyright (C) 2012-2024 Amarisoft. Its redistribution
+without authorization is prohibited.
+</p>
+<p><code>ltemonitor</code> is available without any express or implied warranty. In
+no event will Amarisoft be held liable for any damages arising from
+the use of this software.
+</p>
+<p>For more information on licensing, please refer to <code>license.pdf</code> file.
+</p>
+
+
+<span id="Abbreviations"></span><h2 class="unnumbered">Abbreviations</h2>
+
+<dl compact="compact">
+<dt>Software component</dt>
+<dd><p>Any Amarisoft component such as MME, IMS, eNB, MBMSGW or UE.
+</p></dd>
+</dl>
+
+<hr>
+
+
+
+</body>
+</html>

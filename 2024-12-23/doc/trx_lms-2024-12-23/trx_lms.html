@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.6, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Lime SDR Compatible RF frontends</title>
+
+<meta name="description" content="Lime SDR Compatible RF frontends">
+<meta name="keywords" content="Lime SDR Compatible RF frontends">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+
+th {
+    border: 1px solid black;
+    background-color: #c0f585;
+    font-size: 14px;
+    padding: 5px;
+}
+
+td {
+    border: 1px solid black;
+    padding: 2px 4px;
+}
+
+p>img {
+    display: initial;
+}
+
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">Lime SDR Compatible RF frontends</h1>
+
+<span id="SEC_Contents"></span>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+<ul class="no-bullet">
+<li><a id="toc-Introduction" href="#Introduction">1 Introduction</a>
+<ul class="no-bullet">
+  <li><a id="toc-Compatibility" href="#Compatibility">1.1 Compatibility</a></li>
+</ul></li>
+<li><a id="toc-Installation-with-the-Amarisoft-software" href="#Installation-with-the-Amarisoft-software">2 Installation with the Amarisoft software</a>
+<ul class="no-bullet">
+  <li><a id="toc-Introduction-1" href="#Introduction-1">2.1 Introduction</a></li>
+  <li><a id="toc-Manual-Installation-1" href="#Manual-Installation-1">2.2 Manual Installation</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Lime-SDR-Suite" href="#Lime-SDR-Suite">2.2.1 Lime SDR Suite</a></li>
+    <li><a id="toc-TRX-driver-1" href="#TRX-driver-1">2.2.2 TRX driver</a></li>
+    <li><a id="toc-Lime-SDR-configuration" href="#Lime-SDR-configuration">2.2.3 Lime SDR configuration</a></li>
+  </ul></li>
+</ul></li>
+
+</ul>
+</div>
+
+
+<span id="Introduction"></span><h2 class="chapter">1 Introduction</h2>
+
+
+<span id="Compatibility"></span><h3 class="section">1.1 Compatibility</h3>
+
+<p>Amarisoft components are compatible with limeSDR hardware family:
+</p><ul>
+<li> limeSDR-mini
+</li><li> limeSDR-USB
+</li><li> limeSDR-PCIe
+
+</li></ul>
+
+<p>Amarisoft does not provide precompiled drivers for lime SDR.
+</p>
+<span id="Installation-with-the-Amarisoft-software"></span><h2 class="chapter">2 Installation with the Amarisoft software</h2>
+
+<span id="Introduction-1"></span><h3 class="section">2.1 Introduction</h3>
+
+<table class="cartouche" border="1"><tr><td>
+<p>The driver delivered by Amarisoft is now considered as deprecated.<br>
+Instead we recommend you to install the driver maintained by Lime Microsystems available here:
+<a href="https://github.com/myriadrf/LimeSuiteNG">https://github.com/myriadrf/LimeSuiteNG</a>
+</p></td></tr></table>
+
+<p>You need to install the TRX driver for the Lime SDR compatible with RF frontends manually. 
+For that, you need to install Lime Suite package, See <a href="#Manual-Installation">Manual Installation</a>.   
+</p>
+
+<p>Notes:
+</p><ul>
+<li> this method would install some packages, so make sure you have root privileges when you run the script.
+</li><li> this install creates a symbolic link for the TRX driver so please do not remove this directory afterwards.
+</li></ul>
+
+
+<span id="Manual-Installation"></span><span id="Manual-Installation-1"></span><h3 class="section">2.2 Manual Installation</h3>
+
+<span id="Lime-SDR-Suite"></span><h4 class="subsection">2.2.1 Lime SDR Suite</h4>
+
+<p>Myriadrf, provides lime suite packages for some platforms. If your platform is supported, you can download directly the Lime Suite package from <a href="https://wiki.myriadrf.org/Lime_Suite">https://wiki.myriadrf.org/Lime_Suite</a> and install it.
+If your platform is not supported, you need to download lime suite source code, compile it and install it See <a href="#TRX-driver">TRX driver</a>. 
+</p>
+<p>Note: either install Lime Suite via a package/installer or source code and do not do both!
+</p>
+<span id="TRX-driver"></span><span id="TRX-driver-1"></span><h4 class="subsection">2.2.2 TRX driver</h4>
+
+<p>Amarisoft does not provide Lime Suite source code, however you can download it and compile it locally.<br>
+This is useful if your system has an incompatible Lime SDR version.
+</p>
+<p>You need to clone Lime Suite package and install it.<br>
+Then just type:
+</p>
+<div class="example">
+<pre class="example">git clone https://github.com/myriadrf/LimeSuite.git
+cd LimeSuite
+git reset --hard b8b4bcabdcb0db7dde2e4a89381bdf6c673b7c09
+mkdir builddir &amp;&amp; cd builddir
+cmake ../
+make -j4
+sudo make install
+sudo ldconfig 
+</pre></div>
+
+
+<p>Lime Suite should be installed under &quot;/usr/local/lib/&quot;. This will create a <samp>libLimeSuite.so.18.10-1</samp> under &quot;/usr/local/lib/&quot; that you need to add to ld.so configuration, as follows.
+</p><ul>
+<li> create new file lms.conf under &quot;/etc/ld.so.conf.d&quot; folder
+<div class="example">
+<pre class="example">cd /etc/ld.so.conf.d
+vi lms.conf
+</pre></div>
+</li><li> paste your install path to the file. copy &quot;/usr/local/lib&quot; in lms.conf file
+</li><li> reload the ld.so configuration
+<div class="example">
+<pre class="example">rm /etc/ld.so.cache
+ldconfig
+</pre></div>
+</li></ul>
+
+<span id="Lime-SDR-configuration"></span><h4 class="subsection">2.2.3 Lime SDR configuration</h4>
+
+<p>Once both Lime Suite and Amarisoft Software Release are installed, you can configure your Lime SDR RF front end.
+First, you need to check that your setup is ready:
+under &quot;/root/enb&quot; folder, type &quot;ldd trx_lms7002m.so&quot;. You should get the following:
+</p><div class="example">
+<pre class="example">ldd trx_lms7002m.so 
+	linux-vdso.so.1 (0x00007ffeaf153000)
+	libLimeSuite.so.18.10-1 =&gt; /usr/local/lib/libLimeSuite.so.18.10-1 (0x00007ff2b617e000)
+	libstdc++.so.6 =&gt; /lib64/libstdc++.so.6 (0x00007ff2b5df6000)
+	libm.so.6 =&gt; /lib64/libm.so.6 (0x00007ff2b5aa1000)
+	libgcc_s.so.1 =&gt; /lib64/libgcc_s.so.1 (0x00007ff2b588a000)
+	libc.so.6 =&gt; /lib64/libc.so.6 (0x00007ff2b54a5000)
+	libusb-1.0.so.0 =&gt; /lib64/libusb-1.0.so.0 (0x00007ff2b528c000)
+	libpthread.so.0 =&gt; /lib64/libpthread.so.0 (0x00007ff2b506d000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007ff2b662a000)
+	libudev.so.1 =&gt; /lib64/libudev.so.1 (0x00007ff2b4e4f000)
+</pre></div>
+<p>If all *.so links are pointing to right files (as shown above), then your lime Suite is well installed and your Lime SDR card is ready to be used.
+</p>
+<p>Lime SRD RF card is configurable. The configuration files are located under &quot;/root/enb/config/rf_driver&quot; folder. By Default, your software installation is using 2chan.cfg configuration file.
+Depending on your Lime SDR card, MINI SDR (2 antennas SISO) or Classic SDR (4 antennas 2x2 MIMO), you should configure the correct flags on 2chan.cfg file.
+If your Lime card is MINI the flag LIME_MINI should be defined. 
+</p><div class="example">
+<pre class="example">vi 2chan.cfg
+#define LIME_MINI
+</pre></div>
+<p>If you are setting frequency lower than 1.8GHz, the flag FREQ_BELOW_1800MHZ should be defined.
+</p><div class="example">
+<pre class="example">vi 2chan.cfg
+#define FREQ_BELOW_1800MHZ
+</pre></div>
+
+<hr>
+
+
+
+</body>
+</html>

@@ -1,0 +1,1846 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.6, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>NR Software N3IWF</title>
+
+<meta name="description" content="NR Software N3IWF">
+<meta name="keywords" content="NR Software N3IWF">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+
+th {
+    border: 1px solid black;
+    background-color: #c0f585;
+    font-size: 14px;
+    padding: 5px;
+}
+
+td {
+    border: 1px solid black;
+    padding: 2px 4px;
+}
+
+p>img {
+    display: initial;
+}
+
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">NR Software N3IWF</h1>
+
+
+<span id="SEC_Contents"></span>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+<ul class="no-bullet">
+<li><a id="toc-Introduction" href="#Introduction">1 Introduction</a></li>
+<li><a id="toc-Installation" href="#Installation">2 Installation</a>
+<ul class="no-bullet">
+  <li><a id="toc-Linux-setup" href="#Linux-setup">2.1 Linux setup</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Packages" href="#Packages">2.1.1 Packages</a></li>
+    <li><a id="toc-OpenSSL" href="#OpenSSL">2.1.2 OpenSSL</a></li>
+    <li><a id="toc-License-key-installation" href="#License-key-installation">2.1.3 License key installation</a></li>
+  </ul></li>
+  <li><a id="toc-LTEN3IWF-installation" href="#LTEN3IWF-installation">2.2 LTEN3IWF installation</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Basic-LTEN3IWF-configuration" href="#Basic-LTEN3IWF-configuration">2.2.1 Basic LTEN3IWF configuration</a></li>
+  </ul></li>
+  <li><a id="toc-Initial-testing" href="#Initial-testing">2.3 Initial testing</a></li>
+</ul></li>
+<li><a id="toc-Command-line-monitor-reference" href="#Command-line-monitor-reference">3 Command line monitor reference</a></li>
+<li><a id="toc-Configuration-reference" href="#Configuration-reference">4 Configuration reference</a>
+<ul class="no-bullet">
+  <li><a id="toc-Configuration-file-syntax" href="#Configuration-file-syntax">4.1 Configuration file syntax</a>
+  <ul class="no-bullet">
+    <li><a id="toc-JSON-merge-rules-1" href="#JSON-merge-rules-1">4.1.1 JSON merge rules</a></li>
+  </ul></li>
+  <li><a id="toc-Properties" href="#Properties">4.2 Properties</a></li>
+</ul></li>
+<li><a id="toc-Remote-API-1" href="#Remote-API-1">5 Remote API</a>
+<ul class="no-bullet">
+  <li><a id="toc-Messages" href="#Messages">5.1 Messages</a></li>
+  <li><a id="toc-Startup" href="#Startup">5.2 Startup</a></li>
+  <li><a id="toc-Errors" href="#Errors">5.3 Errors</a></li>
+  <li><a id="toc-Sample-nodejs-program" href="#Sample-nodejs-program">5.4 Sample nodejs program</a></li>
+  <li><a id="toc-Common-messages" href="#Common-messages">5.5 Common messages</a></li>
+  <li><a id="toc-N3IWF-messages-1" href="#N3IWF-messages-1">5.6 N3IWF messages</a></li>
+</ul></li>
+<li><a id="toc-Log-file-format-1" href="#Log-file-format-1">6 Log file format</a>
+<ul class="no-bullet">
+  <li><a id="toc-NAS-layer" href="#NAS-layer">6.1 NAS layer</a></li>
+  <li><a id="toc-IP-layer" href="#IP-layer">6.2 IP layer</a></li>
+  <li><a id="toc-NGAP-and-GTP_002dU-layers" href="#NGAP-and-GTP_002dU-layers">6.3 NGAP and GTP-U layers</a></li>
+</ul></li>
+<li><a id="toc-Change-history" href="#Change-history">7 Change history</a>
+<ul class="no-bullet">
+  <li><a id="toc-Version-2024_002d12_002d13" href="#Version-2024_002d12_002d13">7.1 Version 2024-12-13</a></li>
+  <li><a id="toc-Version-2024_002d09_002d13" href="#Version-2024_002d09_002d13">7.2 Version 2024-09-13</a></li>
+  <li><a id="toc-Version-2024_002d06_002d14" href="#Version-2024_002d06_002d14">7.3 Version 2024-06-14</a></li>
+  <li><a id="toc-Version-2024_002d03_002d15" href="#Version-2024_002d03_002d15">7.4 Version 2024-03-15</a></li>
+  <li><a id="toc-Version-2023_002d12_002d15" href="#Version-2023_002d12_002d15">7.5 Version 2023-12-15</a></li>
+  <li><a id="toc-Version-2023_002d09_002d08" href="#Version-2023_002d09_002d08">7.6 Version 2023-09-08</a></li>
+  <li><a id="toc-Version-2023_002d06_002d10" href="#Version-2023_002d06_002d10">7.7 Version 2023-06-10</a></li>
+  <li><a id="toc-Version-2023_002d03_002d17" href="#Version-2023_002d03_002d17">7.8 Version 2023-03-17</a></li>
+  <li><a id="toc-Version-2022_002d12_002d16" href="#Version-2022_002d12_002d16">7.9 Version 2022-12-16</a></li>
+  <li><a id="toc-Version-2022_002d09_002d16" href="#Version-2022_002d09_002d16">7.10 Version 2022-09-16</a></li>
+  <li><a id="toc-Version-2022_002d06_002d17" href="#Version-2022_002d06_002d17">7.11 Version 2022-06-17</a></li>
+  <li><a id="toc-Version-2022_002d03_002d18" href="#Version-2022_002d03_002d18">7.12 Version 2022-03-18</a></li>
+  <li><a id="toc-Version-2021_002d12_002d17" href="#Version-2021_002d12_002d17">7.13 Version 2021-12-17</a></li>
+  <li><a id="toc-Version-2021_002d09_002d17" href="#Version-2021_002d09_002d17">7.14 Version 2021-09-17</a></li>
+</ul></li>
+<li><a id="toc-License" href="#License">8 License</a></li>
+
+</ul>
+</div>
+
+
+<span id="Introduction"></span><h2 class="chapter">1 Introduction</h2>
+
+<p>LTEN3IWF is a N3IWF (Non-3GPP Interworking element) implementation.
+</p>
+<p>LTEN3IWF interfaces with a 5GS Core Network thru the standard NG interface whilst supporting IPsec connectivity towards the UE.
+</p>
+<span id="Installation"></span><h2 class="chapter">2 Installation</h2>
+
+<span id="Linux-setup"></span><h3 class="section">2.1 Linux setup</h3>
+
+<span id="Packages"></span><h4 class="subsection">2.1.1 Packages</h4>
+
+<p>LTEN3IWF uses the SCTP protocol for which the necessary
+packages are not usually installed. In order to install them, do as
+root user:
+</p>
+<ul>
+<li> Fedora
+<div class="example">
+<pre class="example">dnf install lksctp-tools kernel-modules-extra
+</pre></div>
+
+</li><li> Ubuntu
+<div class="example">
+<pre class="example">sudo apt-get install lksctp-tools linux-image-extra-3.13.0-24-generic
+</pre></div>
+
+<p>Note that linux-image-extra package name may differ depending on your kernel version.
+</p>
+</li></ul>
+
+<p>To verify that SCTP kernel module is running, do as root user:
+</p><div class="example">
+<pre class="example">checksctp
+</pre></div>
+<p>If it reports that the protocol is not supported,
+</p><ul>
+<li> check if you have a /etc/modprobe.d/sctp-blacklist.conf file
+</li><li> edit it to comment the &rsquo;blacklist sctp&rsquo; line
+</li></ul>
+
+<p>Then reboot the PC in case the Linux kernel was upgraded too.
+</p>
+
+<span id="OpenSSL"></span><h4 class="subsection">2.1.2 OpenSSL</h4>
+
+
+<p>LTEN3IWF has been compiled against openssl version 1.1.1w.<br>
+If your system does not have compatible version installed you may have this error message at startup:
+</p><div class="example">
+<pre class="example">error while loading shared libraries: libssl.so.1.1: cannot open shared object file: No such file or directory
+</pre></div>
+
+<p>To overcome this problem, you may:
+</p><ul>
+<li> Copy libssl.so.1.1 and libcrypto.so.1.1 from
+<code>libs</code> subdirectory of your release tarball.<br>
+If you have installed software with automatic install script, this should have been done automatically.
+
+
+
+</li><li> Compile and install proper openssl version yourself
+
+</li></ul>
+
+<p>In case of persisting issue, raise a ticket from our support site at <a href="https://support.amarisoft.com/">https://support.amarisoft.com/</a>
+with the information provided by below commands executed in LTEN3IWF directory:
+</p><div class="example">
+<pre class="example">uname -a
+ls -l
+ldd ./lten3iwf
+openssl version
+</pre></div>
+
+
+
+<span id="License-key-installation"></span><h4 class="subsection">2.1.3 License key installation</h4>
+
+<p>LTEN3IWF needs a license key file to run.
+<em>It is associated to your PC, so if you replace
+it or change its hardware configuration you must
+contact Amarisoft to get a new license key</em>.
+</p>
+<p>The following steps are needed to get this license file:
+</p>
+<ul>
+<li> Run LTEN3IWF:
+
+<div class="example">
+<pre class="example">./lten3iwf config/n3iwf.cfg
+</pre></div>
+
+<p>It says that the license key is not present and prints a 16 digit
+hexadecimal code.
+</p>
+</li><li> Send by mail to <code>delivery@amarisoft.com</code> this hexadecimal code to your contact at Amarisoft.
+You will get back the <samp>lten3iwf.key</samp> license key file.
+
+</li><li> Copy the <samp>lten3iwf.key</samp> file to the <samp>${HOME}/.amarisoft/</samp> directory (<code>${HOME}</code> is the home directory of the <code>root</code> user). You can use the shell variable <code>AMARISOFT_PATH</code> to change this path.
+
+</li></ul>
+
+<p>Once the license key is installed, lten3iwf should start
+normally.
+</p>
+
+<span id="LTEN3IWF-installation"></span><h3 class="section">2.2 LTEN3IWF installation</h3>
+
+<p>Decompress the LTEN3IWF archive to a convenient place. The executable
+<code>lten3iwf</code> can be launched from this directory.
+</p>
+
+<span id="Basic-LTEN3IWF-configuration"></span><h4 class="subsection">2.2.1 Basic LTEN3IWF configuration</h4>
+
+<p>The main configuration file is <samp>config/n3iwf.cfg</samp>. It uses a superset of the JSON syntax.
+</p>
+
+<span id="Initial-testing"></span><h3 class="section">2.3 Initial testing</h3>
+
+<p>Customize and start the <code>lte_init.sh</code> script as <code>root</code> user to
+configure the network and CPU governors.
+</p>
+<p>Start the LTEMME software as <code>root</code> user. <code>root</code> priviledges
+are needed to set up the virtual network interface.
+</p>
+<div class="example">
+<pre class="example">./ltemme config/mme.cfg
+</pre></div>
+
+<p>In another terminal, start the LTEN3IWF software as <code>root</code> user.
+<code>root</code> priviledges are needed to use real time scheduling
+priority.
+</p>
+<div class="example">
+<pre class="example">./lten3iwf config/n3iwf.cfg
+</pre></div>
+
+<p>The N3IWF is now running. Type <code>ng</code> in the command line
+monitor of LTEN3IWF to verify that it is connected to LTEMME.
+</p>
+<span id="Command-line-monitor-reference"></span><h2 class="chapter">3 Command line monitor reference</h2>
+
+<p>The following commands are available:
+</p>
+<dl compact="compact">
+<dt><code>help</code></dt>
+<dd><p>Display the help. Use <code>help <var>command</var></code> to have a more
+detailed help about a command.
+</p>
+</dd>
+<dt><code>ue</code></dt>
+<dd><p>List connected UEs.
+</p>
+</dd>
+<dt><code>ng</code></dt>
+<dd><p>Dump the NG connection state. It is useful to see if the N3IWF is
+connected to the AMF.
+</p>
+</dd>
+<dt><code>ngconnect [<var>amf_addr</var>]</code></dt>
+<dd><p>Force a NG (re)connection to the AMF. The AMF IP address and optional
+port can be given as an optional parameter.
+</p>
+</dd>
+<dt><code>ngdisconnect</code></dt>
+<dd><p>Force a NG disconnect from the AMF.
+</p>
+</dd>
+<dt><code>ngadd</code></dt>
+<dd><p>Adds a new AMF to the list of NGAP connections.<br>
+  Message definition<br>
+  The message must contain the same parameters as one of the object
+  defined in amf_list array. See <a href="#amf_005flist">amf_list</a>.
+</p>
+</dd>
+<dt><code>ngdelete</code></dt>
+<dd><p>Removes a AMF address from the list of NGAP connections.<br>
+  Message definition
+    </p><dl compact="compact">
+<dt><code>addr</code></dt>
+<dd><p>String. AMF address to be removed from the list.
+    </p></dd>
+</dl>
+</dd>
+</dl>
+
+<span id="Configuration-reference"></span><h2 class="chapter">4 Configuration reference</h2>
+
+<span id="Configuration-file-syntax"></span><h3 class="section">4.1 Configuration file syntax</h3>
+
+<p>The main configuration file uses a syntax very similar to the
+Javascript Object Notation (JSON) with few extensions.
+</p>
+<ol>
+<li> Supported types:
+
+<ul class="no-bullet">
+<li>- Numbers (64 bit floating point). Notation: <code>13.4</code>
+</li><li>- Complex numbers. Notation: <code>1.2+3*I</code>
+</li><li>- Strings. Notation: <code> &quot;string&quot; </code>
+</li><li>- Booleans. Notation: <code>true</code> or <code>false</code>.
+</li><li>- Objects. Notation: <code> { field1: <var>value1</var>, field2: <var>value2</var>, .... } </code>
+</li><li>- Arrays. Notation: <code> [ <var>value1</var>, <var>value2</var>, .... ] </code>
+</li></ul>
+
+</li><li> The basic operations <code>+</code>, <code>-</code>, <code>*</code> and <code>/</code> are
+supported with numbers and complex numbers. <code>+</code> also concatenates
+strings. The operators <code>!</code>, <code>||</code>, <code>&amp;&amp;</code>, <code>==</code>,
+<code>!=</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;=</code>, <code>&gt;</code> are supported too.
+
+</li><li> The numbers <code>0</code> and <code>1</code> are accepted as synonyms for the
+boolean values <code>false</code> and <code>true</code>.
+
+</li><li> {} at top level are optional.
+
+</li><li> &quot; for property names are optional, unless the name starts with a number.
+
+</li><li> Properties can be duplicated.<br>
+If properties are duplicated, they will be merged following <a href="#JSON-merge-rules">JSON merge rules</a> with overriding
+occuring in reading direction (last overrides previous).<br>
+Ex:
+<pre class="verbatim">{
+    value: &quot;foo&quot;,
+    value: &quot;bar&quot;,
+    sub: {
+        value: &quot;foo&quot;
+    },
+    sub: {
+        value: &quot;bar&quot;
+    }
+}
+</pre><p>Will be equivalent to:
+</p><pre class="verbatim">{
+    value: &quot;bar&quot;,
+    sub: {
+        value: &quot;bar&quot;
+    }
+}
+</pre>
+
+
+</li><li> Files can be included using <var>include</var> keyword (must not be quoted) followed by a string (without :) representing the file to include (path is relative to current file) and terminating by a comma.<br>
+Arrays can&rsquo;t be included.<br>
+Merge will be done as for duplicate properties.<br>
+If <var>file1.cfg</var> is:
+<pre class="verbatim">    value: &quot;foo&quot;,
+    include &quot;file2.cfg&quot;,
+    foo: &quot;foo&quot;
+</pre><p>And <var>file2.cfg</var> is:
+</p><pre class="verbatim">    value: &quot;bar&quot;,
+    foo: &quot;bar&quot;
+</pre><p>Final config will be:
+</p><pre class="verbatim">{
+    value: &quot;bar&quot;,
+    foo: &quot;foo&quot;
+}
+</pre>
+</li><li> A C like preprocessor is supported. The following preprocessor commands are available:
+  <dl compact="compact">
+<dt><code>#define <var>var</var> <var>expr</var></code></dt>
+<dd><p>Define a new variable with value <var>expr</var>. <var>expr</var> must be a
+  valid JSON expression. Note that unlike the standard C preprocessor,
+  <var>expr</var> is evaluated by the preprocessor.
+  </p></dd>
+<dt><code>#undef <var>var</var></code></dt>
+<dd><p>Undefine the variable <var>var</var>.
+  </p></dd>
+<dt><code>#include <var>expr</var></code></dt>
+<dd><p>Include the file whose filename is the evaluation of the string
+  expression <var>expr</var>.
+  </p></dd>
+<dt><code>#if <var>expr</var></code></dt>
+<dd><p>Consider the following text if <var>expr</var> is true.
+  </p></dd>
+<dt><code>#else</code></dt>
+<dd><p>Alternative of <code>#if</code> block.
+  </p></dd>
+<dt><code>#elif</code></dt>
+<dd><p>Composition of <code>#else</code> and <code>#if</code>.
+  </p></dd>
+<dt><code>#endif</code></dt>
+<dd><p>End of <code>#if</code> block.
+  </p></dd>
+<dt><code>#ifdef <var>var</var></code></dt>
+<dd><p>Shortcut for <code>#if defined(var)</code>
+  </p></dd>
+<dt><code>#ifndef <var>var</var></code></dt>
+<dd><p>Shortcut for <code>#if !defined(var)</code>
+  </p></dd>
+</dl>
+
+<p>In the JSON source, every occurrence of a defined preprocessor
+  variable is replaced by its value.
+</p>
+</li><li> Backquote strings: JSON expression can be inserted in backquote delimited strings with the <code>${expr}</code> syntax. Example: <code>`abc${1+2}d`</code> is evaluated as the string <code>&quot;abc3d&quot;</code>. Preprocessor variables can be used inside the expression. Backquote strings may span several lines.
+
+</li></ol>
+
+
+<span id="JSON-merge-rules"></span><span id="JSON-merge-rules-1"></span><h4 class="subsection">4.1.1 JSON merge rules</h4>
+
+<p>Merge overriding direction depends on context, i.e source may override destination or the opposite.<br>
+JSON merge is recursive for Objects and Arrays.<br>
+</p>
+<p>Example, merging
+</p><pre class="verbatim">{
+    foo: { value: &quot;bar&quot; },
+    same: &quot;one&quot;,
+    one: 1
+}
+</pre><p>with
+</p><pre class="verbatim">{
+    foo: { value: &quot;none&quot;, second: true },
+    same: &quot;two&quot;,
+    two: 1
+}
+</pre>
+<p>Will become:
+</p><pre class="verbatim">{
+    foo: { value: &quot;bar&quot;, second: true },
+    same: &quot;one&quot;,
+    one: 1
+    two: 1
+}
+</pre><p>assuming first object overrides second one.<br>
+</p>
+
+<p>In case of Array merging, the final array length will be the maximum length of all merged arrays.<br>
+For each element of the final array, merge will be done considering defined elements only.<br>
+Ex:
+</p><pre class="verbatim">{
+    array: [0, 1, 2, { foo: &quot;bar&quot; } ],
+    array: [3, 4],
+    array: [5, 6, 7, { bar: &quot;foo&quot; }, 8 ]
+}
+</pre><p>Will be merged to:
+</p><pre class="verbatim">{
+    array: [5, 6, 7, { foo: &quot;bar&quot;, bar: &quot;foo&quot; }, 8 ],
+}
+</pre>
+
+
+<span id="Properties"></span><h3 class="section">4.2 Properties</h3>
+
+<!-- prop: -->
+
+<dl compact="compact">
+<dt><code>log_filename</code></dt>
+<dd>
+<p>String. Set the log filename. If no leading <code>/</code>, it is relative to the
+configuration file path. See <a href="#Log-file-format">Log file format</a>.
+</p>
+<span id="log_005foptions"></span></dd>
+<dt><code>log_options</code></dt>
+<dd>
+<p>String. Set the logging options as a comma separated list of assignments.
+</p>
+<ul>
+<li> <var>layer</var>.level=<var>verbosity</var>. For each layer, the log verbosity can be set
+to <code>none</code>, <code>error</code>, <code>info</code> or <code>debug</code>. In debug
+level, the content of the transmitted data is logged.
+
+</li><li> <var>layer</var>.max_size=<var>n</var>. When dumping data content, at
+most <code>n</code> bytes are shown in hexa. For ASN.1, NAS or Diameter content, show the full content of the message if <code>n &gt; 0</code>.
+
+</li><li> <var>layer</var>.payload=[0|1]. Dump ASN.1, NAS, SGsAP or Diameter payload in hexadecimal.
+
+</li><li> <var>layer</var>.key=[0|1]. Dump security keys (NAS and RRC layers).
+
+</li><li> <var>layer</var>.crypto=[0|1]. Dump plain and ciphered data (NAS and PCDP layers).
+
+</li><li> <var>layer</var>.verbose=[0|1]. If <code>layer</code> is <code>ipsec</code>, dump all packets filtering informations.
+
+
+
+
+</li><li> time=[sec|short|full]. Display the time as seconds, time only
+or full date and time (default = time only).
+
+</li><li> time.us=[0|1]. Dump time with microseconds precision.
+
+</li><li> file=cut. Close current file log and open a new one.
+
+</li><li> file.rotate=now. Rename current log with timestamp and open new one.
+
+</li><li> file.rotate=<var>size</var>. Rename current log every time it reaches <var>size</var> bytes open new one.
+  Size is an integer and can be followed by K, M or G.
+
+</li><li> file.path=<var>path</var>. When log rotation is enabled, move current log to this path instead of
+  initial log path.
+
+</li><li> append=[0|1]. (default=0). If 0, truncate the log file when
+  opening it. Otherwise, append to it.
+
+</li></ul>
+
+<p>Available layers are: <code>nas</code>, <code>ip</code>, <code>gtpu</code>, <code>ngap</code>, <code>n3iwf</code>, <code>ikev2</code>, <code>ipsec</code>
+</p>
+</dd>
+<dt><code>log_sync</code></dt>
+<dd><p>Optional boolean (default = false). If true, logs will be synchronously dumped to file.<br>
+  Warning, this may lead to performances decrease.
+</p>
+
+</dd>
+<dt><code>com_addr</code></dt>
+<dd><p>Optional string. Address of the WebSocket server remote API. See <a href="#Remote-API">Remote API</a>.<br>
+If set, the WebSocket server for remote API will be enabled and bound to this address.<br>
+Default port is 9011.<br>
+Setting IP address to [::] will make remote API reachable through all network interfaces.
+</p>
+</dd>
+<dt><code>com_name</code></dt>
+<dd><p>Optional string. Sets server name. N3IWF by default
+</p>
+
+</dd>
+<dt><code>com_ssl_certificate</code></dt>
+<dd><p>Optional string. If set, forces SSL for WebSockets. Defines CA
+certificate filename.
+</p>
+</dd>
+<dt><code>com_ssl_key</code></dt>
+<dd><p>Optional string. Mandatory if <var>com_ssl_certificate</var> is set. Defines CA
+private key filename.
+</p>
+</dd>
+<dt><code>com_ssl_peer_verify</code></dt>
+<dd><p>Optional boolean (default is false). If <var>true</var>, server will check
+client certificate.
+</p>
+</dd>
+<dt><code>com_ssl_ca</code></dt>
+<dd><p>Optional string. Set CA certificate. In case of peer verification with self signed
+certificate, you should use the client certificate.
+</p>
+
+</dd>
+<dt><code>com_log_lock</code></dt>
+<dd><p>Optional boolean (default is false). If <var>true</var>, logs configuration can&rsquo;t be changed
+via <code>config_set</code> remote API.
+</p>
+</dd>
+<dt><code>com_log_us</code></dt>
+<dd><p>Optional boolean (default is false). If <var>true</var>, logs sent by <code>log_get</code> remote API
+response will have a <code>timestamp_us</code> parameters instead of <code>timestamp</code>
+</p>
+</dd>
+<dt><code>com_auth</code></dt>
+<dd><p>Optional object. If set, remote API access will require authentication.<br>
+Authentication mechanism is describe in <a href="#Remote-API-Startup">Remote API Startup</a> section.<br>
+</p>
+<dl compact="compact">
+<dt><code>passfile</code></dt>
+<dd><p>Optional string. Defines filename where password is stored (plaintext).<br>
+    If not set, <code>password</code> must be set
+</p>
+</dd>
+<dt><code>password</code></dt>
+<dd><p>Optional string. Defines password.<br>
+    If not set, <code>passfile</code> must be set.
+</p>
+</dd>
+<dt><code>unsecure</code></dt>
+<dd><p>Optional boolean (default  false). If set, allow password to be sent plaintext.<br>
+    NB: you should set it to true if you access it from a Web Browser (Ex: Amarisoft GUI)
+    without SSL (https) as your Web Browser may prevent secure access to work.
+</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>com_log_count</code></dt>
+<dd><p>Optional number (Default = 8192). Defines number of logs to keep in memory before dropping them.<br>
+Must be between 4096 and 2097152).
+</p>
+
+<span id="sim_005fevents"></span></dd>
+<dt><code>sim_events</code></dt>
+<dd><p>Array of object. Each element gives an event configuration to execute for
+  this UE.<br>
+  Event configuration is exactly the same as for <a href="#Remote-API">Remote API</a> messages
+  except that message field must be event.
+</p>
+</dd>
+<dt><code>sim_events_loop_count</code></dt>
+<dd><p>If set, will define <code>loop_count</code> for each event of <code>sim_events</code>, See <a href="#loop_005fcount">loop_count</a>.
+</p>
+</dd>
+<dt><code>sim_events_loop_delay</code></dt>
+<dd><p>If set, will define <code>loop_delay</code> for each event of <code>sim_events</code>, See <a href="#loop_005fdelay">loop_delay</a>.
+</p>
+
+</dd>
+<dt><code>gtp_addr</code></dt>
+<dd>
+<p>String. Set the IP address (and optional port) on which the GTP-U
+packets are received. The default port is 2152. It is normally the IP
+address of the network interface connected to the core network.
+</p>
+</dd>
+<dt><code>gtp_payload_mtu</code></dt>
+<dd><p>Optional integer (range 68 to 16384, default = 1500). MTU in bytes for the
+GTP-U payload. Do not forget to update the network interface MTU accordingly
+for optimal performance. For example with a GTP MTU of 1500 bytes, interface
+should have a MTU of at least 1564 bytes.
+</p>
+</dd>
+<dt><code>gtp_use_packet_bundling</code></dt>
+<dd><p>Optional boolean (default = false). Concatenate multiple GTP-U PDUs within a single UDP datagram.
+Be careful, this is a non-standard option that must not be activated if the peer is not an Amarisoft AMF with this option activated.
+</p>
+<span id="amf_005flist"></span></dd>
+<dt><code>amf_list</code></dt>
+<dd><p>Array of objects.
+List of AMF to which the N3IWF is connected. Each object contains the following properties:
+</p>
+<dl compact="compact">
+<dt><code>amf_addr</code></dt>
+<dd>
+<p>String. Set the IP address (and optional port) of NGAP SCTP
+  connection to the AMF. The default port is 38412.
+</p>
+</dd>
+<dt><code>gtp_ext_addr</code></dt>
+<dd>
+<p>Optional string. Set the IP address on which the Core Network should
+  transmit the GTP-U packets. It is the same as gtp_addr by
+  default. It can be different if the N3IWF is behind a NAT.
+</p>
+</dd>
+<dt><code>ngap_bind_addr</code></dt>
+<dd><p>Optional string. IP address and optional port on which the NGAP SCTP
+  connection is bound.
+</p>
+</dd>
+<dt><code>5qi_dscp_mapping</code></dt>
+<dd><p>Optional array of objects. Allows to define a specific IP differentiated services code point
+  for a given 5QI. 5QI not explicitly configured use the default DSCP value 0.<br>
+  Each object must contain the following properties:
+  </p><dl compact="compact">
+<dt><code>5qi</code></dt>
+<dd><p>Integer (range 1 to 254). 5QI value.
+    </p></dd>
+<dt><code>dscp</code></dt>
+<dd><p>Integer (range 0 to 63). DSCP value.
+  </p></dd>
+</dl>
+
+</dd>
+<dt><code>backup_amf_addr</code></dt>
+<dd><p>Optional string. Defines the IP address (and optional port) of the backup AMF to be used if the NG connection
+  is not established with the current AMF. If the NG connection is established, the backup AMF will not be used.
+  There must be a corresponding object for the backup AMF in the <code>amf_list</code> array.
+</p>
+</dd>
+<dt><code>priority</code></dt>
+<dd><p>Optional integer (range 0 to 1, default 0). Defines the priority of a given AMF. When performing AMF selection,
+  if no candidate is found with priority n, the candidates with priority n+1 are tested.
+</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>n3iwf_id</code></dt>
+<dd><p>Integer in range 0-0xFFFF. The N3IWF global identifier.
+</p>
+</dd>
+<dt><code>n3iwf_name</code></dt>
+<dd><p>Optional string. Set N3IWF name used in NG connection setup request.
+</p>
+</dd>
+<dt><code>plmn_list</code></dt>
+<dd><p>List of objects. List of PLMNs and NPNs supported.
+  The total number of PLMNs (identified by a PLMN identity in plmn) and SNPNs (identified by a PLMN identity and a NID in snpn) shall not exceed 12.
+  Each object contains the following properties:
+    </p><dl compact="compact">
+<dt><code>plmn</code></dt>
+<dd><p>String or array of strings. PLMN (5 or 6 digits). The array can contain up to 12 PLMNs.
+    </p></dd>
+<dt><code>snpn</code></dt>
+<dd><p>Optional array of 1 to 12 objects. List of Stand-Alone Non-Public Network.<br>
+    Each element contains the following parameters:
+      </p><dl compact="compact">
+<dt><code>plmn</code></dt>
+<dd><p>PLMN string (5 or 6 digits).
+      </p></dd>
+<dt><code>nid_list</code></dt>
+<dd><p>Array of NID as defined in 23.003 12.7 Stand-Alone Non-Public Network Identifier an contains the following parameters. Each element contains the following parameters:
+      </p><dl compact="compact">
+<dt><code>nid_value</code></dt>
+<dd><p>String (10 hexadecimal digits). NID value.
+        </p></dd>
+<dt><code>assignment_mode</code></dt>
+<dd><p>Optional enumeration (&quot;self&quot;, &quot;coordinated_1&quot;, &quot;coordinated_2&quot;). Default value is &quot;self&quot;.
+        Each combination of a PLMN and NID identifies a Stand-Alone Non-Public Network.
+      </p></dd>
+</dl>
+</dd>
+</dl>
+</dd>
+<dt><code>tac</code></dt>
+<dd><p>Integer (range 0 to 16777215). Tracking Area Code of the cell.
+    </p></dd>
+<dt><code>nssai</code></dt>
+<dd><p>Optional array. List of supported S-NSSAIs.<br>
+    Default content is sst: 1 (eMBB).<br>
+    Each entry will set a S-NSSAI value as defined below:
+      </p><dl compact="compact">
+<dt><code>sst</code></dt>
+<dd><p>Integer (range 0-255). Slice Service Type.
+      </p></dd>
+<dt><code>sd</code></dt>
+<dd><p>Optional integer (range 0-0xFFFFFE). Slice Differentiator.
+    </p></dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+<dt><code>remote_ip_config</code></dt>
+<dd><p>Object describing the IP allocation of the UE inner address as defined in 3GPP TS 23.502.
+  Contains the following properties:
+  </p></dd>
+<dt><code>first_ip_addr</code></dt>
+<dd><p>String. First available IPv4 address.
+</p>
+</dd>
+<dt><code>last_ip_addr</code></dt>
+<dd><p>String. Last available IPv4 address.
+</p>
+</dd>
+<dt><code>ipv4_auto_increment</code></dt>
+<dd><p>Optional boolean (default = false). If set to false, the same IPv4 address is allocated
+  for successive UE connection/disconnection. If set to true, the IPv4 address
+  is incremented for UE connection/disconnection.
+</p>
+</dd>
+<dt><code>ip_addr_shift</code></dt>
+<dd><p>Optional integer (default = 0). The allocated IPv4 addresses are
+  allocated starting from <code>first_ip_addr</code> with a difference of
+  <code>2^ip_addr_shift</code>. Hence <code>last_ip_addr - first_ip_addr</code>
+  must be a multiple of <code>2^ip_addr_shift</code>. This option can be useful
+  in case of inter-UE communication to ensure that the IPv4 address of
+  a given UE is the only one in its netmask.
+</p>
+<span id="local_005fip_005fconfig"></span></dd>
+<dt><code>local_ip_config</code></dt>
+<dd><p>Object describing the IP allocation of the UP_IP_ADDRESS associated with a child Sa as defined in 3GPP TS 23.502.
+  Contains the following properties:
+  </p></dd>
+<dt><code>first_ip_addr</code></dt>
+<dd><p>String. First available IPv4 address.
+</p>
+</dd>
+<dt><code>last_ip_addr</code></dt>
+<dd><p>String. Last available IPv4 address.
+</p>
+</dd>
+<dt><code>ipv4_auto_increment</code></dt>
+<dd><p>Optional boolean (default = false). If set to false, the same IPv4 address is allocated
+  for successive UE connection/disconnection. If set to true, the IPv4 address
+  is incremented for UE connection/disconnection.
+</p>
+</dd>
+<dt><code>ip_addr_shift</code></dt>
+<dd><p>Optional integer (default = 0). The allocated IPv4 addresses are
+  allocated starting from <code>first_ip_addr</code> with a difference of
+  <code>2^ip_addr_shift</code>. Hence <code>last_ip_addr - first_ip_addr</code>
+  must be a multiple of <code>2^ip_addr_shift</code>. This option can be useful
+  in case of inter-UE communication to ensure that the IPv4 address of
+  a given UE is the only one in its netmask.
+</p>
+</dd>
+<dt><code>nas_ip_addr</code></dt>
+<dd><p>Optional string. Address of the local TCP server for NAS signalling.
+  If not present, the first IP of the subnet (See <a href="#local_005fip_005fconfig">local_ip_config</a>) will be used.
+</p>
+</dd>
+<dt><code>nwu</code></dt>
+<dd><p>Configuration of the NWu connection. This object contains the following properties:
+  </p><dl compact="compact">
+<dt><code>bind_addr</code></dt>
+<dd><p>IP address on which the NWu connection is bound.
+  </p></dd>
+<dt><code>private_key</code></dt>
+<dd><p>String. Defines the N3IWF private key filename.
+  </p></dd>
+<dt><code>certificate</code></dt>
+<dd><p>String. Defines the N3IWF certificate filename.
+  The default files n3iwf_private_key.pem and n3iwf_cert.pem are built for N3IWF FQDN &quot;n3iwf.5gc.mnc001.mcc001.pub.3gppnetwork.org&quot; following the procedure decribed below. For another N3IWF FQDN, these files shall be re-built by setting the FQDN in subjectAltName field.
+  Procedure to generate and check the private key file n3iwf_private_key.pem and the certificate file n3iwf_cert.pem:
+</p><pre class="verbatim">      openssl genrsa -out ca.key 2048
+      openssl req -new -x509 -days 365 -key ca.key -out ca.crt
+      openssl req -newkey rsa:2048 -nodes -keyout n3iwf_private_key.pem -out n3iwf_cert.pem
+      openssl x509 -req -extfile &lt;(printf &quot;subjectAltName=DNS:n3iwf.5gc.mnc001.mcc001.pub.3gppnetwork.org&quot;) -days 365 -in n3iwf_cert.pem -CA ca.crt -CAkey ca.key -CAcreateserial -out n3iwf_cert.pem
+      openssl x509 -in n3iwf_cert.pem -text
+      openssl rsa -in n3iwf_private_key.pem -text
+</pre></dd>
+<dt><code>esp_duration</code></dt>
+<dd><p>Optional integer in range 10 to 5*3600 (default = 300).
+  Gives the duration in seconds of the ESP-Sa.
+  </p></dd>
+<dt><code>ike_duration</code></dt>
+<dd><p>Optional integer in range 20 to 48*3600 (default = 24*3600).
+  Gives the duration in seconds of the IKE-Sa.
+  </p></dd>
+<dt><code>omit_auth_in_first_auth_rsp</code></dt>
+<dd><p>Optional boolean (default = false). If set, configures the N3IWF to not send the AUTH payload in the first IKE_AUTH exchange.
+  </p></dd>
+<dt><code>ike_encryption_algo_list</code></dt>
+<dd><p>Optional list of IKE-Sa supported encryption algorithms &quot;aes-cbc-128&quot; (AES CBC 128 bits key length), &quot;aes-cbc-192&quot; (AES CBC 192 bits key length), &quot;aes-cbc-256&quot; (AES CBC 256 bits key length), &quot;aes-gcm-128-16&quot; (AES GCM 128 bits key length and 16 bytes ICV), &quot;aes-gcm-256-16&quot; (AES GCM 256 bits key length and 16 bytes ICV), &quot;des&quot;, &quot;3des&quot;, &quot;blowfish&quot;, &quot;aes-ctr-128&quot; (AES CTR 128 bits key length), &quot;aes-ctr-192&quot; (AES CTR 192 bits key length), and aes-ctr-256 (AES CTR 256 bits key length) ordered from most preferred to least preferred.<br>
+  Default value is [&quot;aes-cbc-128&quot;, &quot;aes-cbc-192&quot;, &quot;aes-cbc-256&quot;, &quot;aes-gcm-128-16&quot;, &quot;aes-gcm-256-16&quot;, &quot;des&quot;, &quot;3des&quot;, &quot;blowfish&quot;, &quot;aes-ctr-128&quot;, &quot;aes-ctr-192&quot;, &quot;aes-ctr-256&quot;].
+  </p></dd>
+<dt><code>ike_integrity_algo_list</code></dt>
+<dd><p>Optional list of IKE-Sa supported integrity algorithms &quot;hmac-sha-1-96&quot;, &quot;hmac-sha-1-160&quot;, &quot;hmac-sha-256-128&quot;, &quot;hmac-sha-384-192&quot;, &quot;hmac-sha-512-256&quot;, &quot;hmac-md5-96&quot;, &quot;hmac-md5-128&quot; and &quot;aes-cmac-96&quot; ordered from most preferred to least preferred.<br>
+  Default value is [&quot;hmac-sha-1-96&quot;, &quot;hmac-sha-1-160&quot;, &quot;hmac-sha-256-128&quot;, &quot;hmac-sha-384-192&quot;, &quot;hmac-sha-512-256&quot;, &quot;hmac-md5-96&quot;, &quot;hmac-md5-128&quot;, &quot;aes-cmac-96&quot;];
+  </p></dd>
+<dt><code>ike_prf_list</code></dt>
+<dd><p>Optional list of IKE-Sa supported pseudo-random functions &quot;prf-hmac-sha1&quot;, &quot;prf-hmac-sha2-256&quot;, &quot;prf-hmac-sha2-384&quot;, &quot;prf-hmac-sha2-512&quot; and &quot;prf-hmac-md5&quot; ordered from most preferred to least preferred.<br>
+  Default value is [&quot;prf-hmac-sha1&quot;, &quot;prf-hmac-sha2-256&quot;, &quot;prf-hmac-sha2-384, &quot;prf-hmac-sha2-512&quot;, &quot;prf-hmac-md5&quot;].
+  </p></dd>
+<dt><code>ike_dh_group_list</code></dt>
+<dd><p>Optional list of IKE-Sa supported Diffie-Hellman groups &quot;group_1&quot;, &quot;group_2&quot;, &quot;group_5&quot;, &quot;group_14&quot;, &quot;group_15&quot;, &quot;group_16&quot;, &quot;group_17&quot;, &quot;group_18&quot;, &quot;group_19&quot;, &quot;group_22&quot;, &quot;group_23&quot; and &quot;group_24&quot; ordered from most preferred to least preferred.<br>
+  Default value is [&quot;group_5&quot;, &quot;group_14&quot;, &quot;group_15&quot;, &quot;group_16&quot;, &quot;group_17&quot;, &quot;group_18&quot;, &quot;group_19&quot;, &quot;group_22&quot;, &quot;group_23&quot;, &quot;group_24&quot;].
+  </p></dd>
+<dt><code>esp_encryption_algo_list</code></dt>
+<dd><p>Optional list of ESP-Sa supported encryption algorithms &quot;null&quot;, &quot;aes-cbc-128&quot; (AES CBC 128 bits key length), &quot;aes-cbc-192&quot; (AES CBC 192 bits key length), &quot;aes-cbc-256&quot; (AES CBC 256 bits key length), &quot;des&quot;, &quot;3des&quot;, &quot;blowfish&quot;, &quot;aes-ctr-128&quot; (AES CTR 128 bits key length), &quot;aes-ctr-192&quot; (AES CTR 192 bits key length), and aes-ctr-256 (AES CTR 256 bits key length) ordered from most preferred to least preferred.<br>
+  Default value is [&quot;null&quot;, &quot;aes-cbc-128&quot;, &quot;aes-cbc-192&quot;, &quot;aes-cbc-256&quot;, &quot;des&quot;, &quot;3des&quot;, &quot;blowfish&quot;, &quot;aes-ctr-128&quot;, &quot;aes-ctr-192&quot;, &quot;aes-ctr-256&quot;].
+  </p></dd>
+<dt><code>esp_integrity_algo_list</code></dt>
+<dd><p>Optional list of ESP-Sa supported integrity algorithms &quot;null&quot;, &quot;hmac-sha-1-96&quot;, &quot;hmac-sha-1-160&quot;, &quot;hmac-sha-256-128&quot;, &quot;hmac-sha-384-192&quot;, &quot;hmac-sha-512-256&quot;, &quot;hmac-md5-96&quot;, &quot;hmac-md5-128&quot; and &quot;aes-cmac-96&quot; ordered from most preferred to least preferred.<br>
+  Default value is [&quot;null&quot;, &quot;hmac-sha-1-96&quot;, &quot;hmac-sha-1-160&quot;, &quot;hmac-sha-256-128&quot;, &quot;hmac-sha-384-192&quot;, &quot;hmac-sha-512-256&quot;, &quot;hmac-md5-96&quot;, &quot;hmac-md5-128&quot;, &quot;aes-cmac-96&quot;].
+  </p></dd>
+<dt><code>esp_dh_group_list</code></dt>
+<dd><p>Optional list of ESP-Sa supported Diffie-Hellman groups &quot;none&quot;, &quot;group_1&quot;, &quot;group_2&quot;, &quot;group_5&quot;, &quot;group_14&quot;, &quot;group_15&quot;, &quot;group_16&quot;, &quot;group_17&quot;, &quot;group_18&quot;, &quot;group_19&quot;, &quot;group_22&quot;, &quot;group_23&quot; and &quot;group_24&quot; ordered from most preferred to least preferred.<br>
+  This list is used for rekeying ESP-Sa.
+  Default value is [&quot;none&quot;, &quot;group_5&quot;, &quot;group_14&quot;, &quot;group_15&quot;, &quot;group_16&quot;, &quot;group_17&quot;, &quot;group_18&quot;, &quot;group_19&quot;, &quot;group_22&quot;, &quot;group_23&quot;, &quot;group_24&quot;].
+  </p></dd>
+<dt><code>dpd_timer_value</code></dt>
+<dd><p>Optional integer in range 5 to 300 (default = 300).
+  Gives the &quot;dead peer detection&quot; timer value in seconds.
+  </p></dd>
+<dt><code>mobike</code></dt>
+<dd><p>Optional boolean (default = true). Indicates MOBIKE support.
+  </p></dd>
+<dt><code>dont_fragment</code></dt>
+<dd><p>Optional boolean (default = true) used to enable/disable the fragmentation of the ESP packets.
+  </p></dd>
+<dt><code>ike_generate_error</code></dt>
+<dd><p>Optional object. Allows to ignore a message or generate an error during the initial exchanges.<br>
+  It contains the following objects:
+  </p><dl compact="compact">
+<dt><code>exchange</code></dt>
+<dd><p>String. Gives the exchange to ignore or on which the error must be sent.
+  Possible values are &quot;none&quot;, &quot;ike_sa_init&quot;, &quot;ike_auth_step1&quot;, &quot;ike_auth_step2&quot;, &quot;ike_auth_step3&quot;, &quot;dpd&quot;.
+  </p></dd>
+<dt><code>error</code></dt>
+<dd><p>Optional integer.
+  Gives the value of &rsquo;Notify Message Type&rsquo; to send in the Notify payload rejecting the exchange.<br>
+  It present, the message received during the exchange will be rejected.<br>
+  If absent, the message received during the exchange will be ignored.
+  </p></dd>
+</dl>
+
+<p>Example:
+</p><pre class="verbatim">  ike_generate_error: {
+  error: 9002,
+  exchange: &quot;ike_auth_step1&quot;
+  }
+</pre>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<span id="Remote-API"></span><span id="Remote-API-1"></span><h2 class="chapter">5 Remote API</h2>
+
+<p>You can access LTEN3IWF via a remote API.<br>
+Protocol used is WebSocket as defined in RFC 6455
+(<a href="https://tools.ietf.org/html/rfc6455">https://tools.ietf.org/html/rfc6455</a>).<br>
+</p>
+<p>Note that Origin header is mandatory for the server to accept connections.<br>
+This behavior is determined by the use of <code>nopoll</code> library.<br>
+Any value will be accepted.
+</p>
+<span id="Messages"></span><h3 class="section">5.1 Messages</h3>
+
+<p>Messages exchanged between client and LTEN3IWF server are in strict JSON
+format.<br>
+</p>
+<p>Each message is represented by an object. Multiple message can be sent to
+server using an array of message objects.<br>
+</p>
+<p>Time and delay values are floating number in seconds.<br>
+</p>
+<p>There are 3 types of messages:
+</p>
+<ul>
+<li> Request
+
+<p>Message sent by client.<br>
+Common definition:
+</p>
+<!-- prop:request -->
+
+<dl compact="compact">
+<dt><code>message</code></dt>
+<dd><p>String. Represent type of message. This parameter is mandatory and depending
+  on its value, other parameters will apply.<br>
+</p>
+</dd>
+<dt><code>message_id</code></dt>
+<dd><p>Optional any type. If set, response sent by the server to this message will
+  have same message_id. This is used to identify response as WebSocket does not
+  provide such a concept.
+</p>
+</dd>
+<dt><code>start_time</code></dt>
+<dd><p>Optional float. Represent the delay before executing the message.<br>
+  If not set, the message is executed when received.<br>
+</p>
+</dd>
+<dt><code>absolute_time</code></dt>
+<dd><p>Optional boolean (default = false). If set, <code>start_time</code> is interpreted as absolute.<br>
+  You can get current clock of system using <code>time</code> member of any response.
+</p>
+</dd>
+<dt><code>standalone</code></dt>
+<dd><p>Optional boolean (default = false). If set, message will survive WebSocket disconnection,
+  else, if socket is disconnected before end of processing, the message will be cancelled.
+</p>
+<span id="loop_005fcount"></span></dd>
+<dt><code>loop_count</code></dt>
+<dd><p>Optional integer (default = 0, max = 1000000). If set, message will be repeated <code>loop_count</code> time(s)
+  after <code>loop_delay</code> (From message beginning of event).<br>
+  Response will have a <code>loop_index</code> to indicate iteration number.
+</p>
+<span id="loop_005fdelay"></span></dd>
+<dt><code>loop_delay</code></dt>
+<dd><p>Optional number (min = 0.1, max = 86400). Delay in seconds to repeat message from its <code>start_time</code>.
+  Mandatory when <code>loop_count</code> is set &gt; 0.
+</p>
+</dd>
+</dl>
+
+</li><li> Response
+
+<p>Message sent by server after any request message as been processed.<br>
+Common definition:
+</p>
+<!-- prop:response -->
+
+<dl compact="compact">
+<dt><code>message</code></dt>
+<dd><p>String. Same as request.
+</p>
+</dd>
+<dt><code>message_id</code></dt>
+<dd><p>Optional any type. Same as in request.
+</p>
+</dd>
+<dt><code>time</code></dt>
+<dd><p>Number representing time in seconds since start of the process.<br>
+  Usefull to send command with absolute time.
+</p>
+</dd>
+<dt><code>utc</code></dt>
+<dd><p>Number representing UTC seconds.
+</p>
+</dd>
+</dl>
+
+</li><li> Events
+
+<p>Message sent by server on its own initiative.<br>
+Common definition:
+</p>
+<!-- prop:event -->
+
+<dl compact="compact">
+<dt><code>message</code></dt>
+<dd><p>String. Event name.
+</p>
+</dd>
+<dt><code>time</code></dt>
+<dd><p>Number representing time in seconds.<br>
+  Usefull to send command with absolute time.
+</p>
+</dd>
+</dl>
+
+</li></ul>
+
+
+<span id="Remote-API-Startup"></span><span id="Startup"></span><h3 class="section">5.2 Startup</h3>
+
+
+<p>When WebSocket connections is setup, LTEN3IWF will send a first message with
+name set to <code>com_name</code> and type set to N3IWF.<br>
+</p>
+<p>If authentication is not set, message will be <code>ready</code>:
+</p>
+<div class="example">
+<pre class="example">{
+    &quot;message&quot;: &quot;ready&quot;,
+    &quot;type&quot;: &quot;N3IWF&quot;,
+    &quot;name&quot;: &lt;com_name&gt;,
+    &quot;version&quot;: &lt;software version&gt;,
+    &quot;product&quot;: &lt;Amarisoft product name (optional)&gt;
+}
+</pre></div>
+
+<p>If authentication is set, message will be <code>authenticate</code> :
+</p>
+<div class="example">
+<pre class="example">{
+    &quot;message&quot;: &quot;authenticate&quot;,
+    &quot;type&quot;: &quot;N3IWF&quot;,
+    &quot;name&quot;: &lt;com_name&gt;,
+    &quot;challenge&quot;: &lt;random challenge&gt;
+}
+</pre></div>
+
+<p>To authenticate, the client must answer with a <code>authenticate</code> message
+and a <code>res</code> parameter where:
+</p>
+<div class="example">
+<pre class="example">res = HMAC-SHA256( &quot;&lt;type&gt;:&lt;password&gt;:&lt;name&gt;&quot;, &quot;&lt;challenge&gt;&quot; )
+</pre></div>
+
+<p><code>res</code> is a string and HMAC-SHA256 refers to the standard algorithm
+(<a href="https://en.wikipedia.org/wiki/HMAC">https://en.wikipedia.org/wiki/HMAC</a>)
+</p>
+<p>If the authentication succeeds, the response will have a <code>ready</code> field
+set to <code>true</code>.
+</p>
+<div class="example">
+<pre class="example">{
+    &quot;message&quot;: &quot;authenticate&quot;,
+    &quot;message_id&quot;: &lt;message id&gt;,
+    &quot;ready&quot;: true
+}
+</pre></div>
+
+<p>If authentication fails, the response will have an <code>error</code> field and will
+provide a new challenge.
+</p>
+<div class="example">
+<pre class="example">{
+    &quot;message&quot;: &quot;authenticate&quot;,
+    &quot;message_id&quot;: &lt;message id&gt;,
+    &quot;error&quot;: &lt;error message&gt;,
+    &quot;type&quot;: &quot;N3IWF&quot;,
+    &quot;name: &lt;name&gt;,
+    &quot;challenge&quot;: &lt;new random challenge&gt;
+}
+</pre></div>
+
+
+<p>If any other message is sent before authentication succeeds,
+the error <code>&quot;Authentication not done&quot;</code> will be sent as a response.
+</p>
+
+<span id="Errors"></span><h3 class="section">5.3 Errors</h3>
+
+<p>If a message produces an error, response will have an error string field
+representing the error.
+</p>
+
+<span id="Sample-nodejs-program"></span><h3 class="section">5.4 Sample nodejs program</h3>
+
+<p>You will find in this documentation a sample program: <code>ws.js</code>.<br>
+It is located in <code>doc</code> subdirectory.<br>
+This is a nodejs program that allow to send message to LTEN3IWF.<br>
+It requires nodejs to be installed:
+</p><div class="example">
+<pre class="example">dnf install nodejs npm
+npm install nodejs-websocket
+</pre></div>
+
+<p>Use relevant package manager instead of NPM depending on your Linux distribution.<br>
+</p>
+<p>Then simply start it with server name and message you want to send:
+</p><div class="example">
+<pre class="example">./ws.js 127.0.0.1:9011 '{&quot;message&quot;: &quot;config_get&quot;}'
+</pre></div>
+
+
+<span id="Common-messages"></span><h3 class="section">5.5 Common messages</h3>
+
+<dl compact="compact">
+<dt><code>config_get</code></dt>
+<dd><p>Retrieve current config.<br>
+</p>
+<p>Response definition:
+    </p><dl compact="compact">
+<dt><code>type</code></dt>
+<dd><p>Always &quot;N3IWF&quot;
+</p>
+</dd>
+<dt><code>name</code></dt>
+<dd><p>String representing server name.
+</p>
+<span id="config_005fget-logs-member"></span></dd>
+<dt><code>logs</code></dt>
+<dd><p>Object representing log configuration.<br>
+      With following elements:
+        </p><dl compact="compact">
+<dt><code>layers</code></dt>
+<dd><p>Object. Each member of the object represent a log layer configuration:
+</p>
+<dl compact="compact">
+<dt><code>layer name</code></dt>
+<dd><p>Object. The member name represent log layer name and parameters are:
+</p>
+<dl compact="compact">
+<dt><code>level</code></dt>
+<dd><p>See <a href="#log_005foptions">log_options</a>
+                  </p></dd>
+<dt><code>max_size</code></dt>
+<dd><p>See <a href="#log_005foptions">log_options</a>
+                  </p></dd>
+<dt><code>key</code></dt>
+<dd><p>See <a href="#log_005foptions">log_options</a>
+                  </p></dd>
+<dt><code>crypto</code></dt>
+<dd><p>See <a href="#log_005foptions">log_options</a>
+                  </p></dd>
+<dt><code>payload</code></dt>
+<dd><p>See <a href="#log_005foptions">log_options</a>
+                  </p></dd>
+<dt><code>verbose</code></dt>
+<dd><p>Optional boolean. See <a href="#log_005foptions">log_options</a>
+                </p></dd>
+</dl>
+
+</dd>
+</dl>
+
+</dd>
+<dt><code>count</code></dt>
+<dd><p>Number. Number of bufferizer logs.
+</p>
+</dd>
+<dt><code>rotate</code></dt>
+<dd><p>Optional number. Max log file size before rotation.
+</p>
+</dd>
+<dt><code>path</code></dt>
+<dd><p>Optional string. Log rotation path.
+</p>
+</dd>
+<dt><code>bcch</code></dt>
+<dd><p>Boolean. True if BCCH dump is enabled (eNB only).
+</p>
+</dd>
+<dt><code>mib</code></dt>
+<dd><p>Boolean. True if MIB dump is enabled (eNB only).
+        </p></dd>
+</dl>
+
+</dd>
+<dt><code>locked</code></dt>
+<dd><p>Optional boolean. If <code>true</code>, logs configuration can&rsquo;t be changed
+      with <code>config_set</code> API.
+</p>
+
+</dd>
+</dl>
+
+</dd>
+<dt><code>config_set</code></dt>
+<dd><p>Change current config.<br>
+  Each member is optional.<br>
+  Message definition:
+    </p><dl compact="compact">
+<dt><code>logs</code></dt>
+<dd><p>Optional object. Represent logs configuration. Same structure as config_get (See <a href="#config_005fget-logs-member">config_get logs member</a>).<br>
+      All elements are optional.<br>
+      Layer name can be set to <code>all</code> to set same configuration for all layers.<br>
+      If set and logs are locked, response will have <code>logs</code> property set to <code>locked</code>.
+</p>
+</dd>
+<dt><code>nwu</code></dt>
+<dd><p>Optional object allowing to configure N3IWF options.
+It may contain the following object:
+  </p><dl compact="compact">
+<dt><code>esp_duration</code></dt>
+<dd><p>Optional integer in range 10 to 5*3600 (default = 300).
+    Gives the duration in seconds of the ESP-Sa.
+   </p></dd>
+<dt><code>ike_duration</code></dt>
+<dd><p>Optional integer in range 20 to 48*3600 (default = 24*3600).
+    Gives the duration in seconds of the IKE-Sa.
+   </p></dd>
+<dt><code>mobike</code></dt>
+<dd><p>Optional boolean. Indicates MOBIKE support. 
+   </p></dd>
+<dt><code>dont_fragment</code></dt>
+<dd><p>Optional boolean used to enable/disable the fragmentation of the ESP packets.
+   </p></dd>
+<dt><code>ike_generate_error</code></dt>
+<dd><p>Optional object. Allows to ignore a message or generate an error during the initial exchanges.<br>
+    It contains the following objects:
+     </p><dl compact="compact">
+<dt><code>exchange</code></dt>
+<dd><p>String. Gives the exchange to ignore or on which the error must be sent.
+     Possible values are &quot;none&quot;, &quot;ike_sa_init&quot;, &quot;ike_auth_step1&quot;, &quot;ike_auth_step2&quot;, &quot;ike_auth_step3&quot;.
+     </p></dd>
+<dt><code>error</code></dt>
+<dd><p>Optional integer.
+     Gives the value of &rsquo;Notify Message Type&rsquo; to send in the Notify payload rejecting the exchange.<br>
+     It present, the message received during the exchange will be rejected.<br>
+     If absent, the message received during the exchange will be ignored.
+     </p></dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+</dd>
+<dt><code>log_get</code></dt>
+<dd><p>Get logs.<br>
+  This API has a per connection behavior. This means that the response will depend on previous calls
+  to this API within the same WebSocket connection.<br>
+  In practice, logs that have been provided in a response won&rsquo;t be part of subsequent request unless
+  connection is reestablished. To keep on receiving logs, client should send a new <code>log_get</code> request
+  as soon as the previous response has been received.<br>
+  If a request is sent before previous request has been replied, previous request will be replied right now
+  without considering specific min/max/timeout conditions.
+</p>
+<p>Message definition:
+    </p><dl compact="compact">
+<dt><code>min</code></dt>
+<dd><p>Optional number (default = 1). Minimum amount of logs to retrieve.<br>
+      Response won&rsquo;t be sent until this limit is reached (Unless timeout occurs).
+</p>
+</dd>
+<dt><code>max</code></dt>
+<dd><p>Optional number (default = 4096). Maximum logs sent in a response.
+</p>
+</dd>
+<dt><code>timeout</code></dt>
+<dd><p>Optional number (default = 1). If at least 1 log is available and no
+      more logs have been generated for this time, response will be sent.
+</p>
+</dd>
+<dt><code>allow_empty</code></dt>
+<dd><p>Optional boolean (default = false). If set, response will be sent after timeout,
+      event if no logs are available.
+</p>
+</dd>
+<dt><code>rnti</code></dt>
+<dd><p>Optional number. If set, send only logs matching rnti.
+</p>
+</dd>
+<dt><code>ue_id</code></dt>
+<dd><p>Optional number. If set, send only logs with matching ue_id.
+</p>
+</dd>
+<dt><code>layers</code></dt>
+<dd><p>Optional Object. Each member name represents a log layer and values must be
+      string representing maximum level. See <a href="#log_005foptions">log_options</a>.<br>
+      If <var>layers</var> is not set, all layers level will be set to <var>debug</var>,
+      else it will be set to <var>none</var>.<br>
+      Note also the logs is also limited by general log level. See <a href="#log_005foptions">log_options</a>.<br>
+</p>
+</dd>
+<dt><code>short</code></dt>
+<dd><p>Optional boolean (default = false). If set, only first line of logs will be dumped.
+</p>
+</dd>
+<dt><code>headers</code></dt>
+<dd><p>Optional boolean. If set, send log file headers.
+</p>
+</dd>
+<dt><code>start_timestamp</code></dt>
+<dd><p>Optional number. Is set, filter logs older than this value in milliseconds.
+</p>
+</dd>
+<dt><code>end_timestamp</code></dt>
+<dd><p>Optional number. Is set, filter logs more recent than this value in milliseconds.
+</p>
+</dd>
+<dt><code>max_size</code></dt>
+<dd><p>Optional number (default = 1048576, i.e. 1MB). Maximum size in bytes of the generated
+      JSON message. If the response exceeds this size, the sending of logs will be
+      forced independently from other parameters.
+</p>
+</dd>
+</dl>
+
+<p>Response definition:
+    </p><dl compact="compact">
+<dt><code>logs</code></dt>
+<dd><p>Array. List of logs. Each item is a an object with following members:
+        </p><dl compact="compact">
+<dt><code>data</code></dt>
+<dd><p>Array. Each item is a string representing a line of log.
+</p>
+</dd>
+<dt><code>timestamp</code></dt>
+<dd><p>Number. Milliseconds since January 1st 1970. Not present if <code>com_log_us</code> is set in configuration.<br>
+</p>
+</dd>
+<dt><code>timestamp_us</code></dt>
+<dd><p>Number. Microseconds since January 1st 1970. Only present if <code>com_log_us</code> is set in configuration.<br>
+</p>
+</dd>
+<dt><code>layer</code></dt>
+<dd><p>String. Log layer.
+</p>
+</dd>
+<dt><code>level</code></dt>
+<dd><p>String. Log level: <var>error</var>, <var>warn</var>, <var>info</var> or <var>debug</var>.
+</p>
+</dd>
+<dt><code>dir</code></dt>
+<dd><p>Optional string. Log direction: <var>UL</var>, <var>DL</var>, <var>FROM</var> or <var>TO</var>.
+</p>
+</dd>
+<dt><code>ue_id</code></dt>
+<dd><p>Optional number. UE_ID.
+</p>
+</dd>
+<dt><code>cell</code></dt>
+<dd><p>Optional number (only for PHY layer logs). Cell ID.
+</p>
+</dd>
+<dt><code>rnti</code></dt>
+<dd><p>Optional number (only for PHY layer logs). RNTI.
+</p>
+</dd>
+<dt><code>frame</code></dt>
+<dd><p>Optional number (only for PHY layer logs). Frame number (Subframe is decimal part).
+</p>
+</dd>
+<dt><code>channel</code></dt>
+<dd><p>Optional string (only for PHY layer logs). Channel name.
+</p>
+</dd>
+<dt><code>src</code></dt>
+<dd><p>String. Server name.
+</p>
+</dd>
+<dt><code>idx</code></dt>
+<dd><p>Integer. Log index.
+</p>
+</dd>
+<dt><code>headers</code></dt>
+<dd><p>Optional array. Array of strings.
+</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>discontinuity</code></dt>
+<dd><p>Optional number. If set, this means some logs have been discarded due to log buffer overflow.
+</p>
+</dd>
+<dt><code>microseconds</code></dt>
+<dd><p>Optional boolean. Present and set to true if <code>com_log_us</code> is set in configuration file.
+    </p></dd>
+</dl>
+
+</dd>
+<dt><code>log_set</code></dt>
+<dd><p>Add log.<br>
+  Message definition:
+    </p><dl compact="compact">
+<dt><code>log</code></dt>
+<dd><p>Optional string. Log message to add. If set, <var>layer</var> and <var>level</var> are mandatory.
+</p>
+</dd>
+<dt><code>layer</code></dt>
+<dd><p>String. Layer name. Only mandatory if <var>log</var> is set.
+</p>
+</dd>
+<dt><code>level</code></dt>
+<dd><p>String. Log level: <var>error</var>, <var>warn</var>, <var>info</var> or <var>debug</var>. Only mandatory if <var>log</var> is set.
+</p>
+</dd>
+<dt><code>dir</code></dt>
+<dd><p>Optional string. Log direction: <var>UL</var>, <var>DL</var>, <var>FROM</var> or <var>TO</var>.
+</p>
+</dd>
+<dt><code>ue_id</code></dt>
+<dd><p>Optional number. UE_ID.
+</p>
+</dd>
+<dt><code>flush</code></dt>
+<dd><p>Optional boolean (default = false). If set, flushes fog file.
+</p>
+</dd>
+<dt><code>rotate</code></dt>
+<dd><p>Optional boolean (default = false). If set, forces log file rotation.
+</p>
+</dd>
+<dt><code>cut</code></dt>
+<dd><p>Optional boolean (default = false). If set, forces log file reset.
+</p>
+</dd>
+</dl>
+
+
+</dd>
+<dt><code>log_reset</code></dt>
+<dd><p>Resets logs buffer.
+</p>
+</dd>
+<dt><code>license</code></dt>
+<dd><p>Retrieves license file information.
+</p>
+</dd>
+<dt><code>quit</code></dt>
+<dd><p>Terminates lten3iwf.
+</p>
+</dd>
+<dt><code>help</code></dt>
+<dd><p>Provides list of available messages in <var>messages</var> array of strings
+  and events to register in <var>events</var> array of strings.<br>
+</p>
+</dd>
+<dt><code>stats</code></dt>
+<dd><p>Report statistics for LTEN3IWF.<br>
+  Every time this message is received by server, statistics are reset.<br>
+  Warning, calling this message from multiple connections simultaneously will modify the
+  statistics sampling time.
+</p>
+
+<p>Response definition:
+    </p><dl compact="compact">
+<dt><code>cpu</code></dt>
+<dd><p>Object. Each member name defines a type and its value cpu load in % of one core.
+</p>
+</dd>
+<dt><code>instance_id</code></dt>
+<dd><p>Number. Constant over process lifetime. Changes on process restart.
+</p>
+
+
+</dd>
+</dl>
+
+
+</dd>
+<dt><code>ipsec</code></dt>
+<dd><p>Report ipsec SAs.<br>
+</p>  
+
+<p>Response definition:
+    </p><dl compact="compact">
+<dt><code>SAs</code></dt>
+<dd><p>Array. List of object representing a security association witth following definition:
+</p>
+<dl compact="compact">
+<dt><code>type</code></dt>
+<dd><p>String. IP version, can be <code>IPv4</code> or <code>IPv6</code>.
+        </p></dd>
+<dt><code>dir</code></dt>
+<dd><p>String. Direction, can be <code>in</code> or <code>out</code>.
+        </p></dd>
+<dt><code>spi</code></dt>
+<dd><p>Number. SPI.
+        </p></dd>
+<dt><code>ue_id</code></dt>
+<dd><p>Number. Associated <code>ue_id</code>.
+        </p></dd>
+<dt><code>mode</code></dt>
+<dd><p>String. ESP type, can be <code>tunnel</code> or <code>transport</code>
+        </p></dd>
+<dt><code>src</code></dt>
+<dd><p>String. Source IP address.
+        </p></dd>
+<dt><code>dst</code></dt>
+<dd><p>String. Destination IP address.
+        </p></dd>
+<dt><code>tun_src</code></dt>
+<dd><p>Optional string. Tunnel source IP address.
+        </p></dd>
+<dt><code>tun_dst</code></dt>
+<dd><p>Optional string. Tunnel destination IP address.
+        </p></dd>
+<dt><code>src_prefix</code></dt>
+<dd><p>Number. Source network prefix.
+        </p></dd>
+<dt><code>dst_prefix</code></dt>
+<dd><p>Number. Destination network prefix.
+        </p></dd>
+<dt><code>authent_key</code></dt>
+<dd><p>String. Authentication key in hexadecimal form (Empty string authentication is disabled).
+        </p></dd>
+<dt><code>cipher_key</code></dt>
+<dd><p>String. Ciphering key in hexadecimal form (Empty string ciphering is disabled).
+      </p></dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+
+
+
+<span id="N3IWF-messages"></span><span id="N3IWF-messages-1"></span><h3 class="section">5.6 N3IWF messages</h3>
+
+<dl compact="compact">
+<dt><code>ng</code></dt>
+<dd><p>Get AMF link state.<br>
+  Response definition:
+    </p><dl compact="compact">
+<dt><code>ng_list</code></dt>
+<dd><p>Array of object. One for each AMF connection defined as follow:
+      </p><dl compact="compact">
+<dt><code>state</code></dt>
+<dd><p>Link state: <var>disconnected</var>, <var>connecting</var>, <var>connected</var>, <var>inactive</var> or <var>setup_done</var>.
+        </p></dd>
+<dt><code>address</code></dt>
+<dd><p>AMF address.
+        </p></dd>
+<dt><code>name</code></dt>
+<dd><p>AMF name.
+        </p></dd>
+<dt><code>PLMN</code></dt>
+<dd><p>If connection complete, PLMN.
+      </p></dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+<dt><code>ngconnect</code></dt>
+<dd><p>Forces connection to an AMF.<br>
+  Message definition
+    </p><dl compact="compact">
+<dt><code>address</code></dt>
+<dd><p>Optional string. If not set, will try to connect to
+      all registered AMF, else will try with the specified
+      address.
+    </p></dd>
+</dl>
+
+</dd>
+<dt><code>ngdisconnect</code></dt>
+<dd><p>Forces disconnection from an AMF.<br>
+  Message definition
+    </p><dl compact="compact">
+<dt><code>address</code></dt>
+<dd><p>Optional string. If not set, will to disconnect from
+      all registered AMF, else will try with the specified
+      address.
+    </p></dd>
+</dl>
+
+</dd>
+<dt><code>ngadd</code></dt>
+<dd><p>Adds a new AMF to the list of NGAP connections.<br>
+  Message definition<br>
+  The message must contain the same parameters as one of the object
+  defined in amf_list array. See <a href="#amf_005flist">amf_list</a>.
+</p>
+</dd>
+<dt><code>ngdelete</code></dt>
+<dd><p>Removes a AMF address from the list of NGAP connections.<br>
+  Message definition
+    </p><dl compact="compact">
+<dt><code>addr</code></dt>
+<dd><p>String. AMF address to be removed from the list.
+    </p></dd>
+</dl>
+
+</dd>
+<dt><code>ue_ctx_rel</code></dt>
+<dd><p>Forces a UE context release.<br>
+  Message definition:
+    </p><dl compact="compact">
+<dt><code>ran_ue_id</code></dt>
+<dd><p>Integer. RAN UE id.
+    </p></dd>
+</dl>
+</dd>
+</dl>
+
+<span id="Log-file-format"></span><span id="Log-file-format-1"></span><h2 class="chapter">6 Log file format</h2>
+
+<span id="NAS-layer"></span><h3 class="section">6.1 NAS layer</h3>
+
+<p>When a NAS message is dumped, the format is:
+</p><div class="example">
+<pre class="example">time layer - message
+</pre></div>
+
+<p>When a NAS data PDU is dumped (debug level), the format is:
+</p><div class="example">
+<pre class="example">time layer dir MME_UE_ID message_type
+        long_content
+</pre></div>
+
+<dl compact="compact">
+<dt><code>time</code></dt>
+<dd><p>Time using the selected format
+</p></dd>
+<dt><code>layer</code></dt>
+<dd><p>Indicate the layer (<code>[NAS]</code> here).
+</p></dd>
+<dt><code>dir</code></dt>
+<dd><p>UL (uplink) or DL (downlink).
+</p></dd>
+<dt><code>MME_UE_ID</code></dt>
+<dd><p>MME S1AP UE identifier (hexadecimal).
+</p></dd>
+<dt><code>message_type</code></dt>
+<dd><p>NAS message type.
+</p></dd>
+<dt><code>long_content</code></dt>
+<dd><p>Full content of the NAS message if <code>nas.max_size &gt; 0</code>.
+</p></dd>
+</dl>
+
+<span id="IP-layer"></span><h3 class="section">6.2 IP layer</h3>
+
+<p>When a IP data PDU is dumped (debug level), the format is:
+</p><div class="example">
+<pre class="example">time layer dir short_content
+        long_content
+</pre></div>
+
+<dl compact="compact">
+<dt><code>time</code></dt>
+<dd><p>Time using the selected format
+</p></dd>
+<dt><code>layer</code></dt>
+<dd><p>Indicate the layer (<code>[IP]</code> here).
+</p></dd>
+<dt><code>dir</code></dt>
+<dd><p>UL (uplink) or DL (downlink).
+</p></dd>
+<dt><code>short_content</code></dt>
+<dd><p>Single line content (at least the IP protocol and the source and destination address).
+</p></dd>
+<dt><code>long_content</code></dt>
+<dd><p>Optional hexadecimal dump of the PDU if <code>ip.max_size &gt; 0</code>.
+</p></dd>
+</dl>
+
+<span id="NGAP-and-GTP_002dU-layers"></span><h3 class="section">6.3 NGAP and GTP-U layers</h3>
+
+<p>When a message is dumped, the format is:
+</p><div class="example">
+<pre class="example">time layer - message
+</pre></div>
+
+<p>When a data PDU is dumped (debug level), the format is:
+</p><div class="example">
+<pre class="example">time layer dir ip_address short_content
+        long_content
+</pre></div>
+
+<dl compact="compact">
+<dt><code>time</code></dt>
+<dd><p>Time using the selected format.
+</p></dd>
+<dt><code>layer</code></dt>
+<dd><p>Indicate the layer (<code>[NGAP]</code> or <code>[GTPU]</code> here).
+</p></dd>
+<dt><code>dir</code></dt>
+<dd><p>Direction: <code>TO</code> or <code>FROM</code>.
+</p></dd>
+<dt><code>ip_address</code></dt>
+<dd><p>source or destination IP address, depending on the <code>dir</code> field.
+</p></dd>
+<dt><code>short_content</code></dt>
+<dd><p>Single line content.
+</p></dd>
+<dt><code>long_content</code></dt>
+<dd><ul>
+<li> NGAP: full ASN.1 content of the message if <code>layer.max_size &gt; 0</code>.
+  </li><li> GTPU: hexadecimal dump of the message if <code>layer.max_size &gt; 0</code>.
+  </li></ul>
+</dd>
+</dl>
+
+
+<span id="Change-history"></span><h2 class="chapter">7 Change history</h2>
+
+
+<span id="Version-2024_002d12_002d13"></span><h3 class="section">7.1 Version 2024-12-13</h3>
+
+<ul>
+<li> NGAP ASN.1 is updated to v18.3.0
+</li></ul>
+
+<span id="Version-2024_002d09_002d13"></span><h3 class="section">7.2 Version 2024-09-13</h3>
+
+<ul>
+<li> added <code>license</code> remote API
+</li><li> <code>mobike</code> parameter is added in <code>nwu</code> object and <code>config_set</code> remote API
+</li><li> <code>dont_fragment</code> parameter is added to <code>nwu</code> configuration object and <code>config_set</code> remote API
+</li><li> <code>encr-null-auth-aes-gmac-128</code>, <code>encr-null-auth-aes-gmac-192</code> and <code>encr-null-auth-aes-gmac-256</code> values are added to <code>esp_encryption_algo_list</code>
+</li><li> <code>com_logs_lock</code> parameter is renamed to <code>com_log_lock</code>. <code>com_logs_lock</code> is still supported for backward compatibility
+</li><li> added <code>com_log_us</code> parameter
+</li></ul>
+
+<span id="Version-2024_002d06_002d14"></span><h3 class="section">7.3 Version 2024-06-14</h3>
+
+<ul>
+<li> OpenSSL library is upgraded to 1.1.1w
+</li><li> added <code>backup_amf_addr</code> and <code>priority</code> parameters to <code>amf_list</code> object
+</li></ul>
+
+<span id="Version-2024_002d03_002d15"></span><h3 class="section">7.4 Version 2024-03-15</h3>
+
+<ul>
+<li> added MOBIKE support
+</li><li> added more remote APIs documentation
+</li><li> added AMF name to <code>ng</code> monitor command
+</li></ul>
+
+<span id="Version-2023_002d12_002d15"></span><h3 class="section">7.5 Version 2023-12-15</h3>
+
+<ul>
+<li> added <code>loop_count</code> and <code>loop_delay</code> to remote API messages
+</li><li> added <code>sim_events</code>, <code>sim_events_loop_count</code> and <code>sim_events_loop_delay</code>
+</li><li> added <code>com_ssl_ca</code> parameter for SSL verification
+</li></ul>
+
+<span id="Version-2023_002d09_002d08"></span><h3 class="section">7.6 Version 2023-09-08</h3>
+
+<ul>
+<li> NGAP ASN.1 is updated to v17.5.0
+</li><li> <code>gtp_use_packet_bundling</code> parameter is added for GTP-U PDUs bundling support
+</li><li> <code>ipsec</code> remote API added
+</li></ul>
+
+<span id="Version-2023_002d06_002d10"></span><h3 class="section">7.7 Version 2023-06-10</h3>
+
+<ul>
+<li> NGAP ASN.1 is updated to v17.4.0
+</li><li> <code>com_logs_lock</code> parameter added to disable logs configuration change via remote API
+</li></ul>
+
+<span id="Version-2023_002d03_002d17"></span><h3 class="section">7.8 Version 2023-03-17</h3>
+
+<ul>
+<li> <code>com_addr</code> parameter now uses [::] address instead of 0.0.0.0 in the delivered configuration file to allow IPv6 connection
+</li></ul>
+
+<span id="Version-2022_002d12_002d16"></span><h3 class="section">7.9 Version 2022-12-16</h3>
+
+<ul>
+<li> NGAP ASN.1 is updated to v17.2.0
+</li><li> added new IKE-Sa and ESP-Sa algorithms
+</li><li> added <code>snpn</code> parameter to <code>plmn_list</code> object for NPN support
+</li><li> added <code>dpd</code> value to <code>exchange</code> parameter
+</li><li> added <code>utc</code> parameter to remote API response messages
+</li></ul>
+
+<span id="Version-2022_002d09_002d16"></span><h3 class="section">7.10 Version 2022-09-16</h3>
+
+<ul>
+<li> &quot;ipsec debug&quot; monitor is now deprecated. Set ipsec.verbose to 1 in log configuration
+</li><li> added <code>dpd_timer_value</code> parameter
+</li></ul>
+
+<span id="Version-2022_002d06_002d17"></span><h3 class="section">7.11 Version 2022-06-17</h3>
+
+<ul>
+<li> OpenSSL library is upgraded to 1.1.1n
+</li><li> added new IKE-Sa and ESP-Sa algorithms and groups
+</li><li> added <code>start_timestamp</code> and <code>end_timestamp</code> to <code>log_get</code> API
+</li><li> added <code>ike_duration</code> parameter
+</li><li> <code>esp_duration</code> and <code>ike_duration</code> parameters can be changed with <code>config_set</code> API
+</li></ul>
+
+<span id="Version-2022_002d03_002d18"></span><h3 class="section">7.12 Version 2022-03-18</h3>
+
+<ul>
+<li> <code>ike_generate_error</code> configuration object is added
+</li><li> added NAT traversal support
+</li></ul>
+
+<span id="Version-2021_002d12_002d17"></span><h3 class="section">7.13 Version 2021-12-17</h3>
+
+<ul>
+<li> <code>ike_encryption_algo_list</code>, <code>ike_integrity_algo_list</code>, <code>ike_prf_list</code>, <code>ike_dh_group_list</code>, <code>esp_encryption_algo_list</code>,
+<code>esp_integrity_algo_list</code> and <code>esp_dh_group_list</code> parameters are added to make the list of N3IWF supported algorithms configurable
+</li><li> <code>license</code> monitor command is added
+</li></ul>
+
+<span id="Version-2021_002d09_002d17"></span><h3 class="section">7.14 Version 2021-09-17</h3>
+
+<ul>
+<li> Initial release
+</li></ul>
+
+<span id="License"></span><h2 class="chapter">8 License</h2>
+
+<p><code>lten3iwf</code> is copyright (C) 2012-2024 Amarisoft. Its redistribution
+without authorization is prohibited.
+</p>
+<p><code>lten3iwf</code> is available without any express or implied warranty. In
+no event will Amarisoft be held liable for any damages arising from
+the use of this software.
+</p>
+<p>For more information on licensing, please refer to <code>license.pdf</code> file.
+</p>
+
+
+<hr>
+
+
+
+</body>
+</html>

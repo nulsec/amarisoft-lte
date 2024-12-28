@@ -1,0 +1,1737 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.6, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>UE Simulator E User guide</title>
+
+<meta name="description" content="UE Simulator E User guide">
+<meta name="keywords" content="UE Simulator E User guide">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+
+th {
+    border: 1px solid black;
+    background-color: #c0f585;
+    font-size: 14px;
+    padding: 5px;
+}
+
+td {
+    border: 1px solid black;
+    padding: 2px 4px;
+}
+
+p>img {
+    display: initial;
+}
+
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">UE Simulator E User guide</h1>
+
+
+<span id="SEC_Contents"></span>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+<ul class="no-bullet">
+<li><a id="toc-Introduction" href="#Introduction">1 Introduction</a></li>
+<li><a id="toc-Product-capabilities" href="#Product-capabilities">2 Product capabilities</a></li>
+<li><a id="toc-Hardware-setup" href="#Hardware-setup">3 Hardware setup</a>
+<ul class="no-bullet">
+  <li><a id="toc-Power-supply" href="#Power-supply">3.1 Power supply</a></li>
+  <li><a id="toc-RF-connection" href="#RF-connection">3.2 RF connection</a>
+  <ul class="no-bullet">
+    <li><a id="toc-RF-connection-for-one-cell-4G-or-5G-SA-_002d-2x2-MIMO-in-FDD-mode" href="#RF-connection-for-one-cell-4G-or-5G-SA-_002d-2x2-MIMO-in-FDD-mode">3.2.1 RF connection for one cell 4G or 5G SA - 2x2 MIMO in FDD mode</a></li>
+    <li><a id="toc-RF-connection-for-one-cell-4G-or-5G-SA-_002d-2x2-MIMO-in-TDD-mode" href="#RF-connection-for-one-cell-4G-or-5G-SA-_002d-2x2-MIMO-in-TDD-mode">3.2.2 RF connection for one cell 4G or 5G SA - 2x2 MIMO in TDD mode</a></li>
+    <li><a id="toc-RF-connection-for-one-cell-4G-or-5G-SA-_002d-4x4-MIMO-in-FDD-mode" href="#RF-connection-for-one-cell-4G-or-5G-SA-_002d-4x4-MIMO-in-FDD-mode">3.2.3 RF connection for one cell 4G or 5G SA - 4x4 MIMO in FDD mode</a></li>
+    <li><a id="toc-RF-connection-for-NSA-cell" href="#RF-connection-for-NSA-cell">3.2.4 RF connection for NSA cell</a></li>
+    <li><a id="toc-RF-connection-for-four-carriers-MIMO-2x2-in-FDD-mode" href="#RF-connection-for-four-carriers-MIMO-2x2-in-FDD-mode">3.2.5 RF connection for four carriers MIMO 2x2 in FDD mode</a></li>
+  </ul></li>
+</ul></li>
+<li><a id="toc-Connection-to-AMARI-UE-Simbox" href="#Connection-to-AMARI-UE-Simbox">4 Connection to AMARI UE Simbox</a>
+<ul class="no-bullet">
+  <li><a id="toc-Connect-your-Simbox-to-the-local-network" href="#Connect-your-Simbox-to-the-local-network">4.1 Connect your Simbox to the local network</a></li>
+  <li><a id="toc-Login" href="#Login">4.2 Login</a></li>
+  <li><a id="toc-Web-GUI" href="#Web-GUI">4.3 Web GUI</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Set-a-password" href="#Set-a-password">4.3.1 Set a password</a></li>
+  </ul></li>
+</ul></li>
+<li><a id="toc-LTE-service" href="#LTE-service">5 LTE service</a>
+<ul class="no-bullet">
+  <li><a id="toc-Manage-LTE-automatic-service" href="#Manage-LTE-automatic-service">5.1 Manage LTE automatic service</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Status" href="#Status">5.1.1 Status</a></li>
+    <li><a id="toc-Stop" href="#Stop">5.1.2 Stop</a></li>
+    <li><a id="toc-Start" href="#Start">5.1.3 Start</a></li>
+    <li><a id="toc-Disable" href="#Disable">5.1.4 Disable</a></li>
+    <li><a id="toc-Enable" href="#Enable">5.1.5 Enable</a></li>
+  </ul></li>
+</ul></li>
+<li><a id="toc-Initial-setting" href="#Initial-setting">6 Initial setting</a>
+<ul class="no-bullet">
+  <li><a id="toc-Selection-of-configuration-file" href="#Selection-of-configuration-file">6.1 Selection of configuration file</a></li>
+  <li><a id="toc-Frequency-and-bandwidth-configuration" href="#Frequency-and-bandwidth-configuration">6.2 Frequency and bandwidth configuration</a></li>
+  <li><a id="toc-Multiple-cells-configuration" href="#Multiple-cells-configuration">6.3 Multiple cells configuration</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Example-_003a-2-LTE-cells-from-two-different-eNodeB" href="#Example-_003a-2-LTE-cells-from-two-different-eNodeB">6.3.1 Example : 2 LTE cells from two different eNodeB</a></li>
+    <li><a id="toc-Example-_003a-2-LTE-cells-from-same-eNodeB" href="#Example-_003a-2-LTE-cells-from-same-eNodeB">6.3.2 Example : 2 LTE cells from same eNodeB</a></li>
+    <li><a id="toc-Example-_003a-1-LTE-and-1-NR-cell-_0028NSA-mode_0029" href="#Example-_003a-1-LTE-and-1-NR-cell-_0028NSA-mode_0029">6.3.3 Example : 1 LTE and 1 NR cell (NSA mode)</a></li>
+  </ul></li>
+  <li><a id="toc-TX_002fRX-gain-setting" href="#TX_002fRX-gain-setting">6.4 TX/RX gain setting</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Wired-test" href="#Wired-test">6.4.1 Wired test</a></li>
+    <li><a id="toc-Wireless-test" href="#Wireless-test">6.4.2 Wireless test</a></li>
+  </ul></li>
+  <li><a id="toc-Multiple-UE-mode-and-timing-advance" href="#Multiple-UE-mode-and-timing-advance">6.5 Multiple UE mode and timing advance</a></li>
+  <li><a id="toc-Reload-config-files" href="#Reload-config-files">6.6 Reload config files</a></li>
+</ul></li>
+<li><a id="toc-Create-scenario-using-WebGui" href="#Create-scenario-using-WebGui">7 Create scenario using WebGui</a>
+<ul class="no-bullet">
+  <li><a id="toc-Configuration" href="#Configuration">7.1 Configuration</a></li>
+  <li><a id="toc-Create-scenario" href="#Create-scenario">7.2 Create scenario</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Create-UEs-tab" href="#Create-UEs-tab">7.2.1 Create UEs tab</a></li>
+    <li><a id="toc-PDN-tab-1" href="#PDN-tab-1">7.2.2 PDN tab</a></li>
+    <li><a id="toc-Channel-simulation-tab" href="#Channel-simulation-tab">7.2.3 Channel simulation tab</a></li>
+    <li><a id="toc-Power-on_002foff-tab" href="#Power-on_002foff-tab">7.2.4 Power on/off tab</a></li>
+    <li><a id="toc-Simulations-tab-1" href="#Simulations-tab-1">7.2.5 Simulations tab</a></li>
+  </ul></li>
+  <li><a id="toc-Export-scenario" href="#Export-scenario">7.3 Export scenario</a></li>
+</ul></li>
+<li><a id="toc-Run-UE-scenarios-with-WebGui" href="#Run-UE-scenarios-with-WebGui">8 Run UE scenarios with WebGui</a>
+<ul class="no-bullet">
+  <li><a id="toc-UE-simulator-tab" href="#UE-simulator-tab">8.1 UE simulator tab</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Actions-buttons" href="#Actions-buttons">8.1.1 Actions buttons</a></li>
+    <li><a id="toc-UE-list" href="#UE-list">8.1.2 UE list</a></li>
+    <li><a id="toc-Statistics" href="#Statistics">8.1.3 Statistics</a></li>
+  </ul></li>
+  <li><a id="toc-Scenario-example" href="#Scenario-example">8.2 Scenario example</a></li>
+  <li><a id="toc-Executing-scenario-tab" href="#Executing-scenario-tab">8.3 Executing scenario tab</a></li>
+  <li><a id="toc-Example" href="#Example">8.4 Example</a></li>
+</ul></li>
+<li><a id="toc-Create-scenario-without-WebGui-1" href="#Create-scenario-without-WebGui-1">9 Create scenario without WebGui</a>
+<ul class="no-bullet">
+  <li><a id="toc-Multiple-UEs" href="#Multiple-UEs">9.1 Multiple UEs</a></li>
+  <li><a id="toc-Examples-of-configuration-file" href="#Examples-of-configuration-file">9.2 Examples of configuration file</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Power_005fON_005fOFF" href="#Power_005fON_005fOFF">9.2.1 Power_ON_OFF</a></li>
+    <li><a id="toc-Power_005fON_005fPING" href="#Power_005fON_005fPING">9.2.2 Power_ON_PING</a></li>
+    <li><a id="toc-Power_005fON_005f2xUEs_005fUDP_005fUL" href="#Power_005fON_005f2xUEs_005fUDP_005fUL">9.2.3 Power_ON_2xUEs_UDP_UL</a></li>
+    <li><a id="toc-Uplink_005fTraffic_005fSpecific_005fAPN" href="#Uplink_005fTraffic_005fSpecific_005fAPN">9.2.4 Uplink_Traffic_Specific_APN</a></li>
+  </ul></li>
+  <li><a id="toc-Remote-control" href="#Remote-control">9.3 Remote control</a></li>
+</ul></li>
+<li><a id="toc-Downlink-and-Uplink-transfer-using-iperf-1" href="#Downlink-and-Uplink-transfer-using-iperf-1">10 Downlink and Uplink transfer using iperf</a>
+<ul class="no-bullet">
+  <li><a id="toc-Introducing-Linux-Network-Namespaces" href="#Introducing-Linux-Network-Namespaces">10.1 Introducing Linux Network Namespaces</a></li>
+  <li><a id="toc-Uplink-test" href="#Uplink-test">10.2 Uplink test</a></li>
+  <li><a id="toc-Downlink-test" href="#Downlink-test">10.3 Downlink test</a></li>
+</ul></li>
+<li><a id="toc-NB_002dIOT-devices" href="#NB_002dIOT-devices">11 NB-IOT devices</a>
+<ul class="no-bullet">
+  <li><a id="toc-Stand-alone-cell" href="#Stand-alone-cell">11.1 Stand alone cell</a></li>
+  <li><a id="toc-Guard-band-and-in-band-cell" href="#Guard-band-and-in-band-cell">11.2 Guard band and in band cell</a></li>
+</ul></li>
+<li><a id="toc-Channel-simulator-1" href="#Channel-simulator-1">12 Channel simulator</a>
+<ul class="no-bullet">
+  <li><a id="toc-Cell-configuration" href="#Cell-configuration">12.1 Cell configuration</a></li>
+  <li><a id="toc-UE-parameters" href="#UE-parameters">12.2 UE parameters</a></li>
+  <li><a id="toc-Channel-simulation-scenario-using-WebGui" href="#Channel-simulation-scenario-using-WebGui">12.3 Channel simulation scenario using WebGui</a></li>
+  <li><a id="toc-Channel-simulation-scenario-through-remote-API" href="#Channel-simulation-scenario-through-remote-API">12.4 Channel simulation scenario through remote API</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Cell-configuration-parameters-to-be-provided_003a" href="#Cell-configuration-parameters-to-be-provided_003a">12.4.1 Cell configuration parameters to be provided:</a></li>
+    <li><a id="toc-UE-configuration-parameters-to-be-provided_003a" href="#UE-configuration-parameters-to-be-provided_003a">12.4.2 UE configuration parameters to be provided:</a></li>
+    <li><a id="toc-Command_003a-_0022ue_005fmove_0022" href="#Command_003a-_0022ue_005fmove_0022">12.4.3 Command:  &quot;ue_move&quot;</a></li>
+  </ul></li>
+</ul></li>
+<li><a id="toc-logging-1" href="#logging-1">13 logging</a>
+<ul class="no-bullet">
+  <li><a id="toc-Logging-through-WebGui" href="#Logging-through-WebGui">13.1 Logging through WebGui</a></li>
+  <li><a id="toc-Command-line-monitor" href="#Command-line-monitor">13.2 Command line monitor</a>
+  <ul class="no-bullet">
+    <li><a id="toc-t-spl-command-1" href="#t-spl-command-1">13.2.1 t spl command</a></li>
+    <li><a id="toc-t-cpu-command" href="#t-cpu-command">13.2.2 t cpu command</a></li>
+    <li><a id="toc-t-command" href="#t-command">13.2.3 t command</a></li>
+  </ul></li>
+</ul></li>
+<li><a id="toc-Advanced-options" href="#Advanced-options">14 Advanced options</a>
+<ul class="no-bullet">
+  <li><a id="toc-Remote-UE-1" href="#Remote-UE-1">14.1 Remote UE</a></li>
+  <li><a id="toc-External-application-1" href="#External-application-1">14.2 External application</a></li>
+  <li><a id="toc-External-SIM" href="#External-SIM">14.3 External SIM</a></li>
+</ul></li>
+<li><a id="toc-Troubleshooting" href="#Troubleshooting">15 Troubleshooting</a>
+<ul class="no-bullet">
+  <li><a id="toc-No-SIB-found" href="#No-SIB-found">15.1 No SIB found</a></li>
+  <li><a id="toc-SIB-found-but-attach-fails-1" href="#SIB-found-but-attach-fails-1">15.2 SIB found but attach fails</a></li>
+  <li><a id="toc-Downlink-peak-throughput-not-achieved" href="#Downlink-peak-throughput-not-achieved">15.3 Downlink peak throughput not achieved</a></li>
+  <li><a id="toc-RRC_005fSTATE-locking-value" href="#RRC_005fSTATE-locking-value">15.4 RRC_STATE locking value</a></li>
+  <li><a id="toc-Connection-to-webGui-fails" href="#Connection-to-webGui-fails">15.5 Connection to webGui fails</a></li>
+  <li><a id="toc-TRX-discontinuity-too-wide" href="#TRX-discontinuity-too-wide">15.6 TRX discontinuity too wide</a></li>
+</ul></li>
+
+</ul>
+</div>
+
+
+
+<span id="Introduction"></span><h2 class="chapter">1 Introduction</h2>
+<p>AMARI UE Simbox E &quot;Enhanced&quot; is a UE simulator acting as a 3GPP compliant LTE and 5G NR UE (in NSA or SA mode). 
+<br>It can simulate up to 128 UEs sharing the same spectrum with different types of traffic within multiple cells.
+It is also supporting NB-IoT and LTE-M. 
+<br>The offer is completed by an integrated IP simulation package for reproducible test results.
+</p>
+<div align="center"><img src="img/simbox1.webp" alt="img/simbox1">
+</div>
+<br><p>The UE Simbox is a turnkey solution running on Fedora 39 operating system. It embeds two SDR cards 100MHz mimo 4x4, all software components and license required to emulate 4G/5G UEs.
+<br>The UE Simbox can be connected to the network over the air or in conducted mode on one side.<br>
+On the other side it can be configured and controlled using either configuration files, WebSocket API or via a web based GUI. IP traffic may be reachable with a Linux TUN network interface.
+</p><br>
+<br>
+<div align="center"><img src="img/ue_arch.webp" alt="img/ue_arch">
+</div>
+<br><p>This document describes the first steps to start and configure your Amarisoft Simbox. For advanced configurations and testing, please refer to the application notes and other documents available under extranet.amarisoft.com or under the /root/ue/doc/ folders of your Simbox. 
+</p>
+<span id="Product-capabilities"></span><h2 class="chapter">2 Product capabilities</h2>
+<p>AMARI UE Simbox E supports LTE release 8 with features up to release 15. It supports also release 15 EN-DC for 5G NSA mode and release 15 for 5G SA.
+</p>
+<p>AMARI UE Simbox E can emulate up to :
+</p><ul class="no-bullet">
+<li>- 128 UEs in 4CC LTE FDD/TDD 20MHz MIMO 2x2 cell
+</li><li>- 128 UEs in 2CC LTE FDD/TDD 20MHz MIMO 4x4 cell
+</li><li>- 128 UEs in 5G NSA TDD 100MHz MIMO 2x2 cell
+</li><li>- 128 UEs in 5G SA TDD 100MHz MIMO 2x2 cell
+</li></ul>
+
+
+<span id="Hardware-setup"></span><h2 class="chapter">3 Hardware setup</h2>
+<span id="Power-supply"></span><h3 class="section">3.1 Power supply</h3>
+<p>Plug the external power cable provided with the Simbox in the <code>AC-in</code> Connector and place the toggle switch located in the rear panel on position &quot;1&quot;, then press the <code>Power on</code> button on the top of the front panel to turn the system on.  
+<br>The led will light up blue once Simbox is powered ON . 
+</p>
+<br><p>Power adapter specifications:  
+<br>Input: 100~240 V AC, 50~60 Hz
+</p>
+<span id="RF-connection"></span><h3 class="section">3.2 RF connection</h3>
+<br><p>The AMARI UE Simbox E setup is delivered with two PCIe Software Defined Radio (SDR) cards supporting 100Mhz MIMO 4x4 each.
+<br>Each PCIe SDR card has four RX and four TX SMA connectors plus one GPS connector.
+</p><ul>
+<li> <code>Rx1</code>/<code>Rx2</code>/<code>Rx3</code>/<code>Rx4</code> are the receive antenna ports.
+</li><li> <code>Tx1</code>/<code>Tx2</code>/<code>Tx3</code>/<code>Tx4</code> are the transmit antenna ports.
+</li><li> <code>GPS</code> is used for connecting an external GPS clock. See trx_sdr.pdf document for more details.
+</li></ul>
+
+<table class="cartouche" border="1"><tr><td>
+<p>Note: Each physical PCIe SDR card (100Mhz MIMO 4x4) is actually composed of two independent RF chips. Each chip is mapped to a separate logical SDR device and can handle 100MHz 2x2 MIMO as depicted below  
+</p></td></tr></table>
+
+<div align="center"><img src="img/uesimbox-e-rear.webp" alt="jpg">
+</div>
+<br><p>For basic scenarios running just one cell 2X2 MIMO as instance, the UE Simbox will only use one SDR device (#0). In that case, it&rsquo;s not required to connect all SMA connectors.
+</p>
+<br><p>For others scenarios such as carrier aggregation, 4x4 MIMO, Multi cells or EN-DC tests, several SDR cards can be used and combined.
+<br>In that case, three important points have to be taken into account for connecting the UE Simbox to enb/gnb: 
+</p><ul>
+<li> The selection and combination of the SDR cards (among the four available)
+</li><li> The RF cabling 
+</li><li> The setting of TX and RX gains to avoid saturation or Bler
+</li></ul>
+<br>
+
+<p>The following section describes how to connect and configure your UE simbox using RF cables. 
+</p>
+<table class="cartouche" border="1"><tr><td>
+<p>Note: unused ports of the combiners must be terminated with RF terminator or absorber especially when using frequency above 2.5Ghz. Otherwise big insertion losses may happen and downgrade the RF performances. 
+</p></td></tr></table>
+
+<span id="RF-connection-for-one-cell-4G-or-5G-SA-_002d-2x2-MIMO-in-FDD-mode"></span><h4 class="subsection">3.2.1 RF connection for one cell 4G or 5G SA - 2x2 MIMO in FDD mode</h4>
+<br><p>In this case one SDR device &quot;SDR0&quot; is used. LTE / 5G SA cell (rf port 0) is mapped to SDR0.
+<br>This mapping is configured in enb.cfg configuration file through rf_driver object:
+<img src="img/rf_driver_1cell_mimo2x2.webp" alt="jpg">
+</p><div align="center"><img src="img/Connection-1cellFDD-sdr100-ue.webp" alt="jpg">
+</div><p>Note: For SISO test, connection between TX2/RX2 and eNB/gNB (TX2/RX2) is not required.
+</p>
+<span id="RF-connection-for-one-cell-4G-or-5G-SA-_002d-2x2-MIMO-in-TDD-mode"></span><h4 class="subsection">3.2.2 RF connection for one cell 4G or 5G SA - 2x2 MIMO in TDD mode</h4>
+<p>In TDD mode, as both TX and RX are sent on the same channel, only TX1 port is needed for the main antenna and TX2 for the diversity/MIMO antenna.
+</p><div align="center"><img src="img/Connection-1cellTDD-sdr100-ue.webp" alt="jpg">
+</div><br><p>However, with Amarisoft SDR card, it is possible to force the DL signal reception on RX port and Uplink signal transmission on TX port when <code>rx_antenna: &quot;rx&quot;</code> is set in the RF driver configuration file.<br>
+This improves the performance of the SDR card as we don&rsquo;t have to switch the RF several times per radio frame. 
+</p><table class="cartouche" border="1"><tr><td>
+<p>When  <code>rx_antenna: &quot;rx&quot;</code> is set, RF connection is the same as for FDD.  
+</p></td></tr></table>
+
+<span id="RF-connection-for-one-cell-4G-or-5G-SA-_002d-4x4-MIMO-in-FDD-mode"></span><h4 class="subsection">3.2.3 RF connection for one cell 4G or 5G SA - 4x4 MIMO in FDD mode</h4>
+<br><p>In this case two SDR devices &quot;SDR0 + SDR1&quot; are used. LTE / 5G SA cell (rf port 0) is mapped to SDR0 and SDR1.
+<br>This mapping is configured in enb.cfg configuration through rf_driver object:
+</p>
+<div align="center"><img src="img/rf_driver_1cell_mimo4x4.webp" alt="jpg">
+</div><br><p>Note: For NR TDD band, set <code>rx_antenna: &quot;rx&quot;</code> 
+</p><div align="center"><img src="img/UE-SDR100_4x4_1cell.webp" alt="jpg">
+</div>
+<span id="RF-connection-for-NSA-cell"></span><h4 class="subsection">3.2.4 RF connection for NSA cell</h4>
+<p>This RF cabling corresponds to an EN-DC scenario with one LTE cell FDD 2x2 MIMO and one NR cell FDD 4x4 MIMO <br>
+<br>In this case three SDR devices &quot;SDR0 + SDR2 + SDR3&quot; are used. LTE cell 0 (rf port 0) is mapped to SDR0 and NR cell (rf port 1) is mapped to SDR2 &amp; SDR 3.
+<br>This mapping is configured in enb.cfg configuration through rf_driver object:
+<img src="img/rf_driver_nsa.webp" alt="jpg">
+</p>
+<br><p>Note: For NR TDD band, set <code>rx_antenna: &quot;rx&quot;</code> 
+</p>
+<img src="img/Connection-2cellsNSA-SDR100-ue.webp" alt="jpg">
+
+<span id="RF-connection-for-four-carriers-MIMO-2x2-in-FDD-mode"></span><h4 class="subsection">3.2.5 RF connection for four carriers MIMO 2x2 in FDD mode</h4>
+<span id="multiple-cells-RF-connection"></span>
+<p>When multiple cells are configured at eNodeB side (four cells in this example), four SDR devices are required at UE simulator side even if cells are intrafreq cells or use the same RF antenna port. Each SDR device is dedicated to one specific cell.<br> 
+</p>
+<br><p>In this case four SDR devices &quot;SDR0 + SDR2 + SDR3 + SDR4&quot; are used. LTE cell 0 (rf port 0) is mapped to SDR0, LTE cell 1 (rf port 1) is mapped to SDR1, LTE cell 2 (rf port 2) is mapped to SDR2 and LTE cell 3 (rf port 3) is mapped to SDR3,
+<br>This mapping is configured in enb.cfg configuration through rf_driver object:
+<img src="img/rf_driver_4cells.webp" alt="jpg">
+</p>
+<br><p>In the picture below, all eNodeB cells use a different antenna port (RF#1, RF#2, RF#3, RF#4). This cabling is releveant for four neighbor cells or for a Carrier Aggregation test.
+</p><div align="center"><img src="img/Connection-4cellFDD2x2-sdr100-ue.webp" alt="jpg">
+</div><span id="Connection-to-AMARI-UE-Simbox"></span><h2 class="chapter">4 Connection to AMARI UE Simbox</h2>
+<p>The AMARI UE Simbox includes built-in graphical card however, for real time performance reasons,  it is highly recommended to connect remotely to the simbox by using one of the Ethernet ports. 
+</p>
+
+<span id="Connect-your-Simbox-to-the-local-network"></span><h3 class="section">4.1 Connect your Simbox to the local network</h3>
+<p>The AMARI UE Simbox has three Ethernet ports: 1 Gb ethernet port and two 10 Gb ethernet port 
+<br>The first one (on the top) is configured in DHCP mode and will get automatically an IP address within the range defined on your router. This interface allows you to connect to BMC (login: admin, psw: amarisoft).
+<br>The second one is configured with a static IP address <code>192.168.1.80</code>.
+<br>The third one is configured in DHCP mode.
+</p>
+<div align="center"><img src="img/uesimbox-mbs-rear-ethernet.webp" alt="jpg">
+</div>
+<br><p> Once you are remotely connected, you can modify the static IP address allocated by editing the file
+<code>/etc/sysconfig/network-scripts/ifcfg-enp0s31f6</code>. Thus, future connections to the simbox can be made using this static address 
+</p>
+<span id="Login"></span><h3 class="section">4.2 Login</h3>
+<p>To login as root, please use <code>root/toor</code> as login / password.
+<br>There is also a user account with <code>user/resu</code> as login/password.
+</p>
+<br><p>Note: The Amarisoft software suit is installed and executed under root account.
+<br>
+</p>
+<span id="Web-GUI"></span><h3 class="section">4.3 Web GUI</h3>
+
+<p>The web GUI to display logs is available through web access at the following URL:
+<br><code>http://&lt;IP address&gt;/</code>
+</p>
+
+<span id="Set-a-password"></span><h4 class="subsection">4.3.1 Set a password</h4>
+
+<p>To add authentication to the web portal:
+</p>
+<p>Edit /etc/httpd/conf/httpd/conf and look for <code>&lt;Directory &quot;/var/www/html&quot;&gt;</code> section.<br>
+Inside it, add <code>AuthConfig</code> to AllowOverride directive so that it becomes <code>AllowOverride None AuthConfig</code>.
+</p>
+<p>Then restart HTTP daemon:
+</p><div class="example">
+<pre class="example">service httpd restart
+</pre></div>
+
+<p>Create /var/www/html/lte/.htaccess file with following content:
+</p><div class="example">
+<pre class="example">AuthType Basic
+AuthName &quot;Amarisoft Web GUI&quot;
+AuthUserFile /etc/httpd/.htpasswd
+Require valid-user
+</pre></div>
+
+<p>To add a user and its password, type the following command:
+</p><div class="example">
+<pre class="example">htpasswd -c /etc/httpd/.htpasswd &lt;username&gt;
+</pre></div>
+
+
+
+<span id="LTE-service"></span><h2 class="chapter">5 LTE service</h2>
+<p>The UE Simbox is configured to provide an automatic LTE service. At each reboot of the PC, LTE UE service is turned on automatically.
+<br>The default config is : 
+<br>- One LTE cat12 UE configured to camp on LTE cell Band7 (EARFCN 3350) SISO 5mhz bandwitdh.  
+</p><span id="Manage-LTE-automatic-service"></span><h3 class="section">5.1 Manage LTE automatic service</h3>
+
+<span id="Status"></span><h4 class="subsection">5.1.1 Status</h4>
+<p>You can check the LTE service status this way:
+</p><div class="example">
+<pre class="example">service lte status
+</pre></div>
+<p>The command will return &quot;<code>active (running)</code>&quot; status if service is running 
+</p>
+<span id="Stop"></span><h4 class="subsection">5.1.2 Stop</h4>
+<p>You can stop all LTE components this way:
+</p><div class="example">
+<pre class="example">service lte stop
+</pre></div>
+
+<span id="Start"></span><h4 class="subsection">5.1.3 Start</h4>
+
+<p>You can start them again this way:
+</p><div class="example">
+<pre class="example">service lte start
+</pre></div>
+
+<span id="Disable"></span><h4 class="subsection">5.1.4 Disable</h4>
+
+<p>You may also prevent them to start at boot time:
+</p><div class="example">
+<pre class="example">systemctl disable lte
+</pre></div>
+
+<br><p>NB: lte service remains enable until next reboot
+<br>NB2: this command is not available on Ubuntu version &lt;= 14
+</p>
+
+<span id="Enable"></span><h4 class="subsection">5.1.5 Enable</h4>
+
+<p>You may enable service at boot time this way:
+</p><div class="example">
+<pre class="example">systemctl enable lte
+</pre></div>
+
+<br><p>NB: lte service remains disable until next reboot
+<br>NB2: this command is not available on Ubuntu version &lt;= 14
+</p>
+
+
+
+<span id="Initial-setting"></span><h2 class="chapter">6 Initial setting</h2>
+
+<span id="Selection-of-configuration-file"></span><h3 class="section">6.1 Selection of configuration file</h3>
+
+<p>The default file used by LTE automatic service is <code>ue.cfg</code> (available under /root/ue/config directory). 
+This files aims to configure the UE simulator parameters such as UE category, EARFCN, IMSI and others.  
+</p> 
+<br><p>To change the UE configuration, update this file and restart the LTE service with <code>service lte restart</code> command. 
+<br>Note: Some examples of configuration file (ue-nbiot.cfg, ue-catm1.cfg) are provided in Amarisoft releases as a starting point. 
+</p>
+<table class="cartouche" border="1"><tr><td>
+<p>To quickly swap between different configuration, you can stop the automatic service using  <code>service lte stop</code> command and run manually the command line <code>./lteue config/xxx.cfg</code> under <code>/root/ue</code> directory. 
+</p></td></tr></table>
+
+<span id="Frequency-and-bandwidth-configuration"></span><h3 class="section">6.2 Frequency and bandwidth configuration</h3>
+
+<p>Once configuration file has been selected, frequency and bandwidth must be set to match eNodeB/gNodeB setting as both parameters are static at UE simulator side.<br>
+The parameters to be changed are: 
+</p><ul>
+<li> dl_earfcn
+</li><li> bandwidth 
+</li></ul>
+
+<span id="Multiple-cells-configuration"></span><h3 class="section">6.3 Multiple cells configuration</h3>
+<p>When multiple cells are configured at network side, each of them must be declared in <code>cell_groups</code> parameter. 
+<br>A cell groups references the configuration of 1 or more cells of the same type (LTE, Cat-M1, NB-IoT, or 5G NR). See lteue.pdf for more details 
+</p><table class="cartouche" border="1"><tr><td>
+<p>Note: Cells within same group must be synchronized at subframe/frame level.
+</p></td></tr></table>
+
+<span id="Example-_003a-2-LTE-cells-from-two-different-eNodeB"></span><h4 class="subsection">6.3.1 Example : 2 LTE cells from two different eNodeB</h4>
+<p>The example below represents a scenario with 2 cells from two different eNodeB (not synchonized)  
+</p><pre class="verbatim"> cell_groups: [{
+    group_type: &quot;lte&quot;,
+    multi_ue: true,
+    cells: [{
+      rf_port: 0,
+      bandwidth: 20,
+      dl_earfcn: 6300,
+      n_antenna_dl: 1,
+      n_antenna_ul: 1,
+    }]
+  }, {
+    group_type: &quot;lte&quot;,
+    multi_ue: true,
+    cells: [{
+      rf_port: 1,
+      bandwidth: 20,
+      dl_earfcn: 3350,
+      n_antenna_dl: 1,
+      n_antenna_ul: 1,
+    }],
+  }],
+</pre>
+<span id="Example-_003a-2-LTE-cells-from-same-eNodeB"></span><h4 class="subsection">6.3.2 Example : 2 LTE cells from same eNodeB</h4>
+<p>The example below represents a scenario with 2 cells from same eNodeB (synchonized) 
+</p><pre class="verbatim">  cell_groups: [{
+    group_type: &quot;lte&quot;,
+    multi_ue: true,
+    cells: [{
+      rf_port: 0,
+      bandwidth: 20,
+      dl_earfcn: 6300,
+      n_antenna_dl: 1,
+      n_antenna_ul: 1,
+    },
+    {
+      rf_port: 1,
+      bandwidth: 20,
+      dl_earfcn: 3350,
+      n_antenna_dl: 1,
+      n_antenna_ul: 1,
+    },
+   ]
+  } 
+  ],
+</pre>
+<span id="Example-_003a-1-LTE-and-1-NR-cell-_0028NSA-mode_0029"></span><h4 class="subsection">6.3.3 Example : 1 LTE and 1 NR cell (NSA mode)</h4>
+<p>The example below represents a scenario  with one LTE and one NR cell
+</p><pre class="verbatim"> cell_groups: [{
+    group_type: &quot;lte&quot;,
+    multi_ue: false,
+    cells: [{
+      rf_port: 0,
+      bandwidth: 20,
+      dl_earfcn: 300,
+      n_antenna_dl: 1,
+      n_antenna_ul: 1,
+    }]
+  }, {
+    group_type: &quot;nr&quot;,
+    multi_ue: false,
+    cells: [{
+      rf_port: 1,
+      band: 78,
+      bandwidth: 20,
+      dl_nr_arfcn: 632628,
+      ssb_nr_arfcn: 632256,
+      subcarrier_spacing: 30,
+      n_antenna_dl: 1,
+      n_antenna_ul: 1,
+    }],
+  }],
+</pre>
+<span id="TX_002fRX-gain-setting"></span><h3 class="section">6.4 TX/RX gain setting</h3>
+<span id="TX_003aRX-gain-setting"></span><p>TX and RX gain values must be fine tuned depending on your setup (conducted vs wireless conditions, physical attenuator used, combiner/divider, etc..) as dynamic power control is not handled at UE side (excepted if channel simulation mode is enabled) . 
+</p>
+<br><p>TX and RX gain values are defined in RF configuration file located under /root/ue/config/rf_driver directory. To know which files is used by  LTE service, just look at ue.cfg file.
+Example:  
+</p><pre class="verbatim"> include &quot;rf_driver/config.cfg&quot;,
+</pre>
+<span id="Wired-test"></span><h4 class="subsection">6.4.1 Wired test</h4>
+
+<p>In wired test conditions, it&rsquo;s recommended to put attenuator between eNodeB and LTE UE simulator in order not to damage SDR cards and avoid saturation.
+<br>On UE Simulator side, max SDR input is -10 dBm, max SDR output is 5dBm.
+</p>
+<br><p>Recommended values for PCIe SDR cards are : 
+</p><pre class="verbatim">tx_gain: 60.0, /* TX gain (in dB) */
+rx_gain: 0.0, /* RX gain (in dB) */
+</pre><table class="cartouche" border="1"><tr><td>
+<p>Note: If physical attenuators are used, equivalent gain must be added to these default values 
+</p></td></tr></table>
+
+<span id="Wireless-test"></span><h4 class="subsection">6.4.2 Wireless test</h4>
+
+<p>In Wireless test conditions, the recommended values for PCIe SDR cards are : 
+</p><pre class="verbatim">tx_gain: 90.0, /* TX gain (in dB) */
+rx_gain: 60.0, /* RX gain (in dB) */
+</pre>
+<span id="Multiple-UE-mode-and-timing-advance"></span><h3 class="section">6.5 Multiple UE mode and timing advance</h3>
+
+<p>To activate the simulation of multiple UEs, the parameter <code>multi_ue</code> must be set to <code>true</code>. 
+<br>The &quot;multiple UE&quot; mode aims to simulate hundreds of devices on the same PC sharing the same physical layer.
+As a consequence all UE have the same timing advance and this value must be defined in the ue.cfg file. 
+</p>
+<p>There are two ways to define the timing advance for multiple UE. 
+</p><ul>
+<li> It can be set automatically by using the <code>global_timing_advance=-1</code>. If automatic mode is set, the UE simulator uses the timing advance from the first received RAR for all UEs. This is the default behaviour.
+</li><li> It can be set manually by using the <code>global_timing_advance=x</code>,  (x = TA of the uplink relative to the downlink in 1/1.92 us unit)
+</li></ul>
+
+<table class="cartouche" border="1"><tr><td>
+<p>We recommend to use the automatic mode. However, if UEs encounter difficulties to synchronize with eNodeB signal you may have to adjust manually the timing advance. See <a href="#SIB-found-but-attach-fails">SIB found but attach fails</a> for more details.
+</p></td></tr></table>
+
+<span id="Reload-config-files"></span><h3 class="section">6.6 Reload config files</h3>
+
+<p>Once UE configuration is completed, you can restart your service to take these modifications into account with command <code>lte service restart</code>, and switch to LTE screen using <code>screen -x lte</code> command.
+</p>
+<br><p>As a result, you should see <code>SIB found</code> message displayed. This means that eNodeB cell has been detected and UE simulator is ready to be used ! 
+<br>If SIB found message is not displayed, See <a href="#No-sib-found">No sib found</a> for more details.
+</p>
+<br><p>Type <code>ue</code> in the monitor to see the list of UEs and their status.
+<br>To power on a UE, just type <code>power_on ueid</code> command where <code>ueid</code> is the UE ID listed in <code>ue</code> command result. 
+</p>
+<span id="Create-scenario-using-WebGui"></span><h2 class="chapter">7 Create scenario using WebGui</h2>
+
+<p>Once your UE simulator has been started and has decoded eNodeB system information (Cell 0: SIB found message is displayed) you can start using it to create devices, generate end to end traffic and simulate different channel conditions in order to test your eNodeB and Core network. 
+<br> These scenarios can be generated automatically using the WebGui as described below.  
+</p>
+<br><p>Note: More complex scenarios can be created by writing your own script manually and controlled using LTEUE Remote API. See <a href="#Create-scenario-without-WebGui">Create scenario without WebGui</a> for more details.
+</p>
+<span id="Configuration"></span><h3 class="section">7.1 Configuration</h3>
+
+<p>Open your web browser and connect to LTE UE IP address followed by /lte. <br>(example 192.168.1.40/lte).
+The following main page will open.
+</p> 
+<img src="img/www.webp" alt="img/www"> 
+
+<table class="cartouche" border="1"><tr><td>
+<p>Note: If the page can&rsquo;t be loaded, please check httpd service is running on LTEUE side (service httpd status). Also, make sure no firewall or other security software is blocking the communication
+</p></td></tr></table>
+ 
+<p>Create a websocket and connect a client server  : 
+</p><ul>
+<li> Click on <code>Add server</code> button on the left panel 
+</li><li> Define a name , as instance:  <code>UE Simulator</code> 
+</li><li> Set <code>IP address</code> and <code>com Port</code> of LTE UE. By default com port is 9002. The value is defined in ue.cfg file, parameter <code>com_addr</code>
+</li></ul>
+<img src="img/gui_lteue_00.webp" alt="img/gui_lteue_00">
+
+<p>Once the server client is created and get connected to the LTE UE service, a new window will appear where logging level per layer can be set 
+</p>
+<img src="img/www_ue.webp" alt="img/www_ue">
+<p>For more details about logging configuration, see ltewww.pdf documentation 
+</p><table class="cartouche" border="1"><tr><td>
+<p>Note : If this page can&rsquo;t be loaded, please check that lte service is running (<code>service lte status</code>)
+</p></td></tr></table>
+
+<p>You should see now (as shown in the picture below) 
+</p><ul>
+<li> A yellow lightning icon on left panel
+</li><li> Two new tabs on on center panel:  <code>UE Scenario</code> &amp; <code>UE Simulator</code> 
+</li></ul>
+<img src="img/gui_lteue_01.webp" alt="img/gui_lteue_01">
+<p>.
+</p>
+<br><p><code>UE Scenario</code> will be used to define scenarii.
+<br><code>UE Simulator</code> aims to control your UE simulator instance.
+</p>
+<span id="Create-scenario"></span><h3 class="section">7.2 Create scenario</h3>
+
+<p>Once the webGui is up and running, you can create scenarios.<br>
+</p><ul>
+<li> In the main panel, click on the <code>UE Scenario</code> tab.
+</li><li> Then click on <code>Add</code> button. A new scenario named &quot;New scenario&quot; appears now in the main panel 
+</li><li> Select <code>New scenario</code> to display the scenario panel on the right side. 
+</li><li> Define a name for this scenario and configure parameters for all tabs as described below.
+</li></ul>
+<img src="img/gui_lteue_12.webp" alt="img/gui_lteue_12">
+
+<span id="Create-UEs-tab"></span><h4 class="subsection">7.2.1 Create UEs tab</h4>
+
+<dl compact="compact">
+<dt><code>Count</code></dt>
+<dd><p>Number of UE to create.
+  If set to 0, the scenario shall only be applied to an already created UE.
+</p>
+</dd>
+<dt><code>IMSI</code></dt>
+<dd><p>IMSI of each UE. The special character $ can be added to differentiate each UE.
+  It will be replaced by the UE index.
+</p>
+<br><p><code>NB</code>: Same IMSI can be used for all UEs if EPC can handle it and differentiate UEs based on their IMEI as instance. This is actually supported by Amarisoft EPC when <code>multi_sim</code> parameter is true in user database file (ue-db_ims.cfg).
+</p>
+<p>IMSI can be generated by introducing <code>${F(i)}</code> inside IMSI digits where <code>F</code> is a Javascript mathematical function
+  and <code>i</code> the index of UE. The absolute integer rounded result padded with 0 will be put inside IMSI.<br>
+  Example:
+</p><div class="example">
+<pre class="example">  00101${1000 * i + Math.sqrt(i)}
+</pre></div>
+<p>Will produce <code>001010000001001</code>, <code>001010000002001</code>, <code>001010000003001</code>, <code>001010000004002</code>...
+</p>
+</dd>
+<dt><code>category</code></dt>
+<dd><p>UE category.
+</p>
+</dd>
+<dt><code>Forced RI</code></dt>
+<dd><p>Force RI returned by UE to base station. 1 for SISO, 2 for MIMO
+</p>
+</dd>
+<dt><code>Forced CQI</code></dt>
+<dd><p>Force CQI returned by UE to base station. If set to 0, UE will estimate it. It&rsquo;s recommended to set it at 15 for testing at max throughput in wired condition
+</p>
+</dd>
+<dt><code>K/OP/OPC/Algo :</code></dt>
+<dd><p>Secret key parameters. To be aligned with IMSI parameters stored in HSS so that the UEs can be authenticated correctly. See lteue.pdf for more details
+</p>
+</dd>
+<dt><code>Type</code></dt>
+<dd><p>Allow to select simulation mode between <code>SIM</code>, <code>TUN</code> and <code>Remote</code> 
+</p>
+<p><b>Sim</b> mode: Uplink and downlink traffic flow of each UE is managed by an embedded traffic generator called &quot;lte simserver&quot; running on EPC side. No logical TUN interface is created per UE.
+</p>
+<p><b>TUN</b> mode: Create a linux TUN interface per PDN for each UE. 
+<br>This allows to communicate with each UE independently through their network namespaces. 
+<br>Lte_simserver is not required in that case. Iperf command can be used for generating or receiving IP traffic as instance. See <a href="#Downlink-and-Uplink-transfer-using-iperf">Downlink and Uplink transfer using iperf</a> for more details.
+</p>
+<p><b>Remote</b> mode:  Used with remote UE mode. See <a href="#Remote-UE">Remote UE</a> for more details. 
+</p>
+</dd>
+<dt><code>Setup script:</code></dt>
+<dd><p>Select script used for <code>TUN</code> and <code>Remote</code> mode. 
+</p>   
+</dd>
+</dl>
+
+<span id="PDN-tab-1"></span><h4 class="subsection">7.2.2 PDN tab</h4>
+<span id="PDN-tab"></span><p>PDN parameters are optional. If the tab remains empty, the UE(s) will attach to the network and request a PDN connectity without specifying the APN. 
+Network will provide the default APN in that case. 
+</p>
+<p>To request a PDN with a specific APN and change the PDN type, a new PDN profile has to be created using the following parameters : 
+</p>
+<dl compact="compact">
+<dt><code>Name</code></dt>
+<dd><p>Access point name (APN) requested in the PDN connectivity request&nbsp;</p>
+</dd>
+<dt><code>Type</code></dt>
+<dd><p>PDN type. Can be IPv4 only, IPv6 only or IPv4v6
+</p> 
+</dd>
+<dt><code>connect</code></dt>
+<dd><p>Define when PDN connectivity request will be triggered. Can be done during the UE attach procedure or on demand, i.e when the simulation will start the transfer on this specific APN.  
+</p></dd>
+</dl>
+
+<table class="cartouche" border="1"><tr><td>
+<p>Note : PDN tab only aims to declare and configure the PDN. To trigger a PDN with the specific APN declared, a simulation must be created and refer to this APN. See <a href="#Simulations-tab">Simulations tab</a>
+</p></td></tr></table>
+
+<span id="Channel-simulation-tab"></span><h4 class="subsection">7.2.3 Channel simulation tab</h4>
+
+<p>Channel simulation parameters are optional. If the tab remains empty, RX and TX signals respectively received and transmitted by the UE(s) will remained unchanged. No simulation will be applied.  
+<br>In order to simulate different channel conditions, See <a href="#Channel-simulator">Channel simulator</a> for more details
+</p>
+<span id="Power-on_002foff-tab"></span><h4 class="subsection">7.2.4 Power on/off tab</h4>
+
+<p>Power on/off parameters are optional. If the tab remains empty, the UE(s) declared in the <code>create UEs</code> tab will be created but won&rsquo;t be turned ON automatically. 
+</p>
+<br><p>If <code>enabled</code> box is checked, simulation will generate on and off periods for each UE
+and run simulations defined in <code> Simulations</code> tab.
+</p>
+
+
+<dl compact="compact">
+<dt><code>Duration</code></dt>
+<dd><p>Duration of the simulation in seconds.
+  All simulations and power off/on commands will be over before this duration.
+  It can be seen as the maximum simulation duration.
+</p>
+</dd>
+<dt><code>Connection attempts/s</code></dt>
+<dd><p>Number of maximum UE connection attempt per second.
+</p>
+</dd>
+<dt><code>Max simultaneous connected UE</code></dt>
+<dd><p>Maximum number of simultaneously connected UE.
+  Simulation will avoid any power on until this limit is reached, in other words,
+  next power on will occur after new power off.
+</p>
+</dd>
+<dt><code>Power on duration</code></dt>
+<dd><p>Duration in seconds of power on period. UE will remain powered on during this time
+  and them will power off, allowing a new UE to connect.
+</p>
+</dd>
+<dt><code>Power off duration</code></dt>
+<dd><p>Minimum duration in seconds of power off period. When powered off, a UE will remain powered
+  off at least this time before being candidate to power on again.
+</p></dd>
+</dl>
+<p>Note: UE simulator will try to put as many simulation as possible within the <code>duration</code> period, depending on parameters.
+</p>
+<span id="Simulations-tab-1"></span><h4 class="subsection">7.2.5 Simulations tab</h4>
+<span id="Simulations-tab"></span><p>The simulation tab aims to create different type of IP traffic simulation.
+You can add several simulations per scenario.
+Each simulation will be placed inside each power on period of each UE.
+</p>
+<p>Click on &quot;+&quot; button and select simulation type:
+</p>
+<img src="img/gui_lteue_03.webp" alt="img/gui_lteue_03">
+
+<p>You can then choose the following IP traffic:
+</p>
+<dl compact="compact">
+<dt><code>ICMP Ping</code></dt>
+<dd><p>Perform ICMP Ping request.
+</p>
+</dd>
+<dt><code>UDP</code></dt>
+<dd><p>Send UDP constant bitrate traffic.
+</p>
+</dd>
+<dt><code>RTP</code></dt>
+<dd><p>Send RTP constant bitrate traffic.
+</p>
+</dd>
+<dt><code>VOIP</code></dt>
+<dd><p>Simulate voice RTP traffic using statistical model.
+</p>
+</dd>
+<dt><code>Flood</code></dt>
+<dd><p>Send UDP packet burst
+</p>
+</dd>
+<dt><code>HTTP transfert</code></dt>
+<dd><p>Send HTTP requests.
+</p>
+</dd>
+<dt><code>Application</code></dt>
+<dd><p>Launches an external application. See <a href="#External-application">External application</a> for more details <br>
+</p>  
+</dd>
+</dl>
+
+<p>Once IP traffic selection has been done , additional parameters can be configured:
+</p>
+<img src="img/gui_lteue_13.webp" alt="img/gui_lteue_13">
+
+<dl compact="compact">
+<dt><code>Name</code></dt>
+<dd><p>Name of simulation 
+  </p></dd>
+<dt><code>Probability</code></dt>
+<dd><p>Between 0 and 1. When scenario is running, probability that a UE instance runs the simulation depends on probability (1 = 100% probablity, 0 means no chance, 0.5 means one out of two) . 
+  </p></dd>
+<dt><code>APN</code></dt>
+<dd><p>Allow to request a specific Access Point Name in the PDN connectivity request. The APN name defined here must be declared previously in the <code>PDN tab</code>. See <a href="#PDN-tab">PDN tab</a>
+  </p></dd>
+<dt><code>Start delay</code></dt>
+<dd><p>Script start delay in seconds.
+  If power off/on procedure is not activated, script starts after this delay.
+  If power on/off procedure is activated, you should always set a delay as power
+  on procedure may take a while unless it is what you want to do.
+  </p></dd>
+<dt><code>Duration</code></dt>
+<dd><p>Duration of the script in seconds.
+  </p></dd>
+<dt><code>Payload size</code></dt>
+<dd><p>Size of the IP packet in Bytes 
+  </p></dd>
+<dt><code>Bitrate</code></dt>
+<dd><p>Traffic Bitrate in bit per second 
+  </p></dd>
+<dt><code>Destination</code></dt>
+<dd><p>Destination address of IP traffic. 
+  <br>In <code>sim</code> mode, ltesim_server peer entity running on EPC must listen to the same IP address ( ./ltesim_server -a 192.168.3.1) 
+  </p></dd>
+<dt><code>Direction</code></dt>
+<dd><p>IP traffic direction. Can be downlink only, Uplink only or both Uplink/downlink 
+</p></dd>
+</dl>
+
+<p>Once all parameters have been configured, click on <code>Apply changes</code> to commit them.
+Your scenario will now appear in the center panel and is ready to be used ! 
+</p>
+
+<span id="Export-scenario"></span><h3 class="section">7.3 Export scenario</h3>
+
+<p>Once a scenario has been created, it&rsquo;s possible to export it.
+In the center panel, the <code>Export</code> button generates a json config file that you can directly
+integrate in your UE configuration file for running it through command line instead of using the WebGUI.<br>
+</p>
+<p>It also generates a MME config file that can be loaded on Amarisoft EPC to fill automatically the ue_db of MME component. 
+</p>
+<span id="Run-UE-scenarios-with-WebGui"></span><h2 class="chapter">8 Run UE scenarios with WebGui</h2>
+
+<p>Once scenario have been created (as described in section above), you can now run them to test your eNodeB and EPC. 
+<br>In the center panel, select the scenario and click on <code>run</code> button 
+<br>Once started, two tabs <code>UE simulator</code> and <code>UE simulator:scenarioName</code> can be used to monitor the UE status, visualize chart and trigger manual actions  
+</p>
+
+<span id="UE-simulator-tab"></span><h3 class="section">8.1 UE simulator tab</h3>
+
+<p>When selecting simulator UE tab, several panels are displayed.
+</p>
+<img src="img/gui_lteue_04.webp" alt="img/gui_lteue_04">
+
+<span id="Actions-buttons"></span><h4 class="subsection">8.1.1 Actions buttons</h4>
+<p>Panel on top aims to trigger actions:
+</p><ul>
+<li> <code>monitor</code> button: open linux monitor
+</li><li> <code>Refresh</code> button will force refresh of UE list. Else it is done regularly and refresh period is defined by the number field on the right.
+</li><li> <code>Start</code> button will allow you to start predefined scenario. Note that only scenario that create UEs will be proposed.
+</li><li> <code>Stop</code> button will stop any pending simulation on UE simulator.
+</li><li> <code>constellations</code> button: show real time constellations (when <code>signal</code> check box is enabled in logging server configuration)
+</li></ul>
+
+<span id="UE-list"></span><h4 class="subsection">8.1.2 UE list</h4>
+<p>Panel in the middle lists all UE created and their status.<br>
+Right click on any UE to perform more actions:
+</p><ul>
+<li> Power on/off
+</li><li> Connect pdn: enter APN for PDN to connect
+</li><li> Scenario: apply scenario on this UE (Only scenario without UE creation can be used).
+</li></ul>
+
+
+<span id="Statistics"></span><h4 class="subsection">8.1.3 Statistics</h4>
+<p>Panel at the bottom provides various real time charts for debug and tracking purpose
+</p>
+
+<span id="Scenario-example"></span><h3 class="section">8.2 Scenario example</h3>
+
+<ul>
+<li> First create a scenario in <code>UE scenario</code> tab and call it <code>My first test</code>.<br>
+
+</li><li> Select <code>Simulations</code> tab and add ICMP ping:<br>
+<img src="img/gui_lteue_05.webp" alt="img/gui_lteue_05">
+
+</li><li> Click on <code>Apply changes</code>
+
+</li><li> Go to <code>UE Simulator tab</code>.
+
+</li><li> Click on red icon to power on UE and right click on UE:<br>
+<img src="img/gui_lteue_06.webp" alt="img/gui_lteue_06">
+
+</li><li> Select <code>My first test</code>. A new tab is created to follow scenario.
+
+</li><li> Select scenario tab<br>
+
+</li></ul>
+
+
+<span id="Executing-scenario-tab"></span><h3 class="section">8.3 Executing scenario tab</h3>
+
+<img src="img/gui_lteue_07.webp" alt="img/gui_lteue_07">
+
+<p>Following buttons are available:
+</p><ul>
+<li> Reset will flush logs
+</li><li> Retry will start scenario again
+</li><li> Stop will stop current scenario
+</li><li> Export will export in a CSV file scenario results
+</li></ul>
+
+
+<span id="Example"></span><h3 class="section">8.4 Example</h3>
+
+<p>Let&rsquo;s try the following exercise:
+</p><ul>
+<li> 100 UE have to be connected simultaneously.
+  </li><li> 20 UE will connect every second.
+  </li><li> Each UE will stay connected 10s
+  </li><li> Each UE can&rsquo;t be powered on less than 10s
+  </li><li> Scenario will last 1 minute.
+  </li><li> UE will perform HTTP transfer and pings.
+</li></ul>
+
+<p>Let&rsquo;s create a new scenario.<br>
+First, we need to estimate the amount of necessary UE.<br>
+If we set only 100 UE:
+</p><ul>
+<li> The first one will connect at t=0s and disconnect at t=10s
+  </li><li> The last one will connect at t=5s (100 UE will take 5s to connect at 20 caps).
+  </li><li> From t=10s, UE will start to disconnect but there will be no non connected
+  remaining UE to connect again as UE have to stay disconnected at least 10s.
+</li></ul>
+
+<p>This implies between t=10s and t=20s, total amount of connected UE will decrease to 0 at t=20s.
+As a result:
+</p>
+<img src="img/gui_lteue_20.webp" alt="img/gui_lteue_20">
+
+<p>So what can we do ?<br>
+We can reduce power off duration but this will imply all UE will stay disconnected 0s !<br>
+And we can increase the amount of UE to have a constant pool of disconnected UE.<br>
+</p>
+<p>Let&rsquo;s do this:
+</p>
+<img src="img/gui_lteue_21.webp" alt="img/gui_lteue_21">
+
+<p>Then we can add our scripts:
+</p>
+<img src="img/gui_lteue_22.webp" alt="img/gui_lteue_22">
+
+<p>With this configuration, HTTP transfer will last 6s.<br>
+As power on duration is 10s, it means HTTP transfer will start 2s after power on
+and will stop 2s before power off.
+</p>
+<p>Take a look at URL: <code>http://192.1.168.4.1:8080/data?size=10000</code>
+This URL will be interpreted by <code>ltesim_server</code> embedded HTTP server as a transfer of 10000 byte(s).
+Note that <code>ltesim_server</code> must be started with HTTP server enabled:
+</p>
+<div class="example">
+<pre class="example">sudo ./ltesim_server -a 192.168.4.1 -H 8080
+</pre></div>
+
+<p>Then add ping
+</p>
+<img src="img/gui_lteue_23.webp" alt="img/gui_lteue_23">
+
+<p>And start it
+</p>
+<img src="img/gui_lteue_24.webp" alt="img/gui_lteue_24">
+<span id="Create-scenario-without-WebGui-1"></span><h2 class="chapter">9 Create scenario without WebGui</h2>
+<span id="Create-scenario-without-WebGui"></span>
+<p>In order to ease automation, UE scenario can be directly defined in the <code>ue.cfg</code> file and run automatically when <code>lte</code> service is started.
+<br>The exhaustive list of parameters that can be used are described in lteue.pdf documentation, chapter 7.3. 
+</p>
+<p>For creating configuration files including scenario, you can start from one of the files provided in the amarisoft releases (available under /root/ue/config folder) as a starting point and modify it as described in the following sections in order to create multiple UE. 
+</p>
+<br><p>Note: as described in &quot;Export scenario&quot; section above, another possibility consists in creating the scenario through the Web GUI and exporting it. 
+The json config file generated can be integrated into the config file. 
+</p>
+<table class="cartouche" border="1"><tr><td>
+<p>Note : Export button is active only when number of UE created in scenario is not Null
+</p></td></tr></table>
+
+<span id="Multiple-UEs"></span><h3 class="section">9.1 Multiple UEs</h3>
+<p>It&rsquo;s possible to create multiple UEs by using either the <code>ue_count</code> parameter or by . This is convenient when high number of UEs must be created manually. 
+<br>When defined, <code>ue_count</code> instances of UE are created. Each of them has a unique IMEI and K values (starting from IMSI and K values and incremented by one) . 
+<br>All others properties remain the same for each UEs.
+</p>
+<table class="cartouche" border="1"><tr><td>
+<p>When using Amarisoft EPC solution, <code>count</code> parameter can be used as well to create n user entries in EPC by incrementing the IMSI and K values
+</p></td></tr></table>
+
+
+<span id="Examples-of-configuration-file"></span><h3 class="section">9.2 Examples of configuration file</h3>
+<span id="Power_005fON_005fOFF"></span><h4 class="subsection">9.2.1 Power_ON_OFF</h4>
+<p>In the example below, UE with IMSI 001010000000200 will automatically power on after 3 seconds and power off after 3000 seconds. 
+</p><pre class="verbatim"> ue_list: [
+  {
+    as_release: 8,
+    ue_category: 4,
+    imsi: &quot;001010000000200&quot;,
+    sim_events: [
+      {
+        &quot;start_time&quot;: 3,
+        &quot;event&quot;: &quot;power_on&quot;
+      },
+      {
+        &quot;start_time&quot;: 3000,
+        &quot;event&quot;: &quot;power_off&quot;
+      },
+  ]
+</pre>
+<span id="Power_005fON_005fPING"></span><h4 class="subsection">9.2.2 Power_ON_PING</h4>
+<p>The example below shows the different steps of a PING scenario for UE with IMSI 001010123456789: 
+</p><ul>
+<li> UE creation 
+</li><li> Power on 
+</li><li> Start Ping traffic after 5 seconds 
+</li><li> Report a (forced) CQI= 15
+</li><li> Report a (forced) RI= 2
+</li><li> Stop Ping after 300 seconds (305-300) 
+</li></ul>
+
+<pre class="verbatim">ue_list: [
+  {
+    &quot;ue_id&quot;: 88,
+    &quot;imsi&quot;: &quot;001010123456789&quot;,
+    &quot;K&quot;: &quot;00112233445566778899aabbccddeeff&quot;,
+    &quot;forced_cqi&quot;: 15,
+    &quot;forced_ri&quot;: 2,
+    &quot;sim_events&quot;: [
+      {
+        &quot;start_time&quot;: 0,
+        &quot;event&quot;: &quot;power_on&quot;
+      },
+      {
+        &quot;start_time&quot;: 5,
+        &quot;end_time&quot;: 305,
+        &quot;dst_addr&quot;: &quot;192.168.3.1&quot;,
+        &quot;payload_len&quot;: 1400,
+        &quot;delay&quot;: 1,
+        &quot;id&quot;: 36457,
+        &quot;event&quot;: &quot;ping&quot;
+       }
+    ]
+  }
+],
+</pre>
+
+<span id="Power_005fON_005f2xUEs_005fUDP_005fUL"></span><h4 class="subsection">9.2.3 Power_ON_2xUEs_UDP_UL</h4>
+<p>The example below shows the different steps of a UDP UL scenario with 2 UEs: 
+</p><ul>
+<li> UE creation 
+</li><li> Power on 
+</li><li> Start Uplink UDP transfer after 5 and 10 second respectively 
+</li><li> Stop transfer after 300 seconds
+</li></ul>
+
+<pre class="verbatim">ue_list: [
+  {
+    &quot;ue_id&quot;: 1,
+    &quot;imsi&quot;: &quot;001010123456789&quot;,
+    &quot;imeisv&quot;: &quot;8682430000000101&quot;,
+    &quot;K&quot;: &quot;00112233445566778899aabbccddeeff&quot;,
+    &quot;sim_algo&quot;: &quot;xor&quot;,
+    &quot;ue_category&quot;: 4,
+    &quot;pdsch_max_its&quot;: 6,
+    &quot;as_release&quot;: 8,
+    &quot;sim_events&quot;: [
+      {
+        &quot;start_time&quot;: 0,
+        &quot;event&quot;: &quot;power_on&quot;
+     },
+      {
+        &quot;start_time&quot;: 5,
+        &quot;end_time&quot;: 305,
+        &quot;dst_addr&quot;: &quot;192.168.3.1&quot;,
+        &quot;payload_len&quot;: 1400,
+        &quot;bit_rate&quot;: 15000000,
+        &quot;type&quot;: &quot;udp&quot;,
+        &quot;event&quot;: &quot;cbr_send&quot;
+      }
+    ]
+  },
+{
+    &quot;ue_id&quot;: 2,
+    &quot;imsi&quot;: &quot;001010123456789&quot;,
+    &quot;imeisv&quot;: &quot;8682430000000201&quot;,
+    &quot;K&quot;: &quot;00112233445566778899aabbccddeeff&quot;,
+    &quot;sim_algo&quot;: &quot;xor&quot;,
+    &quot;ue_category&quot;: 4,
+    &quot;pdsch_max_its&quot;: 6,
+    &quot;as_release&quot;: 8,
+    &quot;sim_events&quot;: [
+      {
+        &quot;start_time&quot;: 0,
+        &quot;event&quot;: &quot;power_on&quot;
+     },
+      {
+        &quot;start_time&quot;: 10,
+        &quot;end_time&quot;: 310,
+        &quot;dst_addr&quot;: &quot;192.168.3.1&quot;,
+        &quot;payload_len&quot;: 1400,
+        &quot;bit_rate&quot;: 15000000,
+        &quot;type&quot;: &quot;udp&quot;,
+        &quot;event&quot;: &quot;cbr_send&quot;
+      }
+    ]
+  }
+],
+</pre>
+<span id="Uplink_005fTraffic_005fSpecific_005fAPN"></span><h4 class="subsection">9.2.4 Uplink_Traffic_Specific_APN</h4>
+<p>The example below shows the different steps for sending UDP packets with iperf using a specific APN <code>IMS</code>
+</p><ul>
+<li> UE creation 
+</li><li> Power ON after 5s 
+</li><li> Trigger PDN connectivity request with APN &quot;IMS&quot; after 10s 
+</li><li> Run Uplink traffic on IMS bearer after 15s using iperf
+</li></ul>
+
+<pre class="verbatim"> ue_list: [
+  {
+    as_release: 8,
+    ue_category: 4,
+    imsi: &quot;001010000000200&quot;,
+    K: &quot;00112233445566778899aabbccddeeff&quot;,
+    /* Enable it to create a TUN interface for each UE PDN */
+    tun_setup_script: &quot;ue-ifup&quot;,
+    
+    sim_events: [
+              {
+                event: &quot;power_on&quot;,
+                start_time: 5,
+              },
+              {
+                &quot;apn&quot;: &quot;ims&quot;,
+                &quot;pdn_type&quot;: &quot;ipv4v6&quot;,
+                &quot;start_time&quot;: 10,
+                &quot;event&quot;: &quot;pdn_connect&quot;
+              },
+              {
+                &quot;start_time&quot;: 15,
+                &quot;event&quot;: &quot;ext_app&quot;,
+                &quot;prog&quot;: &quot;ext_app.sh&quot;,
+                 &quot;args&quot;: [&quot;iperf -c 192.168.4.1 -i 1 -u -b 1M -t 100&quot;],
+              },
+                ],
+    }
+  ],
+</pre>
+<br><p>For more details about event type (flood, UDP uplink, UDP downlink, http, others.. ) and parameters please refer to lteue.pdf document, chapter 6.7 IP simulation messages
+</p>
+
+<span id="Remote-control"></span><h3 class="section">9.3 Remote control</h3>
+<p>Once scenario is running, it&rsquo;s possible to remotely control the UEs and trigger some actions (such as turning off UEs or changing rf gains) either by using the command line monitor or through WebSocket. 
+<br>For more details about command line and remote API, please refer to lteue.pdf section Remote API and Command line monitor.   
+</p>
+<br><p>Example of remote command : 
+</p><pre class="verbatim">./ws.js 192.168.1.11:9002 '{&quot;message&quot;: &quot;power_on&quot;,&quot;ue_id&quot;:2}' 
+</pre><span id="Downlink-and-Uplink-transfer-using-iperf-1"></span><h2 class="chapter">10 Downlink and Uplink transfer using iperf</h2>
+<span id="Downlink-and-Uplink-transfer-using-iperf"></span><p>For running Downlink and Uplink test, iperf can be used on both sides: Core network and LTE UE simulator. 
+<br>Note that by default network namespace (netns) is required at UE side.  
+</p>
+<span id="Introducing-Linux-Network-Namespaces"></span><h3 class="section">10.1 Introducing Linux Network Namespaces</h3>
+<span id="Linux-Network-Namespaces"></span><p>A network namespace is logically another copy of the network stack, with its own routes, firewall rules, and network devices.
+In UE config file, when parameter <code>tun_setup_script: &quot;ue-ifup&quot;</code> is present, each UE gets its own (logical) Tun interface created.
+</p>
+<br><p>You can then use it to select the UE PDN to be used for transmitting and receiving data, as described in the section below 
+<br>The useful commands are : 
+</p><ul>
+<li> <code>ip netns list</code> - show all of the named network namespaces 
+</li><li> <code>ip netns exec ueX cmdX</code> - Execute a command within the namespace of a UE. 
+</li></ul>
+
+<span id="Uplink-test"></span><h3 class="section">10.2 Uplink test</h3>
+<p>For sending uplink traffic from multiple UEs with iperf: 
+</p><ul>
+<li> Set <code>tun_setup_script: &quot;ue-ifup&quot;,</code> under <code>ue_list</code> (in ue.cfg file), for each UE in order to create a TUN interface for each UE PDN  
+</li><li> Start LTE UE service (<code>service lte start</code>), switch to LTE screen (<code>screen -x lte</code>) and power_on UEs (<code>power_on &lt;UE_ID&gt;</code>) 
+</li><li> On EPC side, run iperf command <code>iperf -s -u -i 1</code>
+</li><li> On UE side, in linux shell, type <code>ip netns list</code> to list all network namespaces
+<pre class="verbatim">[root@localhost ~]# ip netns list 
+ue2
+ue1
+</pre></li><li> Select the targeted UE and generate uplink IP traffic from this UE by running the iperf command within its namespace 
+<br>Example:  <code>ip netns exec ue2 iperf -c 192.168.3.1 -u -b 150M -i 1 -t 100</code> 
+</li></ul>
+
+<span id="Downlink-test"></span><h3 class="section">10.3 Downlink test</h3>
+<p>For sending downlink traffic to multiple UE using iperf: 
+</p><ul>
+<li> Set <code>tun_setup_script: &quot;ue-ifup&quot;,</code> under <code>ue_list</code> (in ue.cfg file), for each UE in order to create a TUN interface for each UE PDN  
+</li><li> Start LTE UE service (<code>service lte start</code>), switch to LTE screen (<code>screen -x lte</code>) and power_on UEs (<code>power_on &lt;UE_ID&gt;</code>) 
+</li><li> Once registered, get eRAB IP address of each UE by running <code>ue</code> command in LTE screen  
+<pre class="verbatim">(ue) ue
+   # UE_ID CL RNTI    RRC_STATE        EMM_STATE #ERAB IP_ADDR
+   0     1  0   51         idle       registered     1 192.168.2.2
+   1     2  0   50         idle       registered     1 192.168.2.6
+</pre></li><li> On EPC side, run iperf command to start Downlink transfer and select the targeted UE by using its eRAB IP address. Example : 
+<pre class="verbatim">iperf -c 192.168.2.2 -u -b 150M -i 1 -t 100 
+</pre></li><li> On UE side, in linux shell, type <code>ip netns list</code> to list all network namespaces
+<pre class="verbatim">[root@localhost ~]# ip netns list 
+ue2
+ue1
+</pre></li><li> Select the targeted UE and execute the iperf command within its namespace 
+<br>Example: <code>ip netns exec ue1 iperf -s -u -i 1</code> 
+</li></ul>
+
+<table class="cartouche" border="1"><tr><td>
+<br><p>Note: any command can be run in the namespace, such as ping, ifconfig, etc.. 
+<br>Note: ifconfig command can be useful to link a UE network namespace to its eRAB IP address as intance 
+</p></td></tr></table>
+<span id="NB_002dIOT-devices"></span><h2 class="chapter">11 NB-IOT devices</h2>
+<span id="Stand-alone-cell"></span><h3 class="section">11.1 Stand alone cell</h3>
+<p>When using standalone NB-IOT cell, only dl_earfcn has to be set in ue.cfg file. 
+The ul_earfcn is automatically deduced
+</p><table class="cartouche" border="1"><tr><td>
+<br><p>Note : If Uplink Downlink spacing doesn&rsquo;t follow standard values, ul_earfcn must be set as well
+</p></td></tr></table>
+
+<span id="Guard-band-and-in-band-cell"></span><h3 class="section">11.2 Guard band and in band cell</h3>
+<p>In in-band and guard band modes, RB used for NB-IOT in uplink and downlink  are configured by the network. Uplink EARFCN and frequency offset values used are broadcasted via SIB2. 
+<br>UE SIM can not change dynamically the UL Freq based on SIB2 parameters. It&rsquo;s then required to set those values (<code>ul_earfcn</code> and <code>ul_carrier_freq_offset</code>) manually in the ue.cfg file 
+</p>
+<br><p>Example of SIB2 message:
+</p> 
+<img src="img/sib2nbiot.webp" alt="img/sib2nbiot">
+<table class="cartouche" border="1"><tr><td>
+<p>Note : If Amarisoft eNodeB is used, command <code>cell</code> can be used to display <code>dl_earfcn</code>
+</p></td></tr></table>
+
+<br><p>Example of ue.cfg file: 
+</p>
+<pre class="verbatim"> bandwidth: 1.4,
+ multi_ue: true,
+ multi_ue_type: &quot;nbiot&quot;,
+ rel13_5: true,
+  cells: [
+    {
+      dl_earfcn:  6309, /* 806 MHz (Band 20) */
+      n_antenna_dl: 1, /* number of downlink antennas */
+      n_antenna_ul: 1,
+      ul_earfcn: 24318,
+      ul_carrier_freq_offset: 0,
+    }
+</pre>
+
+<span id="Channel-simulator-1"></span><h2 class="chapter">12 Channel simulator</h2>
+<span id="Channel-simulator"></span>
+<p>The LTE UE simulator embeds a channel simulator that can be used to alter UE measurements and simulate different radio conditions.<br>
+The main parameter to activate the channel simulation is: <code>channel_sim</code> 
+<br>If set to &quot;true&quot;, the UE channel simulator is enabled.<br>
+</p>
+<table class="cartouche" border="1"><tr><td>
+<p>Note: Channel simulator  is only available in multi UE mode (multi_ue = true).
+</p></td></tr></table>
+
+<br><p> On the downlink side, depending on the simulated UE path loss, the channel simulator modifies the PER
+(Packet Error Rate) of PDSCH and PDCCH and updates the measured RSRP and
+CQI. 
+</p>
+<br><p>On the uplink side, The signal level is modified accordingly.
+The path loss of each UE is computed according to the corresponding UE and cell
+positions, channel and antenna models.<br>
+</p>
+<span id="cell-configuration-parameters"></span><span id="Cell-configuration"></span><h3 class="section">12.1 Cell configuration</h3>
+<p>When the UE channel simulator is enabled (<code>channel_sim = true</code>), the following additional parameters must be provided (see lteue.pdf file for more details):
+</p>
+<ul>
+<li> position
+</li><li> antenna
+</li><li> ref_signal_power
+</li><li> ul_power_attenuation
+</li></ul>
+
+<p>Here is an example of cell configuration defined in ue.cfg file: 
+</p><pre class="verbatim">bandwidth: 20,
+multi_ue: true,
+channel_sim: true,
+
+cells: [
+  {
+    dl_earfcn: 3350, /* 2680 MHz (band 7) */
+    n_antenna_dl: 2, /* number of downlink antennas */
+    n_antenna_ul: 1,
+    global_timing_advance: -1,
+    /* position (in meters) */
+    position: [0, 0],
+    ref_signal_power: 5, /* in dBm */
+    /* Attenuation between the UE TX and eNodeB RX in dB. In
+    LTESIM, it is equal to the path loss of the UE group. */
+    ul_power_attenuation: 108,
+    antenna: { type: &quot;isotropic&quot; },
+  }
+],
+</pre>
+
+<span id="UE-parameters"></span><h3 class="section">12.2 UE parameters</h3>
+<p>When the UE channel simulator is enabled (<code>channel_sim = true</code>), the following UE parameters must be provided (see lteue.pdf file for more details):
+</p>
+<ul>
+<li> position
+</li><li> initial_radius
+</li><li> speed
+</li><li> direction
+</li><li> noise_spd
+</li><li> channel 
+</li></ul>
+
+<p>Those parameters can be set manually in the ue.cg file or configured automatically with the WebGui as described below. 
+</p>
+<p>Scenario creation through WebGui is the easiest way to simulate noise and mobility. Based on input parameters, WebGui will generate a random scenario and static channel simulation parameters. 
+</p> 
+<p>However, if you need to get deeper control of UE position, speed and direction or set specific path loss parameters, you can set the initial value of UE list parameters in the ue.cfg file (See <a href="#example-of-ue_005flist-cfg-file">example of ue_list cfg file</a>) and use the remote API as described below to move the UE position.  
+</p>
+
+<span id="Channel-simulation-scenario-using-WebGui"></span><h3 class="section">12.3 Channel simulation scenario using WebGui</h3>
+<p>The WebGui (ltewww) provides options to create scenario including channel simulation. 
+</p>
+<br>
+<p>WebGui interface : 
+</p>
+<img src="img/channel_simu.webp" alt="img/channel_simu">
+
+<p>To activate channel simulation through WebGui : 
+</p><ul>
+<li> Select <code>Channel type</code> = <code>Additive white Gaussian noise</code> 
+</li><li> Set <code>Min distance</code>: minimum allowed distance from coordinates [0,0] in meters.
+</li><li> Set <code>Max distance</code>: maximum allowed distance from coordinates [0,0] in meters.
+</li><li> Set <code>Speed</code>: UE speed in km/h.
+</li><li> Set <code>Noise spectral density in dBm/Hz</code> : define Noise density (default value is -174).
+</li></ul>
+
+<p>Note that UE will be randomly placed inside the ring delimited by minimum and maximum distance
+</p>
+<br>
+<p>Example :
+</p>
+<p>Let&rsquo;s define the same values as the picture above : 
+</p><ul>
+<li> <code>Channel type</code> = <code>Additive white Gaussian noise</code>
+</li><li> <code>Min distance</code> = 0
+</li><li> <code>Max distance</code> = 20
+</li><li> <code>Speed</code> = 5
+</li><li> <code>Noise spectral density in dBm/Hz</code>= -174 
+</li></ul>
+
+<p>This generates the following ue_list parameters : 
+<span id="example-of-ue_005flist-cfg-file"></span></p><pre class="verbatim">ue_list: [
+  {
+    &quot;ue_id&quot;: 1,
+    &quot;imsi&quot;: &quot;001010123456789&quot;,
+    &quot;imeisv&quot;: &quot;2780880000000101&quot;,
+    &quot;K&quot;: &quot;00112233445566778899aabbccddeeff&quot;,
+    &quot;sim_algo&quot;: &quot;xor&quot;,
+    &quot;opc&quot;: &quot;000102030405060708090A0B0C0D0E0F&quot;,
+    &quot;ue_category&quot;: 4,
+    &quot;min_distance&quot;: 0,
+    &quot;max_distance&quot;: 20,
+    &quot;noise_spd&quot;: -174,
+    &quot;position&quot;: [
+        5.711861020335772,
+        3.274739949279177
+    ],
+    &quot;direction&quot;: 42.431151896147014,
+    &quot;speed&quot;: 5,
+    &quot;channel&quot;: {
+      &quot;type&quot;: &quot;awgn&quot;
+    },
+    /* If set, will override global parameter: channel_sim */ 
+    &quot;channel_sim&quot;: true,
+    &quot;pdsch_max_its&quot;: 6,
+    &quot;as_release&quot;: 8,
+    &quot;sim_events&quot;: []
+  }
+]
+</pre>
+
+<p>As a result, with this scenario, UE will move from its initial position (5.71,3.27) following the direction(42.43Â°) at the speed of 5 km/h. Once UE has reached the max distance (20 meters), it will bounce with a random angle back inside the cell.
+</p>
+<img src="img/pic_ueposition.webp" alt="img/pic_ueposition">
+
+
+<span id="Channel-simulation-scenario-through-remote-API"></span><h3 class="section">12.4 Channel simulation scenario through remote API</h3>
+<p>To get deeper control of UE position, speed and direction it&rsquo;s possible to use the remote API to control the UE position.
+First of all, ue.cfg file must be filled correctly
+</p><span id="Cell-configuration-parameters-to-be-provided_003a"></span><h4 class="subsection">12.4.1 Cell configuration parameters to be provided:</h4>
+<p>See <a href="#cell-configuration-parameters">cell configuration parameters</a>
+</p>
+<span id="UE-configuration-parameters-to-be-provided_003a"></span><h4 class="subsection">12.4.2 UE configuration parameters to be provided:</h4>
+<ul>
+<li> Position 
+</li><li> initial_radius 
+</li><li> speed
+</li><li> direction
+</li><li> noise_spd 
+</li><li> channel
+</li></ul>
+<p>see lteue.pdf for more details about these parameters.<br>
+</p>
+<p>Example of UE configuration file 
+</p><pre class="verbatim">ue_list: [
+    {
+      /* USIM card data */
+      imsi: &quot;0010112345600&quot;,
+      K: &quot;00112233445566778899aabbccddee00&quot;,
+      count: 10, 
+      /* UE channel simulator parameters */
+      position: [15, 0], /* starting position (in meters) */
+      speed: 0, /* speed (km/h) (default = 0) */
+      direction: 0, /* direction (degrees) (default = 0) */
+      channel: {
+        type: &quot;awgn&quot;,
+      },
+</pre>
+<p>Once configured, the scenario can be run and UE parameters changed on the fly through the remote API
+</p>
+<span id="Command_003a-_0022ue_005fmove_0022"></span><h4 class="subsection">12.4.3 Command:  &quot;ue_move&quot;</h4>
+<p>Move a UE to a specific position . Includes the following parameters : 
+</p><ul>
+<li> ue_id
+</li><li> position 
+</li><li> speed 
+</li><li> direction 
+</li></ul>
+
+<p>Example of Websocket command : 
+</p><pre class="verbatim">./ws.js 192.168.1.11:9002 '{&quot;message&quot;: &quot;ue_move&quot;,&quot;ue_id&quot;:1,&quot;position&quot;: 10,&quot;speed&quot;: 5, ,&quot;direction&quot;: 45}'
+</pre><span id="logging-1"></span><h2 class="chapter">13 logging</h2>
+<span id="logging"></span>
+<span id="Logging-through-WebGui"></span><h3 class="section">13.1 Logging through WebGui</h3>
+<p>For logging LTE UE messages through webGui, please refer to ltewww.pdf documentation .
+Default LTE UE com addr is 9002 <br>
+</p>
+<table class="cartouche" border="1"><tr><td>
+<p>Note: ue.log file can be fetched under your PC /tmp folder without using the WebGui 
+</p></td></tr></table>
+
+<span id="Command-line-monitor"></span><h3 class="section">13.2 Command line monitor</h3>
+
+<p>As described in lteue.pdf command line can be used to display logging information.
+<code> t help</code> command provides the list of options available 
+</p>
+<span id="t-spl-command-1"></span><h4 class="subsection">13.2.1 t spl command</h4>
+<span id="t-spl-command"></span><p>t spl command provides key information about the UE signals 
+</p>
+<pre class="verbatim">--TX 1----- --TX 2----- dBFS --RX 1----- --RX 2-----
+  RMS   MAX   RMS   MAX  SAT   RMS   MAX   RMS   MAX
+-31.4 -16.7 -32.3 -382.3   0 -40.6 -28.4 -41.3 -29.2
+-31.4 -16.7 -32.3 -382.3   0 -40.6 -28.4 -41.3 -29.1
+-31.5 -16.7 -32.3 -382.3   0 -40.6 -28.6 -41.3 -28.3
+-31.5 -16.7 -32.3 -382.3   0 -40.6 -28.3 -41.3 -28.8
+-31.4 -16.7 -32.3 -382.3   0 -40.6 -28.5 -41.3 -28.7
+</pre>
+<br><p>Where, for TX: 
+</p><ul>
+<li> RMS means Root-Mean-Square. This is the mean value in dB FS (full Scale) of the TX samples for each antenna.
+In the example above, mean transmit power is -31.4 dBFS on TX1 and -382.3 on TX2 (the current version only supports a single uplink antenna)  
+<br>Note: <code>tx_gain</code> command can be used to decrease or increase the TX gain at UE side. Initial value is set in rf_driver configuration file.
+</li><li> MAX means Maximum. Displays the maximum sample value during the measurement interval period 
+</li><li> SAT means Saturation. Displays the number of saturation events during the measurement interval period
+</li></ul>
+<br>
+<p>And for RX: 
+</p><ul>
+<li> RMS means Root-Mean-Square. This is the mean value in dB FS (Full Scale) of the RX samples for each antenna.
+</li><li> MAX means Maximum. Displays the maximum sample value during the measurement interval period
+<br>Note: The higher is the value, the better will be the reception on UE side. The maximum theoretical value is 0. 
+However, if you see 0 on RX 1 or RX2 this may likely signify that eNodeB signal is too strong and saturates the RX reception at UE side.
+Note: <code>rx_gain</code> command can be used to decrease or increase the RX gain at UE side. Initial value is set in rf_driver configuration file.  
+
+</li></ul>
+
+<span id="t-cpu-command"></span><h4 class="subsection">13.2.2 t cpu command</h4>
+<p>t cpu command provides key informations about the CPU load.  
+</p>
+<pre class="verbatim">-Proc-  ---RX--------   ---TX--------   ---- TX/RX diff (ms)
+   CPU    MS/s    CPU     MS/s    CPU    min/avg/max sigma
+51.8%   23.040   6.6%   23.040   1.6%   2.23/2.8/3.3 0.2
+52.9%   23.040   6.6%   23.039   1.6%   1.97/2.8/3.3 0.2
+52.3%   23.040   6.6%   23.041   1.5%   2.20/2.8/3.3 0.2
+51.4%   23.040   6.6%   23.040   1.6%   2.20/2.8/3.3 0.2
+50.8%   23.040   6.6%   23.039   1.6%   2.19/2.8/3.3 0.2
+</pre>
+<p><code>t cpu</code> shows CPU consumption for the main LTE task (Proc), the reception chain (RX) or transmission chain (TX). Units are MS/s (Million of sample per second) 
+</p>
+<p>On top of that, <code>t cpu</code> command provides informations on TX-RX delay: 
+The min, average and max values are given in miliseconds. 
+To make it simple, in LTE FDD mode as instance, UE is granted in Uplink 4 TTI (4 ms) before  data have to be sent. 
+UE has by consequence 4ms to generate the UL samples. The RX/TX delay is the remaining time before data are processed and time they must be sent in UL. 
+If this value decreases to zero, this means that PC is too slow and physical layer is running out of CPU to process the data within this period. The higher is the TX/RX value is , the better it is.    
+</p>
+<span id="t-command"></span><h4 class="subsection">13.2.3 t command</h4>
+<p><code>t</code> command (without argument) provides key informations about the Uplink and downlink transfer 
+</p><pre class="verbatim">-------------- --Hz--ppm---dB----dBm---------------------DL---------  ---------UL----- 
+ UE_ID CL RNTI  CFO  SRO  SINR  RSRP  mcs  retx rxko rxok  brate mcs  ta retx  tx  brate 
+4G  1  00 003d -898 -3.5  32.1 -44.0  27.8  0    0   6192  209M  20.0  0  0    50  21.3k 
+4G  1  00 003d -900 -3.5  32.1 -44.0  27.8  0    0   6208  210M  20.0  0  0    50  21.0k 
+4G  1  00 003d -900 -3.5  32.1 -44.0  27.8  0    0   6192  209M  20.0  0  0    50  21.0k 
+4G  1  00 003d -901 -3.5  32.1 -44.0  27.7  14   4   6204  208M  21.0  0  0    64  292k
+</pre>
+<p>Where : 
+</p><ul>
+<li> UE_ID is the UE ID 
+</li><li> CL is the Cell ID 
+</li><li> RNTI is the (c) RNTI of each UE 
+</li><li> CFO is the Carrier frequency offset in Hertz 
+</li><li> SRO is the Sample Rate Offset in ppm 
+</li><li> SINR (Signal-to-Interference Ratio) is an indicator of the signal quality while the rsrp is an indicator of the signal strengh. SINR is the ratio of Signal Power and Noise Power. Unit is in dB. 
+</li><li> RSRP (Reference signal received power), is the linear average over the power contributions of the resource elements that carry cell-specific reference signals within the considered measurement frequency bandwidth. Unit is in dBm 
+</li><li> mcs (Modulation Coding Scheme) is the average MCS value used in downlink during the measurement interval period. More details about MCS range are available in 3GPP TS 36.213 
+</li><li> retx (retransmission) is the number of retransmission sent by UE in Uplink or received by eNodeB in downlink. This parameter gives indications about the channel quality. 
+</li><li> rxko is the number of received downlink transport blocks with CRC errors.
+</li><li> rkok is the number of received downlink transport blocks without CRC error.
+</li><li> brate is the average bitrate (at the MAC layer), in bits per second.
+</li><li> ta is the Average of the uplink timing advance in TA units.
+
+</li></ul>
+
+
+<p>Information about the logging tool are provided in ltewww.pdf document. It describes how to setup the web interface and apply filter to get logs displayed. 
+</p><span id="Advanced-options"></span><h2 class="chapter">14 Advanced options</h2>
+<span id="Remote-UE-1"></span><h3 class="section">14.1 Remote UE</h3>
+<span id="Remote-UE"></span><p>When using tunnel interface with external program, you may want external program to be run
+on a different PC. The Remote UE tool allows you to transfer IP traffic from each UE to a remote entity.
+</p>
+<img src="img/remoteue.webp" alt="img/remoteue">
+
+<p>On the remote PC : 
+</p><ul>
+<li> First copy lterue, config/rue.cfg, libnopoll.so, libc_wrapper.so, libcrypto.so.1.1, libssl.so.1.1,
+config/ue-ifup and config/ext_app.sh on your remote PC. 
+</li><li> In rue.cfg, change the bind address to the IP address of your remote PC (example 192.168.1.100 here)
+</li><li> As root, run <code>lterue config/rue.cfg</code> command
+</li></ul>
+<p>Note : You donât need any specific license. lterue uses GTP over SCTP to communicate with LTEUE.<br>
+</p>
+<p>On the UE simulator PC:
+</p><ul>
+<li> In ue.cfg, set <code>rue_bind_addr</code> parameter to the IP address of UE sim PC (example 192.168.1.20 here)
+</li><li> As root, run <code>lteue config/ue.cfg</code> command<br>
+</li></ul>
+
+<table class="cartouche" border="1"><tr><td>
+<p>Setup is now configured and ready for running scenario either manually or with Webgui
+</p></td></tr></table>
+
+<br><p>When using WebGui: 
+</p><ul>
+<li> Create your scenario and in <code>Create UEs</code> tab set <code>type</code> = Remote 
+</li><li> Keep <code>setup script</code> value = ue-ifup 
+</li><li> Set <code>Remote address</code> value = IP address of remote PC ( example 192.168.1.100 here) 
+</li><li> Run the scenario 
+</li></ul>
+<p>.
+<br>When scenario is run manually:
+<br>In ue.cfg file, add for each UE, under <code>ue_list</code>: 
+</p><ul>
+<li> <code>tun_setup_script: &quot;ue-ifup&quot;</code> 
+</li><li> <code>rue_addr: &quot;192.168.1.100&quot;,</code> where 192.168.1.100 is the remote PC IP address
+</li></ul>
+<p>.
+<br>Now, If you go back to remote PC:
+</p><ul>
+<li> In LTE terminal you should see your UE using <code>ue</code> command
+</li><li> In another shell run <code>ip netns list</code> command. You should see the networks namespace created for each UE .See <a href="#Linux-Network-Namespaces">Linux Network Namespaces</a> for more details
+</li><li> You can run now any command within the UE Network Namespaces using command <code>ip netns ueX commandX</code>.
+Example: ip netns exec ue1 ping 192.168.3.1
+</li></ul>
+
+<span id="External-application-1"></span><h3 class="section">14.2 External application</h3>
+<span id="External-application"></span><p>You can replace predefined simulation by a custom application. For this, choose <code>Application</code> in IP simulation list.<br>
+When started, the external application will fork a process and return its standard output and error.
+</p>
+<p>To handle dedicated application, please take a look at <code>libsim_custom.js</code>
+file in <code>LTEWWW</code> component.<br>
+You can add specific result handler using <code>tag</code> for association.
+</p>
+<p>Note that it requires associated UE to be configured in tunnel mode
+or with remote UE mode and thus IP simulations can&rsquo;t be mixed.
+</p>
+<span id="External-SIM"></span><h3 class="section">14.3 External SIM</h3>
+
+<p>External SIM card can be used using PCSC-Lite lib, which is supported on Amarisoft LTE UE simulator
+<br>To do so : 
+</p><ul>
+<li> Install PCSC-Lite lib on your machine (pcsc-lite-devel) 
+</li><li> In ue.cfg file, under <code>ue_list</code>, set <code>external_sim: true</code> 
+</li><li> If several cards are used, set <code>sim_reader_index</code>. This is optional. 
+</li></ul>
+<span id="Troubleshooting"></span><h2 class="chapter">15 Troubleshooting</h2>
+
+<span id="No-SIB-found"></span><h3 class="section">15.1 No SIB found</h3>
+<span id="No-sib-found"></span><p>When running LTE UE simulator, before creating any UE or starting scenario, the first output that should be displayed on the shell is <code>&quot;(ue) Cell 0: SIB found&quot;</code>. This means that LTE UE simulator has detected the eNodeB and can read the SIB. This is a prerequisite before running any tests. 
+<br>If this message is not displayed, here is a check list that can help to find the root cause: 
+</p><ul>
+<li> Check that LTE UE config file parameters match with eNodeB configuration: bandwidth, dl_earfcn, n_antenna_dl 
+</li><li> Check correct SDR card is being used (For PCIe SDR cards , check rf_driver config file : args: &quot;dev0=/dev/sdr0&quot;).
+</li><li> Check <code>rx_gain</code> value. Should be around 60dB in wireless connection or 0dB in wired connection
+</li><li> Check received signal strength with  <code>t spl</code> command. See <a href="#t-spl-command">t spl command</a> for more details. 
+</li><li> Test in wireless condition instead of conducted one. This can help to verify that RF cabling is not the culprit (see RF connection section for TF and RX gain impact)  
+</li></ul>
+<p>If all checks above haven&rsquo;t been enough to figure out why eNodeB signal is not detected, you can also use the spectrum analyzer function embedded in the UE simulator to verify the LTE signal quality received in downlink. See trx_sdr.pdf documentation for more details. 
+</p>
+<span id="SIB-found-but-attach-fails"></span><span id="SIB-found-but-attach-fails-1"></span><h3 class="section">15.2 SIB found but attach fails</h3>
+
+<p>When multiple UE mode is enabled, UE simulator may have difficulties to synchronize with eNodeB signal. 
+If such a case occurs, you should see that UE is able to receive SIBs but further communications fails with bad CRC on physical layer. <br>
+</p>
+
+
+<p>This means that you should adjust the parameter <code>global_timing_advance</code> in your configuration file.
+The <code>global_timing_advance</code> parameter can be set automatically by using the special value -1 (<code>global_timing_advance:-1</code>). If automatic mode is set, the UE simulator uses the timing advance from the first received RAR for all UEs. This is the default behavior.
+</p>
+<p>You can also manually adjust the timing advance for all UEs in case you still experience CRC erros with automatic mode. You can check TA value on eNodeB side and
+set it to minus 1 in UE <br> (global_timing_ advance = TA[enb] - 1). if you are using simulator with Amarisoft eNodeB, you can type <code>t</code> at eNodeB screen and look at PRACH traces.
+</p>
+<p>Then, use <code>ta</code> value minus one as <code>global_timing_advance</code>.
+</p>
+<div class="example">
+<pre class="example">PRACH: cell=01 seq=17 ta=2 snr=18.5 dB
+PRACH: cell=01 seq=22 ta=2 snr=18.0 dB
+PRACH: cell=01 seq=23 ta=2 snr=18.5 dB
+PRACH: cell=01 seq=29 ta=3 snr=17.6 dB
+</pre></div>
+
+<p>In this example, adjust <code>global_timing_advance</code> to 1.
+</p>
+<p>If you are using another eNodeB and you do not have access to eNodeB logs and information, you can enable the PHY and MAC layer logs in UE simulator and look for <code>ta</code> value in MAC traces
+</p><div class="example">
+<pre class="example">12:13:37.086 [MAC] -  0001 ta=13 ul_grant=128768 c_rnti=0x0047
+
+</pre></div>
+<p>In this example, you should set the <code>global_timing_advance</code> to 12.
+</p>
+
+<span id="Downlink-peak-throughput-not-achieved"></span><h3 class="section">15.3 Downlink peak throughput not achieved</h3>
+<p>If peak throughput is not achieved in Downlink, a first investigation can be done at physical layer using the webGui. 
+In the main panel, click on <code>analytics</code> button. A new window will pop up.
+Note : physical layer trace level must be set to <code>debug</code> prior to the testing.
+</p>
+<img src="img/gui_lteue_14.webp" alt="img/gui_lteue_14">
+
+<p>In this new window, several statistics are displayed and provide useful information about UE performance 
+</p><dl compact="compact">
+<dt><code>Throughput</code></dt>
+<dd><p>Displays Downlink and Uplink throughput at physical layer 
+</p>
+</dd>
+<dt><code>CQI</code></dt>
+<dd><p>CQI values reported by the UE to the eNodeB. 
+  A low CQI value means that Downlink channel quality is low and results in low throughput in downlink as eNodeB will use small MCS 
+</p>
+</dd>
+<dt><code>Rank indicator</code></dt>
+<dd><p>Rank Indicator values reported by UE to the eNodeB.
+  A RI of 0 means that UE is not able to receive data in MIMO mode (TM3) and results in lower throughput . 
+  This can be caused by a low SNR, or a high correlation between two antenna stream or simply because the  <code>n_antenna_dl</code> parameter as been set to 1 in the ue.cfg file  
+</p>
+</dd>
+<dt><code>TPC</code></dt>
+<dd><p>TPC (Transmit power control) average values received by the eNodeB. 
+  Note: When channel simulation is disabled, TPC command are not taken into account by the UE. The transmit power is set in the configuration file
+</p>
+</dd>
+<dt><code>RX/TX packets</code></dt>
+<dd><p>Display number of packet received and sent with good and bad CRC (cyclic redundancy check) 
+  This graphic give a good overview of the downlink/uplink performance. 
+  In perfect radio conditions, no packet with bad CRC should be received by UE or eNodeB.
+  Having a high number of bad CRC indicates that RF path is not optimal or that UE is running out of CPU.   
+  <br><code>t cpu</code> command provides CPU indication at UE side.  
+</p>
+</dd>
+</dl>
+ 
+<ul>
+<li> If webGui is used for downlink, verify that ltesim_server service is running on eNodeB (./ltesim_server -a 192.168.3.1) and check that scenario created under webGui uses the same IP address.  
+</li><li> Force CQI and RI values (RI reported value is not dynamic and forced CQI value may give better throughput than the one calculated by the LTE UE simulator based on downlink signal quality) 
+</li><li> If Downlink transfer is run with iperf, verify that bitrate set in iperf is higher than expected throughput (at least 10%)   
+</li></ul>
+
+<span id="RRC_005fSTATE-locking-value"></span><h3 class="section">15.4 RRC_STATE locking value</h3>
+<p>When running NB-IOT test, the RRC state may report &quot;Locking&quot; value . This is visible when typing &quot;<code>ue</code>&quot; command in LTE UE screen.
+This state means that LTE UE has not been able to synchronize on eNodeB side. This is likely due to wrong EARFCN or RX signal level
+</p>
+<span id="Connection-to-webGui-fails"></span><h3 class="section">15.5 Connection to webGui fails</h3>
+<p>If your browser fails to load the webGui page (xx.xx.xx.xx/lte), check that : 
+</p><ul>
+<li> httpd service is running on LTE UE SIM side (service httpd status)
+</li><li> Test with another web browser (Firefox, Chrome or Internet Explorer). Avoid beta version of web browser<br>
+</li></ul>
+<p>If the main page can be loaded but connection to server fails, check that 
+</p><ul>
+<li> LTE service is running on LTE UE side (service lte status)
+</li><li> Server configuration is correctly set, i.e ip address and port com. Port com default value is 9002 
+</li><li> No firewall blocks the IP traffic between PC and LTE setup 
+</li></ul>
+ 
+<span id="TRX-discontinuity-too-wide"></span><h3 class="section">15.6 TRX discontinuity too wide</h3>
+
+<p>TRX discontinuity too wide means that frames number on cell 1 and 2 are misaligned . This may have several root causes.   
+</p><ul>
+<li> Simply reboot your setup. This can solve the problem otherwise, follow steps below. 
+</li><li> If you have more than one SDR cards, check that SDR cards are synchronized with each other with the USB cable. You must also identify the sdr mapping to know which connector shall be used (input or output). Please see installguide.pdf for more details 
+</li><li> Check that both eNodeB cells are synchronized (frame boundary and Frame number) . LTE UE simulator doesn&rsquo;t support asynchronous cells. 
+</li><li> If problem occurs during data transfer test, this can happen when PC is running out of CPU. To check it: 
+<br>  -Run lte_init.sh script available under /root/ue directory.
+<br>  -Run the Linux top - H command to check if unexpected process are loading the CPU.
+<br>  -Remove unnecessary drivers and peripherals such as WiFi dongle.
+<br>  -If you use a HDMI monitor, disconnect it and access the system remotely by SSH for instance.
+<br>  -Ensure that your CPU is fast enough. It should be at least a Intel 4 Core i7 with a clock running at 3.6 GHz.
+<br>  -Remove unused daemons or cron jobs.
+</li></ul>
+
+
+
+
+<hr>
+
+
+
+</body>
+</html>

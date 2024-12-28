@@ -1,0 +1,605 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.6, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>TRX split 7.2 driver example</title>
+
+<meta name="description" content="TRX split 7.2 driver example">
+<meta name="keywords" content="TRX split 7.2 driver example">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+
+th {
+    border: 1px solid black;
+    background-color: #c0f585;
+    font-size: 14px;
+    padding: 5px;
+}
+
+td {
+    border: 1px solid black;
+    padding: 2px 4px;
+}
+
+p>img {
+    display: initial;
+}
+
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">TRX split 7.2 driver example</h1>
+
+
+<span id="SEC_Contents"></span>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+<ul class="no-bullet">
+<li><a id="toc-Introduction" href="#Introduction">1 Introduction</a></li>
+<li><a id="toc-Features" href="#Features">2 Features</a></li>
+<li><a id="toc-Network-configuration" href="#Network-configuration">3 Network configuration</a>
+<ul class="no-bullet">
+  <li><a id="toc-Time-synchronization" href="#Time-synchronization">3.1 Time synchronization</a>
+  <ul class="no-bullet">
+    <li><a id="toc-PTP" href="#PTP">3.1.1 PTP</a></li>
+  </ul></li>
+  <li><a id="toc-Ethernet-optimization" href="#Ethernet-optimization">3.2 Ethernet optimization</a></li>
+  <li><a id="toc-VLAN" href="#VLAN">3.3 VLAN</a></li>
+</ul></li>
+<li><a id="toc-Software-configuration" href="#Software-configuration">4 Software configuration</a>
+<ul class="no-bullet">
+  <li><a id="toc-Linux" href="#Linux">4.1 Linux</a></li>
+  <li><a id="toc-eNB" href="#eNB">4.2 eNB</a></li>
+  <li><a id="toc-UE" href="#UE">4.3 UE</a></li>
+  <li><a id="toc-rf_005fdriver" href="#rf_005fdriver">4.4 rf_driver</a></li>
+</ul></li>
+<li><a id="toc-Troubleshoot" href="#Troubleshoot">5 Troubleshoot</a>
+<ul class="no-bullet">
+  <li><a id="toc-Statistics" href="#Statistics">5.1 Statistics</a>
+  <ul class="no-bullet">
+    <li><a id="toc-eNB-1" href="#eNB-1">5.1.1 eNB</a></li>
+  </ul></li>
+  <li><a id="toc-Packet-jitter" href="#Packet-jitter">5.2 Packet jitter</a></li>
+</ul></li>
+<li><a id="toc-trx_005fs72_002ec" href="#trx_005fs72_002ec">6 trx_s72.c</a>
+<ul class="no-bullet">
+  <li><a id="toc-eCPRI-transport" href="#eCPRI-transport">6.1 eCPRI transport</a>
+  <ul class="no-bullet">
+    <li><a id="toc-UDP-mode" href="#UDP-mode">6.1.1 UDP mode</a></li>
+    <li><a id="toc-Ethernet-mode" href="#Ethernet-mode">6.1.2 Ethernet mode</a></li>
+  </ul></li>
+  <li><a id="toc-API-Implementation" href="#API-Implementation">6.2 API Implementation</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Callbacks" href="#Callbacks">6.2.1 Callbacks</a>
+    <ul class="no-bullet">
+      <li><a id="toc-trx_005fget_005fpacket_005fconfig" href="#trx_005fget_005fpacket_005fconfig">6.2.1.1 trx_get_packet_config</a></li>
+      <li><a id="toc-trx_005fread_005fpacket" href="#trx_005fread_005fpacket">6.2.1.2 trx_read_packet</a></li>
+      <li><a id="toc-trx_005fwrite_005fpacket" href="#trx_005fwrite_005fpacket">6.2.1.3 trx_write_packet</a></li>
+    </ul></li>
+    <li><a id="toc-trx_005fget_005fpacket" href="#trx_005fget_005fpacket">6.2.2 trx_get_packet</a></li>
+    <li><a id="toc-Miscellaneous" href="#Miscellaneous">6.2.3 Miscellaneous</a></li>
+  </ul></li>
+</ul></li>
+<li><a id="toc-Change-history" href="#Change-history">7 Change history</a>
+<ul class="no-bullet">
+  <li><a id="toc-Version-2024_002d09_002d13" href="#Version-2024_002d09_002d13">7.1 Version 2024-09-13</a></li>
+  <li><a id="toc-Version-2024_002d06_002d14" href="#Version-2024_002d06_002d14">7.2 Version 2024-06-14</a></li>
+  <li><a id="toc-Version-2024_002d03_002d15" href="#Version-2024_002d03_002d15">7.3 Version 2024-03-15</a></li>
+</ul></li>
+<li><a id="toc-License" href="#License">8 License</a></li>
+
+</ul>
+</div>
+
+
+<span id="Introduction"></span><h2 class="chapter">1 Introduction</h2>
+
+<p>The purpose of this document is to explain how to implement a driver for
+Amarisoft softwares to use ORAN split 7.2 compatible radio units.
+Such a driver must implement the TRX API defined in <code>trx_driver.h</code> and will
+be used by Amarisoft software as a shared library.<br>
+It is stron recommended to be familiar with the legacy TRX API as documentated
+<a href="https://tech-academy.amarisoft.com/trx_example.doc">here</a>.
+</p>
+
+<span id="Features"></span><h2 class="chapter">2 Features</h2>
+
+<ul>
+<li> ORAN category A
+</li><li> Big Endian byte order
+</li><li> eAxC
+</li><li> DU_port: 4 bits
+</li><li> other: any bits
+</li><li> Max MTU: 9000
+</li><li> eCPRI concatenation
+</li><li> I/Q sample format: raw (16 bits) or block floating point (8, 9, 12 or 14 bits)
+</li><li> static compression: no compression header supported
+</li></ul>
+
+
+
+
+<span id="Network-configuration"></span><h2 class="chapter">3 Network configuration</h2>
+
+
+<p>The driver has been tested with an Intel X710 network interface.<br>
+In case of jumbo frame usage, configure your NIC MTU size accordingly.
+</p>
+
+<span id="Time-synchronization"></span><h3 class="section">3.1 Time synchronization</h3>
+
+<p>As the system clock is used (CLOCK_REALTIME), the system must be synchronized with the level of accuracy required
+by the radio unit.<br>
+</p>
+
+<span id="PTP"></span><h4 class="subsection">3.1.1 PTP</h4>
+
+<p>Here we explain how to configure system as a PTP grandmaster and synchronize system clock to it.
+This description is not detailed and we recommend to use Internet resources to get more details.
+</p>
+<p>We assume system as at least one network interface supporting PTP.<br>
+We assume the radio unit will be synchronize to the system (or same PTP master clock).<br>
+We note this interface <code>if-s72</code>.
+</p>
+<p>To check <code>if-s72</code> PTP support:
+</p><pre class="verbatim">ethtool -T if-s72
+</pre>
+<p>To use PTP, install <code>linuxptp</code> package (Name may differ depending on Linux distribution).<br>
+</p>
+<p>To configure system as PTP grandmaster, set priority1 and priority2 to 127 (or less)
+in the global section of your ptp configuration file (/etc/ptp4l.conf) and add a section to use <code>if-s72</code>.
+</p>
+<p>Ex:
+</p><pre class="verbatim">[global]
+priority1               127
+priority2               127
+domainNumber            24
+...
+
+[if-s72]
+network_transport       L2
+hybrid_e2e              0
+</pre>
+<p>To configure system as PTP client, select the proper domain number set here to 24.<br>
+Change <code>if-s72</code> by the name of your network interface.<br>
+</p>
+<p>To increase the periodicty of sent ptp announce and sync messages you may set
+<code>logAnnounceInterval</code> and <code>logSyncInterval</code>
+Ex:
+</p><pre class="verbatim">logAnnounceInterval     -3
+logSyncInterval         -4
+</pre>
+
+<p>Then launch <code>ptp4l</code>.
+Ex:
+</p><pre class="verbatim">ptp4l -m -f /etc/ptp4l.conf  -l 7
+</pre>
+<p>And use <code>phc2sys</code> to synchronize clock with interface PTP informations:
+</p><pre class="verbatim">phc2sys -a -rr -n 24
+</pre>
+<p>Replace 24 by your domain number
+</p>
+<p>You may disable NTP service to avoid conflict:
+</p><pre class="verbatim">systemctl disable chronyd
+systemctl stop chronyd
+</pre>
+<p>You may use your distribution service.<br>
+Ex with Fedora:
+First edit <code>/etc/sysconfig/phc2sys</code> to use <code>-a -rr</code> command line options
+and enable/start services:
+</p><pre class="verbatim">systemctl enable ptp4l
+systemctl start ptp4l
+systemctl enable phc2sys
+systemctl start phc2sys
+</pre>
+<p>To check phc2sys is working properly (Depends on your Linux distribution), type:
+</p><pre class="verbatim">journalctl -f -u phc2sys
+</pre>
+<p>You may see such lines:
+</p><pre class="verbatim">Jul 17 10:53:55 hostname phc2sys[360200]: [3608400.928] if-s72 sys offset        -9 s2 freq   +2641 delay    499
+Jul 17 10:53:56 hostname phc2sys[360200]: [3608401.928] if-s72 sys offset        -8 s2 freq   +2639 delay    496
+Jul 17 10:53:57 hostname phc2sys[360200]: [3608402.928] if-s72 sys offset        -7 s2 freq   +2638 delay    501
+</pre>
+
+
+<span id="Ethernet-optimization"></span><h3 class="section">3.2 Ethernet optimization</h3>
+
+<p>We recommend to increase MTU of your network interface to have biggest packet as possible.
+</p>
+<p>We also recommend to turn off adaptive TX feature of your network interface:
+</p><pre class="verbatim">ethtool -C &lt;ifname&gt; adaptive-tx off
+</pre>
+
+<span id="VLAN"></span><h3 class="section">3.3 VLAN</h3>
+
+<p>To use VLANs, you can rely on Linux, it will be transparent.
+</p>
+<p>Ex:
+</p><pre class="verbatim">ip link add link if-s72 name if-s72.42 type vlan id 42
+ifconfig if-s72.42 up
+</pre>
+<p>This will create a VLAN with id 42 ont <code>if-s72</code> interface. To use it just set <code>bind_interface</code> to <code>if-s72.42</code>
+</p>
+
+<span id="Software-configuration"></span><h2 class="chapter">4 Software configuration</h2>
+
+<span id="Linux"></span><h3 class="section">4.1 Linux</h3>
+
+<p>To send packet on time, as there is no standard mechanism in Linux and hardware
+to do it, the driverwill poll packets.<br>
+For that, Linux sched_rt_runtime_us kernel configuration must be set to -1 (disabled).
+</p><pre class="verbatim">sysctl -w sched_rt_runtime_us=-1
+</pre>
+<p>Note that if you have used the Amarisoft OTS installation script and installed OTS
+service, this will be automatically done.
+</p>
+<span id="eNB"></span><h3 class="section">4.2 eNB</h3>
+
+<p>To enable s72 mode, add a s72 section in your rf_port configuration (cf 
+config.enb/config.cfg file).<br>
+If you ave installed Amarisoft <code>lteenb</code> with automatic installation,
+check config/s72/config.cfg.
+</p>
+<span id="UE"></span><h3 class="section">4.3 UE</h3>
+
+<p>To enable s72 mode, add a s72 section in your cell configuration (cf 
+config.ue/config.cfg file).<br>
+The <code>t1a_min_cp_dl</code>, <code>t1a_max_cp_dl</code>, <code>t1a_min_up_dl</code>
+and <code>t1a_min_up_dl</code> must not be set.<br>
+</p>
+<p>If you ave installed Amarisoft <code>lteue</code> with automatic installation,
+check config/s72/config.cfg.
+</p>
+<span id="rf_005fdriver"></span><h3 class="section">4.4 rf_driver</h3>
+
+<!-- prop:rf_driver -->
+
+<dl compact="compact">
+<dt><code>local_sof</code></dt>
+<dd><p>Optional integer (default = 1). If set to 1, the driver will generate eCPRI private packets, else,
+those packets are expected to be received from the network.
+</p></dd>
+<dt><code>clock_factor</code></dt>
+<dd><p>Optional number (default = 1). If <code>local_sof</code> is set, a factor will be applied to the system clock time
+to allow slowing down (&lt; 1) or speeding up (&gt; 1) the time. Usefull for debug but requires radio unit
+to support it.
+</p></dd>
+<dt><code>tai_offset</code></dt>
+<dd><p>Optional integer (default = computed by Linux). Set the offset in seconds between UTC time and TAI time.
+</p></dd>
+<dt><code>alpha_offset</code></dt>
+<dd><p>Optionel integer (default = 0). System Frame Number Calculation alpha offset.
+</p></dd>
+<dt><code>beta_offset</code></dt>
+<dd><p>Optionel integer (default = 0). System Frame Number Calculation beta offset.
+</p>
+</dd>
+<dt><code>rf_ports</code></dt>
+<dd><p>Array of object. Each object represent a cell configuration with following parameters:
+  </p><dl compact="compact">
+<dt><code>transport</code></dt>
+<dd><p>Optional string (default = udp). Can be <code>udp</code> or <code>ethernet</code>.
+    </p></dd>
+<dt><code>subcarrier_spacing</code></dt>
+<dd><p>Optional integer (default = 30). Cell subcarrier spacing in kHz.
+    </p></dd>
+<dt><code>max_pdu_size</code></dt>
+<dd><p>Optional integer (default = 1472). Maximum eCPRI PDU size in bytes.
+    </p></dd>
+<dt><code>bind_addr</code></dt>
+<dd><p>String. If <code>udp</code> mode is set, defines the IP address to use to send and receive packets.
+    </p></dd>
+<dt><code>bind_interface</code></dt>
+<dd><p>String. If <code>ethernet</code> mode is set, defines the network interface name to use to send and receive packets.
+    </p></dd>
+<dt><code>remote_addr</code></dt>
+<dd><p>String. If <code>ethernet</code> mode is set, defines the destination mac address of the TX ethernet fames.<br>
+    If <code>udp</code> mode is set, defines the destination IP address to send UDP packet to.
+    </p></dd>
+<dt><code>t1a_min_cp_dl</code></dt>
+<dd><p>Optional integer. ORAN <code>t1a_min_cp_dl</code> management parameter in microseconds. If not set, the eCPRI
+    packets will be sent as soon as they are generated.
+    </p></dd>
+<dt><code>t1a_max_cp_dl</code></dt>
+<dd><p>Optional integer. ORAN <code>t1a_max_cp_dl</code> management parameter in microseconds.
+    </p></dd>
+<dt><code>t1a_min_up_dl</code></dt>
+<dd><p>Optional integer. ORAN <code>t1a_min_up_dl</code> management parameter in microseconds.
+    </p></dd>
+<dt><code>t1a_max_up_dl</code></dt>
+<dd><p>Optional integer. ORAN <code>t1a_max_up_dl</code> management parameter in microseconds.
+    </p></dd>
+<dt><code>ta3_max</code></dt>
+<dd><p>Optional integer. Set time margin in microseconds for incoming U-Plane packet to arrive.<br>
+    In other words, IQ packets for slot <code>N</code> may arrive up to <code>ta3_max</code> after start of slot <code>N+1</code>
+  </p></dd>
+</dl>
+</dd>
+</dl>
+
+
+<span id="Troubleshoot"></span><h2 class="chapter">5 Troubleshoot</h2>
+
+<span id="Statistics"></span><h3 class="section">5.1 Statistics</h3>
+
+<p>To check eCPRI/ORAN traffic or to troubleshoot the system, you can use the <code>t s72</code> monitor command of <code>LTEENB</code> and <code>LTEUE</code>.
+</p>
+<span id="eNB-1"></span><h4 class="subsection">5.1.1 eNB</h4>
+
+<p>On eNB, you will get the following columns prompted:
+</p><pre class="verbatim">     --User----------------------------------------------- - Slots - ----
+Cell total type1 type3   err   inv  miss  late early  lost skip past  err
+   1     0     0     0     0     0     1     0     0     0    0    0    0
+   1     0     0     0     0     0     1     0     0     0    0    0    0
+</pre>
+<p>Here is the definition of each column
+</p>
+<dl compact="compact">
+<dt><code>Cell</code></dt>
+<dd><p>Internal cell ID
+</p>
+</dd>
+<dt><code>User</code></dt>
+<dd><p>User plane statistics:
+    </p><table>
+<thead><tr><th>Info</th><th>Description</th></tr></thead>
+<tr><td>total</td><td>Total number of valid eCPRI packets</td></tr>
+<tr><td>type1</td><td>Number of valid ORAN section type 1</td></tr>
+<tr><td>type3</td><td>Number of valid ORAN section type 3</td></tr>
+<tr><td>error</td><td>Number of unwanted ORAN sections (type 3 only)</td></tr>
+<tr><td>inv</td><td>Number of ORAN invalid section, i.e wrong header values</td></tr>
+<tr><td>miss</td><td>Number of non complete OFDM symbols</td></tr>
+<tr><td>late</td><td>Number of outdated eCPRI packets</td></tr>
+<tr><td>early</td><td>Number of eCPRI packets arriving too early</td></tr>
+<tr><td>lost</td><td>Number of eCPRI packets without associated control</td></tr>
+</table>
+
+</dd>
+<dt><code>Slots</code></dt>
+<dd><p>eCPRI Start Of Frame private packets statistics:
+    </p><table>
+<thead><tr><th>Info</th><th>Description</th></tr></thead>
+<tr><td>skip
+    Number of dsicontinuities in frame number</td></tr>
+<tr><td>past
+    Number packets with frame number in the past</td></tr>
+</table>
+
+</dd>
+</dl>
+
+<span id="Packet-jitter"></span><h3 class="section">5.2 Packet jitter</h3>
+
+<p>If you have a hard time to get packet being sent in the proper time window and
+you want to easily get information avout your the global system, we provide a tool
+inside <code>OTS</code> package of Amarisoft software release.<br>
+If you have used Amarisoft installation script, it may be located in <code>/root/ots</code>.
+The tool is called lte_toolbox and has a special mode to listen to a network interface
+and capture <code>ORAN/eCPRI</code> packets and estimate their time arrival towards local time.
+</p>
+<p>Ex:
+</p><pre class="verbatim">./lte_toolbox s72_time eth0
+LTE toolbox version 2024-09-13, Copyright (C) 2012-2024 Amarisoft
+Frame number: 1638
+--Bitrate--  ----------U-Plane-------------  --------DL C-Plane------------  --------UL C-Plane------------
+               count min   avg max    Â±   Î    count min   avg max    Â±   Î    count min   avg max    Â±   Î
+  0.000gbps        0   0   0.0   0  0.0   0        0   0   0.0   0  0.0   0        0   0   0.0   0  0.0   0
+  0.846gbps    20647 -95 191.0 234 43.8 329     1619 -18 187.9 241 78.0 259      101 -103 -87.9 -71  9.7  32
+  0.836gbps    20400 -23 190.9 234 43.6 257     1600 -17 187.1 241 77.9 258      100 -104 -88.0 -71  9.7  33
+</pre>
+
+
+<span id="trx_005fs72_002ec"></span><h2 class="chapter">6 trx_s72.c</h2>
+
+<p>Here are some details about the example code.<br>
+For better understading we recommend to also look at the code to
+get more details and precision.
+</p>
+
+<span id="eCPRI-transport"></span><h3 class="section">6.1 eCPRI transport</h3>
+
+<p>Two transport mode are supported: <code>UDP</code> and <code>Ethernet</code>
+</p>
+<span id="UDP-mode"></span><h4 class="subsection">6.1.1 UDP mode</h4>
+
+<p>In this mode, eCPRI PDU are sent inside UDP payloads.<br>
+This mode is for testing and has low performances.
+</p>
+<span id="Ethernet-mode"></span><h4 class="subsection">6.1.2 Ethernet mode</h4>
+
+<p>This mode conforms to ORAN specification by sending eCPRI data inside Ethernet payloads using the
+<code>0xaefe</code> ethernet type.
+</p>
+<p>This mode uses Linux raw socket in <a href="https://docs.kernel.org/networking/packet_mmap.html">PACKET_MMAP</a> mode
+for high performances.
+</p>
+<p>The Ethernet frames may be sent as fast as possible or may be buffered to be sent on time.<br>
+When sending frames in best effort mode, no time synchronization is needed with the radio unit as the driver
+expect the radio unit to keep all packets, even if received several slots earlier.
+To send frames on time, clock synchronization must be ensured.
+</p>
+
+
+<span id="API-Implementation"></span><h3 class="section">6.2 API Implementation</h3>
+
+<p>When split 7.2 mode is enabled, <code>trx_start_func2</code> will be called with <code>s72_enable</code>
+set to true in <code>TRXDriverParams2</code>.
+</p>
+<span id="Callbacks"></span><h4 class="subsection">6.2.1 Callbacks</h4>
+
+<p>Compared to legacy TRX driver, the following methods are mandatory:
+</p><ul>
+<li> trx_read_packet
+</li><li> trx_write_packet
+</li></ul>
+
+<p>The trx_get_packet_config is optional.
+</p>
+<p>The following methods do not apply to split 7.2 implementation:
+</p><ul>
+<li> trx_read_func, trx_read_func2, trx_read_mt_func
+</li><li> trx_write_func, trx_write_func2, trx_write_mt_func
+</li><li> trx_read_timestamp_func
+</li><li> trx_get_tx_samples_per_packet_func
+</li></ul>
+
+
+<span id="trx_005fget_005fpacket_005fconfig"></span><h4 class="subsubsection">6.2.1.1 trx_get_packet_config</h4>
+
+<p>This method is called after init and before start to provide following informations:
+</p><dl compact="compact">
+<dt><code>max_pdu_size</code></dt>
+<dd><p>Maximum size in byte(s) of eCPRI pdu. Will bound the size of generated packets for TX.
+If set to 0, the default value is 1472.
+</p></dd>
+<dt><code>max_read_packets</code></dt>
+<dd><p>Tells application how maximum number of packets that can be read during <code>trx_read_packet</code> call.
+Default is 1.<br>
+</p></dd>
+<dt><code>rx_async_release</code></dt>
+<dd><p>If set to 1, RX packet provided by driver during trx_read_packet call may not be released by application
+on next call. In this case, trx_read_packet must explicitely check <code>TRX_READ_PACKET_MD_FLAG_RELEASE</code> in
+metadata to be aware of released packets.<br>
+Using this option will help to reduce internal jitter/latency and help sending packets on time.
+</p></dd>
+</dl>
+
+<p>If <code>trx_get_packet_config</code> is not defined, default values apply.
+</p>
+
+<span id="trx_005fread_005fpacket"></span><h4 class="subsubsection">6.2.1.2 trx_read_packet</h4>
+
+<p>This method is constantly called by application. It may be blocking,
+waiting for EPCRI packets to be available.<br>
+It is up to the driver to allocate packets and provide them using <code>packets[n].data</code>.<br>
+Up to <code>count</code> packets may be provided.
+Packets provided during a call to this method are considered as non used anymore on next call
+to this method and thus can be released.<br>
+Application is expected to get EPCRI header at <code>packets(n].data</code> position.<br>
+Length of packet must be set in <code>packets[n].len</code>.<br>
+eCPRI packets must not be fragmented.<br>
+eCPRI message concatenation is supported.<br>
+eCPRI packets should be provided as fast as possible.<br>
+</p>
+<p>A private eCPRI packet is expected at the beginning of each new uplink slot,
+cf build_ecpri_start_of_slot in trx_s72.c to provide application its clock.
+</p>
+<p><code>TRXReadPacketMetadata</code> may be filled this way:
+</p><ul>
+<li> If <code>TRX_READ_PACKET_MD_FLAG_OVERFLOW</code> is set and packets have been lost since last call,
+set it to 1.
+</li></ul>
+
+<p>If <code>rx_async_release</code> has been set during <code>trx_get_packet_config</code>, <code>packets</code> pointer
+will reference <code>TRXReadPacketMetadata.release_count</code> packets that can be released.
+</p>
+
+<span id="trx_005fwrite_005fpacket"></span><h4 class="subsubsection">6.2.1.3 trx_write_packet</h4>
+
+<p>This method is called by application to provide generated eCPRI packets to the radio unit.<br>
+The eCPRI packets are provided as fast as possible and it is up to the driver to send them
+at the appropriate time. I.e if the radio unit has limited buffer, it is up to the driver to
+buffer packets and send them later.<br>
+The driver can read the packet information to retrieve timing informations (cf trx_s72_write_packet)
+to send them at a precise time.<br>
+</p>
+<p>Packets length will be limited by the <code>max_pdu_size</code> configuration parameter provided by
+<code>trx_get_packet_config</code>.
+</p>
+<p><code>TRXWritePacketMetadat</code> may be filled this way:
+</p><ul>
+<li> If <code>TRX_WRITE_PACKET_MD_FLAG_TIME_BUDGET</code> is set, indicate by setting <code>time_budget_set</code> to 1
+how much time remains to send packet to the radio unit in <code>time_budget_us</code>.
+</li><li> If <code>TRX_WRITE_PACKET_MD_UNDERFLOWS</code>, set <code>underflows</code> to how many packets have been lost.
+</li></ul>
+
+<span id="trx_005fget_005fpacket"></span><h4 class="subsection">6.2.2 trx_get_packet</h4>
+
+<p>This method is optional. If set, the application will call it to get a buffer to fill eCPRI packet.<br>
+<code>TRXPacketVec.data</code> must be filled with a buffer of at lease <code>size</code> byte(s). <br>
+<code>TRXPacketVec.user_data</code> may be used to identify packet.<br>
+Each generated packet will be passed through trx_write_packet and can be identified by <code>TRXPacketVec.user_data</code>.
+The application won&rsquo;t use the buffer anymore after the call so it is up to the driver to release the buffer.
+</p>
+<span id="Miscellaneous"></span><h4 class="subsection">6.2.3 Miscellaneous</h4>
+
+<ul>
+<li> The gNB/UE applications support discontinuities in packet reception
+</li></ul>
+
+
+<span id="Change-history"></span><h2 class="chapter">7 Change history</h2>
+
+
+<span id="Version-2024_002d09_002d13"></span><h3 class="section">7.1 Version 2024-09-13</h3>
+
+<ul>
+<li> Added support for TAI offset
+</li><li> Added multi cell support
+</li><li> Added <code>t1a_min_cp_dl</code>, <code>t1a_max_cp_dl</code>, <code>t1a_min_up_dl</code>
+and <code>t1a_min_up_dl</code> support
+</li><li> Added <code>ta3_max</code>
+</li><li> Added <code>gen_prb0</code> parameter
+</li></ul>
+
+<span id="Version-2024_002d06_002d14"></span><h3 class="section">7.2 Version 2024-06-14</h3>
+
+<ul>
+<li> Added support for UE simulator
+</li><li> Added TX packet sending window
+</li><li> Added async TX for UDP mode
+</li></ul>
+
+<span id="Version-2024_002d03_002d15"></span><h3 class="section">7.3 Version 2024-03-15</h3>
+
+<ul>
+<li> First version
+</li></ul>
+
+<span id="License"></span><h2 class="chapter">8 License</h2>
+
+<p><code>trx_s72.c</code> is copyright (C) 2012-2024 Amarisoft. Its redistribution
+without authorization is prohibited.
+</p>
+<p><code>trx_s72.c</code> is available without any express or implied warranty. In
+no event will Amarisoft be held liable for any damages arising from
+the use of this software.
+</p>
+<p>For more information on licensing, please refer to <code>license.pdf</code> file.
+</p>
+
+<hr>
+
+
+
+</body>
+</html>

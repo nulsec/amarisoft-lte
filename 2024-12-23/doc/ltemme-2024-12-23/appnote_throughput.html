@@ -1,0 +1,504 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.6, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Testing Data Throughput</title>
+
+<meta name="description" content="Testing Data Throughput">
+<meta name="keywords" content="Testing Data Throughput">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+
+th {
+    border: 1px solid black;
+    background-color: #c0f585;
+    font-size: 14px;
+    padding: 5px;
+}
+
+td {
+    border: 1px solid black;
+    padding: 2px 4px;
+}
+
+p>img {
+    display: initial;
+}
+
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">Testing Data Throughput</h1>
+
+<span id="SEC_Contents"></span>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+<ul class="no-bullet">
+<li><a id="toc-Introduction" href="#Introduction">1 Introduction</a>
+<ul class="no-bullet">
+  <li><a id="toc-Background-1" href="#Background-1">1.1 Background</a></li>
+</ul></li>
+<li><a id="toc-Throughput-Tests" href="#Throughput-Tests">2 Throughput Tests</a>
+<ul class="no-bullet">
+  <li><a id="toc-UE-Category" href="#UE-Category">2.1 UE Category</a></li>
+  <li><a id="toc-Network-Configuration" href="#Network-Configuration">2.2 Network Configuration</a></li>
+  <li><a id="toc-Number-of-users-in-the-cell" href="#Number-of-users-in-the-cell">2.3 Number of users in the cell</a></li>
+  <li><a id="toc-Signal-Level" href="#Signal-Level">2.4 Signal Level</a></li>
+  <li><a id="toc-Application-Level-Configuration" href="#Application-Level-Configuration">2.5 Application Level Configuration</a>
+  <ul class="no-bullet">
+    <li><a id="toc-iPerf-Install-on-Network-side" href="#iPerf-Install-on-Network-side">2.5.1 iPerf Install on Network side</a></li>
+    <li><a id="toc-iPerf-Install-on-UE-side" href="#iPerf-Install-on-UE-side">2.5.2 iPerf Install on UE side</a></li>
+  </ul></li>
+  <li><a id="toc-UDP_002fTCP-configuration" href="#UDP_002fTCP-configuration">2.6 UDP/TCP configuration</a></li>
+  <li><a id="toc-Step-by-Step-Throughput-Testing" href="#Step-by-Step-Throughput-Testing">2.7 Step by Step Throughput Testing</a>
+  <ul class="no-bullet">
+    <li><a id="toc-DL-throughput-test" href="#DL-throughput-test">2.7.1 DL throughput test</a></li>
+    <li><a id="toc-UL-throughput-test" href="#UL-throughput-test">2.7.2 UL throughput test</a></li>
+    <li><a id="toc-Simultaneous-UL_002fDL-throughput-test" href="#Simultaneous-UL_002fDL-throughput-test">2.7.3 Simultaneous UL/DL throughput test</a></li>
+  </ul></li>
+</ul></li>
+<li><a id="toc-Logging" href="#Logging">3 Logging</a></li>
+<li><a id="toc-Troubleshooting" href="#Troubleshooting">4 Troubleshooting</a></li>
+<li><a id="toc-Additional-Information" href="#Additional-Information">5 Additional Information</a></li>
+
+</ul>
+</div>
+
+
+
+<span id="Introduction"></span><h2 class="chapter">1 Introduction</h2>
+
+<p>This application note explains the procedure for testing data throughput using Amarisoft eNodeB and EPC (Enhanced Packet Core). We will focus on testing DL (downlink), UL (uplink) and bidirectional
+data transfers. We will also present recommended applications to be used with UDP and TCP as well as optimal TCP settings to achieve maximum throughput. Some configuration changes may apply if you use Amarisoft eNodeB with a third party EPC or if you use Amarisoft EPC with an external eNodeB. The verification steps could also be different depending on the commands available on third party EPC and eNodeB.
+</p>
+<p>Following section gives you a brief background. Next chapter gives you some hints on the configuration and tools to be used as well as a step by step procedure to execute your throughput tests. The last two chapters focus on logging and troubleshooting to ease the debug process.
+</p>
+<span id="Background"></span><span id="Background-1"></span><h3 class="section">1.1 Background</h3>
+<p>LTE is providing a very large increase in data transmission capacity of mobile networks. Advanced technologies such as MIMO (Multi-Input Multiple-Output) and CA (Carrier Aggregation) have yet enabled higher data rates.
+</p>
+<p>The 3GPP TR (Technical Report) 37.901 document specifies application layer UE data throughput performance testing for both HSPA and LTE networks. It is proposed to test with both TCP and UDP as measurements utilizing each transport protocol are relevant.
+</p><ul>
+<li> TCP
+<ul class="no-bullet">
+<li>- TCP is mostly used in applications that need reliable data transfers.
+</li><li>- TCP throughput is sensitive to the end-to-end delay and packet loss. 
+</li><li>- Bi-directional TCP tests in asymmetric data rate links would cause the downlink speed to be limited by uplink speed. For TCP data transfers in one direction, the TCP ACKs are transmitted in the other direction, therefore delay in receiving TCP ACK in one direction negatively impacts the throughput in the other direction.
+</li></ul>
+</li><li> UDP
+<ul class="no-bullet">
+<li>- Most multimedia and real-time applications use UDP protocol.
+</li><li>- The performance of UDP based data transfer, unlike TCP based transfer, is Operating System agnostic and is not sensitive to end-to-end delay.
+</li><li>- UDP Data Transfer in one direction is not dependent on the other direction, unlike with TCP.
+</li></ul>
+</li></ul>
+
+
+
+<p>There are several factors that could effectively affect the data throughput:
+</p><ul>
+<li> UE category,
+</li><li> Network configuration: cell bandwidth (variable from 1.4 to 20 MHz), transmission mode and CA configuration,
+</li><li> Number of users in the cell,
+</li><li> Signal level: channel and fading conditions, link loss, noise from other UEs, interference from other base stations or radio access technologies,
+</li><li> Application level configuration.
+</li></ul>
+
+<p>In the following chapter, we will go through all the above items giving recommendation on how to achieve the best throughput.
+</p>
+<span id="Throughput-Tests"></span><h2 class="chapter">2 Throughput Tests</h2>
+
+<span id="UE-Category"></span><h3 class="section">2.1 UE Category</h3>
+
+<p>First thing to check before starting your throughput tests is the UE category. The UE category indicates the maximum theoretical UL and DL data rates that the UE can achieve. It could be found in the RRC message <code>UE Capability Information</code>. 
+The following example is an extract of OnePlus3 capability information. <br>
+</p>
+
+<div class="example">
+<pre class="example">UE Capability Information
+{
+  message c1: ueCapabilityInformation: {
+    rrc-TransactionIdentifier 0,
+    criticalExtensions c1: ueCapabilityInformation-r8: {
+      ue-CapabilityRAT-ContainerList {
+        {
+          rat-Type eutra,
+          ueCapabilityRAT-Container {
+            accessStratumRelease rel11,
+            <b>ue-Category 4,</b>
+            ... 
+            },           
+            nonCriticalExtension {
+              ...                      
+                nonCriticalExtension {
+                  <b>ue-Category-v1020 6,</b>
+                  ...                     
+                  rf-Parameters-v1020 {
+                    supportedBandCombination-r10 {
+                      ...
+                      {
+                        {
+                          bandEUTRA-r10 7,
+                          bandParametersUL-r10 {
+                            {
+                              ca-BandwidthClassUL-r10 a
+                            }
+                          },
+                          bandParametersDL-r10 {
+                            {
+                              ca-BandwidthClassDL-r10 a,
+                              supportedMIMO-CapabilityDL-r10 twoLayers
+                            }
+                          }                    
+                        }
+                        {
+                          bandEUTRA-r10 3,
+                          bandParametersDL-r10 {
+                           {
+                             ca-BandwidthClassDL-r10 a,
+                             supportedMIMO-CapabilityDL-r10 twoLayers
+                           }
+                          }
+                        }
+                      },
+                      ...
+                    }
+                  },            
+                  ...                                                   
+                  nonCriticalExtension {
+                    ...                            
+                    nonCriticalExtension {
+                      nonCriticalExtension {
+                        ...                                
+                        nonCriticalExtension {
+                          nonCriticalExtension {
+                            ...
+                            nonCriticalExtension {
+                              nonCriticalExtension {
+                                rf-Parameters-v1250 {
+                                  supportedBandListEUTRA-v1250 {
+                                    ...
+                                    {
+                                      dl-256QAM-r12 supported,
+                                      ul-64QAM-r12 supported
+                                    }
+                                  }
+                                },
+                                <b>ue-CategoryDL-r12 13,</b>
+                                <b>ue-CategoryUL-r12 5</b>
+                              }
+                              ...
+</pre></div>
+
+<p>The field <code>ue-Category</code> of the <code>UE Capability Information</code> defines a combined uplink and downlink capability. The parameters set by the UE Category are defined in 3GPP TS 36.306. The following table depicts the DL physical layer parameters set by <code>ue-Category</code>. <br>
+</p>
+<div align="center">Table 4.1-2 of 3GPP TS 36.306 v13.5: Downlink physical layer parameter values set by the field ue-Category
+</div><div align="center"><img src="img/36_306_v13_5_Table4_1_1.webp" alt="img/36_306_v13_5_Table4_1_1">
+</div>
+<p>The following table depicts the UL physical layer parameters set by <code>ue-Category</code>. <br>
+</p>
+<div align="center">Table 4.1-2: Uplink physical layer parameter values set by the field ue-Category
+</div><div align="center"><img src="img/36_306_v13_5_Table4_1_2.webp" alt="img/36_306_v13_5_Table4_1_2">
+</div>
+<p>As can be seen in the above <code>UE Capability Information</code> message, the OnePlus3 phone declares to be a category 4 and category 6 device. LTE category 6 has only been added to the specification in release 10. As such, a category 6 device is required to report category 4 as well to be backward compatible with release 8 networks. 
+</p>
+<p>As a category 4 device, OnePlus3 is capable to support 150 Mbps in DL and 51 Mbps in UL at physical layer. DL throughput is achieved by using two layers spatial multiplexing and 64QAM modulation. As a category 6 device, OnePlus 3 device should achieve a max theoretical throughput of 301 Mbps in DL and 51 Mbps in DL. 
+</p>
+<p>The above <code>ue-category</code> tables only indicate the maximum theoretical throughput, but do not give any detail about the specific MIMO or CA configuration. As an example, a throughput of 301 Mbps in DL could be achieved either by combining two 20 MHZ carriers with each carrier supporting two layers spacial multiplexing or by using four layers spacial multiplexing in a single cell. 
+</p>
+<p>The most common case among commercial devices is to aggregate two carrier components of 20 MHZ each to achieve 301 Mbps in category 6. Looking back at OnePlus3 capabilities, we can see that the device is supporting carrier aggregation with two carrier components as seen in IE (Information Element) <code>supportedBandCombination-r10</code>. Its supported MIMO capability in DL in each carrier is two layers. 
+</p>
+<p>Starting from Release 12, a UE can indicate its DL category and UL category separately. The following table depicts the physical layer parameter values corresponding to <code>ue-CategoryDL</code>.
+</p><div align="center">Table 4.1A-1 of 3GPP TS 36.306 v13.5: Downlink physical layer parameter values set by the field ue-CategoryDL. <br>
+</div><div align="center"><img src="img/LTE_UE_Category_DL_r13_5.webp" alt="img/LTE_UE_Category_DL_r13_5">
+</div>
+<p>The following table depicts the physical layer parameter values corresponding to <code>ue-CategoryUL</code>.<br>
+</p>
+<div align="center">Table 4.1A-2 of 3GPP TS 36.306 v13.5: Uplink physical layer parameter values set by the field ue-CategoryUL.
+</div><div align="center"><img src="img/LTE_UE_Category_UL_r13_5.webp" alt="img/LTE_UE_Category_UL_r13_5">
+</div>
+<p>OnePlus3 device is also declaring to be category 13 in DL with 391 Mbps in DL. This category requires support of 256QAM in DL allowing transport blocks to carry up to 97896 bits. As can be seen in OnePlus3 <code>UE Capability Information</code> message, it declares to support 256QAM modulation on top of CA with two carriers and two layers spacial multiplexing in DL. Combining all these features, the OnePlus3 device is able to receive a maximum of 4 transport blocks with 256QAM modulation in a TTI, ie. two transport blocks per TTI per carrier. This will give a DL rate of 4 x 97896 x 1000 = 391 Mbps. 
+</p>
+<p>Oneplus3 device is also declaring to be category 5 in UL with 75 Mbps in UL. This category requires support of 64QAM in UL allowing transport blocks to carry up to 75376 bits. 
+</p>
+<p>Once the device maximum supported data rate in UL and DL is figured out, next step would be to configure Amarisoft network. This is discussed in the next section.
+</p>
+<p>It would be worthy to note that these throughput numbers are theoretical. All DL/UL TTIs do not carry only user data, there are also a certain portion of overhead due to control part such as SIBs, Signaling as well as user plane protocol headers. So real throughput you get will be less than the one listed in the above tables.
+</p>
+
+<span id="Network-Configuration"></span><h3 class="section">2.2 Network Configuration</h3>
+<p>The eNodeB configuration plays an important role to achieve best performance. Once the UE category is deduced, it is important to start eNodeB with the right configuration file. 
+The following parameters are important to achieve maximum throughput. 
+</p><ul>
+<li> Cell bandwidth: The cell bandwidth has a direct impact on the maximum capacity of the cell. The higher the cell bandwidth, the higher will be the maximum throughput. In Amarisoft solution, the cell bandwidth is configured with the <code>n_rb_dl</code> parameter giving the number of resource blocks. This parameter is available in eNodeB configuration file. 
+<ul class="no-bullet">
+<li>- Use <code>n_rb_dl = 6, 15, 25, 50, 75, 100</code> for the bandwidths <code>1.4, 3, 5, 10, 15, 20 MHz</code>.
+</li><li>- To ease the bandwidth change, the enb.cfg configuration file has a define at the top named N_RB_DL that can be set to 6, 15, 25, 50, 75, 100.
+</li><li>- In order to achieve the highest data rate within a cell, the cell bandwidth parameter should be set to 20 MHZ.
+</li></ul>
+</li><li> Transmission mode: In the downlink, LTE uses technologies such as MIMO to achieve high data rates. In LTE jargon, this is called transmission mode. It is configured with the <code>transmission_mode</code> and <code>transmission_mode_opt</code> parameters in the eNodeB configuration file. 
+<ul class="no-bullet">
+<li>- For two layers spacial multiplexing, <code>transmission_mode</code> parameter could be set to 3 or 4. 
+</li><li>- Transmission modes 3 and 4 need rank indicator reporting for proper operation. <code>m_ri</code> parameter configures the periodicity of CQI/PMI reports and it should be set to a non-zero value. 
+</li><li>- A typical example to enable 2x2 MIMO in DL is the file <samp>enb.cfg</samp> which is suitable for a cat 4 device. To use it in 2x2 DL MIMO 20MHz configuration, edit the file and change N_RB_DL to 100 and N_ANTENNA_DL to 2.
+</li></ul>
+</li><li> Carrier aggregation: there are a lot of parameters to set in this case. A typical example is provided in file <samp>enb-2cc.cfg</samp> for a category 6 device. This file enables two cells with 5 MHZ bandwidth and in bands 3 and 7. To use it in 2x2 DL MIMO 20MHz configuration, edit the file and change N_RB_DL to 100 and N_ANTENNA_DL to 2.
+</li><li> Number of resource blocks allocated to control: Indeed, not all the resource blocks within a cell could be allocated to user data:
+<ul class="no-bullet">
+<li>- In DL, typically some resource blocks should be dedicated to SIBs, PDCCH, etc. Amarisoft eNodeB allows you to specify the number of OFDM symbols for PDCCH. This is controlled with the <code>n_symb_cch</code> parameter in eNodeB configuration file. A value of 0 means that eNodeB will automatically adjust the number of OFDM symbols. A value of 1 is the minimum that you can set for this parameter. The more UEs you have in your cell, the more OFDM symbols are required for PDCCH. So a value of 1 is useful for capacity testing to increase the number of resources blocks used for user data but in real life, this value should be set to 0 or &gt; 1.
+</li><li>- in UL, some resource blocks are allocated to CQI reporting and PUCCH. This is controlled by <code>nRB-CQI</code> and <code>n1PUCCH-AN</code> parameters in SIB2. Example below is taken from the default SIB2 and SIB3 configuration file <samp>sib2_3.asn</samp> used for a 20 MHZ cell in Amarisoft eNodeB. We can see that there are 20 resource blocks allocated for control in UL. 
+<div class="example">
+<pre class="example">pucch-ConfigCommon {
+  deltaPUCCH-Shift ds2,
+  nRB-CQI 8,
+  nCS-AN 0,
+  n1PUCCH-AN 12
+},
+</pre></div>
+<p><code>nRB-CQI</code> and <code>n1PUCCH-AN</code> parameters could be decreased to 1 to gain a better UL throughput by editing the eNB configuration file and setting the parameters <code>cqi_pucch_n_rb</code> and <code>n1_pucch_sr_count</code> to 1. The more UEs you have in your cell, the more resources are required for PUCCH and CQI. So a value of 1 for <code>nRB-CQI</code> and <code>n1PUCCH-AN</code> is useful for capacity testing but in real life, this value should be set to &gt; 1. You can as well check that the UL MCS is not limited by parameter <code>pusch_max_mcs</code> of eNodeB config file. If this is the case, you can comment the line.
+</p></li></ul>
+
+</li><li> Support of 256QAM in DL: It is configured with <code>dl_256qam</code> parameter in eNodeB configuration file. If set to true, it allows 256QAM DL support for the release 12 UEs supporting this feature.
+</li><li> Support of 64QAM in UL: It is configured with <code>ul_64qam</code> parameter in eNodeB configuration file. If set to true, it allows 64QAM UL support for the release 12 UEs supporting this feature.
+
+<p>Please note that
+</p><ul class="no-bullet">
+<li>- if uplink 64QAM is not activated in the cell or the UE does not support it, eNodeB could allocate up to MCS 24 (even if MCS 21 to 24 are hardly usable on real network deployments as the coding rate starts to be quite high because you use the number of bits of a 64QAM MCS with a 16QAM modulation; the real last 16QAM MCS being MCS 20).
+</li><li>- if both cell and UE support uplink 64QAM, MCS could go up to MCS 28.
+</li></ul>
+</li></ul>
+
+<span id="Number-of-users-in-the-cell"></span><h3 class="section">2.3 Number of users in the cell</h3>
+<p>An LTE cell has a certain capacity based on its configuration. As an example a 20 MHZ cell, could provide a theoretical maximum rate of 151 Mbps. If there is one single UE in the cell, then potentially the eNodeB could allocate all the cell resources to this single UE. If there are more than 1 UE in the cell, then the resources are shared among them and based on the scheduling algorithm used by the eNodeB, they can get a share of the cell capacity. 
+</p>
+<span id="Signal-Level"></span><h3 class="section">2.4 Signal Level</h3>
+
+<p>A perfect radio channel is required to achieve high throughput. If you are using antennas and there are some interference in the LTE band that you are testing or if you are not in Line of Sight, then you can not achieve high rates. 
+</p>
+<p>We recommend the following setups in order to minimize the impact of interference in your testing
+</p><ul>
+<li> If you are using antennas for transmission and reception, you can use a shielded box to isolate your device from outside interference.
+</li><li> You can RF cables to connect your UE to the eNodeB. In this case, please make sure to use attenuators and to tune the transmission gain at both sides in order not to saturate the signal. The parameters <code>tx_gain</code> and <code>rx_gain</code> are configurable in eNodeB configuration file. 
+</li></ul>
+
+
+<span id="Application-Level-Configuration"></span><h3 class="section">2.5 Application Level Configuration</h3>
+
+<p>iPerf tool is a commonly used network testing tool that can create TCP and UDP data streams and measure the end to end throughput. iPerf has a client and server functionality, and can measure the throughput between the two ends, either unidirectionally or bidirectionally. We recommend using iPerf for throughput tests as it is simple to use and install on a handset device.
+</p>
+<p>In the following, we focus on throughput testing using iPerf. 
+</p>
+<span id="iPerf-Install-on-Network-side"></span><h4 class="subsection">2.5.1 iPerf Install on Network side</h4>
+
+<p>First, you need to install iPerf on the PC where your core network is running. This is the PC where you have installed <code>LTEMME</code> component. 
+</p>
+<p>Assuming you are using a Fedora distribution, you can use the following command:
+</p><div class="example">
+<pre class="example">sudo dnf install iperf
+</pre></div>
+
+<p>For Ubuntu, the following command can be used:
+</p><div class="example">
+<pre class="example">sudo apt-get install iperf
+</pre></div>
+
+<span id="iPerf-Install-on-UE-side"></span><h4 class="subsection">2.5.2 iPerf Install on UE side</h4>
+<p>You also need to install iPerf on your device under test. iPerf is available in <code>Google Play</code> for Android as shown below.
+</p>
+<div align="center"><img src="img/iperf_android_app.webp" alt="img/iperf_android_app">
+</div>
+<span id="UDP_002fTCP-configuration"></span><h3 class="section">2.6 UDP/TCP configuration</h3>
+<p>UDP does not require any particular configuration neither on the operating system side nor on iPerf side. 
+</p>
+<p>For TCP, in order to achieve maximum throughput, the TCP advertised receiver window size must be equal to
+or greater than the BDP (Bandwidth Delay Product), which can be expressed as follows:
+</p><div class="example">
+<pre class="example">BDP = TCP Bandwidth * RTT
+</pre></div>
+
+<p>Where <br>
+<code>TCP bandwidth</code> is the portion of the radio bearer used to send TCP data. This is the data rate that you would like to achieve based on your UE category and cell configuration. <code>RTT</code> is the Round Trip Time between TCP end-points as seen by the TCP sender. In order to have an idea of the RTT of your link, you can ping your UE from the core network PC.
+</p>
+<p>Please note that some operating systems have limitations on max TCP window size. You can of course tweak your phone if you are root. If you have an Android device, you can check the following parameters with root privilege:
+</p>
+<ul class="no-bullet">
+<li>- <code>/proc/sys/net/ipv4/tcp_rmem</code>: memory reserved for TCP receive buffers 
+</li><li>- <code>/proc/sys/net/ipv4/tcp_wmem</code>: memory reserved for TCP send buffers 
+</li><li>- <code>/proc/sys/net/core/rmem_max</code>: maximum receive window 
+</li><li>- <code>/proc/sys/net/core/wmem_max</code>: maximum send window 
+</li></ul>
+
+<p>Parallel TCP connections could certainly help improve the TCP throughput if you can not change the above parameters in your device. With iPerf, you can use the <code>-P &lt;n&gt;</code> option to start <code>n</code> parallel TCP connections.
+</p>
+
+
+<span id="Step-by-Step-Throughput-Testing"></span><h3 class="section">2.7 Step by Step Throughput Testing</h3>
+<p>This section provides step by step instructions to test throughput using iPerf.
+</p>
+<span id="DL-throughput-test"></span><h4 class="subsection">2.7.1 DL throughput test</h4>
+
+<p>To do a simple downlink test in MIMO CAT 4 at 150 Mbps in UDP, you can proceed as follows:
+</p><ul>
+<li> Edit the configuration file <samp>enb.cfg</samp> and change N_RB_DL to 100 and N_ANTENNA_DL to 2
+</li><li> Start your eNodeB using the configuration file <samp>enb.cfg</samp>
+</li><li> run iPerf in server mode at the UE side
+<div class="example">
+<pre class="example">iperf -s -u -i 1
+</pre></div>
+</li><li> Run iPerf in client mode on your core network PC
+<div class="example">
+<pre class="example">iperf -c &lt;UE IP address&gt; -u -b 150M -i 1 -t 100
+</pre></div>
+
+<p>You can obtain the UE IP address, by typing <code>ue</code> command on MME monitor.
+</p>
+<div align="center"><img src="img/ims_ue.webp" alt="img/ims_ue">
+</div>
+</li><li> Run the <code>t</code> command in eNodeB screen to activate UE statistics
+<div align="center"><img src="img/iperf_dl_udp.webp" alt="img/iperf_dl_udp">
+</div><p>You can check <code>brate</code> field in DL eNodeB stats for downlink throughput. You can as well check the iPerf application level throughput at the server window.
+</p></li></ul>
+
+<p>For a TCP connection, the steps are the same as above except for iPerf command. 
+At UE side, you need to start iPerf in server mode as below:
+</p><div class="example">
+<pre class="example">iperf -s -i 1
+</pre></div>
+
+<p>The command to be used at core network PC side is:
+</p><div class="example">
+<pre class="example">iperf -c &lt;UE IP address&gt; -i 1 -t 100
+</pre></div>
+
+
+
+<span id="UL-throughput-test"></span><h4 class="subsection">2.7.2 UL throughput test</h4>
+
+<p>To do a simple uplink test in MIMO CAT 4 at 50 Mbps in UDP, you can proceed as follows. 
+</p><ul>
+<li> Edit the configuration file <samp>enb.cfg</samp> and change N_RB_DL to 100
+</li><li> Start your eNodeB using the configuration file <samp>mimo-2x2-20mhz.cfg</samp>
+</li><li> Run the following command on your core network PC
+
+<div class="example">
+<pre class="example">iperf -s -u -i 1
+</pre></div>
+
+</li><li> run iPerf in client mode at the UE side
+<div class="example">
+<pre class="example">iperf -c &lt;PDN Gateway IP address&gt; -u -b 50M -i 1 -t 100
+</pre></div>
+<p>Where the <code>PDN Gateway IP address</code> could be found by looking at <code>gateway</code> parameter of the <code>pdn</code> object in <code>LTEMME</code> config file. In default configuration files, the <code>gateway</code> parameter is not set for PDNs. In this case, the first IP of the subnet in IPv4 will be used as gateway IP address.
+</p><div align="center"><img src="img/oneplus3_iperf_ul_udp.webp" alt="img/oneplus3_iperf_ul_udp">
+</div></li><li> Run the <code>t</code> command in eNodeB screen to activate UE statistics.
+
+<div align="center"><img src="img/iperf_ul_udp.webp" alt="img/iperf_ul_udp">
+</div>
+
+</li></ul>
+
+<p>You can check <code>brate</code> field in UL eNodeB stats for uplink throughput. You can as well check the iPerf application level throughput at the server window.
+</p>
+<p>For a TCP connection, the steps are the same as above except for iPerf command. 
+At the core network PC side, you can type the following command:
+</p><div class="example">
+<pre class="example">iperf -s -i 1
+</pre></div>
+
+<p>At the UE side, the command to run is as below:
+</p><div class="example">
+<pre class="example">iperf -c &lt;PDN GATEWAY IP address&gt; -i 1 -t 100
+</pre></div>
+
+
+<span id="Simultaneous-UL_002fDL-throughput-test"></span><h4 class="subsection">2.7.3 Simultaneous UL/DL throughput test</h4>
+
+<p>For simultaneous UL/DL test, you need to either run two instances of iPerf, one in UL and one in DL as described above or to use the <code>-d</code> option. 
+The below example is for bi-directional TCP test. On your core network PC, you can run
+</p>
+<div class="example">
+<pre class="example">iperf -c &lt;UE IP address&gt; -d -i 1 -t 100
+</pre></div>
+
+<p>On your device, you can run
+</p><div class="example">
+<pre class="example">iperf -s -i 1
+</pre></div>
+
+<p>Following is an example of UE statistics when running simultaneous UL/DL throughput test:
+</p>
+<div align="center"><img src="img/iperf_ul_dl_tcp.webp" alt="img/iperf_ul_dl_tcp">
+</div>
+<span id="Logging"></span><h2 class="chapter">3 Logging</h2>
+<p>The Amarisoft eNodeB generates a log file at <code>/tmp/enb0.log</code> that could be used for for further analysis and debugging. Best is to activate physical layer debug traces by adding <code>phy.level=debug</code> to <code>log_options</code> field in your eNodeB config file.
+</p>
+<span id="Troubleshooting"></span><h2 class="chapter">4 Troubleshooting</h2>
+<p>Below are some of the most common issues encountered during testing with recommended actions to address each issue.
+</p><table>
+<thead><tr><th width="30%">Issue</th><th width="70%">Cause/Correction</th></tr></thead>
+<tr><td width="30%">Can not achieve maximum data rate in DL</td><td width="70%"><ul>
+<li> Check eNodeB configuration to see if you have the right cell configuration: cell bandwidth, MIMO, etc.
+</li><li> Activate eNodeB stats by typing <code>t</code> command in eNodeB screen. You should be seeing a <code>CQI</code> of 15 and an <code>ri</code> of 2 for MIMO. If this is not the case, check your signal level.
+</li><li> Use UDP with iPerf to rule out any TCP or web server issue.
+</li></ul></td></tr>
+<tr><td width="30%">Can not achieve maximum data rate in UL</td><td width="70%"><ul>
+<li> Check eNodeB configuration to see if you have the right cell configuration: 
+<ul class="no-bullet">
+<li>- No <code>pusch_max_mcs</code> should be defined as otherwise you will be limiting the maximum UL data rate. 
+</li><li>- Check that the number of RBs reserved for control are reduced in SIB2.
+</li></ul>
+</li><li> Activate eNodeB stats by typing <code>t</code> command in eNodeB screen. You should be seeing a high <code>SNR</code> and a non-negative power headroom <code>phr</code>. If this is not the case, check your signal level.
+</li><li> Use UDP with iPerf to rule out any TCP or web server issue.
+</li><li> Check the UL signal level by typing <code>t spl</code> command in eNodeB screen. The RX MAX reported by the command should be &lt; 0, otherwise it means that the UE is transmitting too high.
+</li></ul></td></tr>
+</table>
+
+
+<span id="Additional-Information"></span><h2 class="chapter">5 Additional Information</h2>
+
+<p>This document is copyright (C) 2012-2024 Amarisoft. Its redistribution
+without authorization is prohibited.
+</p>
+<p>This document is available without any express or implied warranty and is subject to change without notice. In
+no event will Amarisoft be held liable for any damages arising from the use of this document.
+</p>
+<p>For any technical issue, please raise a ticket from our support site at <a href="https://support.amarisoft.com/">https://support.amarisoft.com/</a>.
+<br>
+To learn more about our technology and solutions, e-mail us at <a href="mailto:customer@amarisoft.com">customer@amarisoft.com</a> or visit <a href="https://www.amarisoft.com">https://www.amarisoft.com</a>.
+</p>
+
+
+<hr>
+
+
+
+</body>
+</html>

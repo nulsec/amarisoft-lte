@@ -1,0 +1,1564 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.6, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>LTE Probe</title>
+
+<meta name="description" content="LTE Probe">
+<meta name="keywords" content="LTE Probe">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+
+th {
+    border: 1px solid black;
+    background-color: #c0f585;
+    font-size: 14px;
+    padding: 5px;
+}
+
+td {
+    border: 1px solid black;
+    padding: 2px 4px;
+}
+
+p>img {
+    display: initial;
+}
+
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">LTE Probe</h1>
+
+
+<span id="SEC_Contents"></span>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+<ul class="no-bullet">
+<li><a id="toc-Introduction" href="#Introduction">1 Introduction</a></li>
+<li><a id="toc-Features" href="#Features">2 Features</a></li>
+<li><a id="toc-Requirements" href="#Requirements">3 Requirements</a>
+<ul class="no-bullet">
+  <li><a id="toc-Hardware-requirements" href="#Hardware-requirements">3.1 Hardware requirements</a></li>
+  <li><a id="toc-Software-requirements" href="#Software-requirements">3.2 Software requirements</a></li>
+</ul></li>
+<li><a id="toc-Installation" href="#Installation">4 Installation</a>
+<ul class="no-bullet">
+  <li><a id="toc-Radio-front-end-setup" href="#Radio-front-end-setup">4.1 Radio front end setup</a></li>
+  <li><a id="toc-LTEPROBE-installation" href="#LTEPROBE-installation">4.2 LTEPROBE installation</a></li>
+  <li><a id="toc-Initial-testing" href="#Initial-testing">4.3 Initial testing</a></li>
+  <li><a id="toc-Useful-tips" href="#Useful-tips">4.4 Useful tips</a></li>
+</ul></li>
+<li><a id="toc-Configuration-reference" href="#Configuration-reference">5 Configuration reference</a>
+<ul class="no-bullet">
+  <li><a id="toc-Configuration-file-syntax" href="#Configuration-file-syntax">5.1 Configuration file syntax</a>
+  <ul class="no-bullet">
+    <li><a id="toc-JSON-merge-rules-1" href="#JSON-merge-rules-1">5.1.1 JSON merge rules</a></li>
+  </ul></li>
+  <li><a id="toc-Global-properties" href="#Global-properties">5.2 Global properties</a></li>
+</ul></li>
+<li><a id="toc-Remote-API-1" href="#Remote-API-1">6 Remote API</a>
+<ul class="no-bullet">
+  <li><a id="toc-Messages" href="#Messages">6.1 Messages</a></li>
+  <li><a id="toc-Startup" href="#Startup">6.2 Startup</a></li>
+  <li><a id="toc-Errors" href="#Errors">6.3 Errors</a></li>
+  <li><a id="toc-Sample-nodejs-program" href="#Sample-nodejs-program">6.4 Sample nodejs program</a></li>
+  <li><a id="toc-Common-messages" href="#Common-messages">6.5 Common messages</a></li>
+</ul></li>
+<li><a id="toc-Log-file-format-1" href="#Log-file-format-1">7 Log file format</a>
+<ul class="no-bullet">
+  <li><a id="toc-PHY-layer" href="#PHY-layer">7.1 PHY layer</a></li>
+  <li><a id="toc-MAC-and-RRC-layers" href="#MAC-and-RRC-layers">7.2 MAC and RRC layers</a></li>
+  <li><a id="toc-RLC_002c-PDCP-and-NAS-layers" href="#RLC_002c-PDCP-and-NAS-layers">7.3 RLC, PDCP and NAS layers</a></li>
+  <li><a id="toc-IP-layer" href="#IP-layer">7.4 IP layer</a></li>
+</ul></li>
+<li><a id="toc-Limitations" href="#Limitations">8 Limitations</a></li>
+<li><a id="toc-Change-history" href="#Change-history">9 Change history</a>
+<ul class="no-bullet">
+  <li><a id="toc-Version-2024_002d09_002d13" href="#Version-2024_002d09_002d13">9.1 Version 2024-09-13</a></li>
+  <li><a id="toc-Version-2024_002d06_002d14" href="#Version-2024_002d06_002d14">9.2 Version 2024-06-14</a></li>
+  <li><a id="toc-Version-2023_002d06_002d10" href="#Version-2023_002d06_002d10">9.3 Version 2023-06-10</a></li>
+  <li><a id="toc-Version-2023_002d03_002d17" href="#Version-2023_002d03_002d17">9.4 Version 2023-03-17</a></li>
+  <li><a id="toc-Version-2022_002d12_002d16" href="#Version-2022_002d12_002d16">9.5 Version 2022-12-16</a></li>
+  <li><a id="toc-Version-2022_002d06_002d17" href="#Version-2022_002d06_002d17">9.6 Version 2022-06-17</a></li>
+</ul></li>
+<li><a id="toc-License" href="#License">10 License</a></li>
+
+</ul>
+</div>
+
+
+<span id="Introduction"></span><h2 class="chapter">1 Introduction</h2>
+
+<p>lteprobe is a real time LTE downlink and uplink passive protocol
+logger. It can also be used to get the temporary identifiers (C-RNTI,
+TMSI) of UEs. It takes I/Q samples as input from SDR devices. All the
+signal processing is done on the PC CPU.
+</p>
+<span id="Features"></span><h2 class="chapter">2 Features</h2>
+
+<ul class="no-bullet">
+<li>- Supports FDD bandwidths from 1.4 to 20 MHz for downlink and uplink.
+
+</li><li>- Automatically acquires the cell parameters from the System Information Blocks.
+
+</li><li>- Decodes both downlink and uplink signals.
+
+</li><li>- Supports MIMO 2x2 and tranmission modes 1 to 3.
+
+</li><li>- Tracks several UEs and bearer contexts at the same time.
+
+</li><li>- Supported PHY messages: PDCCH, PCFICH, PHICH, PDSCH, PRACH, PUSCH.
+
+</li><li>- Log PHY, MAC, RLC, PDCP, RRC, NAS and IP messages in textual logs
+  compatible with the other Amarisoft tools.
+
+</li><li>- Plots for QAM constellations and channel response.
+
+</li><li>- Log received IP packets to Wireshark compatible PCAP files.
+
+</li><li>- Keep a journal of connected UEs with eNodeB and local timing
+  advances (for approximate UE location), PRACH SNR, RNTI and TMSI.
+
+</li><li>- Log all paging messages.
+
+</li></ul>
+
+<span id="Requirements"></span><h2 class="chapter">3 Requirements</h2>
+
+<span id="Hardware-requirements"></span><h3 class="section">3.1 Hardware requirements</h3>
+
+<ul class="no-bullet">
+<li>- A PC:
+
+<ul class="no-bullet">
+<li>- Quad core Intel CPU (Core i5 or Core i7) supporting AVX2 (i.e. a CPU using at least the Haswell microarchitecture).
+   </li><li>- At least 2 GB of RAM.
+   </li><li>- At least 1 GB of hard disk space.
+   </li><li>- The video adapter does not matter.
+   </li></ul>
+   
+</li><li>- Radio front end:
+
+<ul class="no-bullet">
+<li>- 2 PCIe SDR boards (FDD) or 1 PCIe SDR board (TDD)
+   </li></ul>
+
+</li><li>- Appropriate antennas for the intended LTE frequencies
+or cables and attenuators to connect to UE(s) and eNodeB(s).
+
+</li></ul>
+
+<span id="Software-requirements"></span><h3 class="section">3.2 Software requirements</h3>
+
+<ul>
+<li> A 64 bit Linux distribution. Fedora 39 is the officially supported distribution.<br>
+The following distributions are known as compatible:
+<ul>
+<li> Fedora 22 to 39
+</li><li> Cent OS 7
+</li><li> Ubuntu 14 to 22
+</li></ul>
+
+<p>Your system requires at least GLIBC 2.17.
+</p>
+
+<p>Other distributions can be used provided the radio frontend drivers are available for them.<br>
+</p>
+</li></ul>
+
+<span id="Installation"></span><h2 class="chapter">4 Installation</h2>
+
+<span id="Radio-front-end-setup"></span><h3 class="section">4.1 Radio front end setup</h3>
+
+<p>Two PCIe SDR boards must be installed in the PC for FDD
+operation. They must be time and frequency synchronized (connect them
+with the clock cable). GPS synchronization is not needed.
+</p>
+<p>Read the PCIe SDR documentation (<samp>trx_sdr.pdf</samp>) to have more
+information about the hardware and software setup.
+</p>
+<span id="LTEPROBE-installation"></span><h3 class="section">4.2 LTEPROBE installation</h3>
+
+<p>Decompress the LTEPROBE archive to a convenient place. The executable
+<samp>lteprobe</samp> can be launched from this directory.
+</p>
+<span id="Initial-testing"></span><h3 class="section">4.3 Initial testing</h3>
+
+<p>Update the configuration file <samp>config/probe.cfg</samp> to select the
+EARFCN of a known LTE carrier (modify the line with
+<code>dl_earfcn</code>). Then start lteprobe:
+</p>
+<div class="example">
+<pre class="example">./lteprobe config/probe.cfg
+</pre></div>
+
+<p>If an LTE carrier is found, the following messages are displayed:
+</p><div class="example">
+<pre class="example">got SIB1
+got SIB2
+</pre></div>
+
+<p>If you don&rsquo;t see them, check the EARFCN and cabling.
+</p>
+<p>Then for each received PRACH the following message is displayed:
+</p><div class="example">
+<pre class="example">PRACH: sequence_index=x ta=y snr=z dB
+</pre></div>
+
+<p>All the receiving uplink and downlink messages are written to the text
+log <samp>/tmp/probe.log</samp>. The log of detected UEs is in
+<samp>/tmp/profue_ue.log</samp>. The decoded IP packets can be analyzed with
+Wireshark using the PCAP file <samp>/tmp/probe.pcap</samp>.
+</p>
+<span id="Useful-tips"></span><h3 class="section">4.4 Useful tips</h3>
+
+<ul class="no-bullet">
+<li>- If you want to log all the RRC and IP messages, be sure that neither RRC nor DRB data are encrypted. If the RRC is encrypted, <code>auto_rb_add</code> can be set to log some RLC/PDCP information, but it cannot work reliably because the RRC reconfiguration messages are lost.
+
+</li><li>- Use the <code>epre</code> information in the PUSCH/PDSCH logs (PHY layer) to modify the receive gain (<code>rx_gain</code> parameter) in order not to saturate the receiver. The maximum value should be smaller than -15 dBFS.
+
+</li><li>- You must use at least 2 downlink antennas to receive the MIMO 2x2 transmitted data.
+
+</li><li>- Assuming the signal is strong enough, <code>ul_timing_offset</code> can be modified to select the distance of the received UEs (the current PUSCH receiver only tolerates an uplink timing offset between -4 and 4). The timing advance measured for each PUSCH (<code>ta=</code> in the PUSCH PHY logs) can be used to adjust <code>ul_timing_offset</code>.
+
+</li></ul>
+
+<span id="Configuration-reference"></span><h2 class="chapter">5 Configuration reference</h2>
+
+<span id="Configuration-file-syntax"></span><h3 class="section">5.1 Configuration file syntax</h3>
+
+<p>The main configuration file uses a syntax very similar to the
+Javascript Object Notation (JSON) with few extensions.
+</p>
+<ol>
+<li> Supported types:
+
+<ul class="no-bullet">
+<li>- Numbers (64 bit floating point). Notation: <code>13.4</code>
+</li><li>- Complex numbers. Notation: <code>1.2+3*I</code>
+</li><li>- Strings. Notation: <code> &quot;string&quot; </code>
+</li><li>- Booleans. Notation: <code>true</code> or <code>false</code>.
+</li><li>- Objects. Notation: <code> { field1: <var>value1</var>, field2: <var>value2</var>, .... } </code>
+</li><li>- Arrays. Notation: <code> [ <var>value1</var>, <var>value2</var>, .... ] </code>
+</li></ul>
+
+</li><li> The basic operations <code>+</code>, <code>-</code>, <code>*</code> and <code>/</code> are
+supported with numbers and complex numbers. <code>+</code> also concatenates
+strings. The operators <code>!</code>, <code>||</code>, <code>&amp;&amp;</code>, <code>==</code>,
+<code>!=</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;=</code>, <code>&gt;</code> are supported too.
+
+</li><li> The numbers <code>0</code> and <code>1</code> are accepted as synonyms for the
+boolean values <code>false</code> and <code>true</code>.
+
+</li><li> {} at top level are optional.
+
+</li><li> &quot; for property names are optional, unless the name starts with a number.
+
+</li><li> Properties can be duplicated.<br>
+If properties are duplicated, they will be merged following <a href="#JSON-merge-rules">JSON merge rules</a> with overriding
+occuring in reading direction (last overrides previous).<br>
+Ex:
+<pre class="verbatim">{
+    value: &quot;foo&quot;,
+    value: &quot;bar&quot;,
+    sub: {
+        value: &quot;foo&quot;
+    },
+    sub: {
+        value: &quot;bar&quot;
+    }
+}
+</pre><p>Will be equivalent to:
+</p><pre class="verbatim">{
+    value: &quot;bar&quot;,
+    sub: {
+        value: &quot;bar&quot;
+    }
+}
+</pre>
+
+
+</li><li> Files can be included using <var>include</var> keyword (must not be quoted) followed by a string (without :) representing the file to include (path is relative to current file) and terminating by a comma.<br>
+Arrays can&rsquo;t be included.<br>
+Merge will be done as for duplicate properties.<br>
+If <var>file1.cfg</var> is:
+<pre class="verbatim">    value: &quot;foo&quot;,
+    include &quot;file2.cfg&quot;,
+    foo: &quot;foo&quot;
+</pre><p>And <var>file2.cfg</var> is:
+</p><pre class="verbatim">    value: &quot;bar&quot;,
+    foo: &quot;bar&quot;
+</pre><p>Final config will be:
+</p><pre class="verbatim">{
+    value: &quot;bar&quot;,
+    foo: &quot;foo&quot;
+}
+</pre>
+</li><li> A C like preprocessor is supported. The following preprocessor commands are available:
+  <dl compact="compact">
+<dt><code>#define <var>var</var> <var>expr</var></code></dt>
+<dd><p>Define a new variable with value <var>expr</var>. <var>expr</var> must be a
+  valid JSON expression. Note that unlike the standard C preprocessor,
+  <var>expr</var> is evaluated by the preprocessor.
+  </p></dd>
+<dt><code>#undef <var>var</var></code></dt>
+<dd><p>Undefine the variable <var>var</var>.
+  </p></dd>
+<dt><code>#include <var>expr</var></code></dt>
+<dd><p>Include the file whose filename is the evaluation of the string
+  expression <var>expr</var>.
+  </p></dd>
+<dt><code>#if <var>expr</var></code></dt>
+<dd><p>Consider the following text if <var>expr</var> is true.
+  </p></dd>
+<dt><code>#else</code></dt>
+<dd><p>Alternative of <code>#if</code> block.
+  </p></dd>
+<dt><code>#elif</code></dt>
+<dd><p>Composition of <code>#else</code> and <code>#if</code>.
+  </p></dd>
+<dt><code>#endif</code></dt>
+<dd><p>End of <code>#if</code> block.
+  </p></dd>
+<dt><code>#ifdef <var>var</var></code></dt>
+<dd><p>Shortcut for <code>#if defined(var)</code>
+  </p></dd>
+<dt><code>#ifndef <var>var</var></code></dt>
+<dd><p>Shortcut for <code>#if !defined(var)</code>
+  </p></dd>
+</dl>
+
+<p>In the JSON source, every occurrence of a defined preprocessor
+  variable is replaced by its value.
+</p>
+</li><li> Backquote strings: JSON expression can be inserted in backquote delimited strings with the <code>${expr}</code> syntax. Example: <code>`abc${1+2}d`</code> is evaluated as the string <code>&quot;abc3d&quot;</code>. Preprocessor variables can be used inside the expression. Backquote strings may span several lines.
+
+</li></ol>
+
+
+<span id="JSON-merge-rules"></span><span id="JSON-merge-rules-1"></span><h4 class="subsection">5.1.1 JSON merge rules</h4>
+
+<p>Merge overriding direction depends on context, i.e source may override destination or the opposite.<br>
+JSON merge is recursive for Objects and Arrays.<br>
+</p>
+<p>Example, merging
+</p><pre class="verbatim">{
+    foo: { value: &quot;bar&quot; },
+    same: &quot;one&quot;,
+    one: 1
+}
+</pre><p>with
+</p><pre class="verbatim">{
+    foo: { value: &quot;none&quot;, second: true },
+    same: &quot;two&quot;,
+    two: 1
+}
+</pre>
+<p>Will become:
+</p><pre class="verbatim">{
+    foo: { value: &quot;bar&quot;, second: true },
+    same: &quot;one&quot;,
+    one: 1
+    two: 1
+}
+</pre><p>assuming first object overrides second one.<br>
+</p>
+
+<p>In case of Array merging, the final array length will be the maximum length of all merged arrays.<br>
+For each element of the final array, merge will be done considering defined elements only.<br>
+Ex:
+</p><pre class="verbatim">{
+    array: [0, 1, 2, { foo: &quot;bar&quot; } ],
+    array: [3, 4],
+    array: [5, 6, 7, { bar: &quot;foo&quot; }, 8 ]
+}
+</pre><p>Will be merged to:
+</p><pre class="verbatim">{
+    array: [5, 6, 7, { foo: &quot;bar&quot;, bar: &quot;foo&quot; }, 8 ],
+}
+</pre>
+
+
+<span id="Global-properties"></span><h3 class="section">5.2 Global properties</h3>
+
+<dl compact="compact">
+<dt><code>log_filename</code></dt>
+<dd>
+<p>String. Set the log filename. If no leading <code>/</code>, it is relative to the
+configuration file path. See <a href="#Log-file-format">Log file format</a>.
+</p>
+<span id="log_005foptions"></span></dd>
+<dt><code>log_options</code></dt>
+<dd>
+<p>String. Set the logging options as a comma separated list of assignments.
+</p>
+<ul>
+<li> <var>layer</var>.level=<var>verbosity</var>. For each layer, the log verbosity can be set
+to <code>none</code>, <code>error</code>, <code>info</code> or <code>debug</code>. In debug
+level, the content of the transmitted data is logged.
+
+</li><li> <var>layer</var>.max_size=<var>n</var>. When dumping data content, at
+most <code>n</code> bytes are shown in hexa. For ASN.1, NAS or Diameter content, show the full content of the message if <code>n &gt; 0</code>.
+
+</li><li> <var>layer</var>.payload=[0|1]. Dump ASN.1, NAS, SGsAP or Diameter payload in hexadecimal.
+
+</li><li> <var>layer</var>.key=[0|1]. Dump security keys (NAS and RRC layers).
+
+</li><li> <var>layer</var>.crypto=[0|1]. Dump plain and ciphered data (NAS and PCDP layers).
+
+
+</li><li> phy.signal=[0|1]. Dump binary received signal data of the
+  physical layer to another file (<var>log_filename</var>.bin). The
+  currently available data are QAM constellations and channel
+  estimation for PDSCH, PUSCH and SRS. The GUI can be used to display
+  them. Note: the size of the binary signal data is larger than the
+  textual logs, so they should be enabled only when needed.
+
+
+
+</li><li> bcch=[0|1]. Enable or disable BCCH log. The BCCH is always
+transmitted, so it gives large logs when enabled.
+
+
+</li><li> time=[sec|short|full]. Display the time as seconds, time only
+or full date and time (default = time only).
+
+</li><li> time.us=[0|1]. Dump time with microseconds precision.
+
+</li><li> file=cut. Close current file log and open a new one.
+
+</li><li> file.rotate=now. Rename current log with timestamp and open new one.
+
+</li><li> file.rotate=<var>size</var>. Rename current log every time it reaches <var>size</var> bytes open new one.
+  Size is an integer and can be followed by K, M or G.
+
+</li><li> file.path=<var>path</var>. When log rotation is enabled, move current log to this path instead of
+  initial log path.
+
+</li><li> append=[0|1]. (default=0). If 0, truncate the log file when
+  opening it. Otherwise, append to it.
+
+</li></ul>
+
+<p>Available layers are: <code>phy</code>, <code>mac</code>, <code>rlc</code>, <code>pdcp</code>, <code>rrc</code>, <code>nas</code>, <code>ip</code>
+</p>
+</dd>
+<dt><code>log_sync</code></dt>
+<dd><p>Optional boolean (default = false). If true, logs will be synchronously dumped to file.<br>
+  Warning, this may lead to performances decrease.
+</p>
+
+</dd>
+<dt><code>pcap_filename</code></dt>
+<dd><p>String. Set the filename of the Wireshark compatible IP logs. For each
+IP packet, specific MAC addresses are used to identify the eNodeB, UE
+and DRB identity. The MAC address <code>02:00:00:00:00:00</code> corresponds
+to the eNodeB. The MAC address <code>06:00:00:UEID1:UEID0:DRBID</code>
+corresponds to the UE whose 16 bit ID is <code>UEID1:UEID0</code> and DRB
+identity <code>DRBID</code>.
+</p>
+</dd>
+<dt><code>ue_filename</code></dt>
+<dd><p>String. Set the filename of the log of detected UEs. In the log, <code>#</code> indicates a comment (used in the first lines to give the information about the cell). The following columns are defined:
+</p><dl compact="compact">
+<dt><code>TIME</code></dt>
+<dd><p>Local time (ms resolution) of the connection.
+</p></dd>
+<dt><code>RAR RNTI</code></dt>
+<dd><p>Temporary RNTI in the Random Access Response message.
+</p></dd>
+<dt><code>RAR TA</code></dt>
+<dd><p>Timing alignment information in the Random Access Response
+message. Can be used to estimate the distance to the eNodeB with a 150
+meter resolution provided a calibration is done to know the origin.
+</p></dd>
+<dt><code>PRACH TA</code></dt>
+<dd><p>Timing alignment information computed by lteprobe. Can be used to
+estimate the distance to the UE with a 150 meter resolution
+provided a calibration is done to know the origin. 
+</p>
+<p>Note: if the UE is too far the PRACH may not be received.
+</p></dd>
+<dt><code>PRACH SNR</code></dt>
+<dd><p>PRACH SNR measurement in dB.
+</p></dd>
+<dt><code>MMEC/M-TMSI</code></dt>
+<dd><p>MMEC/M-TMSI information of the connected UE. It is available only if the PRACH and first PUSCH message (msg3) were successfully received.
+</p></dd>
+</dl>
+
+</dd>
+<dt><code>rf_driver</code></dt>
+<dd><p>Object. Parameters of the radio driver. See <samp>trx_sdr.pdf</samp> to have more information.
+</p>
+</dd>
+<dt><code>rx_gain</code></dt>
+<dd><p>Float or array of floats. Receive gain in dB. The range is device
+dependent. With an array of floats a different gain is
+specified for each channel.
+</p>
+</dd>
+<dt><code>rx_epre_in_dbfs</code></dt>
+<dd><p>Optional boolean (default = false). In the logs, the EPRE (Energy Per
+Resource Element) is displayed in dBm if the RF interface provides its
+reference receive power and if rx_epre_in_dbfs = false. Otherwise it
+is displayed in dBFS (Decibels relative to Full Scale).
+</p>
+</dd>
+<dt><code>rx_epre_offset</code></dt>
+<dd><p>Optional float (default = 0). Offset in dB applied to all the receive
+EPRE measurements.
+</p>
+</dd>
+<dt><code>bandwidth</code></dt>
+<dd><p>Optional float. Defines the maximum received bandwidth. It can be 20, 15, 10, 5, 3 or 1.4. The RF sample rate is set accordingly<br>
+If omitted, <code>sample_rate</code> has to be set.
+</p>
+</dd>
+<dt><code>sample_rate</code></dt>
+<dd><p>Optional float. Sample rate in MHz. It is normally automatically set
+depending on the radio head capabilities and selected bandwidth.<br>
+It is mandatory if <code>bandwidth</code> is not set.
+</p>
+</dd>
+<dt><code>sample_rate_num</code></dt>
+<dd><p>Optional integer. Main sample rate used for the LTE signal processing
+in 1.92 MHz units (hence 3 means 5.76 MHz). It is normally
+automatically set depending on the radio head capabilities and
+selected bandwidth. If the resulting rate is different from
+<code>sample_rate</code>, a fractional sample rate interpolator is used to
+convert the sample rate.
+</p>
+</dd>
+<dt><code>auto_rb_add</code></dt>
+<dd><p>Boolean. If true, the MAC Logical Channel Identity (LCID) is used to
+automatically determine the DRB/SRB type. It cannot be 100% reliable,
+so it is useful only when the RRC reconfiguration messages configuring
+the SRB/DRB cannot be received (e.g. if the RRC is encrypted).
+</p>
+</dd>
+<dt><code>dump_pcch</code></dt>
+<dd><p>Boolean. If true, the paging data is logged.
+</p>
+</dd>
+<dt><code>pdsch_max_turbo_its</code></dt>
+<dd><p>Optional integer (default = 6). Maximum number of iterations for the
+downlink (PDSCH) turbo decoder.
+</p>
+</dd>
+<dt><code>pusch_max_turbo_its</code></dt>
+<dd><p>Optional integer (default = 6). Maximum number of iterations for the
+uplink (PUSCH) turbo decoder.
+</p>
+</dd>
+<dt><code>inactivity_timer</code></dt>
+<dd><p>Optional integer (default = 10000). If no data is received for a given
+UE during <code>inactivity_timer</code> ms, then the corresponding UE
+context is automatically destroyed. It is necessary in order to reduce
+the number of concurrent UE contexts.
+</p>
+</dd>
+<dt><code>cells</code></dt>
+<dd><p>Array of objects. Define the cell parameters. Currently only a single
+cell is supported. The following properties are available in each
+cell:
+  </p><dl compact="compact">
+<dt><code>dl_earfcn</code></dt>
+<dd><p>Integer. Downlink EARFCN of the cell.
+  </p></dd>
+<dt><code>ul_earfcn</code></dt>
+<dd><p>Optional integer. Uplink EARFCN. If omitted it is automatically determined from the downlink EARFCN assuming a standard TX-RX gap.
+  </p></dd>
+<dt><code>n_antenna_dl</code></dt>
+<dd><p>Optional. 1, 2, 4 or 8 (default = 1). Number of downlink receive antennas.
+  </p></dd>
+<dt><code>n_antenna_ul</code></dt>
+<dd><p>Optional 1, 2, 4 or 8 (default = 1). Number of uplink receive antennas.
+  </p></dd>
+<dt><code>n_id_cell</code></dt>
+<dd><p>Optional. Range -1 to 503 (default = -1). Select the Physical cell
+  ID. <code>-1</code> indicates that the best received cell should be
+  used. The exact Physical cell ID is displayed in the logs.
+  </p></dd>
+<dt><code>ul_timing_offset</code></dt>
+<dd><p>Optional integer. Adjust the time offset between the uplink and the
+  downlink, in 1/1.92 microsecond units. It is useful to modify it in
+  case the received UEs are very far (the current PUSCH receiver only
+  tolerates an uplink timing offset between -4 and 4).
+  </p></dd>
+</dl>
+
+</dd>
+<dt><code>custom_freq_band</code></dt>
+<dd><p>Optional object or array of objects. Define a non standard LTE or NR
+frequency band. Standard bands can also be overriden by this
+option. If the uplink information is not provided, it is assumed to be
+the same as the downlink (TDD band). Use an array of objects if you
+want to define more than one custom band.
+</p>
+<p>For LTE bands, the following parameters are available:
+</p>
+<dl compact="compact">
+<dt><code>band</code></dt>
+<dd><p>Range: 1 to 256.
+  </p></dd>
+<dt><code>dl_earfcn_min</code></dt>
+<dd><p>Range: 0 to 262143.
+  </p></dd>
+<dt><code>dl_earfcn_max</code></dt>
+<dd><p>Range: 0 to 262143.
+  </p></dd>
+<dt><code>dl_freq_min</code></dt>
+<dd><p>Float. Low DL frequency in MHz.
+  </p></dd>
+<dt><code>ul_earfcn_min</code></dt>
+<dd><p>Optional integer. Range: 0 to 262143.
+  </p></dd>
+<dt><code>ul_earfcn_max</code></dt>
+<dd><p>Optional integer. Range: 0 to 262143.
+  </p></dd>
+<dt><code>ul_freq_min</code></dt>
+<dd><p>Optional Float. Low UL frequency in MHz.
+  </p></dd>
+<dt><code>ntn</code></dt>
+<dd><p>Optional boolean. True if this is a NTN band.
+  </p></dd>
+</dl>
+
+<p>For NR bands, the following parameters are available:
+</p>
+<dl compact="compact">
+<dt><code>band_nr</code></dt>
+<dd><p>Range: 1 to 1024. NR band number.
+  </p></dd>
+<dt><code>dl_freq_min</code></dt>
+<dd><p>Float. Range: 0 to 65535. Minimum DL frequency in MHz. Use 0 if no DL.
+  </p></dd>
+<dt><code>dl_freq_max</code></dt>
+<dd><p>Float. Range: 0 to 65535. Maximum DL frequency in MHz. Use 0 if no DL.
+  </p></dd>
+<dt><code>ul_freq_min</code></dt>
+<dd><p>Float. Range: 0 to 65535. Minimum UL frequency in MHz. Use 0 if no UL. If
+  not provided, use the same value as DL (TDD).
+  </p></dd>
+<dt><code>ul_freq_max</code></dt>
+<dd><p>Float. Range: 0 to 65535. Maximum UL frequency in MHz. Use 0 if no UL.
+  </p></dd>
+<dt><code>ssb_scs</code></dt>
+<dd><p>Array of integers. List of allowed SSB subcarrier spacing for this
+  band. Allowed values: 15, 30, 120 or 240.
+  </p></dd>
+<dt><code>f_raster</code></dt>
+<dd><p>Enumeration: 100, 15, 15_30, 15_30_100, 60_120, 100_enhanced. Frequency raster in kHz.
+  </p></dd>
+<dt><code>ssb_case_c</code></dt>
+<dd><p>Boolean. True if SSB case C is enabled on this band.
+  </p></dd>
+<dt><code>min_40mhz_bw</code></dt>
+<dd><p>Boolean. True if the minimum allowed bandwidth on this band is at
+  least 40 MHz. This information is used to select the CoReSet #0
+  table in standalone mode.
+  </p></dd>
+<dt><code>delta_gscn</code></dt>
+<dd><p>Optional enumeration: 1, 3, 7, 16 (default  = 1). GSCN step size.
+  </p></dd>
+<dt><code>ntn</code></dt>
+<dd><p>Optional boolean. True if this is a NTN band.
+  </p></dd>
+</dl>
+
+</dd>
+<dt><code>com_addr</code></dt>
+<dd><p>Optional string. Address of the WebSocket server remote API. See <a href="#Remote-API">Remote API</a>.<br>
+If set, the WebSocket server for remote API will be enabled and bound to this address.<br>
+Default port is 9005.<br>
+Setting IP address to [::] will make remote API reachable through all network interfaces.
+</p>
+</dd>
+<dt><code>com_name</code></dt>
+<dd><p>Optional string. Sets server name. UE by default
+</p>
+
+</dd>
+<dt><code>com_ssl_certificate</code></dt>
+<dd><p>Optional string. If set, forces SSL for WebSockets. Defines CA
+certificate filename.
+</p>
+</dd>
+<dt><code>com_ssl_key</code></dt>
+<dd><p>Optional string. Mandatory if <var>com_ssl_certificate</var> is set. Defines CA
+private key filename.
+</p>
+</dd>
+<dt><code>com_ssl_peer_verify</code></dt>
+<dd><p>Optional boolean (default is false). If <var>true</var>, server will check
+client certificate.
+</p>
+</dd>
+<dt><code>com_ssl_ca</code></dt>
+<dd><p>Optional string. Set CA certificate. In case of peer verification with self signed
+certificate, you should use the client certificate.
+</p>
+
+</dd>
+<dt><code>com_log_lock</code></dt>
+<dd><p>Optional boolean (default is false). If <var>true</var>, logs configuration can&rsquo;t be changed
+via <code>config_set</code> remote API.
+</p>
+</dd>
+<dt><code>com_log_us</code></dt>
+<dd><p>Optional boolean (default is false). If <var>true</var>, logs sent by <code>log_get</code> remote API
+response will have a <code>timestamp_us</code> parameters instead of <code>timestamp</code>
+</p>
+</dd>
+<dt><code>com_auth</code></dt>
+<dd><p>Optional object. If set, remote API access will require authentication.<br>
+Authentication mechanism is describe in <a href="#Remote-API-Startup">Remote API Startup</a> section.<br>
+</p>
+<dl compact="compact">
+<dt><code>passfile</code></dt>
+<dd><p>Optional string. Defines filename where password is stored (plaintext).<br>
+    If not set, <code>password</code> must be set
+</p>
+</dd>
+<dt><code>password</code></dt>
+<dd><p>Optional string. Defines password.<br>
+    If not set, <code>passfile</code> must be set.
+</p>
+</dd>
+<dt><code>unsecure</code></dt>
+<dd><p>Optional boolean (default  false). If set, allow password to be sent plaintext.<br>
+    NB: you should set it to true if you access it from a Web Browser (Ex: Amarisoft GUI)
+    without SSL (https) as your Web Browser may prevent secure access to work.
+</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>com_log_count</code></dt>
+<dd><p>Optional number (Default = 8192). Defines number of logs to keep in memory before dropping them.<br>
+Must be between 4096 and 2097152).
+</p>
+</dd>
+</dl>
+
+<span id="Remote-API"></span><span id="Remote-API-1"></span><h2 class="chapter">6 Remote API</h2>
+
+<p>You can access LTEPROBE via a remote API.<br>
+Protocol used is WebSocket as defined in RFC 6455
+(<a href="https://tools.ietf.org/html/rfc6455">https://tools.ietf.org/html/rfc6455</a>).<br>
+</p>
+<p>Note that Origin header is mandatory for the server to accept connections.<br>
+This behavior is determined by the use of <code>nopoll</code> library.<br>
+Any value will be accepted.
+</p>
+<span id="Messages"></span><h3 class="section">6.1 Messages</h3>
+
+<p>Messages exchanged between client and LTEPROBE server are in strict JSON
+format.<br>
+</p>
+<p>Each message is represented by an object. Multiple message can be sent to
+server using an array of message objects.<br>
+</p>
+<p>Time and delay values are floating number in seconds.<br>
+</p>
+<p>There are 3 types of messages:
+</p>
+<ul>
+<li> Request
+
+<p>Message sent by client.<br>
+Common definition:
+</p>
+<!-- prop:request -->
+
+<dl compact="compact">
+<dt><code>message</code></dt>
+<dd><p>String. Represent type of message. This parameter is mandatory and depending
+  on its value, other parameters will apply.<br>
+</p>
+</dd>
+<dt><code>message_id</code></dt>
+<dd><p>Optional any type. If set, response sent by the server to this message will
+  have same message_id. This is used to identify response as WebSocket does not
+  provide such a concept.
+</p>
+</dd>
+<dt><code>start_time</code></dt>
+<dd><p>Optional float. Represent the delay before executing the message.<br>
+  If not set, the message is executed when received.<br>
+</p>
+</dd>
+<dt><code>absolute_time</code></dt>
+<dd><p>Optional boolean (default = false). If set, <code>start_time</code> is interpreted as absolute.<br>
+  You can get current clock of system using <code>time</code> member of any response.
+</p>
+</dd>
+<dt><code>standalone</code></dt>
+<dd><p>Optional boolean (default = false). If set, message will survive WebSocket disconnection,
+  else, if socket is disconnected before end of processing, the message will be cancelled.
+</p>
+<span id="loop_005fcount"></span></dd>
+<dt><code>loop_count</code></dt>
+<dd><p>Optional integer (default = 0, max = 1000000). If set, message will be repeated <code>loop_count</code> time(s)
+  after <code>loop_delay</code> (From message beginning of event).<br>
+  Response will have a <code>loop_index</code> to indicate iteration number.
+</p>
+<span id="loop_005fdelay"></span></dd>
+<dt><code>loop_delay</code></dt>
+<dd><p>Optional number (min = 0.1, max = 86400). Delay in seconds to repeat message from its <code>start_time</code>.
+  Mandatory when <code>loop_count</code> is set &gt; 0.
+</p>
+</dd>
+</dl>
+
+</li><li> Response
+
+<p>Message sent by server after any request message as been processed.<br>
+Common definition:
+</p>
+<!-- prop:response -->
+
+<dl compact="compact">
+<dt><code>message</code></dt>
+<dd><p>String. Same as request.
+</p>
+</dd>
+<dt><code>message_id</code></dt>
+<dd><p>Optional any type. Same as in request.
+</p>
+</dd>
+<dt><code>time</code></dt>
+<dd><p>Number representing time in seconds since start of the process.<br>
+  Usefull to send command with absolute time.
+</p>
+</dd>
+<dt><code>utc</code></dt>
+<dd><p>Number representing UTC seconds.
+</p>
+</dd>
+</dl>
+
+</li><li> Events
+
+<p>Message sent by server on its own initiative.<br>
+Common definition:
+</p>
+<!-- prop:event -->
+
+<dl compact="compact">
+<dt><code>message</code></dt>
+<dd><p>String. Event name.
+</p>
+</dd>
+<dt><code>time</code></dt>
+<dd><p>Number representing time in seconds.<br>
+  Usefull to send command with absolute time.
+</p>
+</dd>
+</dl>
+
+</li></ul>
+
+
+<span id="Remote-API-Startup"></span><span id="Startup"></span><h3 class="section">6.2 Startup</h3>
+
+
+<p>When WebSocket connections is setup, LTEPROBE will send a first message with
+name set to <code>com_name</code> and type set to UE.<br>
+</p>
+<p>If authentication is not set, message will be <code>ready</code>:
+</p>
+<div class="example">
+<pre class="example">{
+    &quot;message&quot;: &quot;ready&quot;,
+    &quot;type&quot;: &quot;UE&quot;,
+    &quot;name&quot;: &lt;com_name&gt;,
+    &quot;version&quot;: &lt;software version&gt;,
+    &quot;product&quot;: &lt;Amarisoft product name (optional)&gt;
+}
+</pre></div>
+
+<p>If authentication is set, message will be <code>authenticate</code> :
+</p>
+<div class="example">
+<pre class="example">{
+    &quot;message&quot;: &quot;authenticate&quot;,
+    &quot;type&quot;: &quot;UE&quot;,
+    &quot;name&quot;: &lt;com_name&gt;,
+    &quot;challenge&quot;: &lt;random challenge&gt;
+}
+</pre></div>
+
+<p>To authenticate, the client must answer with a <code>authenticate</code> message
+and a <code>res</code> parameter where:
+</p>
+<div class="example">
+<pre class="example">res = HMAC-SHA256( &quot;&lt;type&gt;:&lt;password&gt;:&lt;name&gt;&quot;, &quot;&lt;challenge&gt;&quot; )
+</pre></div>
+
+<p><code>res</code> is a string and HMAC-SHA256 refers to the standard algorithm
+(<a href="https://en.wikipedia.org/wiki/HMAC">https://en.wikipedia.org/wiki/HMAC</a>)
+</p>
+<p>If the authentication succeeds, the response will have a <code>ready</code> field
+set to <code>true</code>.
+</p>
+<div class="example">
+<pre class="example">{
+    &quot;message&quot;: &quot;authenticate&quot;,
+    &quot;message_id&quot;: &lt;message id&gt;,
+    &quot;ready&quot;: true
+}
+</pre></div>
+
+<p>If authentication fails, the response will have an <code>error</code> field and will
+provide a new challenge.
+</p>
+<div class="example">
+<pre class="example">{
+    &quot;message&quot;: &quot;authenticate&quot;,
+    &quot;message_id&quot;: &lt;message id&gt;,
+    &quot;error&quot;: &lt;error message&gt;,
+    &quot;type&quot;: &quot;UE&quot;,
+    &quot;name: &lt;name&gt;,
+    &quot;challenge&quot;: &lt;new random challenge&gt;
+}
+</pre></div>
+
+
+<p>If any other message is sent before authentication succeeds,
+the error <code>&quot;Authentication not done&quot;</code> will be sent as a response.
+</p>
+
+<span id="Errors"></span><h3 class="section">6.3 Errors</h3>
+
+<p>If a message produces an error, response will have an error string field
+representing the error.
+</p>
+
+<span id="Sample-nodejs-program"></span><h3 class="section">6.4 Sample nodejs program</h3>
+
+<p>You will find in this documentation a sample program: <code>ws.js</code>.<br>
+It is located in <code>doc</code> subdirectory.<br>
+This is a nodejs program that allow to send message to LTEPROBE.<br>
+It requires nodejs to be installed:
+</p><div class="example">
+<pre class="example">dnf install nodejs npm
+npm install nodejs-websocket
+</pre></div>
+
+<p>Use relevant package manager instead of NPM depending on your Linux distribution.<br>
+</p>
+<p>Then simply start it with server name and message you want to send:
+</p><div class="example">
+<pre class="example">./ws.js 127.0.0.1:9005 '{&quot;message&quot;: &quot;config_get&quot;}'
+</pre></div>
+
+
+<span id="Common-messages"></span><h3 class="section">6.5 Common messages</h3>
+
+<dl compact="compact">
+<dt><code>config_get</code></dt>
+<dd><p>Retrieve current config.<br>
+</p>
+<p>Response definition:
+    </p><dl compact="compact">
+<dt><code>type</code></dt>
+<dd><p>Always &quot;UE&quot;
+</p>
+</dd>
+<dt><code>name</code></dt>
+<dd><p>String representing server name.
+</p>
+<span id="config_005fget-logs-member"></span></dd>
+<dt><code>logs</code></dt>
+<dd><p>Object representing log configuration.<br>
+      With following elements:
+        </p><dl compact="compact">
+<dt><code>layers</code></dt>
+<dd><p>Object. Each member of the object represent a log layer configuration:
+</p>
+<dl compact="compact">
+<dt><code>layer name</code></dt>
+<dd><p>Object. The member name represent log layer name and parameters are:
+</p>
+<dl compact="compact">
+<dt><code>level</code></dt>
+<dd><p>See <a href="#log_005foptions">log_options</a>
+                  </p></dd>
+<dt><code>max_size</code></dt>
+<dd><p>See <a href="#log_005foptions">log_options</a>
+                  </p></dd>
+<dt><code>key</code></dt>
+<dd><p>See <a href="#log_005foptions">log_options</a>
+                  </p></dd>
+<dt><code>crypto</code></dt>
+<dd><p>See <a href="#log_005foptions">log_options</a>
+                  </p></dd>
+<dt><code>payload</code></dt>
+<dd><p>See <a href="#log_005foptions">log_options</a>
+                  </p></dd>
+<dt><code>signal</code></dt>
+<dd><p>Optional boolean. See <a href="#log_005foptions">log_options</a>
+                </p></dd>
+</dl>
+
+</dd>
+</dl>
+
+</dd>
+<dt><code>count</code></dt>
+<dd><p>Number. Number of bufferizer logs.
+</p>
+</dd>
+<dt><code>rotate</code></dt>
+<dd><p>Optional number. Max log file size before rotation.
+</p>
+</dd>
+<dt><code>path</code></dt>
+<dd><p>Optional string. Log rotation path.
+</p>
+</dd>
+<dt><code>bcch</code></dt>
+<dd><p>Boolean. True if BCCH dump is enabled (eNB only).
+</p>
+</dd>
+<dt><code>mib</code></dt>
+<dd><p>Boolean. True if MIB dump is enabled (eNB only).
+        </p></dd>
+</dl>
+
+</dd>
+<dt><code>locked</code></dt>
+<dd><p>Optional boolean. If <code>true</code>, logs configuration can&rsquo;t be changed
+      with <code>config_set</code> API.
+</p>
+
+</dd>
+</dl>
+
+</dd>
+<dt><code>config_set</code></dt>
+<dd><p>Change current config.<br>
+  Each member is optional.<br>
+  Message definition:
+    </p><dl compact="compact">
+<dt><code>logs</code></dt>
+<dd><p>Optional object. Represent logs configuration. Same structure as config_get (See <a href="#config_005fget-logs-member">config_get logs member</a>).<br>
+      All elements are optional.<br>
+      Layer name can be set to <code>all</code> to set same configuration for all layers.<br>
+      If set and logs are locked, response will have <code>logs</code> property set to <code>locked</code>.
+</p>
+
+</dd>
+</dl>
+
+</dd>
+<dt><code>log_get</code></dt>
+<dd><p>Get logs.<br>
+  This API has a per connection behavior. This means that the response will depend on previous calls
+  to this API within the same WebSocket connection.<br>
+  In practice, logs that have been provided in a response won&rsquo;t be part of subsequent request unless
+  connection is reestablished. To keep on receiving logs, client should send a new <code>log_get</code> request
+  as soon as the previous response has been received.<br>
+  If a request is sent before previous request has been replied, previous request will be replied right now
+  without considering specific min/max/timeout conditions.
+</p>
+<p>Message definition:
+    </p><dl compact="compact">
+<dt><code>min</code></dt>
+<dd><p>Optional number (default = 1). Minimum amount of logs to retrieve.<br>
+      Response won&rsquo;t be sent until this limit is reached (Unless timeout occurs).
+</p>
+</dd>
+<dt><code>max</code></dt>
+<dd><p>Optional number (default = 4096). Maximum logs sent in a response.
+</p>
+</dd>
+<dt><code>timeout</code></dt>
+<dd><p>Optional number (default = 1). If at least 1 log is available and no
+      more logs have been generated for this time, response will be sent.
+</p>
+</dd>
+<dt><code>allow_empty</code></dt>
+<dd><p>Optional boolean (default = false). If set, response will be sent after timeout,
+      event if no logs are available.
+</p>
+</dd>
+<dt><code>rnti</code></dt>
+<dd><p>Optional number. If set, send only logs matching rnti.
+</p>
+</dd>
+<dt><code>ue_id</code></dt>
+<dd><p>Optional number. If set, send only logs with matching ue_id.
+</p>
+</dd>
+<dt><code>layers</code></dt>
+<dd><p>Optional Object. Each member name represents a log layer and values must be
+      string representing maximum level. See <a href="#log_005foptions">log_options</a>.<br>
+      If <var>layers</var> is not set, all layers level will be set to <var>debug</var>,
+      else it will be set to <var>none</var>.<br>
+      Note also the logs is also limited by general log level. See <a href="#log_005foptions">log_options</a>.<br>
+</p>
+</dd>
+<dt><code>short</code></dt>
+<dd><p>Optional boolean (default = false). If set, only first line of logs will be dumped.
+</p>
+</dd>
+<dt><code>headers</code></dt>
+<dd><p>Optional boolean. If set, send log file headers.
+</p>
+</dd>
+<dt><code>start_timestamp</code></dt>
+<dd><p>Optional number. Is set, filter logs older than this value in milliseconds.
+</p>
+</dd>
+<dt><code>end_timestamp</code></dt>
+<dd><p>Optional number. Is set, filter logs more recent than this value in milliseconds.
+</p>
+</dd>
+<dt><code>max_size</code></dt>
+<dd><p>Optional number (default = 1048576, i.e. 1MB). Maximum size in bytes of the generated
+      JSON message. If the response exceeds this size, the sending of logs will be
+      forced independently from other parameters.
+</p>
+</dd>
+</dl>
+
+<p>Response definition:
+    </p><dl compact="compact">
+<dt><code>logs</code></dt>
+<dd><p>Array. List of logs. Each item is a an object with following members:
+        </p><dl compact="compact">
+<dt><code>data</code></dt>
+<dd><p>Array. Each item is a string representing a line of log.
+</p>
+</dd>
+<dt><code>timestamp</code></dt>
+<dd><p>Number. Milliseconds since January 1st 1970. Not present if <code>com_log_us</code> is set in configuration.<br>
+</p>
+</dd>
+<dt><code>timestamp_us</code></dt>
+<dd><p>Number. Microseconds since January 1st 1970. Only present if <code>com_log_us</code> is set in configuration.<br>
+</p>
+</dd>
+<dt><code>layer</code></dt>
+<dd><p>String. Log layer.
+</p>
+</dd>
+<dt><code>level</code></dt>
+<dd><p>String. Log level: <var>error</var>, <var>warn</var>, <var>info</var> or <var>debug</var>.
+</p>
+</dd>
+<dt><code>dir</code></dt>
+<dd><p>Optional string. Log direction: <var>UL</var>, <var>DL</var>, <var>FROM</var> or <var>TO</var>.
+</p>
+</dd>
+<dt><code>ue_id</code></dt>
+<dd><p>Optional number. UE_ID.
+</p>
+</dd>
+<dt><code>cell</code></dt>
+<dd><p>Optional number (only for PHY layer logs). Cell ID.
+</p>
+</dd>
+<dt><code>rnti</code></dt>
+<dd><p>Optional number (only for PHY layer logs). RNTI.
+</p>
+</dd>
+<dt><code>frame</code></dt>
+<dd><p>Optional number (only for PHY layer logs). Frame number (Subframe is decimal part).
+</p>
+</dd>
+<dt><code>channel</code></dt>
+<dd><p>Optional string (only for PHY layer logs). Channel name.
+</p>
+</dd>
+<dt><code>src</code></dt>
+<dd><p>String. Server name.
+</p>
+</dd>
+<dt><code>idx</code></dt>
+<dd><p>Integer. Log index.
+</p>
+</dd>
+<dt><code>headers</code></dt>
+<dd><p>Optional array. Array of strings.
+</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>discontinuity</code></dt>
+<dd><p>Optional number. If set, this means some logs have been discarded due to log buffer overflow.
+</p>
+</dd>
+<dt><code>microseconds</code></dt>
+<dd><p>Optional boolean. Present and set to true if <code>com_log_us</code> is set in configuration file.
+    </p></dd>
+</dl>
+
+</dd>
+<dt><code>log_set</code></dt>
+<dd><p>Add log.<br>
+  Message definition:
+    </p><dl compact="compact">
+<dt><code>log</code></dt>
+<dd><p>Optional string. Log message to add. If set, <var>layer</var> and <var>level</var> are mandatory.
+</p>
+</dd>
+<dt><code>layer</code></dt>
+<dd><p>String. Layer name. Only mandatory if <var>log</var> is set.
+</p>
+</dd>
+<dt><code>level</code></dt>
+<dd><p>String. Log level: <var>error</var>, <var>warn</var>, <var>info</var> or <var>debug</var>. Only mandatory if <var>log</var> is set.
+</p>
+</dd>
+<dt><code>dir</code></dt>
+<dd><p>Optional string. Log direction: <var>UL</var>, <var>DL</var>, <var>FROM</var> or <var>TO</var>.
+</p>
+</dd>
+<dt><code>ue_id</code></dt>
+<dd><p>Optional number. UE_ID.
+</p>
+</dd>
+<dt><code>flush</code></dt>
+<dd><p>Optional boolean (default = false). If set, flushes fog file.
+</p>
+</dd>
+<dt><code>rotate</code></dt>
+<dd><p>Optional boolean (default = false). If set, forces log file rotation.
+</p>
+</dd>
+<dt><code>cut</code></dt>
+<dd><p>Optional boolean (default = false). If set, forces log file reset.
+</p>
+</dd>
+</dl>
+
+
+</dd>
+<dt><code>log_reset</code></dt>
+<dd><p>Resets logs buffer.
+</p>
+</dd>
+<dt><code>license</code></dt>
+<dd><p>Retrieves license file information.
+</p>
+</dd>
+<dt><code>quit</code></dt>
+<dd><p>Terminates lteprobe.
+</p>
+</dd>
+<dt><code>help</code></dt>
+<dd><p>Provides list of available messages in <var>messages</var> array of strings
+  and events to register in <var>events</var> array of strings.<br>
+</p>
+</dd>
+<dt><code>stats</code></dt>
+<dd><p>Report statistics for LTEPROBE.<br>
+  Every time this message is received by server, statistics are reset.<br>
+  Warning, calling this message from multiple connections simultaneously will modify the
+  statistics sampling time.
+</p>
+
+<p>Response definition:
+    </p><dl compact="compact">
+<dt><code>cpu</code></dt>
+<dd><p>Object. Each member name defines a type and its value cpu load in % of one core.
+</p>
+</dd>
+<dt><code>instance_id</code></dt>
+<dd><p>Number. Constant over process lifetime. Changes on process restart.
+</p>
+
+
+</dd>
+</dl>
+
+
+
+</dd>
+</dl>
+
+
+
+<span id="Log-file-format"></span><span id="Log-file-format-1"></span><h2 class="chapter">7 Log file format</h2>
+
+<span id="PHY-layer"></span><h3 class="section">7.1 PHY layer</h3>
+
+<p>When a PHY message is dumped (debug level), the format is:
+</p><div class="example">
+<pre class="example">time layer dir ue_id cell rnti frame.subframe channel:short_content
+        long_content
+</pre></div>
+
+<dl compact="compact">
+<dt><code>time</code></dt>
+<dd><p>Time using the selected format.
+</p></dd>
+<dt><code>layer</code></dt>
+<dd><p>Layer (<code>[PHY]</code> here).
+</p></dd>
+<dt><code>dir</code></dt>
+<dd><p>UL (uplink) or DL (downlink).
+</p></dd>
+<dt><code>ue_id</code></dt>
+<dd><p>eNodeB UE identifier (hexadecimal, unique among all cells).
+</p></dd>
+<dt><code>cell</code></dt>
+<dd><p>Cell index (hexadecimal).
+</p></dd>
+<dt><code>rnti</code></dt>
+<dd><p>Associated RNTI (hexadecimal) or <code>-</code> if none.
+</p></dd>
+<dt><code>frame.subframe</code></dt>
+<dd><p>Frame number (0-1023) and either subframe number (0-9) for LTE and NB-IoT cells or slot number for NR cells.
+</p></dd>
+<dt><code>channel</code></dt>
+<dd><p>PHY channel name (e.g. PUSCH, PUCCH, PRACH, SRS, PSS,
+PBCH, PCFICH, PDSCH, PHICH, PDCCH, EPDCCH, ...).
+</p></dd>
+<dt><code>short_content</code></dt>
+<dd><p>Single line content. 
+</p></dd>
+<dt><code>long_content</code></dt>
+<dd><p>Hexadecimal dump of the message if <code>phy.max_size &gt; 0</code>.
+</p></dd>
+</dl>
+
+<p>In the uplink messages, <code>epre</code> is the relative Energy per
+Resource Element in dB. The origin 0 dB corresponds to
+<code>tx_gain_offset</code> dBFS.
+</p>
+<p>If UE power control is enabled, <code>p</code> is the absolute
+transmit power in dBm.
+</p>
+<p>If the UE channel simulator is enabled, <code>p</code> is the absolute power
+before the channel simulation is applied. Moreover, if the UE channel
+simulator is enabled, <code>epre</code> is clamped to 0 dB to avoid a
+potential saturation in the RF interface.
+</p>
+<span id="MAC-and-RRC-layers"></span><h3 class="section">7.2 MAC and RRC layers</h3>
+
+<p>When a message is dumped, the format is:
+</p><div class="example">
+<pre class="example">time layer - ue_id message
+</pre></div>
+
+<p>When a PDU is dumped (debug level), the format is:
+</p><div class="example">
+<pre class="example">time layer dir ue_id short_content
+        long_content
+</pre></div>
+
+<dl compact="compact">
+<dt><code>time</code></dt>
+<dd><p>Time using the selected format
+</p></dd>
+<dt><code>layer</code></dt>
+<dd><p>Layer (<code>[MAC]</code> or <code>[RRC]</code> here).
+</p></dd>
+<dt><code>dir</code></dt>
+<dd><p>UL (uplink) or DL (downlink). 
+</p></dd>
+<dt><code>ue_id</code></dt>
+<dd><p>eNodeB UE identifier (hexadecimal, unique among all cells).
+</p></dd>
+<dt><code>cell_id</code></dt>
+<dd><p>Primary cell index.
+</p>
+</dd>
+<dt><code>short_content</code></dt>
+<dd><p>Single line content. 
+</p></dd>
+<dt><code>long_content</code></dt>
+<dd><ul>
+<li> MAC: hexadecimal dump of the message if <code>layer.max_size &gt; 0</code>.
+  </li><li> RRC: full ASN.1 content of the RRC message if <code>layer.max_size &gt; 0</code>.
+  </li></ul>
+</dd>
+<dt><code>long_content</code></dt>
+<dd><ul>
+<li> MAC, RLC, PDCP: hexadecimal dump of the message if <code>layer.max_size &gt; 0</code>.
+  </li><li> RRC: full ASN.1 content of the RRC message if <code>layer.max_size &gt; 0</code>.
+  </li></ul>
+</dd>
+</dl>
+<span id="RLC_002c-PDCP-and-NAS-layers"></span><h3 class="section">7.3 RLC, PDCP and NAS layers</h3>
+
+<p>When a message is dumped, the format is:
+</p><div class="example">
+<pre class="example">time layer - ue_id message
+</pre></div>
+
+<p>When a PDU is dumped (debug level), the format is:
+</p><div class="example">
+<pre class="example">time layer dir ue_id short_content
+        long_content
+</pre></div>
+
+<dl compact="compact">
+<dt><code>time</code></dt>
+<dd><p>Time using the selected format
+</p></dd>
+<dt><code>layer</code></dt>
+<dd><p>Layer (<code>[RLC]</code>, <code>[PDCP]</code>, or <code>[NAS]</code> here).
+</p></dd>
+<dt><code>dir</code></dt>
+<dd><p>UL (uplink) or DL (downlink). 
+</p></dd>
+<dt><code>ue_id</code></dt>
+<dd><p>eNodeB UE identifier (hexadecimal, unique among all cells).
+</p></dd>
+<dt><code>short_content</code></dt>
+<dd><p>Single line content. 
+  </p><ul>
+<li> RLC, PDCP: preceded by the SRB or DRB identifier. 
+  </li></ul>
+</dd>
+<dt><code>long_content</code></dt>
+<dd><ul>
+<li> NAS: full content of the NAS message if <code>layer.max_size &gt; 0</code>.
+  </li></ul>
+</dd>
+</dl>
+
+
+<span id="IP-layer"></span><h3 class="section">7.4 IP layer</h3>
+
+<p>When a IP data PDU is dumped (debug level), the format is:
+</p><div class="example">
+<pre class="example">time layer dir short_content
+        long_content
+</pre></div>
+
+<dl compact="compact">
+<dt><code>time</code></dt>
+<dd><p>Time using the selected format
+</p></dd>
+<dt><code>layer</code></dt>
+<dd><p>Indicate the layer (<code>[IP]</code> here).
+</p></dd>
+<dt><code>dir</code></dt>
+<dd><p>UL (uplink) or DL (downlink). 
+</p></dd>
+<dt><code>short_content</code></dt>
+<dd><p>Single line content (at least the IP protocol and the source and destination address).
+</p></dd>
+<dt><code>long_content</code></dt>
+<dd><p>Optional hexadecimal dump of the PDU if <code>ip.max_size &gt; 0</code>.
+</p></dd>
+</dl>
+
+<span id="Limitations"></span><h2 class="chapter">8 Limitations</h2>
+
+<p>Currently unsupported features:
+</p>
+<ul class="no-bullet">
+<li>- TDD
+</li><li>- PUCCH decoding
+</li><li>- CSI (CQI, RI) decoding
+</li><li>- SRS decoding
+</li><li>- More precise UE location with multi-antenna system
+</li><li>- PUSCH decoding with large UL/DL timing offset
+</li><li>- Carrier aggregation
+</li></ul>
+
+<p>Known limitations:
+</p>
+<ul class="no-bullet">
+<li>- the maximum received bitrate is currently limited.
+</li></ul>
+
+<span id="Change-history"></span><h2 class="chapter">9 Change history</h2>
+
+
+<span id="Version-2024_002d09_002d13"></span><h3 class="section">9.1 Version 2024-09-13</h3>
+
+<ul>
+<li> <code>license</code> remote API is added
+</li><li> <code>com_logs_lock</code> parameter is renamed to <code>com_log_lock</code>. <code>com_logs_lock</code> is still supported for backward compatibility
+</li><li> <code>com_log_us</code> parameter is added
+</li></ul>
+
+<span id="Version-2024_002d06_002d14"></span><h3 class="section">9.2 Version 2024-06-14</h3>
+
+<ul>
+<li> OpenSSL library is upgraded to 1.1.1w
+</li></ul>
+
+<span id="Version-2023_002d06_002d10"></span><h3 class="section">9.3 Version 2023-06-10</h3>
+
+<ul>
+<li> <code>com_logs_lock</code> parameter added to disable logs configuration change via remote API
+</li></ul>
+
+<span id="Version-2023_002d03_002d17"></span><h3 class="section">9.4 Version 2023-03-17</h3>
+
+<ul>
+<li> <code>com_addr</code> parameter now uses [::] address instead of 0.0.0.0 in the delivered configuration file to allow IPv6 connection
+</li></ul>
+
+<span id="Version-2022_002d12_002d16"></span><h3 class="section">9.5 Version 2022-12-16</h3>
+
+<ul>
+<li> <code>utc</code> parameter is added to remote API response messages
+</li></ul>
+
+<span id="Version-2022_002d06_002d17"></span><h3 class="section">9.6 Version 2022-06-17</h3>
+
+<ul>
+<li> OpenSSL library is upgraded to 1.1.1n
+</li><li> <code>start_timestamp</code> and <code>end_timestamp</code> are added to <code>log_get</code> API
+</li></ul>
+
+<span id="License"></span><h2 class="chapter">10 License</h2>
+
+<p><code>lteprobe</code> is copyright (C) 2012-2024 Amarisoft. Its redistribution
+without authorization is prohibited.
+</p>
+<p><code>lteprobe</code> is available without any express or implied warranty. In
+no event will Amarisoft be held liable for any damages arising from
+the use of this software.
+</p>
+<p>For more information on licensing, please refer to <code>license.pdf</code> file.
+</p>
+
+<hr>
+
+
+
+</body>
+</html>

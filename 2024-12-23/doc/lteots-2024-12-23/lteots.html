@@ -1,0 +1,841 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.6, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>LTE Callbox Series and UE Simbox Series</title>
+
+<meta name="description" content="LTE Callbox Series and UE Simbox Series">
+<meta name="keywords" content="LTE Callbox Series and UE Simbox Series">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+
+th {
+    border: 1px solid black;
+    background-color: #c0f585;
+    font-size: 14px;
+    padding: 5px;
+}
+
+td {
+    border: 1px solid black;
+    padding: 2px 4px;
+}
+
+p>img {
+    display: initial;
+}
+
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">LTE Callbox Series and UE Simbox Series</h1>
+
+<span id="SEC_Contents"></span>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+<ul class="no-bullet">
+<li><a id="toc-Introduction" href="#Introduction">1 Introduction</a>
+<ul class="no-bullet">
+  <li><a id="toc-General-description_002e" href="#General-description_002e">1.1 General description.</a></li>
+  <li><a id="toc-Initial-Setup" href="#Initial-Setup">1.2 Initial Setup</a></li>
+</ul></li>
+<li><a id="toc-LTE-Callbox-Series" href="#LTE-Callbox-Series">2 LTE Callbox Series</a>
+<ul class="no-bullet">
+  <li><a id="toc-PC-Access" href="#PC-Access">2.1 PC Access</a>
+  <ul class="no-bullet">
+    <li><a id="toc-AMARI-LTE-Callbox-Mini-and-AMARI-LTE-Callbox-Classic" href="#AMARI-LTE-Callbox-Mini-and-AMARI-LTE-Callbox-Classic">2.1.1 AMARI LTE Callbox Mini and AMARI LTE Callbox Classic</a></li>
+    <li><a id="toc-AMARI-LTE-Callbox-Pro" href="#AMARI-LTE-Callbox-Pro">2.1.2 AMARI LTE Callbox Pro</a></li>
+  </ul></li>
+  <li><a id="toc-Connect-your-Callbox-to-the-local-network" href="#Connect-your-Callbox-to-the-local-network">2.2 Connect your Callbox to the local network</a></li>
+  <li><a id="toc-Login" href="#Login">2.3 Login</a></li>
+  <li><a id="toc-Web-GUI" href="#Web-GUI">2.4 Web GUI</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Set-a-password" href="#Set-a-password">2.4.1 Set a password</a></li>
+  </ul></li>
+  <li><a id="toc-Initial-Testing" href="#Initial-Testing">2.5 Initial Testing</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Access-to-software-monitors" href="#Access-to-software-monitors">2.5.1 Access to software monitors</a></li>
+    <li><a id="toc-Select-component" href="#Select-component">2.5.2 Select component</a></li>
+    <li><a id="toc-Exit-screen" href="#Exit-screen">2.5.3 Exit screen</a></li>
+    <li><a id="toc-Components" href="#Components">2.5.4 Components</a></li>
+    <li><a id="toc-Change-config" href="#Change-config">2.5.5 Change config</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Service" href="#Service">2.5.5.1 Service</a></li>
+      <li><a id="toc-Components-1" href="#Components-1">2.5.5.2 Components</a></li>
+    </ul></li>
+    <li><a id="toc-Manage-LTE-automatic-service" href="#Manage-LTE-automatic-service">2.5.6 Manage LTE automatic service</a></li>
+    <li><a id="toc-Status" href="#Status">2.5.7 Status</a></li>
+    <li><a id="toc-Stop" href="#Stop">2.5.8 Stop</a></li>
+    <li><a id="toc-Start" href="#Start">2.5.9 Start</a></li>
+    <li><a id="toc-Disable" href="#Disable">2.5.10 Disable</a></li>
+    <li><a id="toc-Enable" href="#Enable">2.5.11 Enable</a></li>
+  </ul></li>
+  <li><a id="toc-Traffic-Generation" href="#Traffic-Generation">2.6 Traffic Generation</a></li>
+</ul></li>
+<li><a id="toc-UE-Simbox-Series" href="#UE-Simbox-Series">3 UE Simbox Series</a>
+<ul class="no-bullet">
+  <li><a id="toc-PC-access" href="#PC-access">3.1 PC access</a>
+  <ul class="no-bullet">
+    <li><a id="toc-AMARI-LTE-UE-Simbox-001_002c-064-and-128" href="#AMARI-LTE-UE-Simbox-001_002c-064-and-128">3.1.1 AMARI LTE UE Simbox 001, 064 and 128</a></li>
+  </ul></li>
+  <li><a id="toc-AMARI-LTE-UE-Simbox-256-and-AMARI-LTE-UE-Simbox-U" href="#AMARI-LTE-UE-Simbox-256-and-AMARI-LTE-UE-Simbox-U">3.2 AMARI LTE UE Simbox 256 and AMARI LTE UE Simbox U</a></li>
+  <li><a id="toc-Connect-your-Callbox-to-the-local-network-1" href="#Connect-your-Callbox-to-the-local-network-1">3.3 Connect your Callbox to the local network</a></li>
+  <li><a id="toc-Login-1" href="#Login-1">3.4 Login</a></li>
+  <li><a id="toc-Web-GUI-1" href="#Web-GUI-1">3.5 Web GUI</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Set-a-password-1" href="#Set-a-password-1">3.5.1 Set a password</a></li>
+  </ul></li>
+  <li><a id="toc-Initial-testing" href="#Initial-testing">3.6 Initial testing</a></li>
+</ul></li>
+<li><a id="toc-Miscellaneous" href="#Miscellaneous">4 Miscellaneous</a>
+<ul class="no-bullet">
+  <li><a id="toc-Logs" href="#Logs">4.1 Logs</a></li>
+  <li><a id="toc-Graphical-interface-1" href="#Graphical-interface-1">4.2 Graphical interface</a></li>
+  <li><a id="toc-System-Upgrade" href="#System-Upgrade">4.3 System Upgrade</a></li>
+</ul></li>
+<li><a id="toc-Advanced-configuration" href="#Advanced-configuration">5 Advanced configuration</a></li>
+<li><a id="toc-Reinstall-your-system" href="#Reinstall-your-system">6 Reinstall your system</a>
+<ul class="no-bullet">
+  <li><a id="toc-Create-bootable-USB-dongle" href="#Create-bootable-USB-dongle">6.1 Create bootable USB dongle</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Download-Linux-ISO" href="#Download-Linux-ISO">6.1.1 Download Linux ISO</a></li>
+    <li><a id="toc-Install-tools" href="#Install-tools">6.1.2 Install tools</a></li>
+    <li><a id="toc-Prepare-USB-device" href="#Prepare-USB-device">6.1.3 Prepare USB device</a></li>
+  </ul></li>
+  <li><a id="toc-Install-OS" href="#Install-OS">6.2 Install OS</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Boot" href="#Boot">6.2.1 Boot</a></li>
+    <li><a id="toc-Install" href="#Install">6.2.2 Install</a></li>
+    <li><a id="toc-Configure" href="#Configure">6.2.3 Configure</a></li>
+  </ul></li>
+  <li><a id="toc-Install-software" href="#Install-software">6.3 Install software</a></li>
+</ul></li>
+<li><a id="toc-Troubleshoot" href="#Troubleshoot">7 Troubleshoot</a>
+<ul class="no-bullet">
+  <li><a id="toc-Contact" href="#Contact">7.1 Contact</a></li>
+</ul></li>
+<li><a id="toc-Additional-Information" href="#Additional-Information">8 Additional Information</a></li>
+
+</ul>
+</div>
+
+
+<span id="Introduction"></span><h2 class="chapter">1 Introduction</h2>
+<span id="General-description_002e"></span><h3 class="section">1.1 General description.</h3>
+
+<p>This document describes the basic steps to start using your Amarisoft LTE Callbox or UE Simbox. It is a brief tutorial on how to setup and access your PC, where to find software and how to change configuration files. For advanced use, please refer to user manuals and application notes.
+</p>
+<p>All delivered PCs are installed with Fedora 28 Linux distribution. We assume basic knowledge of Unix system at user level. Graphical user interface is disabled on all Amarisoft products. You can connect to the PC using SSH command in Linux. If you are accessing PC from a Windows environment, you can use PuTTY client (<a href="http://www.putty.org/">http://www.putty.org/</a>).<br>
+</p><table class="cartouche" border="1"><tr><td>
+<p>Please note that installing or running other programs on the PCs may have an impact on the performance of the system. 
+</p></td></tr></table>
+
+<p>There are 2 accounts created in PC. The administrator account credentials has <code>root/toor</code> as login/password. There is also a user account with <code>user/resu</code> as login/password. The Amarisoft software suit is installed and executed under <code>root</code> account.
+</p>
+<span id="Initial-Setup"></span><h3 class="section">1.2 Initial Setup</h3>
+
+<p>Depending on your purchased product, you may have several PCIe cards. A single PCIe card can handle MIMO 2x2, so the TX1 and TX2 correspond to the 2 layers of MIMO.
+The following image describes the SMA connectors of the PCIe card:<br>
+</p>
+<img src="img/ots1.webp" alt="img/ots1">
+
+<p>First thing to do is to plug the power supply and to connect the provided antennas to the SMA connectors of the PCIe cards. You will find 4 antennas per PCIe SDR card in the box to be connected to TX1, RX1, TX2 and RX2 connectors for over the air tests. You can also connect the PCIe cards to your DUT (Device Under test) via RF cables. In this case, best is to use attenuators at each RF path. The RF cables and attenuators are not provided by Amarisoft. <br>
+</p>
+<p>The PC can be connected to your local network but it is not mandatory.
+</p> 
+<span id="LTE-Callbox-Series"></span><h2 class="chapter">2 LTE Callbox Series</h2>
+<p>Amarisoft LTE Callbox series include the following 3 products:
+<br>
+</p><ul>
+<li> AMARI LTE Callbox Mini
+</li><li> AMARI LTE Callbox Classic
+</li><li> AMARI LTE Callbox Pro
+</li></ul>
+<br>
+<p>Each of the above products is basically a PC with the following software components installed:
+</p><ul>
+<li> <code>lteenb</code>: This component is a LTE base station (eNodeB).
+</li><li> <code>ltemme</code>: This component is a LTE EPC including MME (Mobility Management Entity), SGW (Serving Gateway), PGW (Packet Data Network Gateway) and HSS (Home Subscriber
+Server). 
+</li><li> <code>lteims</code>: This component is an IMS test server.
+</li><li> <code>ltembmsgw</code>: This component is a LTE MBMS Gateway.
+</li><li> <code>trx_&lt;name&gt;</code>: This component is your radio frontend driver where &lt;name&gt; represents your radio frontend type. Examples are <code>trx_sdr</code> for PCIe SDR card and <code>trx_uhd</code> for USRP SDR cards. 
+</li><li> <code>www</code>: this component is in charge of web interface to Amarisoft LTE software. It allows you to control the software and visualize logs.
+</li></ul>
+
+<p>Note that each component has a <code>doc</code> directory where you can find its documentation as well as some useful application notes. Alternatively, all documentations are available for download in Extranet.
+</p>
+<span id="PC-Access"></span><h3 class="section">2.1 PC Access</h3>
+
+<table class="cartouche" border="1"><tr><td>
+<p>Use <code>root</code> / <code>toor</code> as login / password to connect to your setup.
+</p></td></tr></table>
+
+<span id="AMARI-LTE-Callbox-Mini-and-AMARI-LTE-Callbox-Classic"></span><h4 class="subsection">2.1.1 AMARI LTE Callbox Mini and AMARI LTE Callbox Classic</h4>
+
+<p>The Ethernet interface of the PC is configured with DHCP. If you are not able to have the IP address, then you need to access the PC locally by connecting a monitor and a keyboard to the PC. However, as mentioned before that graphical interface is disabled.<br>
+After connecting to the PC, open a terminal and type the following command to retrieve the IP address of the PC.
+</p><div class="example">
+<pre class="example">ifconfig
+</pre></div>
+
+<p>Once you know the IP address, you can make a <code>SSH</code> connection in Linux by typing
+</p><div class="example">
+<pre class="example">ssh -X root@&lt;IP address&gt;
+</pre></div>
+<p>or by using <code>PuTTY</code> at Windows.
+</p>
+<span id="AMARI-LTE-Callbox-Pro"></span><h4 class="subsection">2.1.2 AMARI LTE Callbox Pro</h4>
+<p>The AMARI LTE Call Box Pro does not have a built-in graphical card however you can remotely connect to the callbox by using one of the Ethernet ports. 
+</p>
+
+<span id="Connect-your-Callbox-to-the-local-network"></span><h3 class="section">2.2 Connect your Callbox to the local network</h3>
+<p>The AMARI LTE Call Box Pro has 3 Ethernet ports: 2x 1Gbps Ethernet port and 1x 10Gbps Ethernet port.
+</p>
+<img src="img/pro-rear2.webp" alt="jpg">  
+<br><p>The first one (on the top) is configured with a static IP address <code>192.168.1.80</code>. 
+<br>The other ones are in DHCP mode and will get automatically an IP address within the range defined on your router. 
+<br> To get access to the callbox, there are two options:
+</p><ul>
+<li> connect the callbox to your LAN via the DHCP ethernet port and figure out in router information the IP address allocated to the callbox.
+</li><li> connect directly your PC to the callbox ethernet port 192.168.1.80 via ethernet cable. Set your PC ip address to static ip 192.168.1.10 (for example).
+</li></ul>
+<br><p> Once you are remotely connected, you can modify the static IP address allocated by editing the file
+<code>/etc/sysconfig/network-scripts/ifcfg-enp7s0</code>. Thus, future connections to the Callbox can be made using this static address 
+</p>
+<table class="cartouche" border="1"><tr><td>
+<p>Note: 10Gbps Ethernet port must be used when data rate between external IP application and UEs exceeds 1Gbps.   
+</p></td></tr></table>
+
+<span id="Login"></span><h3 class="section">2.3 Login</h3>
+<p>To login as root, please use <code>root/toor</code> as login / password.
+<br>There is also a user account with <code>user/resu</code> as login/password.
+</p>
+<br><p>Note: The Amarisoft software suit is installed and executed under root account.
+<br>
+</p>
+<span id="Web-GUI"></span><h3 class="section">2.4 Web GUI</h3>
+
+<p>The web GUI to display logs is available through web access at the following URL:
+<br><code>http://&lt;IP address&gt;/</code>
+</p>
+
+<span id="Set-a-password"></span><h4 class="subsection">2.4.1 Set a password</h4>
+
+<p>To add authentication to the web portal:
+</p>
+<p>Edit /etc/httpd/conf/httpd/conf and look for <code>&lt;Directory &quot;/var/www/html&quot;&gt;</code> section.<br>
+Inside it, add <code>AuthConfig</code> to AllowOverride directive so that it becomes <code>AllowOverride None AuthConfig</code>.
+</p>
+<p>Then restart HTTP daemon:
+</p><div class="example">
+<pre class="example">service httpd restart
+</pre></div>
+
+<p>Create /var/www/html/lte/.htaccess file with following content:
+</p><div class="example">
+<pre class="example">AuthType Basic
+AuthName &quot;Amarisoft Web GUI&quot;
+AuthUserFile /etc/httpd/.htpasswd
+Require valid-user
+</pre></div>
+
+<p>To add a user and its password, type the following command:
+</p><div class="example">
+<pre class="example">htpasswd -c /etc/httpd/.htpasswd &lt;username&gt;
+</pre></div>
+
+
+
+
+<span id="Initial-Testing"></span><h3 class="section">2.5 Initial Testing</h3>
+
+<p>All Callboxes are configured to provide an automatic LTE service. At each reboot of the PC, LTE network is on with one cell configured in band 7, 20 MHz cell bandwidth and MIMO 2x2. In order to start testing, you just need to power on your UE. It should automatically connect to the LTE network assuming that your UE supports band 7.
+You may connect the Callbox to a network that has internet access. This will give your UE access to the internet. If your UE is connected to the LTE network, usually you should see
+a 4G/LTE icon displayed on the monitor, although it depends on UE model. <br>
+</p>
+
+<p>If your UE can&rsquo;t connect despite the fact that it supports band 7, please check your antenna connection.
+usually when using antennas for over the air testing, the signal level degrades due to interference. In this case, you should configure your system to another band or use a shielded box to avoid interference. Other possibility is to use RF cables between the Callbox and the UE.
+</p>
+<span id="Access-to-software-monitors"></span><h4 class="subsection">2.5.1 Access to software monitors</h4>
+
+<p>Once you are logged on your callbox, you can access software components (eNB, MME, IMS or MBMSGW) using screen command:
+</p>
+<div class="example">
+<pre class="example">screen -x lte
+</pre></div>
+
+<p>This will connect you to different component monitor.<br>
+</p><div align="center"><img src="img/screen.webp" alt="img/screen">
+</div>
+<p>Next sections show you basic methods. For more information please refer to <code>screen</code>
+documentation (<a href="https://www.gnu.org/software/screen/manual/screen.html">https://www.gnu.org/software/screen/manual/screen.html</a>).
+</p>
+<span id="Select-component"></span><h4 class="subsection">2.5.2 Select component</h4>
+
+<p>Each component monitor is inside a window. You can switch from a window to another with the command:
+</p>
+<div class="example">
+<pre class="example">ctrl+a &lt;window index&gt;
+</pre></div>
+
+<p>Where window index is:
+</p><ul>
+<li> 0 MME
+</li><li> 1 eNB
+</li><li> 2 MBMSGW
+</li><li> 3 IMS
+</li></ul>
+<table class="cartouche" border="1"><tr><td>
+<p>Note: press simultaneously <code>CTRL</code> key and <code>a</code> key, release them, then press number key.
+</p></td></tr></table>
+<p>You can also switch to next window:
+</p>
+<div class="example">
+<pre class="example">ctrl+a &lt;space&gt;
+</pre></div>
+
+<p>Each component screen offers a list of commands that can be used either to get status or trigger action.
+Each of them are documented in the component documentations (example lteenb.pdf) or inline with the &quot;help&quot; command 
+</p>
+<div align="center"><img src="img/help.webp" alt="img/help">
+</div>
+<span id="Exit-screen"></span><h4 class="subsection">2.5.3 Exit screen</h4>
+
+<div class="example">
+<pre class="example">ctrl+a d
+</pre></div>
+
+
+<span id="Components"></span><h4 class="subsection">2.5.4 Components</h4>
+
+<p>All software are installed in <code>/root</code> directory.<br>
+You may find different version of each component inside<br>
+</p>
+<p>The systems uses symlinks (mme, enb, mbms) that points to a version of each component.<br>
+You can change those links if you need to change version to use.
+</p>
+<p>Each component has a doc sub-directory where you will find its documentation.<br>
+It also have a config sub-directory where config files are placed.
+</p>
+
+<span id="Change-config"></span><h4 class="subsection">2.5.5 Change config</h4>
+<span id="Service"></span><h4 class="subsubsection">2.5.5.1 Service</h4>
+<p>The LTE automatic service uses <code>/root/ots/config/ots.cfg</code> for its configuration.<br>
+The format is shell.<br>
+</p>
+<p>The default configuration file is generated during installation.<br>
+To use your own configuration we recommend to create a new file and change <code>/root/ots/config/ots.cfg</code>
+symbolic link to point to your file.<br>
+Else, your changes will be overriden at next software install/upgrade.<br>
+</p>
+<p>Example:<br>
+Create a my-ots.cfg file and put the following inside:
+</p><pre class="verbatim"># Include default configuration
+source ots.default.cfg
+
+# Add your custom config
+MME_CONFIG_FILE=/root/mme/config/my-mme.cfg
+</pre>
+<p>Then:
+</p><pre class="verbatim">cd /root/ots/config
+rm -f ots.cfg
+ln -s my-ots.cfg ots.cfg
+</pre>
+
+
+<span id="Components-1"></span><h4 class="subsubsection">2.5.5.2 Components</h4>
+
+<p>The LTE automatic service starts each component with the following config files:
+</p><ul>
+<li> eNB <code>/root/enb/config/enb.cfg</code>
+</li><li> MME <code>/root/mme/config/mme.cfg</code>
+</li><li> IMS <code>/root/mme/config/ims.cfg</code>
+</li><li> MBMSGW <code>/root/mbms/config/mbmsgw.cfg</code>
+</li></ul>
+
+<p>Please note that these files are symbolic links to real configuration files as depicted below for <code>enb.cfg</code>.
+</p><div align="center"><img src="img/symb_link_config.webp" alt="img/symb_link_config">
+</div>
+<p>In order to change the configuration, you have two options:
+</p><ul>
+<li> Editing the above files to change the configuration directly.
+</li><li> Changing the symbolic link to point to another configuration file. Following example shows the commands to change the default config to a carrier aggregation configuration on eNodeB side.
+<div class="example">
+<pre class="example">cd /root/enb/config
+rm enb.cfg
+ln -s enb-2cc.cfg enb.cfg
+</pre></div>
+</li></ul>
+
+<p>Once you have changed your config, you need to restart the LTE service using the following command:
+</p>
+<div class="example">
+<pre class="example">service lte restart
+</pre></div>
+
+<p>NB: you may use screen to check that all components are correctly started.
+</p>
+<p>For more details on config files, please refer to each component documentation.<br>
+</p>
+<span id="Manage-LTE-automatic-service"></span><h4 class="subsection">2.5.6 Manage LTE automatic service</h4>
+
+<span id="Status"></span><h4 class="subsection">2.5.7 Status</h4>
+<p>You can check the LTE service status this way:
+</p><div class="example">
+<pre class="example">service lte status
+</pre></div>
+<p>The command will return &quot;<code>active (running)</code>&quot; status if service is running 
+</p>
+<span id="Stop"></span><h4 class="subsection">2.5.8 Stop</h4>
+<p>You can stop all LTE components this way:
+</p><div class="example">
+<pre class="example">service lte stop
+</pre></div>
+
+<span id="Start"></span><h4 class="subsection">2.5.9 Start</h4>
+
+<p>You can start them again this way:
+</p><div class="example">
+<pre class="example">service lte start
+</pre></div>
+
+<span id="Disable"></span><h4 class="subsection">2.5.10 Disable</h4>
+
+<p>You may also prevent them to start at boot time:
+</p><div class="example">
+<pre class="example">systemctl disable lte
+</pre></div>
+
+<br><p>NB: lte service remains enable until next reboot
+<br>NB2: this command is not available on Ubuntu version &lt;= 14
+</p>
+
+<span id="Enable"></span><h4 class="subsection">2.5.11 Enable</h4>
+
+<p>You may enable service at boot time this way:
+</p><div class="example">
+<pre class="example">systemctl enable lte
+</pre></div>
+
+<br><p>NB: lte service remains disable until next reboot
+<br>NB2: this command is not available on Ubuntu version &lt;= 14
+</p>
+
+<span id="Traffic-Generation"></span><h3 class="section">2.6 Traffic Generation</h3>
+<p>If you have an external tool to generate traffic, you can usually use the Ethernet ports of the Callbox. In Callbox Mini and Classic, the maximum supported data rate within the cell is 200 Mbps and 600 Mbps. These rates are within the capability of the Ethernet ports of the PC. Callbox Pro however supports 1.2 Gbps hitting the limit of 1Gb capacity of a standard Ethernet port. Recent Callbox pro setups are equipped with an external 10Gb Ethernet card allowing to cope with Gigabit traffic coming from an external tool.<br>
+When using an external tool, it is sometimes easier to be able to access the UEs directly bypassing NAT. You can check the following link explainung how to do that:<br>
+<br><a href="https://extranet.amarisoft.com/wiki/doku.php?id=info:mme_ue_direct_access">https://extranet.amarisoft.com/wiki/doku.php?id=info:mme_ue_direct_access</a><br>
+</p>
+<span id="UE-Simbox-Series"></span><h2 class="chapter">3 UE Simbox Series</h2>
+<p>Amarisoft UE Simbox series include the following products:
+<br>
+</p><ul>
+<li> AMARI LTE UE Simbox 001
+</li><li> AMARI LTE UE Simbox 064
+</li><li> AMARI LTE UE Simbox 128
+</li><li> AMARI LTE UE Simbox 256
+</li><li> AMARI LTE UE Simbox U
+</li></ul>
+<br>
+<p>Each of the above products is basically a PC with the following software components installed:
+</p><ul>
+<li> <code>lteue</code>: This component is a LTE UE simulator. It simulates one or more UEs by communicating through a RF system with an eNodeB and core network. 
+</li><li> <code>trx_&lt;name&gt;</code>: This component is your radio frontend driver where &lt;name&gt; represents your radio frontend type. Examples are <code>trx_sdr</code> for PCIe SDR card and <code>trx_uhd</code> for USRP SDR cards. 
+</li><li> <code>www</code>: this component is in charge of web interface to Amarisoft LTE software. It allows you to control the software and visualize logs. 
+</li></ul>
+
+
+<span id="PC-access"></span><h3 class="section">3.1 PC access</h3>
+
+<table class="cartouche" border="1"><tr><td>
+<p>Use <code>root</code> / <code>toor</code> as login / password to connect to your setup.
+</p></td></tr></table>
+
+<span id="AMARI-LTE-UE-Simbox-001_002c-064-and-128"></span><h4 class="subsection">3.1.1 AMARI LTE UE Simbox 001, 064 and 128</h4>
+ 
+<p>The Ethernet interface of the PC is configured with DHCP. If you are not able to have the IP address, then you need to access the PC locally by connecting a monitor and a keyboard to the PC. However, as mentioned before that graphical interface is disabled.<br>
+After connecting to the PC, open a terminal and type the following command to retrieve the IP address of the PC.
+</p><div class="example">
+<pre class="example">ifconfig
+</pre></div>
+
+<p>Once you know the IP address, you can make a <code>SSH</code> connection in Linux by typing
+</p><div class="example">
+<pre class="example">ssh -X root@&lt;IP address&gt;
+</pre></div>
+<p>or by using <code>PuTTY</code> at Windows.
+</p>
+
+<span id="AMARI-LTE-UE-Simbox-256-and-AMARI-LTE-UE-Simbox-U"></span><h3 class="section">3.2 AMARI LTE UE Simbox 256 and AMARI LTE UE Simbox U</h3>
+<p>The AMARI LTE UE Simbox 256 and AMARI LTE UE Simbox U does not have a built-in graphical card however you can remotely connect to the callbox by using one of the Ethernet ports. 
+</p>
+
+<span id="Connect-your-Callbox-to-the-local-network-1"></span><h3 class="section">3.3 Connect your Callbox to the local network</h3>
+<p>The AMARI LTE UE Simbox 256 and AMARI LTE UE Simbox U has 3 Ethernet ports: 2x 1Gbps Ethernet port and 1x 10Gbps Ethernet port.
+</p>
+<img src="img/pro-rear2.webp" alt="jpg">  
+<br><p>The first one (on the top) is configured with a static IP address <code>192.168.1.80</code>. 
+<br>The other ones are in DHCP mode and will get automatically an IP address within the range defined on your router. 
+<br> To get access to the callbox, there are two options:
+</p><ul>
+<li> connect the callbox to your LAN via the DHCP ethernet port and figure out in router information the IP address allocated to the callbox.
+</li><li> connect directly your PC to the callbox ethernet port 192.168.1.80 via ethernet cable. Set your PC ip address to static ip 192.168.1.10 (for example).
+</li></ul>
+<br><p> Once you are remotely connected, you can modify the static IP address allocated by editing the file
+<code>/etc/sysconfig/network-scripts/ifcfg-enp7s0</code>. Thus, future connections to the Callbox can be made using this static address 
+</p>
+<table class="cartouche" border="1"><tr><td>
+<p>Note: 10Gbps Ethernet port must be used when data rate between external IP application and UEs exceeds 1Gbps.   
+</p></td></tr></table>
+
+<span id="Login-1"></span><h3 class="section">3.4 Login</h3>
+<p>To login as root, please use <code>root/toor</code> as login / password.
+<br>There is also a user account with <code>user/resu</code> as login/password.
+</p>
+<br><p>Note: The Amarisoft software suit is installed and executed under root account.
+<br>
+</p>
+<span id="Web-GUI-1"></span><h3 class="section">3.5 Web GUI</h3>
+
+<p>The web GUI to display logs is available through web access at the following URL:
+<br><code>http://&lt;IP address&gt;/</code>
+</p>
+
+<span id="Set-a-password-1"></span><h4 class="subsection">3.5.1 Set a password</h4>
+
+<p>To add authentication to the web portal:
+</p>
+<p>Edit /etc/httpd/conf/httpd/conf and look for <code>&lt;Directory &quot;/var/www/html&quot;&gt;</code> section.<br>
+Inside it, add <code>AuthConfig</code> to AllowOverride directive so that it becomes <code>AllowOverride None AuthConfig</code>.
+</p>
+<p>Then restart HTTP daemon:
+</p><div class="example">
+<pre class="example">service httpd restart
+</pre></div>
+
+<p>Create /var/www/html/lte/.htaccess file with following content:
+</p><div class="example">
+<pre class="example">AuthType Basic
+AuthName &quot;Amarisoft Web GUI&quot;
+AuthUserFile /etc/httpd/.htpasswd
+Require valid-user
+</pre></div>
+
+<p>To add a user and its password, type the following command:
+</p><div class="example">
+<pre class="example">htpasswd -c /etc/httpd/.htpasswd &lt;username&gt;
+</pre></div>
+
+
+
+
+<span id="Initial-testing"></span><h3 class="section">3.6 Initial testing</h3>
+
+<p>UE Simbox is designed to work in good radio conditions. As a result, we strongly recommend to use cables between RF connectors of your Simbox setup and base station for your simulation.
+All Simboxes are configured to provide an automatic LTE service. At each reboot of the PC, a single LTE UE is started automatically. This UE is configured in LTE category 4, band 7 in a 5 MHz cell in SISO. 
+</p>
+<p>Once you are logged in PC, you can access UE by using <code>screen</code> command:
+</p><div class="example">
+<pre class="example">screen -x lte
+</pre></div>
+
+<p>This will connect you to the UE simulator monitor.
+</p>
+<p>The UE simulator software is located in <code>/root/ue</code>.
+</p>
+<p>For more information on how to configure the UE, please read documentation located in <code>/root/ue/doc</code>.<br>
+</p>
+<span id="Miscellaneous"></span><h2 class="chapter">4 Miscellaneous</h2>
+
+<span id="Logs"></span><h3 class="section">4.1 Logs</h3>
+
+<p>Components put their current logs in <code>/tmp</code> directory.<br>
+Logs will be backed up in <code>/var/log/lte</code> directory.
+</p>
+<p>The <code>/tmp/lte.log</code> file is log for service.
+</p>
+
+<span id="Graphical-interface"></span><span id="Graphical-interface-1"></span><h3 class="section">4.2 Graphical interface</h3>
+
+<p>You may use Gnome 3 GUI by typing following command when logged locally on PC:
+</p><div class="example">
+<pre class="example">startx
+</pre></div>
+
+
+<span id="System-Upgrade"></span><h3 class="section">4.3 System Upgrade</h3>
+
+<p>When a new release is a available, you&rsquo;ll need to update your system. The steps to follow are explained below.
+</p><ul>
+<li> Download your release from Amarisoft Extranet at <code>https://extranet.amarisoft.com/</code>
+<br>The downloaded file would be a tarball file: <var>amarisoft.YYYY-MM-DD.tar.gz</var> where YYYY-MM-DD is the release date. 
+</li><li> Put this file on the PC at any place using the method you want (scp, http, USB key...) and extract it:
+<div class="example">
+<pre class="example">tar xzf amarisoft.YYYY-MM-DD.tar.gz
+</pre></div>
+<p>This would create a directory called YYYY-MM-DD.
+</p></li><li> As <code>root</code>, Go to the directory YYYY-MM-DD and execute the provided script <em>install.sh</em> as follows:
+<div class="example">
+<pre class="example">./install.sh &lt;path&gt; --default
+</pre></div>
+<ul class="no-bullet">
+<li>- By default if no <code>&lt;path&gt;</code> is specified, components are installed in <code>/root</code>, you can choose other directories by specifying a new destnation in <code>&lt;path&gt;</code>. Please note that <code>www</code> component will always be located under <code>/var/www/html</code> in Fedora or <code>/var/www</code> in Ubuntu.
+</li><li>- The <code>--default</code> option forces answer to default for all questions asked during install phase. The default answers for <code>Callbox series</code> are depicted below:
+<div align="center"><img src="img/install_steps_default_lte100.webp" alt="img/install_steps_default_lte100">
+</div><p>The default answers for <code>UE Simbox series</code> are depicted below:
+</p><div align="center"><img src="img/install_steps_default_lteue100.webp" alt="img/install_steps_default_lteue100">
+</div></li></ul>
+<p>Take a look at messages at the end of install phase, you may be requested to power on/off your PC. This would be the case if there is, for example, an FPGA upgrade of your PCIe SDR card. <br>
+If you would like to have a custom install, you can run the script without <code>--default</code> option and answer each question separately. For <code>Callbox series</code> product, this would typically be the case if you do not want to enable automatic LTE service or if you would like to install eNB and MME components on different PCs.
+</p></li></ul>
+
+
+<span id="Advanced-configuration"></span><h2 class="chapter">5 Advanced configuration</h2>
+
+<p>There are some parameters you can change in your setup if needed.<br>
+To do this, go to <code>/root/ots/config</code> and:
+</p>
+<ul>
+<li> Create your empty configuration file.
+</li><li> Add <code>source ots.default.cfg</code> to your config file to load default parameters
+</li><li> Add your custom parameters after <code>source</code> call.
+</li><li> Change symlink ots.cfg to point your config gile.
+</li></ul>
+
+<p>Of course, you need to restart LTE service to use new config.
+</p>
+<p>Example:
+</p><pre class="verbatim">cd /root/ots/config
+
+touch myconfig.cfg
+echo &quot;source ots.default.cfg&quot; &gt;&gt; myconfig.cfg
+echo &quot;LOG_SIZE=50M&quot; &gt;&gt; myconfig.cfg
+
+rm -f ots.cfg
+ln -s myconfig.cfg ots.cfg
+
+service lte restart
+</pre>
+
+
+<p>The configuration variables are:
+</p>
+<dl compact="compact">
+<dt><code>ERROR_DELAY</code></dt>
+<dd><p>Time in seconds before restarting any software component badly stopped.
+</p>
+</dd>
+<dt><code>LOG_FILE</code></dt>
+<dd><p>Log file of the lte service.
+</p>
+</dd>
+<dt><code>LOG_FILE_SIZE</code></dt>
+<dd><p>Automatic service log file size for rotation (K, M, G units accepted).
+</p>
+</dd>
+<dt><code>LOG_PATH</code></dt>
+<dd><p>Path where to store rotated log.
+</p>
+</dd>
+<dt><code>LOG_SIZE</code></dt>
+<dd><p>Components log file size threshold for rotation (K, M, G units accepted).
+</p>
+</dd>
+<dt><code>LOG_PERSISTENT_SIZE</code></dt>
+<dd><p>Maximum amount of logs stored in <code>LOG_PATH</code>.
+  When directory reaches this threshold, oldest log file will be deleted.
+</p>
+</dd>
+<dt><code>LOG_PERSISTENT_COUNT</code></dt>
+<dd><p>Maximum number of log files stored in <code>LOG_PATH</code>.
+  When directory reaches this threshold, oldest log file will be deleted.
+</p>
+</dd>
+<dt><code>LOG_POLL_DELAY</code></dt>
+<dd><p>Time in seconds between two checks for cleaning <code>LOG_PATH</code>.
+</p>
+</dd>
+<dt><code>LOG_GZIP</code></dt>
+<dd><p>Set it to 1 to compress log file when rotated.
+</p>
+</dd>
+<dt><code>LOG_BACKUP_ON_STOP</code></dt>
+<dd><p>Set it to n to avoid log backup (to LOG_PATH) on component stop.
+</p>
+</dd>
+<dt><code>COMPONENTS</code></dt>
+<dd><p>List of component IDs to start.
+</p></dd>
+</dl>
+
+<p>Each component can be configured with the following variables:
+</p>
+<dl compact="compact">
+<dt><code>XXX_PATH</code></dt>
+<dd><p>Path of the component binary. If not found or not set, component won&rsquo;t be started.
+</p>
+</dd>
+<dt><code>XXX_CONFIG_FILE</code></dt>
+<dd><p>Config file to use for this component. Relative to <code>XXX_PATH</code>.
+</p>
+</dd>
+<dt><code>XXX_INIT</code></dt>
+<dd><p><code>lte_init.sh</code> command line parameter for component.
+</p>
+</dd>
+<dt><code>XXX_AUTOSTART</code></dt>
+<dd><p>If set to 1 or not defined, component will be started automatically by service, else, you need to start it manually.
+</p>
+</dd>
+<dt><code>XXX_TYPE</code></dt>
+<dd><p>Component flavour. Can be <code>MME</code>, <code>ENB</code>, <code>IMS</code>, <code>MBMSGW</code>, <code>LICENSE</code>...
+</p>
+</dd>
+<dt><code>XXX_WIN</code></dt>
+<dd><p>Component window index inside screen session.
+</p>
+</dd>
+</dl>
+
+<p>Where <code>XXX</code> is the ID of the component and must be unique.
+</p>
+<p>Those variables are use by <code>ltestart.sh</code> script.
+</p>
+
+<span id="Reinstall-your-system"></span><h2 class="chapter">6 Reinstall your system</h2>
+
+<p>You can reinstall your system with following procedure.<br>
+This allow you to reset everything.<br>
+Note that all previously stored information on the system will be deleted.
+</p>
+<span id="Create-bootable-USB-dongle"></span><h3 class="section">6.1 Create bootable USB dongle</h3>
+
+<span id="Download-Linux-ISO"></span><h4 class="subsection">6.1.1 Download Linux ISO</h4>
+
+<p>Download the ISO file from <a href="https://download.fedoraproject.org/pub/fedora/linux/releases/28/Workstation/x86_64/iso/">https://download.fedoraproject.org/pub/fedora/linux/releases/28/Workstation/x86_64/iso/</a>
+</p>
+<span id="Install-tools"></span><h4 class="subsection">6.1.2 Install tools</h4>
+
+<pre class="verbatim">dnf install livecd-tools
+</pre>
+<span id="Prepare-USB-device"></span><h4 class="subsection">6.1.3 Prepare USB device</h4>
+
+<p>Get a USB key bigger than downloaded ISO file (&gt; 2GB).<br>
+Note that all data on it will be lost.
+</p>
+<p>Then in a shell, with root permissions:
+</p>
+<pre class="verbatim">dmesg -w
+</pre>
+<p>Plug your USB dongle and you should see lines display on the terminal.
+</p>
+<p>Identify your USB device node with such a line:
+</p>
+<pre class="verbatim">[23846.382531]  sdb: sdb1
+</pre>
+<p>Our device is <var>sdb</var>, you can now create it:
+</p>
+<pre class="verbatim">livecd-iso-to-disk --format --reset-mbr Fedora-Workstation-Live-x86_64-26-1.1.iso /dev/sdb
+</pre>
+
+<span id="Install-OS"></span><h3 class="section">6.2 Install OS</h3>
+
+<span id="Boot"></span><h4 class="subsection">6.2.1 Boot</h4>
+
+<p>Reboot the system and when BIOS screen is displayed enter it by clicking on <var>F2</var>
+and select USB device to boot on.<br>
+</p>
+<p>When booting, select <var>Start Fedora-Workstation-Live</var>.
+</p>
+<span id="Install"></span><h4 class="subsection">6.2.2 Install</h4>
+
+<p>When GUI is displayed, select <var>Install to hard drive</var>.
+</p>
+<p>The follow installation procedure until you reach <var>Installation destination</var>. Click on it.
+</p>
+<p>Inside menu, check <var>I would like to make additional space available</var>.
+</p>
+<p>Then click on <var>Done</var>, <var>Delete All</var> and <var>Reclaim space</var>.
+</p>
+<p>Continue until end of procedure.
+</p>
+
+<span id="Configure"></span><h4 class="subsection">6.2.3 Configure</h4>
+
+<p>When system is ready, install following packages:
+</p>
+<pre class="verbatim">dnf -y install make gcc lksctp-tools.x86_64 kernel-modules-extra.x86_64 kernel-devel.x86_64
+</pre>
+<p>If you are using Ettus radio frontend:
+</p><pre class="verbatim">dnf -y install uhd
+</pre>
+
+<span id="Install-software"></span><h3 class="section">6.3 Install software</h3>
+
+<p>Log on your Extranet account at <a href="https://extranet.amarisoft.com">https://extranet.amarisoft.com</a> and download latest release, then install it.
+</p>
+
+<span id="Troubleshoot"></span><h2 class="chapter">7 Troubleshoot</h2>
+<p>To report a problem, please open a ticket and make sure that you attach all logs and configuration files for our support team to investigate.
+</p>
+<span id="Contact"></span><h3 class="section">7.1 Contact</h3>
+
+<ul>
+<li> Our Extranet site is located at <code>extranet.amarisoft.com</code>. This site would give you access to our documentation and new releases.
+</li><li> For all technical issues, you can create a ticket describing your problem on our support site at <code>support.amarisoft.com</code>. Please note that you need to have an active account in our Extranet in order to be able to login to our support site. Your credentials are the same as the ones you use to access Extranet.
+</li><li> our FTP server is located at <code>ftp.amarisoft.com</code>. This server should be used to exchange big logs. Your credentials are the same as the ones you use to access Extranet. Please note that you need to use an FTP client supporting SSL such as Filezilla. 
+</li><li> For any request concerning license delivery or addition of new accounts, please send an email to <code>delivery@amarisoft.com</code>.
+
+</li></ul>
+
+
+<span id="Additional-Information"></span><h2 class="chapter">8 Additional Information</h2>
+
+<p>This document is copyright (C) 2012-2024 Amarisoft. Its redistribution
+without authorization is prohibited.
+</p>
+<p>This document is available without any express or implied warranty and is subject to change without notice. In
+no event will Amarisoft be held liable for any damages arising from the use of this document.
+</p>
+<p>For any technical issue, please raise a ticket from our support site at <a href="https://support.amarisoft.com/">https://support.amarisoft.com/</a>.
+<br>
+To learn more about our technology and solutions, e-mail us at <a href="mailto:customer@amarisoft.com">customer@amarisoft.com</a> or visit <a href="https://www.amarisoft.com">https://www.amarisoft.com</a>.
+</p>
+
+<hr>
+
+
+
+</body>
+</html>

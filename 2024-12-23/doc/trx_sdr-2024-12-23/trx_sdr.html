@@ -1,0 +1,1004 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.6, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>PCI Express SDR Board</title>
+
+<meta name="description" content="PCI Express SDR Board">
+<meta name="keywords" content="PCI Express SDR Board">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+
+th {
+    border: 1px solid black;
+    background-color: #c0f585;
+    font-size: 14px;
+    padding: 5px;
+}
+
+td {
+    border: 1px solid black;
+    padding: 2px 4px;
+}
+
+p>img {
+    display: initial;
+}
+
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">PCI Express SDR Board</h1>
+
+
+<span id="SEC_Contents"></span>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+<ul class="no-bullet">
+<li><a id="toc-Features" href="#Features">1 Features</a></li>
+<li><a id="toc-Installation-with-the-Amarisoft-software" href="#Installation-with-the-Amarisoft-software">2 Installation with the Amarisoft software</a>
+<ul class="no-bullet">
+  <li><a id="toc-Introduction" href="#Introduction">2.1 Introduction</a></li>
+  <li><a id="toc-Automatic-Installation" href="#Automatic-Installation">2.2 Automatic Installation</a></li>
+  <li><a id="toc-Manual-Installation-1" href="#Manual-Installation-1">2.3 Manual Installation</a></li>
+  <li><a id="toc-Driver-initialization-1" href="#Driver-initialization-1">2.4 Driver initialization</a></li>
+  <li><a id="toc-Firmware-upgrade-1" href="#Firmware-upgrade-1">2.5 Firmware upgrade</a></li>
+  <li><a id="toc-Multiple-card-installation" href="#Multiple-card-installation">2.6 Multiple card installation</a></li>
+  <li><a id="toc-TRX-driver-configuration-options" href="#TRX-driver-configuration-options">2.7 TRX driver configuration options</a></li>
+  <li><a id="toc-TDD-support" href="#TDD-support">2.8 TDD support</a></li>
+  <li><a id="toc-GPS-usage" href="#GPS-usage">2.9 GPS usage</a></li>
+  <li><a id="toc-Oscillator-frequency-fine-tuning" href="#Oscillator-frequency-fine-tuning">2.10 Oscillator frequency fine tuning</a></li>
+</ul></li>
+<li><a id="toc-Troubleshooting" href="#Troubleshooting">3 Troubleshooting</a></li>
+<li><a id="toc-Miscellaneous-utilities" href="#Miscellaneous-utilities">4 Miscellaneous utilities</a>
+<ul class="no-bullet">
+  <li><a id="toc-sdr_005futil" href="#sdr_005futil">4.1 sdr_util</a></li>
+  <li><a id="toc-sdr_005fspectrum" href="#sdr_005fspectrum">4.2 sdr_spectrum</a></li>
+  <li><a id="toc-sdr_005fplay" href="#sdr_005fplay">4.3 sdr_play</a></li>
+  <li><a id="toc-sdr_005ftest" href="#sdr_005ftest">4.4 sdr_test</a></li>
+</ul></li>
+<li><a id="toc-C-API" href="#C-API">5 C API</a></li>
+<li><a id="toc-Physical-specifications" href="#Physical-specifications">6 Physical specifications</a>
+<ul class="no-bullet">
+  <li><a id="toc-Summary" href="#Summary">6.1 Summary</a></li>
+  <li><a id="toc-Connectors" href="#Connectors">6.2 Connectors</a>
+  <ul class="no-bullet">
+    <li><a id="toc-SMA-connectors" href="#SMA-connectors">6.2.1 SMA connectors</a></li>
+    <li><a id="toc-PPS_002fClock-connectors" href="#PPS_002fClock-connectors">6.2.2 PPS/Clock connectors</a></li>
+    <li><a id="toc-PPS-MMCX-connector" href="#PPS-MMCX-connector">6.2.3 PPS MMCX connector</a></li>
+    <li><a id="toc-JTAG-connector-_0028J1_0029" href="#JTAG-connector-_0028J1_0029">6.2.4 JTAG connector (J1)</a></li>
+    <li><a id="toc-Test-Pins-for-TDD-mode" href="#Test-Pins-for-TDD-mode">6.2.5 Test Pins for TDD mode</a></li>
+  </ul></li>
+  <li><a id="toc-TX-power" href="#TX-power">6.3 TX power</a></li>
+</ul></li>
+<li><a id="toc-Remote-API" href="#Remote-API">7 Remote API</a>
+<ul class="no-bullet">
+  <li><a id="toc-clock_005ftune" href="#clock_005ftune">7.1 clock_tune</a></li>
+</ul></li>
+<li><a id="toc-Change-history" href="#Change-history">8 Change history</a>
+<ul class="no-bullet">
+  <li><a id="toc-Version-2024_002d06_002d14" href="#Version-2024_002d06_002d14">8.1 Version 2024-06-14</a></li>
+  <li><a id="toc-Version-2023_002d09_002d08" href="#Version-2023_002d09_002d08">8.2 Version 2023-09-08</a></li>
+  <li><a id="toc-Version-2023_002d06_002d10" href="#Version-2023_002d06_002d10">8.3 Version 2023-06-10</a></li>
+</ul></li>
+<li><a id="toc-License" href="#License">9 License</a></li>
+
+</ul>
+</div>
+
+
+<span id="Features"></span><h2 class="chapter">1 Features</h2>
+
+<ul>
+<li> 2x2 RF transceiver (AD9361) with integrated 12-bit DACs and ADCs 
+</li><li> RF coverage: 500 MHz to 6.0 GHz 
+</li><li> RF bandwidth: &lt; 200 kHz to 56 MHz 
+</li><li> Supports TDD and FDD operation
+</li><li> Integrated TX/RX switch for TDD operation
+</li><li> PCIe 1x standard connector
+</li><li> Integrated GPS for precise time and frequency synchronization
+</li><li> Clock/PPS inputs and outputs for easy chaining
+</li><li> Optional sample compression to reduce the PCI bandwidth
+</li></ul>
+
+<span id="Installation-with-the-Amarisoft-software"></span><h2 class="chapter">2 Installation with the Amarisoft software</h2>
+
+<span id="Introduction"></span><h3 class="section">2.1 Introduction</h3>
+
+<p>If you have bought the OTS (Off-The-Shelve) package, then you donât need to install anything. Everything has already been installed on your PC. Otherwise, please follow through the steps below.
+</p>
+<p>Decompress the <samp>trx_sdr</samp> archive into a convenient directory specified by <samp>&lt;trx_path&gt;</samp>. 
+</p>
+<div class="example">
+<pre class="example">tar -xzf trx_sdr-linux-YYYY-MM-DD.tar.gz -C &lt;trx_path&gt;
+</pre></div>
+
+<p>You have two ways to install the TRX driver for the PCIe card: 
+</p><ul>
+<li> automatic
+</li><li> manual
+</li></ul>
+
+<p>For both cases, the installation requires some specific packages to
+compile the kernel module. To do this, you need to be root.
+In Fedora and Cent OS, you need to install <em>kernel-devel</em>, <em>make</em>, <em>gcc</em> and <em>elfutils-libelf-devel</em>
+packages by running the following command:
+</p>
+<div class="example">
+<pre class="example">dnf install kernel-devel-$(uname -r) make gcc elfutils-libelf-devel
+</pre></div>
+
+<p>For Ubuntu, use the following command:
+</p><div class="example">
+<pre class="example">apt-get install linux-headers-$(uname -r) build-essential
+</pre></div>
+
+<p>Note that you&rsquo;ll need equivalent packages for other Linux distributions if you do not use Fedora, Ubuntu or Cent OS.
+</p>
+<p>Once you have finished the installation, you need to initialize (See <a href="#Driver-initialization">Driver initialization</a>) and upgrade your driver (See <a href="#Firmware-upgrade">Firmware upgrade</a>). Please make sure to initialize the driver after each system boot if you have not activates an automatic lte service.
+</p>
+<span id="Automatic-Installation"></span><h3 class="section">2.2 Automatic Installation</h3>
+
+<p>Automatic installation is only available on Fedora, Ubuntu and CentOS distributions. Use
+manual install for other distributions. To start your automatic install, use the following command where <samp>&lt;path&gt;</samp> is the path to the directory where you have already installed your LTE component (eNB or UE) and <samp>type</samp> should be set to <samp>enb</samp> or <samp>ue</samp> accordingly.
+</p>
+<div class="example">
+<pre class="example">./install &lt;path&gt; &lt;type&gt;
+</pre></div>
+
+<p>Notes:
+</p><ul>
+<li> the script would install some packages, so make sure you have root privileges when you run the script 
+</li><li> this install creates a symlink for the TRX driver so please do not remove
+this directory afterwards.
+</li></ul>
+
+<span id="Manual-Installation"></span><span id="Manual-Installation-1"></span><h3 class="section">2.3 Manual Installation</h3>
+
+<p>To manually install the driver, let&rsquo;s note <samp>&lt;path&gt;</samp> the directory where
+Amarisoft eNB or UE software is installed. Then:
+</p>
+<ol>
+<li> Compile kernel driver:<br>
+Go to the <samp>kernel/</samp> directory under <samp>&lt;trx_path&gt;</samp> and start compilation:
+<div class="example">
+<pre class="example">cd kernel
+make
+</pre></div>
+
+</li><li> Place driver:<br>
+Just copy the compiled driver into <samp>&lt;path&gt;</samp> directory
+<div class="example">
+<pre class="example">cd ..
+cp trx_sdr.so &lt;path&gt;
+cp libsdr.so &lt;path&gt;
+cp libc_wrapper_sdr.so &lt;path&gt;
+</pre></div>
+
+</li><li> Config files:<br>
+Copy RF driver config file. Note that there are 2 separate config directories for eNB and UE called <samp>config.enb</samp> and <samp>config.ue</samp> under your <samp>&lt;trx_path&gt;</samp>. As a result, the <samp>&lt;config_dir&gt;</samp> should be set to <samp>config.enb</samp> or <samp>config.ue</samp> accordingly.
+<div class="example">
+<pre class="example">cp -r &lt;config_dir&gt; &lt;path&gt;/config/sdr
+</pre></div>
+<p>Select frontend:
+</p><div class="example">
+<pre class="example">&lt;path&gt;/config/rf_select.sh sdr
+</pre></div>
+
+</li></ol>
+
+<span id="Driver-initialization"></span><span id="Driver-initialization-1"></span><h3 class="section">2.4 Driver initialization</h3>
+
+<p>Each time you boot your system, you need to perform this
+initialization.  Note that if you are using OTS install, this step is
+already done by the lte service.
+</p><div class="example">
+<pre class="example">cd kernel
+./init.sh
+</pre></div>
+
+<span id="Firmware-upgrade"></span><span id="Firmware-upgrade-1"></span><h3 class="section">2.5 Firmware upgrade</h3>
+
+<p>Perform the following command to upgrade your PCIe card:
+</p><div class="example">
+<pre class="example">./sdr_util upgrade
+</pre></div>
+
+<p>Notes:
+</p><ul>
+<li> If you have several PCIe cards installed, this will upgrade all cards.
+</li><li> If the firmware is already up to date, this command will end directly.
+</li><li> When the upgrade is over, you need your system to be powered off
+for the changes to take effect (not only reset, real power off).
+</li></ul>
+
+<span id="Multiple-card-installation"></span><h3 class="section">2.6 Multiple card installation</h3>
+
+<p>To make several cards work together, they must be time and frequency
+synchronized. For that purpose you need to plug the provided black
+cable between each card. Connect the internal OUT connector (J4 on
+<a href="#schematic">Figure 6.2</a>) on the first card to the IN connector on the second
+card (J3 on <a href="#schematic">Figure 6.2</a>, connectors are between RoHS compliant
+mark and Serial number sticker). Then do the same with OUT of second
+card and IN of third one, etc...
+</p>
+<p>When you install several PCIe cards, the mapping between the PCI
+connectors and the Linux devices is not predictable (but it shouldn&rsquo;t
+change after each boot). To identify the order please do the
+following:
+</p><div class="example">
+<pre class="example">./sdr_util -c 0 led 1
+</pre></div>
+
+<p>Then check inside PC on each board, one of them should have a led blinking.
+This is card 0 (<samp>/dev/sdr0</samp>).
+</p>
+<p>Switch off the led:
+</p><div class="example">
+<pre class="example">./sdr_util -c 0 led 0
+</pre></div>
+
+<p>You can do the same for other cards:
+</p><div class="example">
+<pre class="example">./sdr_util -c &lt;n&gt; led 1
+</pre></div>
+
+<p>Where <code>&lt;n&gt;</code> is the index of the card.
+</p>
+<p>To use all the cards, update eNB config file (<samp>config.cfg</samp>) using args
+parameter:
+</p><div class="example">
+<pre class="example">args: &quot;dev0=/dev/sdrA,dev1=/dev/sdrB,...&quot;
+</pre></div>
+
+
+<p>Note: this allow to change the order of the cards.  For instance, if
+your card are from left to right have following indexes:
+</p><div class="example">
+<pre class="example">&lt;1&gt; &lt;2&gt; &lt;0&gt;
+</pre></div>
+
+<p>And you want first cell to be on left, second cell to be on middle and
+third on right, use the following:
+</p><div class="example">
+<pre class="example">args: &quot;dev0=/dev/sdr1,dev1=/dev/sdr2,dev2=/dev/sdr0&quot;
+</pre></div>
+
+<span id="TRX-driver-configuration-options"></span><h3 class="section">2.7 TRX driver configuration options</h3>
+
+<p>The default TRX configuration used by your component is called <samp>config.cfg</samp>. It could be found under the directory <samp>config/sdr/</samp> of your component (eNB or UE). <br>
+The following JSON properties are available:
+</p>
+<!-- prop:rf_driver -->
+
+<dl compact="compact">
+<dt><code>args</code></dt>
+<dd><p>String. Set the system device names for the boards. Example:
+</p><div class="example">
+<pre class="example">args: &quot;dev0=/dev/sdr1,dev1=/dev/sdr2,dev2=/dev/sdr0&quot;
+</pre></div>
+
+</dd>
+<dt><code>sample_hw_fmt</code></dt>
+<dd><p>Optional enumeration (auto, ci16, cf8) (default = auto). Set the
+sample format used on the PCI bus. <code>auto</code> selects the best format
+depending on the available PCI bandwidth. <code>ci16</code> selects 16 bit
+complex integers. <code>cf8</code> selects 8 bit complex floats giving a 2:1
+compression ratio while retaining the full 12 bit amplitude of the
+ADCs and DACs.
+</p>
+</dd>
+<dt><code>rx_antenna</code></dt>
+<dd><p>Optional enumeration (auto, tx_rx, rx) (default = auto). Select the
+connector on which the RX antenna is connected. By default it is
+connected on the RX connector for FDD and on the TX/RX connector for
+TDD. This parameter is useful to force the use of the RX connector in
+TDD.
+</p>
+</dd>
+<dt><code>fifo_tx_time</code></dt>
+<dd><p>Optional number. Set the DMA TX buffer size in us.<br>
+Decreasing this value will improve latency but may lead to signal samples
+loss if the PCIe chain on the motherboard is not fast enough.
+This can be detected with the <code>rf_info</code> monitor command of your
+<code>lteenb</code> or <code>lteue</code> software. If such situation happens, the
+percentage of <code>TX buffer Usage</code> will be 100% which means the transmission
+path has encountered underflows.
+</p>
+</dd>
+<dt><code>fifo_rx_time</code></dt>
+<dd><p>Optional number. Set the DMA RX buffer size in us.<br>
+Same as <code>fifo_tx_time</code> for RX chain but reducing it won&rsquo;t improve latency.
+</p>
+
+</dd>
+<dt><code>sync</code></dt>
+<dd><p>Optional enumeration: none, internal, gps, external (default =
+none). Set the time synchronization source. <code>none</code> and
+<code>internal</code> uses the internal PPS generated from the
+clock. <code>internal</code> synchronizes the RX timestamps on the internal
+PPS. <code>none</code> does not synchronize the RX timestamps on the
+internal PPS for a faster startup.  <code>gps</code> uses the internal
+GPS. <code>external</code> uses the PPS from the IN connector (J3 on
+<a href="#schematic">Figure 6.2</a>) if clock source is selected as <code>external</code>
+or from the PPS MMCX connector (PR10) if clock source is selected
+as <code>internal</code>.<br>
+</p>
+<p>When several cards are selected (with the <code>args</code> property),
+<code>sync</code> only sets the time synchronization source of the first
+card. The other cards are implicitly set to <code>external</code>
+synchronization, assuming the previous card is used as source.
+</p>
+</dd>
+<dt><code>clock</code></dt>
+<dd><p>Optional enumeration: internal, external (default = internal).  Set
+the clock source. <code>internal</code> uses the internal clock (VCTCXO).
+If an external PPS sync source is used, the internal clock frequency is
+adjusted by the PPS signal. <code>external</code> uses the clock from the IN
+connector (J3 on <a href="#schematic">Figure 6.2</a>).
+</p>
+<p>When several cards are selected (with the <code>args</code> property),
+<code>clock</code> only sets the clock source of the first card. The other
+cards are implicitly set to <code>external</code> clock, assuming the
+previous card is used as source.
+</p>
+</dd>
+<dt><code>gpio0</code></dt>
+<dd><p>Optional enumeration. Selects the signal ouput on test point TP3.
+See below for possible values. Default = rf_dts1.
+</p>
+</dd>
+<dt><code>gpio1</code></dt>
+<dd><p>Optional enumeration. Selects the signal ouput on test point TP4.
+See below for possible values. Default = rf_dts2.
+</p>
+</dd>
+<dt><code>gpio values:</code></dt>
+<dd><table>
+<thead><tr><th>Value</th><th>Description</th></tr></thead>
+<tr><td>zero</td><td>output a constant low level signal (OV)</td></tr>
+<tr><td>one</td><td>output a constant high level signal (3.3V)</td></tr>
+<tr><td>rf_dts1</td><td>in TDD mode, output a high level when the TX is active on channel 1.
+Polarity can be inverted by setting <code>dts_polarity</code>: low</td></tr>
+<tr><td>rf_dts2</td><td>in TDD mode, output a high level when the TX is active on channel 2
+Polarity can be inverted by setting <code>dts_polarity</code>: low</td></tr>
+<tr><td>pps_selected</td><td>output a positive going Pulse per Second from the currently selected sync</td></tr>
+<tr><td>pps_ext</td><td>output a positive going Pulse per Second from the EXT PPS MMCX onboard connector</td></tr>
+<tr><td>pps_prev</td><td>output a positive going Pulse per Second from the IN 5 pin inter board connector</td></tr>
+<tr><td>pps_gps</td><td>output a positive going Pulse per Second from the onboard GPS module</td></tr>
+<tr><td>pps_vcxo</td><td>output a positive going Pulse per Second from the onboard generator</td></tr>
+<tr><td>dma_tx</td><td>output a positive front on each TX DMA packet (synced on current selected PPS)</td></tr>
+<tr><td>dma_rx</td><td>output a positive front on each RX DMA packet</td></tr>
+<tr><td>dma_tx_100Hz</td><td>output a 100 Hz signal synced with dma_tx</td></tr>
+<tr><td>dma_rx_100Hz</td><td>output a 100 Hz signal synced with dma_rx</td></tr>
+</table>
+
+</dd>
+<dt><code>dts_polarity</code></dt>
+<dd><p>Optional enumeration: high (default), low.
+Selects the polarity for both rf_dts1 and rf_dts2 signals.
+</p>
+</dd>
+<dt><code>pps_extra_delay</code></dt>
+<dd><p>Optional float value in microseconds, range: [-10000.0 .. +10000.0]  (-10ms to +10ms)
+Adds a delay between GPS pulse and start of DL frame.
+If the pps_extra_delay value is negative, the actual delay will be (10ms + pps_extra_delay).
+For instance, if you want to compensate for 250ns delay caused by cable length, you will set pps_extra_delay: -0.25, the software will add (10ms - 250ns) to the GPS pulse.
+</p>
+</dd>
+<dt><code>tdd_tx_mod</code></dt>
+<dd><p>Optional number value: 0 (default) or 1.
+If set to 1, the TX amplifiers will be switched on and off according to the TDD state.
+</p>
+</dd>
+</dl>
+<br>
+
+<p>The range for the transmit gain (<code>tx_gain</code> parameter in
+eNodeB/UE) is from 0 to 89.75 dB. The range for the receive gain
+(<code>rx_gain</code> parameter in eNodeB/UE) depends on the frequency:
+</p><table>
+<thead><tr><th>Frequency</th><th>Gain</th></tr></thead>
+<tr><td>70-4000 MHz</td><td>3 to 71 dB</td></tr>
+<tr><td>4001-6000 MHz</td><td>0 to 62 dB</td></tr>
+</table>
+
+<p>The maximum sample rate is 61.44 MHz.
+</p>
+<span id="TDD-support"></span><h3 class="section">2.8 TDD support</h3>
+
+<p>The board integrates a TX/RX switch for TDD operation. When TDD
+operation is configured, the transmit and receive are done on a single
+RF port (the TX SMA connector). So you only need to connect antennas
+on the TX1 and TX2 SMA connectors for TDD operation.
+</p>
+<span id="GPS-usage"></span><h3 class="section">2.9 GPS usage</h3>
+
+<p>You can check the GPS operation when the eNodeB/UE is stopped with
+</p><div class="example">
+<pre class="example">./sdr_util gps_state
+</pre></div>
+<p>The GPS takes a few minutes to lock if the GPS antenna is
+connected. Any active GPS antenna accepting a 3.3V DC supply can be
+used, for example: <a href="http://www.mouser.fr/Search/ProductDetail.aspx?R=ANT-GPS-SH-SMAvirtualkey59000000virtualkey712-ANT-GPS-SH-SMA">http://www.mouser.fr/Search/ProductDetail.aspx?R=ANT-GPS-SH-SMAvirtualkey59000000virtualkey712-ANT-GPS-SH-SMA</a><br>
+</p>
+<p>To ensure the PLL is correctly locked when launching the lte software,
+it is recommended to set the synchro to GPS beforehand with the command
+</p><div class="example">
+<pre class="example">./sdr_util sync_gps
+</pre></div>
+
+<span id="Oscillator-frequency-fine-tuning"></span><h3 class="section">2.10 Oscillator frequency fine tuning</h3>
+
+<p>If you don&rsquo;t have a GPS, it is still possible to manually fine tune
+the VCTCXO (Voltage Controlled, Temperature Controlled Crystal
+Oscillator) frequency provided you have a way to know the offset:
+</p>
+<div class="example">
+<pre class="example">./sdr_util clock_tune <var>n</var>
+</pre></div>
+
+<p>where <var>n</var> is the offset in PPM (parts-per-million) from the
+nominal TCXO frequency. Note: the PPM offset <var>n</var> to voltage law is
+only approximative, so you should adjust it by successive
+approximation.
+</p>
+<span id="Troubleshooting"></span><h2 class="chapter">3 Troubleshooting</h2>
+<p>Below are a few tips on how to handle different errors.
+</p>
+<ul>
+<li> The eNodeB does not start and the output of <code>dmesg</code> linux command resembles the following error message: <br>
+<code>
+sdr: version magic '4.12.9-200.fc25.x86_64 SMP mod_unload' should be '4.12.11-200.fc25.x86_64 SMP mod_unload'
+</code>
+
+<p>To resolve it, you need to recompile the SDR driver on the PC (See <a href="#Manual-Installation">Manual Installation</a>).
+</p>
+
+</li></ul>
+
+<span id="Miscellaneous-utilities"></span><h2 class="chapter">4 Miscellaneous utilities</h2>
+
+<span id="sdr_005futil"></span><h3 class="section">4.1 sdr_util</h3>
+
+<pre class="verbatim">usage: sdr_util [options] cmd [args...]
+
+Options:
+-h                         help
+-c device_num              select the device (default = all)
+
+Available commands:
+version                    dump the FPGA version
+sync_state                 dump the synchro and clock state
+gps_state                  dump the GPS state
+sync_gps                   select GPS as sync source, wait for stable state
+gps_cal [-s]               uses the GPS sync to tune VCXO, optionnaly stores
+                           the value in flash
+temp                       dump the temperature of the board components
+led [0|1]                  enable/disable led blinking
+clock_tune n               tune TCXO frequency offset to n ppm
+upgrade [options]          upgrade the FPGA firmware
+  upgrade options are:
+  -force                   force upgrade even if identical or 
+                           previous version
+</pre>
+<span id="sdr_005fspectrum"></span><h3 class="section">4.2 sdr_spectrum</h3>
+
+<p><code>sdr_spectrum</code> is a real time spectrum analyzer, sample viewer
+and I/Q file recorder. It handles several channels at the same
+time. It can be invoked without arguments. The following options are
+available:
+</p><dl compact="compact">
+<dt><code>-h</code></dt>
+<dd><p>help
+</p></dd>
+<dt><code>-args str</code></dt>
+<dd><p>set the device arguments (default=&quot;dev0=/dev/sdr0&quot;)
+</p></dd>
+<dt><code>-rx_freq freq</code></dt>
+<dd><p>set the RX frequency in Hz (default=2400000000)
+</p></dd>
+<dt><code>-rate rate</code></dt>
+<dd><p>set the sample rate to &rsquo;rate&rsquo; Hz (default=30720000)
+</p></dd>
+<dt><code>-rx_gain gain</code></dt>
+<dd><p>set the RX gain in dB (default=60)
+</p></dd>
+<dt><code>-channels c</code></dt>
+<dd><p>set the number of RX channels to &rsquo;c&rsquo; (default=1)
+</p></dd>
+<dt><code>-rx_bw</code></dt>
+<dd><p>set the analog receive bandwidth in Hz (default=same as sample rate)
+</p></dd>
+<dt><code>-sync source</code></dt>
+<dd><p>set the sync source to &rsquo;source&rsquo; (none, internal, gps, external) (default=none)
+</p></dd>
+<dt><code>-clock source</code></dt>
+<dd><p>set the clock source to &rsquo;source&rsquo; (internal, external) (default=internal)
+</p></dd>
+<dt><code>-save_path path</code></dt>
+<dd><p>set the directory where the recorded samples are saved (default=/tmp)
+</p></dd>
+<dt><code>-duration d</code></dt>
+<dd><p>set the recorded sample file duration in seconds when saving (default=1.0)
+</p></dd>
+<dt><code>-save</code></dt>
+<dd><p>starts recording samples automatically from program start.
+</p></dd>
+<dt><code>-save-and-exit</code></dt>
+<dd><p>same as <code>-save</code> but program will quit at end of recording.
+</p></dd>
+</dl>
+
+<p>When saving the recorded samples, one file is generated per
+channel. The filename contains the UTC date, the frequency and the
+channel number. The I/Q samples are saved as little endian 32 bit
+float values, in I/Q order. The sample values are between -1 and 1.
+</p>
+<p>Invocation example:
+</p><div class="example">
+<pre class="example">./sdr_spectrum -channels 2 -rx_gain 50 -rx_freq 2680e6 -rate 30.72e6
+</pre></div>
+
+<p>Resulting output:
+</p>
+<img src="img/sdr_spectrum.webp" alt="img/sdr_spectrum">
+
+<p><code>sdr_spectrum</code> is interactive and allow actions during runtime:
+</p><dl compact="compact">
+<dt><code>keys</code></dt>
+<dd><br><p>available keys are indicated in the left side text area.
+</p></dd>
+<dt><code>left mouse button</code></dt>
+<dd><p>select a range and the X-Y values are displayed on the bottom of the graph.
+</p></dd>
+<dt><code>right mouse button</code></dt>
+<dd><p>in spectrum mode, highlight a range and get a measure of the power inside the range.
+</p></dd>
+</dl>
+
+<span id="sdr_005fplay"></span><h3 class="section">4.3 sdr_play</h3>
+
+<p><code>sdr_play</code> is an I/Q file player. Several channels can be played
+at the same time and they can be time synchronized on an external
+clock. One file must be provided per channel. The following options
+are available:
+</p>
+<dl compact="compact">
+<dt><code>-h</code></dt>
+<dd><p>help
+</p></dd>
+<dt><code>-args str</code></dt>
+<dd><p>set the device arguments (default=&quot;dev0=/dev/sdr0&quot;)
+</p></dd>
+<dt><code>-tx_freq freq</code></dt>
+<dd><p>set the TX frequency in Hz (default=2400000000)
+</p></dd>
+<dt><code>-rate rate</code></dt>
+<dd><p>set the sample rate to &rsquo;rate&rsquo; Hz (default=23040000)
+</p></dd>
+<dt><code>-tx_gain gain</code></dt>
+<dd><p>set the TX gain in dB (default=70)
+</p></dd>
+<dt><code>-channels c</code></dt>
+<dd><p>set the number of channels to &rsquo;c&rsquo; (default=1)
+</p></dd>
+<dt><code>-tx_bw bw</code></dt>
+<dd><p>set the analog transmit bandwidth in Hz (default=same as sample rate)
+</p></dd>
+<dt><code>-loop</code></dt>
+<dd><p>play the file in loop
+</p></dd>
+<dt><code>-sync source</code></dt>
+<dd><p>set the sync source to &rsquo;source&rsquo; (none, internal, gps, external) (default=none)
+</p></dd>
+<dt><code>-clock source</code></dt>
+<dd><p>set the clock source to &rsquo;source&rsquo; (internal, external) (default=internal)
+</p></dd>
+<dt><code>-time_offset n</code></dt>
+<dd><p>offset the output by n samples (default=0)
+</p></dd>
+</dl>
+
+<p>The sample files should contain the I/Q values as little endian 32 bit
+floats, in I/Q order. The sample values should be between -1 and 1.
+</p>
+<span id="sdr_005ftest"></span><h3 class="section">4.4 sdr_test</h3>
+
+<p><code>sdr_test</code> is a general diagnostic tool for SDR boards.
+<br>usage: sdr_test [options] cmd [args...]
+</p>
+<dl compact="compact">
+<dt><code>-h</code></dt>
+<dd><br><p>help
+</p></dd>
+<dt><code>-c device_num</code></dt>
+<dd><p>select the SDR device number  (default=0)
+</p></dd>
+<dt><code>-d channel</code></dt>
+<dd><p>select the device channel (default = 0). useful for CPRI boards.
+</p></dd>
+<dt><code>dma_loopback_test [n][sec]</code></dt>
+<dd><p>test DMA loopback on 1 or n devices for sec seconds (def: 10)
+</p></dd>
+<dt><code>rfic_tx_test sample_rate freq tx_gain waveform [tone_freq/ofdm_bw]</code></dt>
+<dd><p>test RFIC TX (freq in Hz, tx_gain in dB from 0 to 90)
+<br>waveform can be:
+</p><pre class="verbatim"> zero for no signal
+ prbs for PRBS simulation,
+ tone for CW at specified offset from center freq (default = 7.68e6)
+ ofdm for OFDM simulation on specified bw (default = auto)
+</pre></dd>
+<dt><code>flash_check</code></dt>
+<dd><p>verify checksum of code in onboard FPGA.
+</p></dd>
+<dt><code>flash_reload</code></dt>
+<dd><p>reload FPGA code from onboard flash
+</p></dd>
+<dt><code>gps_read</code></dt>
+<dd><br><p>GPS read test (best with GPS antenna)
+</p></dd>
+<dt><code>led</code></dt>
+<dd><br><p>blinks onboard led during 5 seconds for identification
+</p></dd>
+<dt><code>synchro_set [src]</code></dt>
+<dd><p>Set the source for PPS synchronisation
+</p><pre class="verbatim"> 0=internal
+ 1=GPS
+ 2=slave
+ 3=ext PPS
+ 4=CPRI
+ 5=ext CLK
+</pre></dd>
+<dt><code>synchro_state</code></dt>
+<dd><p>Show current status of clock and synchro source for SDR device
+</p><pre class="verbatim">Example:
+ sync_source = 0 (internal)
+ pps_locked = 1
+ clock_source = 0 (internal)
+ clock_pll_locked = 1
+</pre></dd>
+<dt><code>version</code></dt>
+<dd><br><p>Show SDR device Hardware and firmware information
+</p><pre class="verbatim">Example:
+ Board ID:         0x4b01
+ Board master:     0x0
+ Board revision:   0x0
+ FPGA revision:    2022-06-07 16:29:58
+ FPGA status:      operational
+ Software version: 2022-02-25
+</pre></dd>
+<dt><code>dump_info</code></dt>
+<dd><p>dump fpga and RF chip information (similar to sdr_util version)
+</p><pre class="verbatim">Example:
+PCIe SDR TRX driver 2022-02-25
+PCIe RFIC /dev/sdr0@0:
+  Hardware ID: 0x4b01
+  DNA: [0x107149909461141596]
+  Serial: ''
+  FPGA revision: 2023-06-27  15:31:17
+  FPGA vccint: 1.00 V
+  FPGA vccaux: 1.79 V
+  FPGA vccbram: 1.00 V
+  FPGA temperature: 42.6 Â°C
+  AD9361 temperature: 18 Â°C
+  AGC: Off
+  Sync: internal (locked)
+  Clock: internal (locked)
+  Clock tune: -0.7 ppm
+  NUMA: 0
+  DMA: 1 ch, 64 bits, SMem index: On
+  DMA0 TX_Underflows: 65535  RX_Overflows: 65535
+  PCIe bus: bus=0xb4 FPGA PCI gen2 x1 (4.0Gb/s)   OK
+</pre></dd>
+<dt><code>gpio 0|1 [value]</code></dt>
+<dd><p>Get or set the signal available on GPIO points on the board
+<br>See <code>gpio0</code> and <code>gpio1</code> in chapter <code>TRX driver configuration options</code>;
+</p>
+</dd>
+</dl>
+
+
+<span id="C-API"></span><h2 class="chapter">5 C API</h2>
+
+<p>The PCIe SDR board can be used in other projects with its C API. The C
+API allows to send and receive I/Q samples and to change the various
+parameters (frequency, sample rate, bandwidth, gains, ...). The
+Amarisoft TRX driver, <code>sdr_play</code> and <code>sdr_spectrum</code> are
+built using this API.
+</p>
+<p>The C API is described in <samp>libsdr.h</samp>. The corresponding Linux
+x86_64 dynamic library is <samp>libsdr.so</samp>.
+</p>
+<p>Amarisoft does not provide any support for this API and can modify it
+without notice.
+</p>
+<span id="Physical-specifications"></span><h2 class="chapter">6 Physical specifications</h2>
+
+<span id="Summary"></span><h3 class="section">6.1 Summary</h3>
+
+<ul>
+<li> RF power output &lt; 10 dBm 
+</li><li> Max RF input power: ~ -10 dBm RMS (+2dBm peak)
+</li><li> 4 SMA female (TX1, TX2, RX1, RX2), AC coupled
+</li><li> 1 SMA female (GPS antenna with 3.3V DC power supply) 
+</li><li> 2 internal 5-pin connectors for inter-card time synchronization
+</li><li> 1 internal MMCX connector for external PPS input
+</li><li> PCIe gen2 x1, full height, short length
+</li><li> Uses single 12V power supply from PCI connector
+</li><li> ADC/DAC Sample Rate: maximum 61.44 MS/s
+</li><li> ADC/DAC Resolution: 12 bits
+</li><li> Frequency Accuracy: 2 ppm
+</li><li> LTE 20MHz 64QAM EVM &lt; 2 %rms (f &lt; 2.6 GHz)
+</li><li> LTE 20MHz 64QAM EVM &lt; 4 %rms (f &lt; 3.5 GHz)
+</li><li> Full size (L x W x H): 128mm x 115mm x 20mm
+</li><li> Weight: 0.100 kg
+</li><li> Power (PCIe 12V): 210mA idle =&gt; 2.5W, 460mA maximum (2x2 max tx_gain) =&gt; 5.5W
+</li></ul>
+
+<span id="Connectors"></span><h3 class="section">6.2 Connectors</h3>
+
+<p>The following figure depicts the location and functionality of each connector in the PCIe board.
+</p><div class="float"><span id="photo1"></span>
+<img src="img/sdr.webp" alt="img/sdr">
+<div class="float-caption"><p><strong>Figure 6.1
+</strong></p></div></div>
+<div class="float"><span id="schematic"></span>
+<img src="img/sdr_schematic.webp" alt="img/sdr_schematic">
+<div class="float-caption"><p><strong>Figure 6.2
+</strong></p></div></div>
+<span id="SMA-connectors"></span><h4 class="subsection">6.2.1 SMA connectors</h4>
+
+<p>See <a href="#photo1">Figure 6.1</a> for the location.
+</p>
+<p>On <a href="#schematic">Figure 6.2</a>, the connector names are:
+</p><dl compact="compact">
+<dt><code>PR7</code></dt>
+<dd><p>TX2 (and RX2 for TDD)
+</p></dd>
+<dt><code>PR9</code></dt>
+<dd><p>RX2 (for FDD)
+</p></dd>
+<dt><code>PR8</code></dt>
+<dd><p>RX1 (for FDD)
+</p></dd>
+<dt><code>PR6</code></dt>
+<dd><p>TX1 (and RX1 for TDD)
+</p></dd>
+<dt><code>PR5</code></dt>
+<dd><p>GPS
+</p></dd>
+</dl>
+
+<span id="PPS_002fClock-connectors"></span><h4 class="subsection">6.2.2 PPS/Clock connectors</h4>
+<br>
+<p>OUT connector (J4):
+</p><dl compact="compact">
+<dt><code>1</code></dt>
+<dd><p>PPS_OUT
+</p></dd>
+<dt><code>2</code></dt>
+<dd><p>REFCLK_OUT_N
+</p></dd>
+<dt><code>3</code></dt>
+<dd><p>REFCLK_OUT_P
+</p></dd>
+<dt><code>4,5</code></dt>
+<dd><p>GND
+</p></dd>
+</dl>
+<br>
+<p>PPS_OUT is a LVCMOS 3.3V output.<br>
+REFCLK_OUT is a standard LVDS signal with AC coupling.
+<br><br>
+IN connector (J3):
+</p><dl compact="compact">
+<dt><code>1</code></dt>
+<dd><p>PPS_IN
+</p></dd>
+<dt><code>2</code></dt>
+<dd><p>REFCLK_IN_N
+</p></dd>
+<dt><code>3</code></dt>
+<dd><p>REFCLK_IN_P
+</p></dd>
+<dt><code>4,5</code></dt>
+<dd><p>GND
+</p></dd>
+</dl>
+<br>
+<p>PPS_IN is a LVCMOS 3.3V input (&gt; 3.3V input is not accepted).<br>
+REFCLK_IN is a standard LVDS signal with 100 ohm impedance and AC coupling.<br>
+This reference clock is 38.4 MHz when used to synchonize between SDR boards.
+It can also accept a 10.0 MHz reference clock (auto detect).<br>
+5 or 4 pin USB2 motherboard PC cables can be plugged in J3 and J4.
+When using a 4 pin connector, pin 5 can be left unconnected.
+</p>
+<span id="PPS-MMCX-connector"></span><h4 class="subsection">6.2.3 PPS MMCX connector</h4>
+<dl compact="compact">
+<dt>PR10</dt>
+<dd><p>MMCX input connector for external PPS source
+</p></dd>
+<dt>Imped.</dt>
+<dd><p>50 ohms.
+</p></dd>
+<dt>Level</dt>
+<dd><p>CMOS, positive pulse.
+</p></dd>
+</dl>
+<br>
+
+<span id="JTAG-connector-_0028J1_0029"></span><h4 class="subsection">6.2.4 JTAG connector (J1)</h4>
+
+<p>JTAG connector:
+</p>
+<dl compact="compact">
+<dt><code>1,3,5,7,9,11,13</code></dt>
+<dd><p>GND
+</p></dd>
+<dt><code>2</code></dt>
+<dd><p>VCC (3.3V)
+</p></dd>
+<dt><code>4</code></dt>
+<dd><p>JTAG_TMS
+</p></dd>
+<dt><code>6</code></dt>
+<dd><p>JTAG_TCK
+</p></dd>
+<dt><code>8</code></dt>
+<dd><p>JTAG_TDO
+</p></dd>
+<dt><code>10</code></dt>
+<dd><p>JTAG_TDI
+</p></dd>
+<dt><code>12,14</code></dt>
+<dd><p>NC
+</p></dd>
+</dl>
+
+<span id="Test-Pins-for-TDD-mode"></span><h4 class="subsection">6.2.5 Test Pins for TDD mode</h4>
+<p>See <a href="#schematic">Figure 6.2</a> for the location.
+These pins are 3V3 CMOS output, they are driven high when RF port is in TX mode.
+They can be used to signal external RF circuitry in TDD mode.
+</p><dl compact="compact">
+<dt><code>TP3</code></dt>
+<dd><p>see <code>gpio0</code> option in chapter <code>TRX driver configuration options</code>;
+default value = rf_dts1 (TDD switch for TX1 port)
+</p></dd>
+<dt><code>TP4</code></dt>
+<dd><p>see <code>gpio1</code> option in chapter <code>TRX driver configuration options</code>;
+default value = rf_dts2 (TDD switch for TX2 port)
+</p></dd>
+</dl>
+
+<span id="TX-power"></span><h3 class="section">6.3 TX power</h3>
+
+<p>Maximum RMS TX Power versus RF frequency, measured on OFDM bandwidth = 20MHz.<br>
+Also Peak dBm tone power, about 12dB higher due to average peak/RMS ratio.<br>
+Both were measured using sdr_test rfic_tx_test with ofdm and tone options.<br>
+(sdr_test version dated after November 2024 needed for actual maximum range).<br>
+Actual power reached may vary by a few dBm because of hardware variations.<br>
+</p>
+<table>
+<thead><tr><th>RF Frequency (MHz)</th><th>OFDM (dBm/MHz)</th><th>OFDM (dBm)</th><th>Tone (dBm)</th></tr></thead>
+<tr><td>500</td><td>-10.0</td><td>3.0</td><td>14.5</td></tr>
+<tr><td>1000</td><td>-10.0</td><td>3.0</td><td>14.5</td></tr>
+<tr><td>1500</td><td>-14.0</td><td>-1.0</td><td>12.0</td></tr>
+<tr><td>2000</td><td>-15.0</td><td>-2.0</td><td>10.0</td></tr>
+<tr><td>2500</td><td>-15.5</td><td>-2.5</td><td>10.0</td></tr>
+<tr><td>3000</td><td>-17.5</td><td>-4.5</td><td>7.5</td></tr>
+<tr><td>3500</td><td>-17.5</td><td>-4.5</td><td>7.5</td></tr>
+<tr><td>4000</td><td>-18.5</td><td>-5.5</td><td>6.5</td></tr>
+<tr><td>4500</td><td>-22.0</td><td>-9.0</td><td>2.0</td></tr>
+<tr><td>5000</td><td>-27.5</td><td>-14.5</td><td>0.0</td></tr>
+<tr><td>5500</td><td>-31.0</td><td>-18.0</td><td>-4.0</td></tr>
+<tr><td>6000</td><td>-31.0</td><td>-18.0</td><td>-4.0</td></tr>
+</table>
+
+<span id="Remote-API"></span><h2 class="chapter">7 Remote API</h2>
+
+<p>SDR driver implements the <code>trx</code> remote API.
+</p>
+<p>Message definition:
+</p>
+<!-- prop:trx -->
+
+<dl compact="compact">
+<dt><code>command</code></dt>
+<dd><p>Optional string. Can be:
+    </p><ul>
+<li> clock_tune
+    </li></ul>
+</dd>
+</dl>
+
+<p>Exemple:
+</p><pre class="verbatim">{
+    &quot;message&quot;: &quot;trx&quot;,
+    &quot;command&quot;: &quot;clock_tune&quot;
+}
+</pre>
+<p>Here are the additional request and response field depending on <code>command</code> value:
+</p>
+<span id="clock_005ftune"></span><h3 class="section">7.1 clock_tune</h3>
+
+<p>Request fields:
+</p><dl compact="compact">
+<dt><code>offset</code></dt>
+<dd><p>Optional number. If <code>command</code> is <code>clock_tune</code>, defines the clock drift to set in ppm.
+</p></dd>
+</dl>
+
+
+
+<span id="Change-history"></span><h2 class="chapter">8 Change history</h2>
+
+
+<span id="Version-2024_002d06_002d14"></span><h3 class="section">8.1 Version 2024-06-14</h3>
+
+<ul>
+<li> Added remote API support
+</li></ul>
+
+<span id="Version-2023_002d09_002d08"></span><h3 class="section">8.2 Version 2023-09-08</h3>
+
+<ul>
+<li> Added NUMA support
+</li></ul>
+
+<span id="Version-2023_002d06_002d10"></span><h3 class="section">8.3 Version 2023-06-10</h3>
+
+<ul>
+<li> Added tdd_tx_mod configuration parameter
+</li><li> New FPGA firmmware version 2023-05-24
+</li></ul>
+
+
+<span id="License"></span><h2 class="chapter">9 License</h2>
+
+<p><code>trx_sdr</code> is copyright (C) 2012-2024 Amarisoft. Its redistribution
+without authorization is prohibited.
+</p>
+<p><code>trx_sdr</code> is available without any express or implied warranty. In
+no event will Amarisoft be held liable for any damages arising from
+the use of this software.
+</p>
+<p>For more information on licensing, please refer to <code>license.pdf</code> file.
+</p>
+
+
+<hr>
+
+
+
+</body>
+</html>

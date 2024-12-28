@@ -1,4 +1,4 @@
 # amarisoft-lte
-last file 15-12-2023
+last file 23-12-2024
 
 need license contact to my mail

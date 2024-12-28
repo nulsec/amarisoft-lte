@@ -1,0 +1,921 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.6, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>LTE Callbox Pro User guide</title>
+
+<meta name="description" content="LTE Callbox Pro User guide">
+<meta name="keywords" content="LTE Callbox Pro User guide">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+
+th {
+    border: 1px solid black;
+    background-color: #c0f585;
+    font-size: 14px;
+    padding: 5px;
+}
+
+td {
+    border: 1px solid black;
+    padding: 2px 4px;
+}
+
+p>img {
+    display: initial;
+}
+
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">LTE Callbox Pro User guide</h1>
+
+
+<span id="SEC_Contents"></span>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+<ul class="no-bullet">
+<li><a id="toc-Introduction" href="#Introduction">1 Introduction</a></li>
+<li><a id="toc-Hardware-setup" href="#Hardware-setup">2 Hardware setup</a>
+<ul class="no-bullet">
+  <li><a id="toc-Power-supply" href="#Power-supply">2.1 Power supply</a></li>
+  <li><a id="toc-Sim-card" href="#Sim-card">2.2 Sim card</a></li>
+  <li><a id="toc-RF-connection" href="#RF-connection">2.3 RF connection</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Selection-and-combination-of-SDR-cards" href="#Selection-and-combination-of-SDR-cards">2.3.1 Selection and combination of SDR cards</a></li>
+    <li><a id="toc-RF-connection-for-one-cell-2x2-MIMO-in-FDD-mode" href="#RF-connection-for-one-cell-2x2-MIMO-in-FDD-mode">2.3.2 RF connection for one cell 2x2 MIMO in FDD mode</a></li>
+    <li><a id="toc-RF-connection-for-one-cell-2x2-MIMO-in-TDD-mode" href="#RF-connection-for-one-cell-2x2-MIMO-in-TDD-mode">2.3.3 RF connection for one cell 2x2 MIMO in TDD mode</a></li>
+    <li><a id="toc-RF-connection-for-two-cells-2x2-MIMO-in-FDD-mode" href="#RF-connection-for-two-cells-2x2-MIMO-in-FDD-mode">2.3.4 RF connection for two cells 2x2 MIMO in FDD mode</a></li>
+    <li><a id="toc-RF-connection-for-three-cells-2x2-MIMO-in-FDD-mode" href="#RF-connection-for-three-cells-2x2-MIMO-in-FDD-mode">2.3.5 RF connection for three cells 2x2 MIMO in FDD mode</a></li>
+    <li><a id="toc-RF-connection-for-one-cell-4x4-MIMO-in-FDD-mode" href="#RF-connection-for-one-cell-4x4-MIMO-in-FDD-mode">2.3.6 RF connection for one cell 4x4 MIMO in FDD mode</a></li>
+    <li><a id="toc-RF-connection-for-three-cells-4x4-MIMO-in-FDD-mode" href="#RF-connection-for-three-cells-4x4-MIMO-in-FDD-mode">2.3.7 RF connection for three cells 4x4 MIMO in FDD mode</a></li>
+    <li><a id="toc-RF-connection-for-one-4G-and-one-5G-cell" href="#RF-connection-for-one-4G-and-one-5G-cell">2.3.8 RF connection for one 4G and one 5G cell</a></li>
+    <li><a id="toc-RF-Antenna-gain" href="#RF-Antenna-gain">2.3.9 RF Antenna gain</a></li>
+  </ul></li>
+</ul></li>
+<li><a id="toc-Connection-to-AMARI-callbox" href="#Connection-to-AMARI-callbox">3 Connection to AMARI callbox</a>
+<ul class="no-bullet">
+  <li><a id="toc-Connect-your-Callbox-to-the-local-network" href="#Connect-your-Callbox-to-the-local-network">3.1 Connect your Callbox to the local network</a></li>
+  <li><a id="toc-Login" href="#Login">3.2 Login</a></li>
+  <li><a id="toc-Web-GUI" href="#Web-GUI">3.3 Web GUI</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Set-a-password" href="#Set-a-password">3.3.1 Set a password</a></li>
+  </ul></li>
+</ul></li>
+<li><a id="toc-LTE-service" href="#LTE-service">4 LTE service</a>
+<ul class="no-bullet">
+  <li><a id="toc-Manage-LTE-automatic-service" href="#Manage-LTE-automatic-service">4.1 Manage LTE automatic service</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Status" href="#Status">4.1.1 Status</a></li>
+    <li><a id="toc-Stop" href="#Stop">4.1.2 Stop</a></li>
+    <li><a id="toc-Start" href="#Start">4.1.3 Start</a></li>
+    <li><a id="toc-Disable" href="#Disable">4.1.4 Disable</a></li>
+    <li><a id="toc-Enable" href="#Enable">4.1.5 Enable</a></li>
+  </ul></li>
+</ul></li>
+<li><a id="toc-eNodeB_002fgNodeB-configuration" href="#eNodeB_002fgNodeB-configuration">5 eNodeB/gNodeB configuration</a>
+<ul class="no-bullet">
+  <li><a id="toc-Selection-of-eNodeB_002fgNodeB-configuration-file" href="#Selection-of-eNodeB_002fgNodeB-configuration-file">5.1 Selection of eNodeB/gNodeB configuration file</a></li>
+  <li><a id="toc-Customization-of-eNodeB_002fgNodeB-parameters" href="#Customization-of-eNodeB_002fgNodeB-parameters">5.2 Customization of eNodeB/gNodeB parameters</a></li>
+  <li><a id="toc-Cell-and-SDR-mapping-1" href="#Cell-and-SDR-mapping-1">5.3 Cell and SDR mapping</a></li>
+  <li><a id="toc-TX_002fRX-gain-setting-1" href="#TX_002fRX-gain-setting-1">5.4 TX/RX gain setting</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Wired-test" href="#Wired-test">5.4.1 Wired test</a></li>
+    <li><a id="toc-Wireless-test" href="#Wireless-test">5.4.2 Wireless test</a></li>
+  </ul></li>
+</ul></li>
+<li><a id="toc-Core-network-configuration" href="#Core-network-configuration">6 Core network configuration</a>
+<ul class="no-bullet">
+  <li><a id="toc-Selection-of-MME-configuration-file" href="#Selection-of-MME-configuration-file">6.1 Selection of MME configuration file</a></li>
+  <li><a id="toc-Customization-of-MME-parameters" href="#Customization-of-MME-parameters">6.2 Customization of MME parameters</a>
+  <ul class="no-bullet">
+    <li><a id="toc-PLMN-ID" href="#PLMN-ID">6.2.1 PLMN ID</a></li>
+    <li><a id="toc-Adding-new-SIM-card-to-the-database" href="#Adding-new-SIM-card-to-the-database">6.2.2 Adding new SIM card to the database</a></li>
+    <li><a id="toc-Commercial-SIM-card" href="#Commercial-SIM-card">6.2.3 Commercial SIM card</a></li>
+    <li><a id="toc-APN-configuration" href="#APN-configuration">6.2.4 APN configuration</a></li>
+  </ul></li>
+  <li><a id="toc-VoLTE-call" href="#VoLTE-call">6.3 VoLTE call</a></li>
+</ul></li>
+<li><a id="toc-UE-configuration-1" href="#UE-configuration-1">7 UE configuration</a>
+<ul class="no-bullet">
+  <li><a id="toc-Internet-setting" href="#Internet-setting">7.1 Internet setting</a></li>
+  <li><a id="toc-VoLTE-setting-1" href="#VoLTE-setting-1">7.2 VoLTE setting</a></li>
+</ul></li>
+<li><a id="toc-Monitoring" href="#Monitoring">8 Monitoring</a>
+<ul class="no-bullet">
+  <li><a id="toc-Access-to-software-monitors" href="#Access-to-software-monitors">8.1 Access to software monitors</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Select-component" href="#Select-component">8.1.1 Select component</a></li>
+    <li><a id="toc-Exit-screen" href="#Exit-screen">8.1.2 Exit screen</a></li>
+  </ul></li>
+  <li><a id="toc-Command-line-monitor" href="#Command-line-monitor">8.2 Command line monitor</a>
+  <ul class="no-bullet">
+    <li><a id="toc-t-command" href="#t-command">8.2.1 t command</a></li>
+    <li><a id="toc-t-spl-command" href="#t-spl-command">8.2.2 t spl command</a></li>
+    <li><a id="toc-t-cpu-command" href="#t-cpu-command">8.2.3 t cpu command</a></li>
+  </ul></li>
+  <li><a id="toc-logging" href="#logging">8.3 logging</a></li>
+  <li><a id="toc-Real-time-logging" href="#Real-time-logging">8.4 Real time logging</a></li>
+</ul></li>
+<li><a id="toc-Troubleshooting" href="#Troubleshooting">9 Troubleshooting</a>
+<ul class="no-bullet">
+  <li><a id="toc-Amarisoft-Wiki-page" href="#Amarisoft-Wiki-page">9.1 Amarisoft Wiki page</a></li>
+  <li><a id="toc-Amarisoft-Support" href="#Amarisoft-Support">9.2 Amarisoft Support</a></li>
+</ul></li>
+<li><a id="toc-Software-Upgrade" href="#Software-Upgrade">10 Software Upgrade</a>
+<ul class="no-bullet">
+  <li><a id="toc-Rollback-a-release" href="#Rollback-a-release">10.1 Rollback a release</a></li>
+</ul></li>
+<li><a id="toc-Throughput-tests" href="#Throughput-tests">11 Throughput tests</a></li>
+
+</ul>
+</div>
+
+
+<span id="Introduction"></span><h2 class="chapter">1 Introduction</h2>
+
+<p>AMARI Callbox Pro is a 3GPP compliant eNodeB, gNodeB EPC and 5GC allowing functional and performance testing of NR, LTE, LTE-M and NB-IoT devices. 
+It also includes an integrated IMS server as well as an eMBMS gateway for VoLTE and eMBMs testing.
+</p><div align="center"><img src="img/pro2.webp" alt="img/pro2">
+</div>
+<br><p>The Callbox pro is a turnkey solution running on Fedora 28 operating system. It embeds six SDR cards, all software components and licenses required to emulate your 4G/5G network.
+</p>
+<br><p>This document describes the first steps to start and configure your Amarisoft Callbox. For advanced configurations and testing, please refer to the application notes and other documents available under extranet.amarisoft.com or under the /root/&lt;components&gt;/doc/ folders of your Callbox. 
+</p>
+<span id="Hardware-setup"></span><h2 class="chapter">2 Hardware setup</h2>
+<span id="Power-supply"></span><h3 class="section">2.1 Power supply</h3>
+<p>Plug the external power cable provided with the Callbox in the <code>AC-in</code> Connector and place the toggle switch located in the rear panel on position &quot;1&quot;, then press the <code>Power on</code> button on the top of the front panel to turn the system on.  
+<br>The led will light up blue once Callbox is powered ON . 
+</p>
+<br><p>Power adapter specifications:  
+<br>Input: 100~240 V AC, 50~60 Hz
+</p>
+<span id="Sim-card"></span><h3 class="section">2.2 Sim card</h3>
+<p>The Callbox is delivered with a test sim card that is already provisioned in the EPC database. No additional configuration is required for authenticating devices using this SIM card.  
+</p>
+<br><p>SIM card specifications: 
+</p><ul>
+<li> IMSI: 001010123456789
+</li><li> K: 00112233445566778899aabbccddeeff
+</li><li> sim_algo: XOR  
+</li><li> Non programmable USIM card 
+</li><li> Support both 1.8V and 3V voltage
+</li></ul>
+
+<p>Note: It is possible to use other SIM cards for your testing. In that case please See <a href="#Provisioning-of-new-SIM-cards">Provisioning of new SIM cards</a> for more details. 
+</p>
+<span id="RF-connection"></span><h3 class="section">2.3 RF connection</h3>
+<p>The Callbox pro is delivered with six SDR cards supporting 20Mhz MIMO 2x2 each.
+<br>Each SDR card has two RX and two TX SMA connectors plus one GPS connector.
+</p><ul>
+<li> <code>Rx1</code> is the main receive antenna port. 
+</li><li> <code>Rx2</code> is the diversity receive antenna port.
+</li><li> <code>Tx1</code> is the main transmit antenna port.
+</li><li> <code>Tx2</code> is the diversity transmit antenna port.   
+</li><li> <code>GPS</code> is used for connecting an external GPS clock. See trx_sdr.pdf document for more details.
+</li></ul>
+<div align="center"><img src="img/pro-rear.webp" alt="jpg">
+</div><br><p>For basic scenarios running one cell 2x2 MIMO only, the eNodeB will only use one SDR card. In that case, it&rsquo;s not required to connect all SMA connectors to your device.
+</p>
+<br><p>For others scenarios such as Carrier aggregation, 4x4 MIMO, Multi cells or EN-DC tests, several SDR cards are used and combined.
+<br>In that case, three important points have to be taken into account for connecting your device to the Callbox: 
+</p><ul>
+<li> The selection and combination of the SDR cards (among the six available)
+</li><li> The RF cabling 
+</li><li> The setting of TX and RX gains to avoid saturation or Bler
+</li></ul>
+<br>
+
+<p>The following section describes how to connect and configure your Callbox when device is connected using RF cables or in wireless condition using LTE antennas. 
+</p>
+<table class="cartouche" border="1"><tr><td>
+<p>Note: When using RF combiners, unused ports of the combiners must be terminated with RF terminator or absorber especially when using frequency above 2.5Ghz. Otherwise big insertionlosses may happen and downgrade the RF performances. 
+</p></td></tr></table>
+
+<span id="Selection-and-combination-of-SDR-cards"></span><h4 class="subsection">2.3.1 Selection and combination of SDR cards</h4>
+ 
+
+
+<br><p>The selection of the SDR card is made in the eNodeB configuration file, per cell, using the parameter &quot;<code>rf_port</code>&quot;. See <a href="#Cell-and-SDR-mapping">Cell and SDR mapping</a> for more details. 
+</p><table class="cartouche" border="1"><tr><td>
+<p>Note: the default <code>rf_port</code> used when only one cell is configured is 0, which corresponds to the SDR#0 card
+</p></td></tr></table>
+
+<br><p>Examples of SDR card combination and RF cabling are provided in the following section. 
+</p>
+<span id="RF-connection-for-one-cell-2x2-MIMO-in-FDD-mode"></span><h4 class="subsection">2.3.2 RF connection for one cell 2x2 MIMO in FDD mode</h4>
+<img src="img/Connection-1cellFDD.webp" alt="jpg">  
+<table class="cartouche" border="1"><tr><td>
+<p>Note: For SISO test, connection between DUT antenna2 and Callbox Tx2 is not required 
+</p></td></tr></table>
+<span id="RF-connection-for-one-cell-2x2-MIMO-in-TDD-mode"></span><h4 class="subsection">2.3.3 RF connection for one cell 2x2 MIMO in TDD mode</h4>
+<img src="img/Connection-1cellTDD.webp" alt="jpg"> 
+<p>Note: in TDD mode, as both TX and RX are sent on the same channel, only TX1 and TX2 ports are needed. 
+<br>However, with Amarisoft SDR card, it&rsquo;s possible to force the DL signal reception on RX port and Uplink signal transmission on TX port when <code>rx_antenna: &quot;rx&quot;</code> is set in the RF driver configuration file.<br>
+This improves the performance of the SDR card as we don&rsquo;t have to switch the RF several times per radio frame. 
+</p><table class="cartouche" border="1"><tr><td>
+<p>When  <code>rx_antenna: &quot;rx&quot;</code> is set, RF connection is the same as for FDD.  
+</p></td></tr></table>
+
+<span id="RF-connection-for-two-cells-2x2-MIMO-in-FDD-mode"></span><h4 class="subsection">2.3.4 RF connection for two cells 2x2 MIMO in FDD mode</h4>
+<p>This RF cabling corresponds to a Carrier aggregation scenario (2CC) or 2 interfreq/interBand neigbhor cells as instance<br>
+<img src="img/Connection-2cellsFDD.webp" alt="jpg">   
+</p><table class="cartouche" border="1"><tr><td>
+<p>Note: RX2 port connection is optional as Uplink MIMO is not supported in this software version 
+</p></td></tr></table>
+
+<span id="RF-connection-for-three-cells-2x2-MIMO-in-FDD-mode"></span><h4 class="subsection">2.3.5 RF connection for three cells 2x2 MIMO in FDD mode</h4>
+<p>This RF cabling corresponds to a Carrier aggregation scenario (3CC) or 3 interfreq/interBand neigbhor cells as instance<br>
+<img src="img/Connection-3cellsFDD.webp" alt="jpg"> 
+</p><table class="cartouche" border="1"><tr><td>
+<p>Note: RX2 port connection is optional as Uplink MIMO is not supported in this software version 
+</p></td></tr></table>
+
+<span id="RF-connection-for-one-cell-4x4-MIMO-in-FDD-mode"></span><h4 class="subsection">2.3.6 RF connection for one cell 4x4 MIMO in FDD mode</h4>
+<p>As described above, it&rsquo;s possible to combine two sdr cards to setup a MIMO 4x4 cell. In that case, eNodeB will use automatically two consecutive SDR cards and only the first <code>rf_port</code> must be defined.  
+</p>
+<img src="img/Connection-1cellFDD4x4.webp" alt="jpg"> 
+
+<span id="RF-connection-for-three-cells-4x4-MIMO-in-FDD-mode"></span><h4 class="subsection">2.3.7 RF connection for three cells 4x4 MIMO in FDD mode</h4>
+<p>This RF cabling corresponds to a Carrier aggregation scenario (3CC) 4x4 MIMO able to reach 1.2Gbps in downlink<br>
+This is also the RF cabling corresponding to the Telit cat18 reference board. 
+</p>
+<img src="img/Connection-3cells4x4FDD.webp" alt="jpg"> 
+
+<span id="RF-connection-for-one-4G-and-one-5G-cell"></span><h4 class="subsection">2.3.8 RF connection for one 4G and one 5G cell</h4>
+<p>This RF cabling corresponds to a EN-DC scenario with one LTE 2x2 MIMO and one NR cell 4x4 MIMO <br>
+Note: For NR TDD band, set <code>rx_antenna: &quot;rx&quot;</code> 
+</p>
+<img src="img/Connection-NSA1.webp" alt="jpg"> 
+
+
+<span id="RF-Antenna-gain"></span><h4 class="subsection">2.3.9 RF Antenna gain</h4>
+<p>In conducted mode, TX and RX gains must be adjusted according to your setup. See <a href="#TX_002fRX-gain-setting">TX/RX gain setting</a> for more details.  
+</p>
+
+
+
+
+
+<span id="Connection-to-AMARI-callbox"></span><h2 class="chapter">3 Connection to AMARI callbox</h2>
+<p>The AMARI LTE Call Box Pro does not have a built-in graphical card however you can remotely connect to the callbox by using one of the Ethernet ports. 
+</p>
+
+<span id="Connect-your-Callbox-to-the-local-network"></span><h3 class="section">3.1 Connect your Callbox to the local network</h3>
+<p>The AMARI LTE Call Box Pro has 3 Ethernet ports: 2x 1Gbps Ethernet port and 1x 10Gbps Ethernet port.
+</p>
+<img src="img/pro-rear2.webp" alt="jpg">  
+<br><p>The first one (on the top) is configured with a static IP address <code>192.168.1.80</code>. 
+<br>The other ones are in DHCP mode and will get automatically an IP address within the range defined on your router. 
+<br> To get access to the callbox, there are two options:
+</p><ul>
+<li> connect the callbox to your LAN via the DHCP ethernet port and figure out in router information the IP address allocated to the callbox.
+</li><li> connect directly your PC to the callbox ethernet port 192.168.1.80 via ethernet cable. Set your PC ip address to static ip 192.168.1.10 (for example).
+</li></ul>
+<br><p> Once you are remotely connected, you can modify the static IP address allocated by editing the file
+<code>/etc/sysconfig/network-scripts/ifcfg-enp7s0</code>. Thus, future connections to the Callbox can be made using this static address 
+</p>
+<table class="cartouche" border="1"><tr><td>
+<p>Note: 10Gbps Ethernet port must be used when data rate between external IP application and UEs exceeds 1Gbps.   
+</p></td></tr></table>
+
+<span id="Login"></span><h3 class="section">3.2 Login</h3>
+<p>To login as root, please use <code>root/toor</code> as login / password.
+<br>There is also a user account with <code>user/resu</code> as login/password.
+</p>
+<br><p>Note: The Amarisoft software suit is installed and executed under root account.
+<br>
+</p>
+<span id="Web-GUI"></span><h3 class="section">3.3 Web GUI</h3>
+
+<p>The web GUI to display logs is available through web access at the following URL:
+<br><code>http://&lt;IP address&gt;/</code>
+</p>
+
+<span id="Set-a-password"></span><h4 class="subsection">3.3.1 Set a password</h4>
+
+<p>To add authentication to the web portal:
+</p>
+<p>Edit /etc/httpd/conf/httpd/conf and look for <code>&lt;Directory &quot;/var/www/html&quot;&gt;</code> section.<br>
+Inside it, add <code>AuthConfig</code> to AllowOverride directive so that it becomes <code>AllowOverride None AuthConfig</code>.
+</p>
+<p>Then restart HTTP daemon:
+</p><div class="example">
+<pre class="example">service httpd restart
+</pre></div>
+
+<p>Create /var/www/html/lte/.htaccess file with following content:
+</p><div class="example">
+<pre class="example">AuthType Basic
+AuthName &quot;Amarisoft Web GUI&quot;
+AuthUserFile /etc/httpd/.htpasswd
+Require valid-user
+</pre></div>
+
+<p>To add a user and its password, type the following command:
+</p><div class="example">
+<pre class="example">htpasswd -c /etc/httpd/.htpasswd &lt;username&gt;
+</pre></div>
+
+
+
+<span id="LTE-service"></span><h2 class="chapter">4 LTE service</h2>
+<p>Callbox is configured to provide an automatic LTE service. At each reboot of the PC, LTE network is turned on automatically.
+</p>
+<table class="cartouche" border="1"><tr><td>
+<p>Note that even if the service is named &quot;LTE&quot; it actually serves both Radio access technologies:  4G LTE and 5G NR 
+</p></td></tr></table>
+
+<br><p>The default configuration is : one cell, LTE band 7, 20 MHz bandwidth and MIMO 2x2.  
+</p><span id="Manage-LTE-automatic-service"></span><h3 class="section">4.1 Manage LTE automatic service</h3>
+
+<span id="Status"></span><h4 class="subsection">4.1.1 Status</h4>
+<p>You can check the LTE service status this way:
+</p><div class="example">
+<pre class="example">service lte status
+</pre></div>
+<p>The command will return &quot;<code>active (running)</code>&quot; status if service is running 
+</p>
+<span id="Stop"></span><h4 class="subsection">4.1.2 Stop</h4>
+<p>You can stop all LTE components this way:
+</p><div class="example">
+<pre class="example">service lte stop
+</pre></div>
+
+<span id="Start"></span><h4 class="subsection">4.1.3 Start</h4>
+
+<p>You can start them again this way:
+</p><div class="example">
+<pre class="example">service lte start
+</pre></div>
+
+<span id="Disable"></span><h4 class="subsection">4.1.4 Disable</h4>
+
+<p>You may also prevent them to start at boot time:
+</p><div class="example">
+<pre class="example">systemctl disable lte
+</pre></div>
+
+<br><p>NB: lte service remains enable until next reboot
+<br>NB2: this command is not available on Ubuntu version &lt;= 14
+</p>
+
+<span id="Enable"></span><h4 class="subsection">4.1.5 Enable</h4>
+
+<p>You may enable service at boot time this way:
+</p><div class="example">
+<pre class="example">systemctl enable lte
+</pre></div>
+
+<br><p>NB: lte service remains disable until next reboot
+<br>NB2: this command is not available on Ubuntu version &lt;= 14
+</p>
+
+
+
+<span id="eNodeB_002fgNodeB-configuration"></span><h2 class="chapter">5 eNodeB/gNodeB configuration</h2>
+
+<span id="Selection-of-eNodeB_002fgNodeB-configuration-file"></span><h3 class="section">5.1 Selection of eNodeB/gNodeB configuration file</h3>
+<p>The default file used by the <code>lte</code> automatic service for configuring the eNodeB and gNodeB is <code>enb.cfg</code> (available under /root/enb/config directory). 
+<br>This file aims to set eNodeB and gNodeB parameters such as frequency, cell bandwidth, number of layer and others. 
+</p>
+<br><p><strong>Note: Both eNodeB and gNodeB are built in the same component named <code>enb</code> (for legacy reason).</strong>
+</p> 
+<br><p> Please note that this file is a symbolic link to real configuration file as depicted below
+</p><div align="center"><img src="img/symb_link_config.webp" alt="img/symb_link_config">
+</div>
+<p>Some examples of configuration file (for Carrier aggregation with 2CC or 3CC and multi-cell as instance) are provided in Amarisoft releases as a starting point. 
+<br>To change the eNodeB configuration and select one of these files, update the enb.cfg symbolic link using the <code>&quot;ln -sfn &lt;config file&gt; enb.cfg&quot;</code> command 
+</p>
+<table class="cartouche" border="1"><tr><td>
+<p>Default cell configuration is one Cell, LTE band 7, 20MHz bandwidth, MIMO mode 
+</p></td></tr></table>
+
+<span id="Customization-of-eNodeB_002fgNodeB-parameters"></span><h3 class="section">5.2 Customization of eNodeB/gNodeB parameters</h3>
+
+<p>Once <code>enb.cfg</code> configuration file has been selected (as a starting point), you can now edit it and customize key parameters such as: 
+</p>
+<ul>
+<li> Frequency : dl_earfcn
+</li><li> Cell bandwidth : n_rb_dl
+</li><li> Number of layer : n_antenna_dl 
+</li><li> Others..
+</li></ul>
+
+<p>All parameters available are described in the lteenb.pdf document. 
+</p>
+<br><p>You will also find a generic enb.default.cfg file that can be easily tuned using the #defines in the header
+</p><pre class="verbatim">#define TDD                 0 // Values: 0 (FDD), 1(TDD)
+#define N_RB_DL             25 // Values: 6 (1.4 MHz), 15 (3MHz), 25 (5MHz), 50 (10MHz), 75 (15MHz), 100 (20MHz)
+#define N_ANTENNA_DL        1 // Values: 1 (SISO), 2 (MIMO 2x2)
+#define N_ANTENNA_UL        1 // Values: 1, 2
+#define CHANNEL_SIM         0 // Values: 0 (channel simulator disabled), 1 (channel simulator enabled)
+</pre>
+<br><p>For example, to configure a 20mhz MIMO TDD cell, just set the #defines this way: 
+</p><pre class="verbatim">#define TDD                 1 
+#define N_RB_DL             100 
+#define N_ANTENNA_DL        2 
+#define N_ANTENNA_UL        1 
+#define CHANNEL_SIM         0 
+</pre>  
+<span id="Cell-and-SDR-mapping-1"></span><h3 class="section">5.3 Cell and SDR mapping</h3>
+<span id="Cell-and-SDR-mapping"></span><p>As described in the Hardware setup section, it&rsquo;s possible to declare multiple cells on different bands by using up to six SDR cards. 
+</p>
+<br><p>In the enb.cfg file, for each cell declared in the <code>cell_list</code> array, <code>rf_port</code> field must be set to select the SDR card(s) that will broadcast the cell signal. 
+</p>
+<br><p>Note: an <code>rf_port</code> is composed of <code>N</code> consecutive SDR card(s) depending of the number of downlink antenna configured for the cell.   
+</p>
+<ul>
+<li> in SISO (<code>n_dl_antenna: 1</code>), RF port is composed of <code>N=1</code> SDR card 
+</li><li> in 2x2 MIMO (<code>n_dl_antenna: 2</code>), RF port is composed of <code>N=1</code> SDR card 
+</li><li> in 4x4 MIMO (<code>n_dl_antenna: 4</code>), RF port is composed of <code>N=2</code> consecutive SDR cards 
+</li></ul>
+
+<p>This means that for an eNodeB configuration using 3 cells 2x2 MIMO, we will have : 
+</p><ul>
+<li> rf_port0 &ndash;&gt; SDR0
+</li><li> rf_port1 &ndash;&gt; SDR1
+</li><li> rf_port2 &ndash;&gt; SDR2
+</li></ul>
+
+<p>However, if the first cell is 4x4 MIMO and second cell is 2x2 MIMO, we will have 
+</p><ul>
+<li> rf_port0 &ndash;&gt; SDR0 + SDR1 
+</li><li> rf_port1 &ndash;&gt; SDR2
+</li></ul>
+
+
+
+<p>Example of cell configuration (from enb-2cc.cfg reference file) where cell#1 (band2) and cell#2 (band4) use the SDR0 and SDR1 respectively. 
+</p><pre class="verbatim">  /* list of cells */
+  cell_list: [
+    {
+      rf_port: 0,   /* SDR0 */ 
+      cell_id: 0x01, /* low 8 bits of SIB1.cellIdentifier */
+      tac: 0x0001, /* SIB1.trackingAreaCode */
+      n_id_cell: 1,
+      root_sequence_index: 204, /* PRACH root sequence index */
+      
+      dl_earfcn: 900,   /* DL center frequency: 1960 MHz (Band 2) */
+
+      /* carrier aggregation configuration (for rel 10 UEs) */
+
+      /* list of secondary available cells */
+      scell_list: [
+        {
+          cell_id: 0x02,
+          cross_carrier_scheduling: false,
+        },
+      ],
+    },
+    {
+      rf_port: 1,  /* SDR1 */ 
+      cell_id: 0x02, /* low 8 bits of SIB1.cellIdentifier */
+      tac: 0x0001, /* SIB1.trackingAreaCode */
+      n_id_cell: 2,
+      root_sequence_index: 28, /* PRACH root sequence index */
+
+      dl_earfcn: 2150,  /* DL center frequency: 2130 MHz (Band 4) */
+
+      /* list of secondary available cells */
+      scell_list: [
+        {
+          cell_id: 0x01,
+          cross_carrier_scheduling: false,
+        },
+      ],
+    },
+  ], /* cell_list */
+</pre>
+<span id="TX_002fRX-gain-setting-1"></span><h3 class="section">5.4 TX/RX gain setting</h3>
+<span id="TX_002fRX-gain-setting"></span><p>TX and RX antenna gain values must be customized in order to avoid saturation when set too high or Bler when set too low. 
+Those two values actually depend on your setup: 
+</p><ul>
+<li> Conducted vs wireless conditions
+</li><li> Physical RF attenuator(s) used 
+</li><li> Combiner(s)/divider(s) used
+</li></ul>
+ 
+<p>TX and RX gain values are defined in RF configuration file located under /root/enb/config/rf_driver directory. 
+<br>To know which files is used by  LTE service, just look at enb.cfg file.
+<br>Example:  
+</p><pre class="verbatim"> include &quot;rf_driver/config.cfg&quot;,
+</pre>
+<span id="Wired-test"></span><h4 class="subsection">5.4.1 Wired test</h4>
+  
+<p>When the device under test is connected to the callbox using RF cables, the recommended RX and TX antenna gain values are : 
+</p><pre class="verbatim">tx_gain: 60.0, /* TX gain (in dB) */
+rx_gain: 0.0, /* RX gain (in dB) */
+</pre>
+<p>If physical RF attenuators (or RF combiners) are used, additional gain must be added to these default values equivalent to the path loss introduced 
+</p>
+<table class="cartouche" border="1"><tr><td>
+<p>Note: max SDR input is -10 dBm, max SDR output is 5dBm (depending on the frequency).
+</p></td></tr></table>
+
+
+<span id="Wireless-test"></span><h4 class="subsection">5.4.2 Wireless test</h4>
+
+<p>In Wireless test conditions (i.e when LTE antennas are used), the recommended RX and TX antenna gain values are : 
+</p><pre class="verbatim">tx_gain: 90.0, /* TX gain (in dB) */
+rx_gain: 60.0, /* RX gain (in dB) */
+</pre>
+
+
+<span id="Core-network-configuration"></span><h2 class="chapter">6 Core network configuration</h2>
+
+<br><p>LTEMME is a LTE MME (Mobility Management Entity) implementation. It has a built-in SGW (Serving Gateway), PGW (Packet Data Network Gateway), PCRF (Policy and Charging Rule Function), HSS (Home Subscriber Server) and EIR (Equipment Identity Register). It is used with the Amarisoft LTE eNodeB and NR gNodeB to build a highly configurable LTE/NR test network. 
+<br>LTEMME also includes a NR 5GC (5G Core Network). It has a build-in AMF (Access and Mobility Management Function), AUSF (Authentication Server Function), SMF (Session Management Function), UPF (User Plane Function).
+</p>
+<span id="Selection-of-MME-configuration-file"></span><h3 class="section">6.1 Selection of MME configuration file</h3>
+<p>The default file used by the lte automatic service for configuring the Core network is <code>mme.cfg</code> (available under /root/mme/config directory). 
+<br>This file aims to set parameters such as PLMN ID, network name, PDN list,  APN name and others.
+</p>
+<br><p><strong>Note: Both EPC and 5GC are built in the same component named <code>mme</code> (for legacy reason).</strong>
+</p> 
+<br><p> Please note that this file is a symbolic link to real configuration file as depicted below
+</p>
+<div align="center"><img src="img/symb_link_config-mme.webp" alt="img/symb_link_config-mme">
+</div>   
+<span id="Customization-of-MME-parameters"></span><h3 class="section">6.2 Customization of MME parameters</h3>
+
+<span id="PLMN-ID"></span><h4 class="subsection">6.2.1 PLMN ID</h4>
+<p>Default PLMN ID of callbox is 001 01.
+</p> 
+<br><p>If the test sim card provided with the AMARI callbox is used, you can skip this section. No customization is required  
+</p>
+<br><p>If your test SIM card has a different HPLMN, you can change the PLMN of the box. 
+</p>
+<br><p>in <code>/root/mme/config/mme.cfg</code> file, change <code>plmn: &quot;00101&quot;</code> value and replace 00101 by your MCC/MNC code . 
+</p>
+<table class="cartouche" border="1"><tr><td>
+<p>Note : Same modification must be done at eNodeB/gNodeB side: 
+<br>In <code>/root/enb/config/enb.cfg</code> file, modify or add a new MCC/MNC value in the <code>plmn_list</code> array.  
+</p></td></tr></table>
+
+<span id="Adding-new-SIM-card-to-the-database"></span><h4 class="subsection">6.2.2 Adding new SIM card to the database</h4>
+<span id="Provisioning-of-new-SIM-cards"></span><br><p>If the test sim card provided with the AMARI callbox is used, you can skip this section. No customization is required.
+<br>Same if you want to connect multiple UE using the same sim card model (and same IMSI by consequence). The MME will allow each UE to attach with the same IMSI (001010123456789).UE are distinguished with their IMEI in that case. 
+</p> 
+<br><p>Otherwise, if other test SIM cards with different IMSI or secret key values are used, they must be declared in the EPC database (HSS) 
+</p>
+<p>For that, open the <code>/root/mme/config/ue_db-ims.cfg</code> and add an entry for each sim card in the <code>ue_db</code> array .
+Example : 
+</p><pre class="verbatim">{
+    sim algo: &quot;milenage&quot;,
+    imsi: &quot;001010000000001&quot;,
+    opc: &quot;000102030405060708090A0B0C0D0E0F&quot;,
+    amf: 0x9001,
+    sqn: &quot;000000000000&quot;,
+    K: &quot;00112233445566778899AABBCCDDEEFF&quot;,
+},
+</pre><table class="cartouche" border="1"><tr><td>
+<p>Note: Secret key parameters are mandatory as both UE and Network need to authenticate each other . 
+</p></td></tr></table>
+
+
+<span id="Commercial-SIM-card"></span><h4 class="subsection">6.2.3 Commercial SIM card</h4>
+
+<p>Any SIM card can be used with the AMARI callbox as long as it&rsquo;s been declared in the UE database as described in the section above.
+</p> 
+<br><p>However, it is very unlikely that you get the secret key parameters from the network operator required for the authentication and the security mechanism. 
+<br>In that case, you can try to disable the authentication using one of the two methods described below (note that this no more complies with 3GPP specifications,
+so it requires an explicit support on the UE side also):
+</p>
+<p>1) If the UE accepts the use of EIA0 (Null Integrity algorithm) in the NAS/RRC security mode control procedures outside of an emergency call without authentication,
+then set the following option in your MME configuration file:
+</p><pre class="verbatim">    authentication_mode: &quot;skip&quot;,
+</pre><p>2) If you know the command at UE side to skip both the authentication and security mode control procedures, then set the following options in your MME configuration file:
+</p><pre class="verbatim">    authentication_mode: &quot;skip&quot;,
+    skip_smc_proc: true,
+</pre><p>and set the following option in your eNB configuration file (eNB configuration object, not the cell configuration object)
+</p><pre class="verbatim">    skip_smc_proc: true,
+</pre>
+
+
+<span id="APN-configuration"></span><h4 class="subsection">6.2.4 APN configuration</h4>
+
+<p>MME is configured by default with four APN : 
+</p><ol>
+<li> Default   
+</li><li> Internet 
+</li><li> IMS 
+</li><li> SOS 
+</li></ol>
+
+<p>For connecting your device to the callbox, one of these APN must be configured at UE side. See <a href="#UE-configuration">UE configuration</a> for more details. 
+<br>Otherwise, if for any reason, the device under test must use a specific APN, the modification can be done at MME side: 
+</p><ol>
+<li> Open /root/mme/config/mme.cfg file.
+</li><li> Replace the preconfigured &quot;internet&quot; APN name as instance with the expected APN name or create a new entry in the pdn_list array. 
+</li><li> Restart the system with &quot;service lte restart&quot; command 
+</li></ol>
+ 
+<span id="VoLTE-call"></span><h3 class="section">6.3 VoLTE call</h3>
+
+<p>AMARI Callbox embeds an IMS server that can be used for running basic IMS tests such as VoLTE, ViLTE or SMS over IMS.
+For more information about the IMS functionality, please refer to appnote_ims.pdf document . 
+<br>Also, See <a href="#VoLTE-setting">VoLTE setting</a> for more details about UE configuration.
+</p>
+
+<span id="UE-configuration-1"></span><h2 class="chapter">7 UE configuration</h2>
+<span id="UE-configuration"></span><span id="Internet-setting"></span><h3 class="section">7.1 Internet setting</h3>
+<p>For connecting your device to internet, APN setting must be configured at UE side to match callbox setting.
+</p> 
+<p>As described in previous section, the callbox is preconfigured with four APN : 
+</p><ul>
+<li> &quot;Default&quot;: This APN name is frequently used by the UE when no specific APN is set. However, some UEs doesn&rsquo;t expose an internet connection when this generic APN is used. In that case, we recommend to create a &quot;internet&quot; apn as described below.
+</li><li> &quot;Internet&quot;: Second APN name preconfigured in order to route internet IP traffic.
+</li><li> &quot;IMS&quot;: APN for VoLTE call
+</li><li> &quot;SOS&quot;: APN for emergency services 
+</li></ul>
+  
+<p>AT UE side, go in setting menu to add a new APN: 
+<br>Example on  Samsung S5 device:
+</p><ul>
+<li> Go to <code>Settings</code>/<code>More networks</code>/<code>Mobile networks</code> 
+</li><li> Turn on Data roaming
+</li><li> Go back to Mobile network.
+</li><li> Add the first APN with the following parameters:
+  <ul>
+<li> Name = Internet
+  </li><li> APN = internet
+  </li><li> APN type = internet,default
+  </li></ul>
+</li><li> Save it and select it.
+</li></ul>
+
+<div align="center"><img src="img/s5-volte.webp" alt="img/s5-volte">
+</div>
+
+<span id="VoLTE-setting-1"></span><h3 class="section">7.2 VoLTE setting</h3>
+<span id="VoLTE-setting"></span><p>If handset supports VoLTE, you just need to check <code>VoLTE Call</code> is ticked on your handset menu as depicted in the picture below. 
+<br>However, most of the commercial devices are locked and behave differently. Some devices have a white list of authorized PLMN, some require that &quot;UE operation mode&quot; byte is set to &quot;type approval operations&quot; in USIM Elementary File Administrative Data(EFad). 
+To overcome this issue, a reference UE can be provided by Amarisoft . Please contact support team for more details.   
+</p>
+<div align="center"><img src="img/oneplus3_volte_menu.webp" alt="img/oneplus3_volte_menu">
+</div>
+
+ 
+<span id="Monitoring"></span><h2 class="chapter">8 Monitoring</h2>
+
+<p>Once all eNodeb/gNodeB and MME parameters have been configured, you can restart the lte service with <code>service lte restart</code> command to reload the configuration files and connect your device(s). 
+</p>
+<br><p>To monitor your eNodeB/gNodeB/EPC or troubleshoot any issues, several tools and logs are available as described in the following sections. 
+</p>
+<span id="Access-to-software-monitors"></span><h3 class="section">8.1 Access to software monitors</h3>
+<p>Once you are logged on your callbox, you can access software components (eNB, MME, IMS or MBMSGW) using screen command:
+</p>
+<div class="example">
+<pre class="example">screen -x lte
+</pre></div>
+
+<p>This will connect you to different component monitor.<br>
+</p><div align="center"><img src="img/screen.webp" alt="img/screen">
+</div>
+<p>Next sections show you basic methods. For more information please refer to <code>screen</code>
+documentation (<a href="https://www.gnu.org/software/screen/manual/screen.html">https://www.gnu.org/software/screen/manual/screen.html</a>).
+</p>
+<span id="Select-component"></span><h4 class="subsection">8.1.1 Select component</h4>
+
+<p>Each component monitor is inside a window. You can switch from a window to another with the command:
+</p>
+<div class="example">
+<pre class="example">ctrl+a &lt;window index&gt;
+</pre></div>
+
+<p>Where window index is:
+</p><ul>
+<li> 0 MME
+</li><li> 1 eNB
+</li><li> 2 MBMSGW
+</li><li> 3 IMS
+</li></ul>
+<table class="cartouche" border="1"><tr><td>
+<p>Note: press simultaneously <code>CTRL</code> key and <code>a</code> key, release them, then press number key.
+</p></td></tr></table>
+<p>You can also switch to next window:
+</p>
+<div class="example">
+<pre class="example">ctrl+a &lt;space&gt;
+</pre></div>
+
+<p>Each component screen offers a list of commands that can be used either to get status or trigger action.
+Each of them are documented in the component documentations (example lteenb.pdf) or inline with the &quot;help&quot; command 
+</p>
+<div align="center"><img src="img/help.webp" alt="img/help">
+</div>
+<span id="Exit-screen"></span><h4 class="subsection">8.1.2 Exit screen</h4>
+
+<div class="example">
+<pre class="example">ctrl+a d
+</pre></div>
+
+
+<span id="Command-line-monitor"></span><h3 class="section">8.2 Command line monitor</h3>
+<p>In eNB component, <code>t</code> command provides key logging information (See the list of parameter using <code>t help</code> command.
+</p>
+<span id="t-command"></span><h4 class="subsection">8.2.1 t command</h4>
+<p><code>t</code> command (without argument) provides key information about the Uplink and downlink transfer 
+</p>
+<pre class="verbatim">(enb) t
+Press [return] to stop the trace
+               ----DL----------------------- ----UL---------------------------------------------------
+UE_ID  CL RNTI C cqi ri  mcs retx txok brate C  snr puc1  nl  mcs rxko rxok brate     #its phr  pl   ta
+    3 001 003f 1  15  2 28.0    0  202  151M 1 15.6 11.9 1.0 20.0    0    1 8.40k  1/1.0/1  40  59  0.0
+    3 001 003f 1  15  2 28.0    0 4000  149M 1 15.7 12.8 1.0 20.0    0   25 10.5k  1/1.0/1  40  59  0.0
+    3 001 003f 1  15  2 28.0    0 4000  150M 1 14.7 13.0 1.0 20.0    0   25 10.5k  1/1.0/1  40  59  0.0
+    3 001 003f 1  15  2 28.0    0 4000  149M 1 16.1 11.2 1.0 20.0    0   25 10.5k  1/1.0/1  40  59  0.0
+    3 001 003f 1  15  2 28.0    0 4000  150M 1 15.5 11.0 1.0 20.0    0   25 10.5k  1/1.0/1  40  59  0.0
+</pre>
+<br><p>Where for downlink:
+</p><ul>
+<li> <code>UE ID</code> is the identifier allocated by the eNodeb/gNodeB to each UE. Note: This value changes each time RRC connection is released.
+</li><li> <code>CL</code> is the number of aggregated DL cells
+</li><li> <code>RNTI</code> is the (c) RNTI of each UE
+</li><li> <code>C</code> is the number of carriers used by the UE
+</li><li> <code>cqi</code> is the last Channel Quality Indicator reported by the UE, between 0 (bad) and 15 (very good). If there are several aggregated DL cells, the minimum cqi is displayed.
+</li><li> <code>ri</code> is the last Rank Indicator (number of layers for MIMO). If there are several aggregated DL cells, the minimum rank indicator is displayed.
+</li><li> <code>mcs</code> (Modulation Coding Scheme) is the average MCS value used in downlink during the measurement interval period. More details about MCS range are available in 3GPP TS 36.213
+</li><li> <code>retx</code> (retransmission) is the number of retransmission requested by the UE. This parameter gives indications about the channel quality.
+</li><li> <code>txok</code> is the number of transmissions successfully acknowledged by the UE.
+</li><li> <code>brate</code> is the average bitrate (at the MAC layer), in bits per second.
+</li></ul>
+
+<p>Where for uplink:
+</p><ul>
+<li> <code>C</code> is the number of carriers used by the UE
+</li><li> <code>snr</code> is the measured Signal to Noise Ratio for the uplink from the PUSCH reference signals and the SRS.
+</li><li> <code>puc1</code> is the measured Signal to Noise Ratio for the last PUCCH1.
+</li><li> <code>nl</code> is the average number of layers used in uplink during the measurement interval period.
+</li><li> <code>mcs</code> (Modulation Coding Scheme) is the average MCS value used in uplink during the measurement interval period. More details about MCS range are available in 3GPP TS 36.213
+</li><li> <code>rxko</code> is the number of received uplink transport blocks with CRC errors.
+</li><li> <code>rxok</code> is the number of received uplink transport blocks without CRC error.
+</li><li> <code>#its</code> gives the minimum, average and maximum number of iterations of the turbo or LDPC decoder.
+</li><li> <code>phr</code> is the content of the last Power Headroom MAC control element sent by the UE. It is expressed in dB. Negative values indicate that the UE could not transmit with the required power.
+</li><li> <code>pl</code> is the Uplink Path Loss in dB. It is measured from the reported PHR and the measured uplink power level. It is meaningful only if the RF interface correctly reports the absolute received power level.
+</li><li> <code>ta</code> is the average of the uplink timing advance measured for the UE in TA units.
+</li></ul>
+
+<span id="t-spl-command"></span><h4 class="subsection">8.2.2 t spl command</h4>
+<p>Once UE got attached to the cell, Uplink and Downlink signal levels have a direct impact on decoding performances. In order to reach full throughput in both ways, TX and RX antenna gain values must be set correctly (as described in section &quot;TX/RX gain setting&quot;) in order to avoid saturation when set too high or Bler when set too low. The command ât splâ under eNB terminal helps to monitor the RX and TX signal power:
+</p><pre class="verbatim">
+(enb) t spl
+Press [return] to stop the trace
+--P0/TX 1-- --P1/TX 2-- dBFS --P0/RX 1-- --P1/RX 2--
+  RMS   MAX   RMS   MAX  SAT   RMS   MAX   RMS   MAX
+-24.6  -7.7 -24.6  -8.3    0 -42.7 -30.4 -42.7 -30.4
+-24.6  -7.7 -24.6  -8.4    0 -42.7 -30.5 -42.7 -29.7
+-24.6  -7.7 -24.6  -7.9    0 -42.7 -30.2 -42.7 -29.8
+-24.6  -7.7 -24.6  -8.4    0 -42.7 -30.4 -42.6 -29.7
+-24.6  -7.7 -24.6  -8.4    0 -42.7 -30.8 -42.7 -30.2
+-24.6  -7.7 -24.6  -8.4    0 -42.7 -30.4 -42.7 -30.5
+-24.6  -7.2 -24.6  -8.3    0 -42.7 -30.7 -42.7 -30.5
+</pre>
+<br><p>TX columns provides information about transmitted signal power.
+</p><ul>
+<li> <code>TX RMS</code>: stands for transmitted Root-Mean-Square. This is the mean value in dB FS (full Scale)
+will happen
+</li><li> <code>TX MAX</code>: stands for Maximum. Displays the maximum sample value during the measurement interval period. 
+</li><li> <code>TX SAT</code>: stands for Saturation. Displays the number of saturation events during the measurement interval. If SAT value is different of 0, it means that the transmitted signal in Downlink is saturated. In this case, cell_gain should be decreased until SAT is equal to 0.
+</li></ul>
+
+<p>RX columns provides information about received signal power.
+</p><ul>
+<li> <code>RX RMS</code>: stands for Received Root-Mean-Square. This is the mean value in dB FS (full Scale)
+</li><li> <code>RX MAX</code>: stands for Maximum. Displays the maximum sample value during the measurement interval period. If RX MAX value equals to 0, it means that the received signal in UL is saturated. In this case, rx_gain should be decreased until RX MAX is below 0.
+</li></ul>
+
+
+
+
+
+<p>In Wireless test conditions, the recommended values for PCIe SDR cards are :
+</p><pre class="verbatim">tx_gain: 90.0, /* TX gain (in dB) */
+rx_gain: 60.0, /* RX gain (in dB) */
+</pre><p>In RF cables test conditions, the recommended values for PCIe SDR cards are :
+</p><pre class="verbatim">tx_gain: 60.0, /* TX gain (in dB) */
+rx_gain: 00.0, /* RX gain (in dB) */
+</pre>
+<table class="cartouche" border="1"><tr><td>
+<p>Note : tx_gain and rx_gain commands can be used in eNB screen to decrease or increase the TX gain and RX gain respectively
+</p></td></tr></table>
+
+<span id="t-cpu-command"></span><h4 class="subsection">8.2.3 t cpu command</h4>
+<p>t cpu command provides key information about the CPU load .This is useful for verifying that PC is not running out of CPU when expected KPI are not reached. 
+</p>
+<pre class="verbatim">-Proc-  ---RX--------   ---TX--------   ---- TX/RX diff (ms)
+   CPU    MS/s    CPU     MS/s    CPU    min/avg/max sigma
+51.8%   23.040   6.6%   23.040   1.6%   2.23/2.8/3.3 0.2
+52.9%   23.040   6.6%   23.039   1.6%   1.97/2.8/3.3 0.2
+52.3%   23.040   6.6%   23.041   1.5%   2.20/2.8/3.3 0.2
+51.4%   23.040   6.6%   23.040   1.6%   2.20/2.8/3.3 0.2
+50.8%   23.040   6.6%   23.039   1.6%   2.19/2.8/3.3 0.2
+</pre>
+<p><code>t cpu</code> shows CPU consumption for the main LTE task (Proc), the reception chain (RX) or transmission chain (TX). Units are MS/s (Million of sample per second) 
+</p>
+<br><p>On top of that, <code>t cpu</code> command provides information on TX-RX delay: The min, average and max values are given in milliseconds. 
+<br>In other words, in LTE FDD mode as instance, eNodeB receives data in Uplink and must acknowledge (or nack) them 4ms later to the UE. eNodeB has by consequence 4ms to decode the uplink samples and send the ack/nack answer in downlink. The RX/TX delay is the remaining time before data are processed and time they must be sent in downlink.
+<br>If this value decreases to zero, this means that PC is too slow and physical layer is running out of CPU to process the data within this period. The higher is the TX/RX value is , the better it is.    
+</p>
+<span id="logging"></span><h3 class="section">8.3 logging</h3>
+<p>eNodeB/gNodeB and MME generate log files under /tmp/ directory (enb0.log/gnb0.log, ims.log and mme.log) that could be used for further analysis and debugging. 
+<br>The verbosity if these logs can be customized by modifying the <code>log_options</code> field available in the enb.cfg and mme.cfg configuration files (See lteenb.pdf or ltemme.pdf for more details). 
+</p>
+<br><p>Note: We recommend to activate physical layer debug traces by adding phy.level=debug in your enb.cfg config file.
+</p>
+<span id="Real-time-logging"></span><h3 class="section">8.4 Real time logging</h3>
+<p>The LTE web interface allows to analyze Amarisoft LTE software logs and get real time information from the system. 
+<br>For more details about the Graphical user interface please refer to ltewww.pdf document available under Extranet.
+</p>
+<img src="img/gui_ltewww_def.webp" alt="img/gui_ltewww_def"> 
+
+
+
+
+
+
+
+<span id="Troubleshooting"></span><h2 class="chapter">9 Troubleshooting</h2>
+
+<span id="Amarisoft-Wiki-page"></span><h3 class="section">9.1 Amarisoft Wiki page</h3>
+<p>A wiki page is available under <a href="https://extranet.amarisoft.com/wiki">https://extranet.amarisoft.com/wiki</a>. 
+It aims to answer frequently asked questions and provide useful information regarding the configuration of the Callbox.
+Before raising a ticket or analysing logs, do not hesitate to have a look at this wiki page. 
+</p>
+<span id="Amarisoft-Support"></span><h3 class="section">9.2 Amarisoft Support</h3>
+<p>If you encounter issues with your setup and can&rsquo;t find the root cause in the wiki page or after investigation of the logs, you can raise a ticket through our support web portal. 
+See <a href="https://extranet.amarisoft.com/wiki/doku.php?id=info:redmine">https://extranet.amarisoft.com/wiki/doku.php?id=info:redmine</a> for more details .
+</p>
+ 
+
+
+<span id="Software-Upgrade"></span><h2 class="chapter">10 Software Upgrade</h2>
+<p>To upgrade your callbox with the latest release, please follow the procedure: 
+</p><ul>
+<li> Download your release from Amarisoft Extranet at <code>https://extranet.amarisoft.com/</code> 
+The downloaded file would be a tarball file: <var>amarisoft.YYYY-MM-DD.tar.gz</var> where YYYY-MM-DD is the release date. 
+</li><li> Put this file on the PC at any place using the method you want (scp, http, USB key...) 
+</li><li> Log as <code>root</code> on your PC
+</li><li> Extract it:
+<div class="example">
+<pre class="example">tar xzf amarisoft.YYYY-MM-DD.tar.gz
+</pre></div>
+<p>This would create a directory called YYYY-MM-DD.
+</p></li><li> Go to the directory YYYY-MM-DD and execute the provided script <em>install.sh</em> as follows:
+<div class="example">
+<pre class="example">./install.sh &lt;path&gt; --default
+</pre></div>
+<ul class="no-bullet">
+<li>- By default if no <code>&lt;path&gt;</code> is specified, components are installed under <code>/root</code>, you can choose other directories by specifying a new destination in <code>&lt;path&gt;</code>. Please note that <code>www</code> component will always be located under <code>/var/www/html</code> in Fedora or <code>/var/www</code> in Ubuntu.
+</li><li>- The <code>--default</code> option forces answer to default for all questions asked during install phase. The default answers for <code>lteenb</code> are depicted below:
+<div align="center"><img src="img/install_steps_default_lte100.webp" alt="img/install_steps_default_lte100">
+</div></li></ul>
+<p>Take a look at messages at the end of install phase, you may be requested to power on/off your PC. This would be the case if there is, for example, an FPGA upgrade of your PCIe SDR card. <br>
+If you would like to have a custom install, you can run the script without <code>--default</code> option and answer each question separately. For <code>lteenb</code> product, this would typically be the case if you do not want to enable automatic LTE service or if you would like to install eNB and MME components on different PCs.
+</p></li></ul>
+
+<span id="Rollback-a-release"></span><h3 class="section">10.1 Rollback a release</h3>
+<p>It is possible to rollback or swap from different software releases easily. 
+<br>If you go under <code>/root</code> folder and enter &quot;<code>ll</code>&quot; command, you will see that each component (<code>enb</code>, <code>mme</code>, <code>trx_sdr</code>, <code>etc..</code>) is actually a symbolic link to a folder that correspond to a release.
+After each release installation, a new folder is created and the symbolic link is updated. 
+</p>
+
+<span id="Throughput-tests"></span><h2 class="chapter">11 Throughput tests</h2>
+<p>For testing data throughput and reach the maximum uplink and downlink bitrate, please refer to the appnote_throughput.pdf document 
+</p>
+<hr>
+
+
+
+</body>
+</html>

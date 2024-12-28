@@ -1,0 +1,1143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.6, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>FR2 Setup and Testing</title>
+
+<meta name="description" content="FR2 Setup and Testing">
+<meta name="keywords" content="FR2 Setup and Testing">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+
+th {
+    border: 1px solid black;
+    background-color: #c0f585;
+    font-size: 14px;
+    padding: 5px;
+}
+
+td {
+    border: 1px solid black;
+    padding: 2px 4px;
+}
+
+p>img {
+    display: initial;
+}
+
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">FR2 Setup and Testing</h1>
+
+<span id="SEC_Contents"></span>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+<ul class="no-bullet">
+<li><a id="toc-Introduction" href="#Introduction">1 Introduction</a>
+<ul class="no-bullet">
+  <li><a id="toc-Background-1" href="#Background-1">1.1 Background</a></li>
+</ul></li>
+<li><a id="toc-Setup-guide" href="#Setup-guide">2 Setup guide</a>
+<ul class="no-bullet">
+  <li><a id="toc-UDCB2-Setup-Guide" href="#UDCB2-Setup-Guide">2.1 UDCB2 Setup Guide</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Device-Connection" href="#Device-Connection">2.1.1 Device Connection</a></li>
+    <li><a id="toc-RF-Connection-Diagram-of-the-UDCB2-for-1-Cell-FR2-2x2-1" href="#RF-Connection-Diagram-of-the-UDCB2-for-1-Cell-FR2-2x2-1">2.1.2 RF Connection Diagram of the UDCB2 for 1 Cell FR2 2x2</a></li>
+    <li><a id="toc-Connection-Diagram-of-the-UDCB2-for-multiple-Cells-FR2-2x2-1" href="#Connection-Diagram-of-the-UDCB2-for-multiple-Cells-FR2-2x2-1">2.1.3 Connection Diagram of the UDCB2 for multiple Cells FR2 2x2</a></li>
+  </ul></li>
+  <li><a id="toc-UDCA2-Setup-Guide" href="#UDCA2-Setup-Guide">2.2 UDCA2 Setup Guide</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Device-Connection-1" href="#Device-Connection-1">2.2.1 Device Connection</a></li>
+    <li><a id="toc-RF-Connection-Diagram-of-the-UDCA2-for-1-Cell-FR2-2x2-1" href="#RF-Connection-Diagram-of-the-UDCA2-for-1-Cell-FR2-2x2-1">2.2.2 RF Connection Diagram of the UDCA2 for 1 Cell FR2 2x2</a></li>
+    <li><a id="toc-Connection-Diagram-of-the-UDCA2-for-multiple-Cells-FR2-2x2-1" href="#Connection-Diagram-of-the-UDCA2-for-multiple-Cells-FR2-2x2-1">2.2.3 Connection Diagram of the UDCA2 for multiple Cells FR2 2x2</a></li>
+  </ul></li>
+  <li><a id="toc-UDCB4-Setup-Guide" href="#UDCB4-Setup-Guide">2.3 UDCB4 Setup Guide</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Device-Connection-2" href="#Device-Connection-2">2.3.1 Device Connection</a></li>
+    <li><a id="toc-RF-Connection-Diagram-of-the-UDCB4-for-1-Cell-FR2-2x2-1" href="#RF-Connection-Diagram-of-the-UDCB4-for-1-Cell-FR2-2x2-1">2.3.2 RF Connection Diagram of the UDCB4 for 1 Cell FR2 2x2</a></li>
+    <li><a id="toc-Connection-Diagram-of-the-UDCB4-for-multiple-Cells-FR2-2x2-1" href="#Connection-Diagram-of-the-UDCB4-for-multiple-Cells-FR2-2x2-1">2.3.3 Connection Diagram of the UDCB4 for multiple Cells FR2 2x2</a></li>
+  </ul></li>
+</ul></li>
+<li><a id="toc-Configuration-Guide-1" href="#Configuration-Guide-1">3 Configuration Guide</a>
+<ul class="no-bullet">
+  <li><a id="toc-Changes-from-legacy-configuration" href="#Changes-from-legacy-configuration">3.1 Changes from legacy configuration</a></li>
+  <li><a id="toc-UDC-B2-Configuration" href="#UDC-B2-Configuration">3.2 UDC B2 Configuration</a>
+  <ul class="no-bullet">
+    <li><a id="toc-UDC-B2-args-values-for-udc_002dauto_002dcfg_002esh-1" href="#UDC-B2-args-values-for-udc_002dauto_002dcfg_002esh-1">3.2.1 UDC B2 args values for <code>udc-auto-cfg.sh</code></a></li>
+    <li><a id="toc-UDC-B2-SA-Configuration-with-one-FR2-cell" href="#UDC-B2-SA-Configuration-with-one-FR2-cell">3.2.2 UDC B2 SA Configuration with one FR2 cell</a></li>
+    <li><a id="toc-UDC-B2-NSA-Configuration-with-one-FR2-cell" href="#UDC-B2-NSA-Configuration-with-one-FR2-cell">3.2.3 UDC B2 NSA Configuration with one FR2 cell</a></li>
+    <li><a id="toc-UDC-B2-NSA-Configuration-with-Multiple-FR2-cells" href="#UDC-B2-NSA-Configuration-with-Multiple-FR2-cells">3.2.4 UDC B2 NSA Configuration with Multiple FR2 cells</a></li>
+  </ul></li>
+  <li><a id="toc-UDC-A2-configuration" href="#UDC-A2-configuration">3.3 UDC A2 configuration</a>
+  <ul class="no-bullet">
+    <li><a id="toc-UDC-A2-args-values-for-udc_002dauto_002dcfg_002esh-1" href="#UDC-A2-args-values-for-udc_002dauto_002dcfg_002esh-1">3.3.1 UDC A2 args values for <code>udc-auto-cfg.sh</code></a></li>
+    <li><a id="toc-UDC-A2-SA-Configuration-with-one-FR2-cell" href="#UDC-A2-SA-Configuration-with-one-FR2-cell">3.3.2 UDC A2 SA Configuration with one FR2 cell</a></li>
+    <li><a id="toc-UDC-A2-NSA-Configuration-with-one-FR2-cell" href="#UDC-A2-NSA-Configuration-with-one-FR2-cell">3.3.3 UDC A2 NSA Configuration with one FR2 cell</a></li>
+    <li><a id="toc-UDC-A2-NSA-Configuration-with-Multiple-FR2-cells" href="#UDC-A2-NSA-Configuration-with-Multiple-FR2-cells">3.3.4 UDC A2 NSA Configuration with Multiple FR2 cells</a></li>
+  </ul></li>
+  <li><a id="toc-UDC-B4-configuration" href="#UDC-B4-configuration">3.4 UDC B4 configuration</a>
+  <ul class="no-bullet">
+    <li><a id="toc-UDC-B4-args-values-for-udc_002dauto_002dcfg_002esh-1" href="#UDC-B4-args-values-for-udc_002dauto_002dcfg_002esh-1">3.4.1 UDC B4 args values for <code>udc-auto-cfg.sh</code></a></li>
+    <li><a id="toc-UDC-B4-SA-Configuration-with-one-FR2-cell" href="#UDC-B4-SA-Configuration-with-one-FR2-cell">3.4.2 UDC B4 SA Configuration with one FR2 cell</a></li>
+    <li><a id="toc-UDC-B4-NSA-Configuration-with-one-FR2-cell" href="#UDC-B4-NSA-Configuration-with-one-FR2-cell">3.4.3 UDC B4 NSA Configuration with one FR2 cell</a></li>
+    <li><a id="toc-UDC-B4-NSA-Configuration-with-Multiple-FR2-cells" href="#UDC-B4-NSA-Configuration-with-Multiple-FR2-cells">3.4.4 UDC B4 NSA Configuration with Multiple FR2 cells</a></li>
+  </ul></li>
+  <li><a id="toc-Measure-tx_005fpower_005foffset-1" href="#Measure-tx_005fpower_005foffset-1">3.5 Measure tx_power_offset</a></li>
+  <li><a id="toc-Debug" href="#Debug">3.6 Debug</a></li>
+  <li><a id="toc-Tested-FR2-UEs" href="#Tested-FR2-UEs">3.7 Tested FR2 UEs</a></li>
+</ul></li>
+<li><a id="toc-Annex-A-1" href="#Annex-A-1">4 Annex A</a>
+<ul class="no-bullet">
+  <li><a id="toc-Legacy-UDC-Configuration" href="#Legacy-UDC-Configuration">4.1 Legacy UDC Configuration</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Legacy-UDCB2-Configuration" href="#Legacy-UDCB2-Configuration">4.1.1 Legacy UDCB2 Configuration</a></li>
+    <li><a id="toc-Legacy-UDCA2-Configuration" href="#Legacy-UDCA2-Configuration">4.1.2 Legacy UDCA2 Configuration</a></li>
+    <li><a id="toc-Legacy-UDCB4-Configuration" href="#Legacy-UDCB4-Configuration">4.1.3 Legacy UDCB4 Configuration</a></li>
+  </ul></li>
+  <li><a id="toc-Legacy-gNodeB-Configuration" href="#Legacy-gNodeB-Configuration">4.2 Legacy gNodeB Configuration</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Legacy-NSA-Configuration-with-one-FR2-cell" href="#Legacy-NSA-Configuration-with-one-FR2-cell">4.2.1 Legacy NSA Configuration with one FR2 cell</a></li>
+    <li><a id="toc-Legacy-NSA-Configuration-with-Multiple-FR2-cells" href="#Legacy-NSA-Configuration-with-Multiple-FR2-cells">4.2.2 Legacy NSA Configuration with Multiple FR2 cells</a></li>
+  </ul></li>
+</ul></li>
+<li><a id="toc-Additional-Information" href="#Additional-Information">5 Additional Information</a></li>
+
+</ul>
+</div>
+
+
+
+<span id="Introduction"></span><h2 class="chapter">1 Introduction</h2>
+
+<p>This application note explains the procedure for testing FR2 using Amarisoft gNodeB and an exernal UDC (Up Down Converter) box. 
+</p>
+<p>Following section gives you a brief background on how a UDC works. Next chapters explain how to cable, install and configure the UDC and gNodeB. Please note that this procedure is only applicable to Callbox Advanced, Ultimate and Extreme. Other Callboxes can not be upgraded to FR2.
+</p>
+<span id="Background"></span><span id="Background-1"></span><h3 class="section">1.1 Background</h3>
+<p>Amarisoft Callbox Advanced, Ultimate and Extreme are equipped with SDR100 cards. These SDR cards have 100 MHz of cell bandwith and are able to receive and transmit signals with frequencies from 300 MHz up to 6 GHz. In order to be able to test in mmwave, this sub-6 signal needs to be shifted to a higher frequency within the specified FR2 bands. This is done by using an external frequency shifter called UDC. The UDC has a local oscillator (LO) with a mixer to change the frequency of an input signal. This frequency conversion process produces a signal which is the sum of the frequency of the local oscillator (LO frequency) and the frequency of the input signal (IF frequency) at the transmission side. At reception side, it produces a signal which is the difference between the received mmwave signal and the LO frequency.<br>
+Simply put, at the TX side, the output frequency of the UDC is the sum of the SDR card TX frequency and the UDC LO frequency. At RX side, the input frequency of the SDR card RX1 is the difference between the received mmwave signal and the LO frequency. <br>
+</p><div class="example">
+<pre class="example">RF Freq at the output of UDC (RF1) = IF (SDR TX1) + LO Freq
+IF at the input of the SDR card (RX1) = RF Freq (UDC RF2) - LO Freq 
+</pre></div>
+<br>
+<p>Amarisoft provides three different UDC types:
+</p><ul>
+<li> UDCB2
+</li><li> UDCA2
+</li><li> UDCB4
+</li></ul>
+<p>UDCB2 and UDCA2 have 2 channels. As a result, a single UDC allows you to test in SISO with TX and RX signals mapped into 2 separate channels and 2 units are required in order to test MIMO 2x2. UDCB4 with its 4 channels can provide MIMO 2x2 functionality with one single unit. All UDC models have different SKUs to support different frequencies. <br>
+The following table summarizes the supported frequency range of each model/SKU as well as the the list of corresponding FR2 bands.
+</p><table>
+<thead><tr><th>UDC Model</th><th>Channels</th><th>Freq Range</th><th>FR2 bands</th></tr></thead>
+<tr><td>UDCB2-28</td><td>2</td><td>24-30 GHz</td><td>n257,n258,n261</td></tr>
+<tr><td>UDCB2-39</td><td>2</td><td>37-40 GHz</td><td>n260</td></tr>
+<tr><td>UDCA2-28</td><td>2</td><td>24-30 GHz</td><td>n257,n258,n261</td></tr>
+<tr><td>UDCA2-39</td><td>2</td><td>37-48 GHz</td><td>n259,n260</td></tr>
+<tr><td>UDCB4-2430</td><td>4</td><td>24-30 GHz</td><td>n257,n258,n261</td></tr>
+<tr><td>UDCB4-3748</td><td>4</td><td>37-48 GHz</td><td>n259,n260,n262</td></tr>
+</table>
+
+<span id="Setup-guide"></span><h2 class="chapter">2 Setup guide</h2>
+<p>This chapter explains how to cable the UDC with Amarisoft Callbox. Please note that by default UDCB2 and UDCA2 are deliverd with Callbox Ultimate and Advanced while UDCB4 is only deliverd with Callbox Extreme. 
+A connection diagram is explained for each UDC type for 2 use cases:
+</p><ul>
+<li> NSA with 1 LTE cell and 1 FR2 cell MIMO 2x2.
+</li><li> NSA with 1 LTE cell and multiple FR2 cells MIMO 2x2.
+</li></ul>
+
+<span id="UDCB2-Setup-Guide"></span><h3 class="section">2.1 UDCB2 Setup Guide</h3>
+
+<p>The following images depict the front and rear view of UDCB2. <br>
+<br>
+</p><div align="center"><img src="img/UDCB2_front.webp" alt="png">
+</div><br> 
+<div align="center"><img src="img/UDCB2_rear.webp" alt="png">
+</div><br>
+<p>The IF ports correspond to the IF frequency at the input of the UDC and should be connected to the SDR cards according to the use case. The RF ports correpond to the FR2 signal and should be connected to the horn antennas. DC 12V power port is to be conncted to the provided power supply. The USB port is to be connected to the Callbox for UDC configuration. The LO ports are used in case of MIMO to synchronize the UDCs. The following image shows the device connections. <br>
+<br>
+</p>
+<span id="Device-Connection"></span><h4 class="subsection">2.1.1 Device Connection</h4>
+<p>The device connection is depicted below: <br>
+</p>
+<div align="center"><img src="img/udcB2_sync.webp" alt="png">
+</div><br>
+
+<ul>
+<li> Connect the power supplies to the DC 12V power port.
+</li><li> Connect the USB cables to the Callbox. This port is used to configure and control the UDC.
+</li><li> In case of MIMO, the 2 UDC boxes should be synchronized. This is done by connecting the SYNC cable from LO OUT port of the Master UDC to LO IN port of the slave UDC.
+</li></ul>
+
+<table class="cartouche" border="1"><tr><td>
+<p>The UDCs should be enumerated as <code>/dev/ttyUSB0</code> and  <code>/dev/ttyUSB1</code> devices at Linux level. The default UDC configuration script assumes that <code>/dev/ttyUSB0</code> is always the master UDC.
+</p></td></tr></table>
+
+<span id="RF-Connection-Diagram-of-the-UDCB2-for-1-Cell-FR2-2x2"></span><span id="RF-Connection-Diagram-of-the-UDCB2-for-1-Cell-FR2-2x2-1"></span><h4 class="subsection">2.1.2 RF Connection Diagram of the UDCB2 for 1 Cell FR2 2x2</h4>
+
+<p>The following diagram depicts the cabling for one cell FR2 MIMO 2x2. We assume that SDR0/SDR1 are used for LTE and SDR2 for FR2.
+</p><div align="center"><img src="img/Connection_1cell_FR2_udcB2.webp" alt="png">
+</div><p>We have assumed that in the config file we have set <code>rx_antenna: &quot;rx&quot;</code>, which means RF connection in TDD is the same as for FDD. We have also assumed that the device connection part as explained in the previous section has been done.
+</p>
+<ul>
+<li> Connect a flexible SMA RF cable to TX1 of the SDR card and the IF-1B port of the master UDC.
+</li><li> Connect a flexible SMA RF cable to RX1 of the SDR card and the IF-2A port of the master UDC.
+</li><li> Connect a flexible SMA RF cable to TX2 of the SDR card and the IF-1B port of the slave UDC.
+</li><li> Connect a flexible SMA RF cable to RX2 of the SDR card and the IF-2A port of the slave UDC.
+</li><li> Connect a FR2 cable from RF1 and RF2 outputs of each UDC to a horn antenna.
+</li></ul>
+
+<span id="Connection-Diagram-of-the-UDCB2-for-multiple-Cells-FR2-2x2"></span><span id="Connection-Diagram-of-the-UDCB2-for-multiple-Cells-FR2-2x2-1"></span><h4 class="subsection">2.1.3 Connection Diagram of the UDCB2 for multiple Cells FR2 2x2</h4>
+<p>The following diagram depicts the cabling for NSA mode with SDR0/SDR1 used for LTE and SDR2/SDR3 for two cells FR2 MIMO 2x2. These cells could be either configured as 2 different carriers in CA mode or as neighbor cells. 
+</p><table class="cartouche" border="1"><tr><td>
+<p>Callbox Ultimate and Advanced can only support up to 2 FR2 cells MIMO 2x2. 
+</p></td></tr></table>
+<br>
+<div align="center"><img src="img/Connection_2cells_FR2_udcB2.webp" alt="png">
+</div><br>
+<p>We have assumed that in the config file we have set <code>rx_antenna: &quot;rx&quot;</code>, which means RF connection in TDD is the same as for FDD. We have also assumed that the device connection part has been done.
+</p>
+<p>The procedure is exactly as the previous section except that the IF output of each UDC combines the signals coming from each FR2 cell. TX1 of cell 1 and cell 2 are combined and fed into IF-1B port of the master UDC and so on.
+</p>
+<span id="UDCA2-Setup-Guide"></span><h3 class="section">2.2 UDCA2 Setup Guide</h3>
+
+<p>The following image depicts the UDCA2. <br>
+</p><div align="center"><img src="img/udc.webp" alt="img/udc">
+</div><br>
+<p>This UDC has 2 IF ports IF1 and IF2, 2 RF ports RF1 and RF2, one USB connector to be connected to the Callbox and one REF IN port to connect to an external 10 MHz clock.
+</p>
+<span id="Device-Connection-1"></span><h4 class="subsection">2.2.1 Device Connection</h4>
+<p>The device connection is depicted below: <br>
+</p>
+<div align="center"><img src="img/udcA2_sync.webp" alt="png">
+</div><br>
+
+<ul>
+<li> Connect the power supplies to the 5V power port.
+</li><li> Connect the USB cables to the Callbox. This port is used to configure and control the UDC.
+</li><li> In case of MIMO, the 2 UDC boxes should be synchronization. This is done by connecting the MMCX-SMA cable between the external 10 MHz clock and the REF IN connector of each UDC box.
+</li></ul>
+
+<table class="cartouche" border="1"><tr><td>
+<p>The UDCs should be enumerated as <code>/dev/ttyACM0</code> and  <code>/dev/ttyACM1</code> devices at Linux level.
+</p></td></tr></table>
+
+<span id="RF-Connection-Diagram-of-the-UDCA2-for-1-Cell-FR2-2x2"></span><span id="RF-Connection-Diagram-of-the-UDCA2-for-1-Cell-FR2-2x2-1"></span><h4 class="subsection">2.2.2 RF Connection Diagram of the UDCA2 for 1 Cell FR2 2x2</h4>
+<p>The following diagram depicts the cabling for one cell FR2 MIMO 2x2. We assume that SDR0/SDR1 are used for LTE and SDR2 for FR2.
+</p><div align="center"><img src="img/Connection_1cell_FR2_udcA2.webp" alt="png">
+</div><p>We have assumed that in the config file we have set <code>rx_antenna: &quot;rx&quot;</code>, which means RF connection in TDD is the same as for FDD. We have also assumed that the device connection part as explained in the previous section has been done.
+</p>
+<p>The setup of the UDC is as follows:
+</p><ul>
+<li> Connect a flexible SMA RF cable to TX1 of the SDR card and the IF1 port of the UDC 1.
+</li><li> Connect a flexible SMA RF cable to RX1 of the SDR card and the IF2 port of the UDC 1.
+</li><li> Connect a flexible SMA RF cable to TX2 of the SDR card and the IF1 port of the UDC 2.
+</li><li> Connect a flexible SMA RF cable to RX2 of the SDR card and the IF2 port of the UDC 2.
+</li><li> Connect a FR2 cable from RF1 and RF2 outputs of each UDC to a horn antenna.
+</li></ul>
+
+
+<span id="Connection-Diagram-of-the-UDCA2-for-multiple-Cells-FR2-2x2"></span><span id="Connection-Diagram-of-the-UDCA2-for-multiple-Cells-FR2-2x2-1"></span><h4 class="subsection">2.2.3 Connection Diagram of the UDCA2 for multiple Cells FR2 2x2</h4>
+
+<p>The following diagram depicts the cabling for two cells FR2 MIMO 2x2.
+<br>
+</p>
+<table class="cartouche" border="1"><tr><td>
+<p>Callbox Ultimate and Advanced can only support up to 2 FR2 cells MIMO 2x2. 
+</p></td></tr></table>
+<p>The procedure is exactly as the previous section except that the IF output of each UDC combines 1 signal from each FR2 cell. TX1 of cell 1 and cell2 are combined and fed into IF-1B port of the master UDC and so on.
+</p><div align="center"><img src="img/Connection_2cells_FR2_udcA2.webp" alt="png">
+</div>
+<span id="UDCB4-Setup-Guide"></span><h3 class="section">2.3 UDCB4 Setup Guide</h3>
+
+<p>The following images depict the front and rear view of UDCB4. <br>
+<br>
+</p><div align="center"><img src="img/udcb4_front.webp" alt="png">
+</div><br> 
+<div align="center"><img src="img/udcb4_rear.webp" alt="png">
+</div><br>
+<p>The IF ports correspond to the IF frequency at the input of the UDC and should be connected to the SDR cards according to the use case. The RF ports correpond to the FR2 signal and should be connected to the horn antennas. DC 12V power port is to be conncted to the provided power supply. The USB port is to be connected to the Callbox for UDC configuration. <br>
+<br>
+</p>
+<span id="Device-Connection-2"></span><h4 class="subsection">2.3.1 Device Connection</h4>
+<p>The device connection is depicted below: 
+</p><div align="center"><img src="img/udcb4_sync.webp" alt="png">
+</div><ul>
+<li> Connect the power supply to the DC 12V power port.
+</li><li> Connect the USB cable to the Callbox. This port is used to configure and control the UDC.
+</li></ul>
+
+<table class="cartouche" border="1"><tr><td>
+<p>The UDC should be enumerated as <code>/dev/ttyUSB0</code> device at Linux level.
+</p></td></tr></table>
+
+<span id="RF-Connection-Diagram-of-the-UDCB4-for-1-Cell-FR2-2x2"></span><span id="RF-Connection-Diagram-of-the-UDCB4-for-1-Cell-FR2-2x2-1"></span><h4 class="subsection">2.3.2 RF Connection Diagram of the UDCB4 for 1 Cell FR2 2x2</h4>
+<p>The following diagram depicts the cabling for one cell FR2 MIMO 2x2. We assume that SDR0/SDR1 are used for LTE and SDR2 for FR2.
+</p><div align="center"><img src="img/Connection_1cell_FR2.webp" alt="png">
+</div><p>We have assumed that in the config file we have set <code>rx_antenna: &quot;rx&quot;</code>, which means RF connection in TDD is the same as for FDD. We have also assumed that the device connection part as explained in the previous section has been done.
+</p>
+<p>The setup of the UDC is as follows:
+</p><ul>
+<li> Connect a flexible SMA RF cable to TX1 of the SDR card and the IF1 port of the UDC.
+</li><li> Connect a flexible SMA RF cable to RX1 of the SDR card and the IF2 port of the UDC.
+</li><li> Connect a flexible SMA RF cable to TX2 of the SDR card and the IF3 port of the UDC.
+</li><li> Connect a flexible SMA RF cable to RX2 of the SDR card and the IF4 port of the UDC.
+</li><li> Connect a FR2 cable from RF1 and RF2 outputs of each UDC to a horn antenna.
+</li></ul>
+
+<span id="Connection-Diagram-of-the-UDCB4-for-multiple-Cells-FR2-2x2"></span><span id="Connection-Diagram-of-the-UDCB4-for-multiple-Cells-FR2-2x2-1"></span><h4 class="subsection">2.3.3 Connection Diagram of the UDCB4 for multiple Cells FR2 2x2</h4>
+
+<p>The procedure is exactly as the previous section except that the IF input of each UDC is connected to a RF combiner. TX1 of cell 1, cell2 up to cell10 are combined and fed into IF1 port of the UDC. RX1 of cell 1, cell2 up to cell10 are combined and fed into IF2 port of the UDC and so on. 
+</p><div align="center"><img src="img/Connection_10cells_FR2.webp" alt="png">
+</div>
+<p>The RX side could be simplified if there is no MIMO in UL by removing the IF4 input. When testing carrier aggregation, usually the UL signal comes only from the primary cell. In this case, the IF3 could be directly connected to the primary cell RX1 port. 
+</p>
+<span id="Configuration-Guide"></span><span id="Configuration-Guide-1"></span><h2 class="chapter">3 Configuration Guide</h2>
+
+<p>This chapter goes through UDC and gNodeB configuration, made with the script <code>udc-auto-cfg.sh</code>, this new configuration method has been introduced since official release 2024_06_14. The legacy configuration method is still supported for backward compatibility See <a href="#Annex-A">Annex A</a>. In case of UDC manual configuration, refer to each UDC model user manual.
+</p>
+<span id="Changes-from-legacy-configuration"></span><h3 class="section">3.1 Changes from legacy configuration</h3>
+<p>In the legacy configuration method, the user needs to configure the parameters related to the FR2 setup as <code>tx_gain</code>, <code>rf_dl_freq</code>, <code>rf_ul_freq</code>, <code>ss_pbch_block_power</code>. A proper configuration of these parameters require a good knowledge of the UDC device type involved in the set-up, thus the difficulty of tuning the values without incurring in UDC saturations or not efficient LO/IF frequecy combinations. The <code>udc-auto-cfg.sh</code> script aims to simplify the user experience for the FR2 set-up by optimising the following FR2 configuration parameters:
+</p><ul>
+<li> IF frequency. It selects the best SDR frequency based on SDR performances and UDC specification
+</li><li> LO frequency. It selects and configures the correct LO frequency for the UDC, based on the output FR2 RF frequency and the selected SDR IF frequency
+</li><li> <code>tx_gain</code> of each <code>rf_port</code> related to FR2 cells, to avoid the UDC IF port saturation
+</li><li> <code>ss-PBCH-BlockPower</code> based on SDR TX power and UDC power amplification. <code>ss-PBCH-BlockPower</code> is used by the UE to estimate correct pathloss.
+</li></ul>
+
+<span id="UDC-B2-Configuration"></span><h3 class="section">3.2 UDC B2 Configuration</h3>
+<p>The usage of script <code>udc-auto-cfg.sh</code> relies on the newly introduced <code>udc_ports</code> array which is composed by one or multiple objects. Each object contains the configurations of the UDC devices involved in the FR2 set-up as well as the call to <code>udc-auto-cfg.sh</code> script. Each <code>udc_ports</code> object contains the following configurable parameters:
+</p><ul>
+<li> <code>cmd</code>: path to the script for the UDC configuration. The default script path is <code>enb/config</code>
+</li><li> <code>args</code>: string of UDC configuration parameters. Each parameter is separated by semicolon. The configurable parameters are:
+<ul>
+<li> UDC enumeration, mandatory. It specifies how the UDC has been mounted at Linux level. UDCB2 are mounted as /dev/ttyUSBx.
+</li><li> UDC clock, optional, possible values are detailed in the dedicated subsections See <a href="#UDC-B2-args-values-for-udc_002dauto_002dcfg_002esh">UDC B2 args values for <code>udc-auto-cfg.sh</code></a>
+</li><li> UDC tx ports, optional, possible values are detailed in the dedicated subsections See <a href="#UDC-B2-args-values-for-udc_002dauto_002dcfg_002esh">UDC B2 args values for <code>udc-auto-cfg.sh</code></a>
+</li><li> UDC rx ports, optional, possible values are detailed in the dedicated subsections See <a href="#UDC-B2-args-values-for-udc_002dauto_002dcfg_002esh">UDC B2 args values for <code>udc-auto-cfg.sh</code></a>
+</li></ul>
+
+</li><li> <code>lo_freq</code>: optional float to specify the UDC LO frequency in MHz to be configured. If not present, it will be automatically computed by the <code>udc-auto-cfg.sh</code> respecting the SDR IF suitable frequency range and UDC datasheet.
+</li></ul>
+<p>This is an example of pseudo code to understand the usage of the newly introduced <code>udc_ports</code> array. The example uses a couple of UDC B2 for a single FR2 cell MIMO 2x2. The UDCs are connected to sdrX.
+</p><pre class="verbatim">  rf_driver: {
+        name: &quot;sdr&quot;,
+        args: &quot;dev0=/dev/sdrX&quot;,
+        rx_antenna: &quot;rx&quot;,
+  },
+#if FR2 == 1
+  udc_ports: [
+  {
+    /* this is udc port index 0*/
+    args: &quot;/dev/ttyUSBx;/dev/ttyUSBy&quot;,
+    cmd: &quot;udc-auto-cfg.sh&quot;,
+  },
+  ],
+#endif
+
+  rf_ports: [
+  {
+     #if FR2
+       /* rf port related to FR2 cell =&gt; indicate corresponding udc port index
+       udc_port: 0,
+       tx_power_offset:IF_ATTENUATION,
+     #endif
+  },
+  ],
+</pre><p>To compute the <code>tx_power_offset</code>, See <a href="#Measure-tx_005fpower_005foffset">Measure tx_power_offset</a>.
+</p>
+<span id="UDC-B2-args-values-for-udc_002dauto_002dcfg_002esh"></span><span id="UDC-B2-args-values-for-udc_002dauto_002dcfg_002esh-1"></span><h4 class="subsection">3.2.1 UDC B2 args values for <code>udc-auto-cfg.sh</code></h4>
+<p>This section specifies how to configure the parameter <code>args</code> for UDC B2. The only mandatory string parameter is the UDC device enumeration, it specifies how the UDC has been mounted at Linux level. UDCB2 is mounted as /dev/ttyUSBx. The other string parameters are optional, if not specified, they are configured with the default value. For the default set-up reference cabling See <a href="#RF-Connection-Diagram-of-the-UDCB2-for-1-Cell-FR2-2x2">RF Connection Diagram of the UDCB2 for 1 Cell FR2 2x2</a> and See <a href="#Connection-Diagram-of-the-UDCB2-for-multiple-Cells-FR2-2x2">Connection Diagram of the UDCB2 for multiple Cells FR2 2x2</a> 
+When using the UDC B2 in default set-up cabling it is just required to specify in <code>args</code> the device enumeration, while the optional parameters <code>clock,tx,rx</code> will be set with the default values. Example of configuration line:
+</p><pre class="verbatim">args:&quot;/dev/ttyUSB0;/dev/ttyUSB1&quot;
+</pre>
+<table class="cartouche" border="1"><tr><td>
+<p>In a UDC set-up involving two UDC B2 the UDC B2 master is UDC providing the clock through the port LO_OUT while the UDC B2 slave is UDC receiving the clock from the port LO_IN
+</p></td></tr></table>
+
+<p>The values accepted as <code>args</code> input for UDC B2 are:
+</p><dl compact="compact">
+<dt><code>clock:</code></dt>
+<dd><dl compact="compact">
+<dt><code>internal</code></dt>
+<dd><p>use the internal UDC B2 clock 
+      </p></dd>
+<dt><code>external</code></dt>
+<dd><p>use the clock coming from the LO_IN port of the UDC B2
+      </p></dd>
+<dt><code>default</code></dt>
+<dd><p>use the <code>internal</code> clock for the UDC B2 master and the <code>external</code> for the UDC B2 slave. If only one UDC B2 in the setup use <code>internal</code>
+</p></dd>
+</dl>
+
+</dd>
+<dt><code><code>tx</code>:</code></dt>
+<dd><dl compact="compact">
+<dt><code>1</code></dt>
+<dd><p>use TRX port IF1A in TX mode
+      </p></dd>
+<dt><code>2</code></dt>
+<dd><p>use TX port IF1B
+      </p></dd>
+<dt><code>3</code></dt>
+<dd><p>use TRX port IF2A in TX mode
+      </p></dd>
+<dt><code>4</code></dt>
+<dd><p>use TX port IF2B
+      </p></dd>
+<dt><code>default</code></dt>
+<dd><p>use value 2, TX port IF1B, as per default cabling
+</p></dd>
+</dl>
+
+</dd>
+<dt><code><code>rx</code></code></dt>
+<dd><dl compact="compact">
+<dt><code>1</code></dt>
+<dd><p>use TRX port IF1A in RX mode
+      </p></dd>
+<dt><code>3</code></dt>
+<dd><p>use TRX port IF2A in RX mode
+      </p></dd>
+<dt><code>default</code></dt>
+<dd><p>uses value 3, TRX port IF2A in RX mode, as per default cabling
+</p></dd>
+</dl>
+</dd>
+</dl>
+
+<p>Any different usage of <code>args</code> input parameters with respect to the illustrated default case, shall match the physical cabling in the set-up. It is up to the user to verify it prior to testing. 
+Example of a set-up where UDCs have inverted TX/RX ports from defualt values. In this case IF2B is used as TX port and IF1A as RX port, /dev/ttyUSB0 remains the master and /dev/ttyUSB1 remains the slave:
+</p><pre class="verbatim">args:&quot;/dev/ttyUSB0;clock=internal;tx=4;rx=1;/dev/ttyUSB1;clock=external;tx=4;rx=1&quot;
+</pre>
+<table class="cartouche" border="1"><tr><td>
+<p>The default UDC configuration script assumes that the first /dev/ttyUSBx specified in <code>args</code> is always the master UDC. To assure the correct device enumeration, special attention shall be put when plugging in the USB cables. Plug first the USB of the master UDC and at a second time the USB connected to the slave UDC. After a machine reboot, the device enumeration could have changed, therefore repeat the USB cable plug procedure. To double check the correct device enumeration it is possible to use, after each USB plug, the following Linux command:
+</p><pre class="verbatim">ll /dev/ttyUSB*
+</pre></td></tr></table>
+
+<span id="UDC-B2-SA-Configuration-with-one-FR2-cell"></span><h4 class="subsection">3.2.2 UDC B2 SA Configuration with one FR2 cell</h4>
+<p>The example below shows the usage of the <code>udc-auto-cfg.sh</code> for UDCB2. In the example, there are 2 UDCs connected to SDR0 of the Callbox to provide a single cell FR2 SA MIMO 2x2. The first UDC(master) is identified as /dev/ttyUSB0 and the second one(slave) as /dev/ttyUSB1.
+</p>
+<pre class="verbatim">  rf_driver: {
+        name: &quot;sdr&quot;,
+        args: &quot;dev0=/dev/sdr0&quot;,
+        rx_antenna: &quot;rx&quot;,
+  },
+</pre>
+<p>The <code>udc_ports</code> contains the configuration for the udc port related to the UDCB2 setup. Both the UDCs <code>/dev/ttyUSB0</code>(master) and <code>/dev/ttyUSB1</code>(slave) are configured in the same <code>udc-auto-cfg.sh</code> call.
+In the <code>args</code> when the UDC device enumeration is the only specified parameter, it is assumed that the other optional parameters (<code>clock;tx;rx</code>) take the default value.
+</p><pre class="verbatim">#if FR2 == 1
+  udc_ports: [
+  {
+    args: &quot;/dev/ttyUSB0;/dev/ttyUSB1&quot;,
+    cmd: &quot;udc-auto-cfg.sh&quot;,
+  },
+  ],
+#endif
+</pre>
+<p>The rf port related to the FR2 cell needs to specify which <code>udc_port</code> is used. To compute the <code>tx_power_offset</code>, See <a href="#Measure-tx_005fpower_005foffset">Measure tx_power_offset</a>
+</p><pre class="verbatim">  rf_ports: [
+  {
+     #if FR2
+       udc_port: 0,
+       tx_power_offset:IF_ATTENUATION,
+     #endif
+  },
+  ],
+</pre>
+<span id="UDC-B2-NSA-Configuration-with-one-FR2-cell"></span><h4 class="subsection">3.2.3 UDC B2 NSA Configuration with one FR2 cell</h4>
+<p>This section gives an example of <code>udc_ports</code> and <code>rf_ports</code> configurtion in the case of NSA configuration with a single FR2 cell.
+In the example the SDR0 is used by the LTE cell while the UDC B2 are connected to SDR1 of the Callbox to provide the FR2 MIMO 2x2 cell. The first UDC(master) is identified as /dev/ttyUSB0 and the second one(slave) as /dev/ttyUSB1. 
+</p>
+<pre class="verbatim">  rf_driver: {
+        name: &quot;sdr&quot;,
+        args: &quot;dev0=/dev/sdr0,dev1=/dev/sdr1&quot;,
+        rx_antenna: &quot;rx&quot;,
+  },
+#if FR2 == 1
+  udc_ports: [
+  {
+    args: &quot;/dev/ttyUSB0;/dev/ttyUSB1&quot;,
+    cmd: &quot;udc-auto-cfg.sh&quot;,
+  },
+  ],
+#endif
+  rf_ports: [
+    {
+       /* RF port for the LTE cell */
+    },
+    {
+        /* RF port for the NR cell */
+#if FR2
+       udc_port: 0,
+       tx_power_offset:IF_ATTENUATION,
+#endif
+    },
+  ],
+</pre><p>To compute the <code>tx_power_offset</code>, See <a href="#Measure-tx_005fpower_005foffset">Measure tx_power_offset</a>
+</p>
+<span id="UDC-B2-NSA-Configuration-with-Multiple-FR2-cells"></span><h4 class="subsection">3.2.4 UDC B2 NSA Configuration with Multiple FR2 cells</h4>
+<p>This section gives an example of <code>udc_ports</code> and <code>rf_ports</code> configurtion in the case of NSA configuration with two aggregated FR2 cells.
+In the example the SDR0 is used by the LTE cell while the UDC is connected though a combiner to SDR2 and SDR3 of the Callbox to provide the FR2 MIMO 2x2 cells. The first UDC(master) is identified as /dev/ttyUSB0 and the second one(slave) as /dev/ttyUSB1.
+</p>
+<pre class="verbatim">  rf_driver: {
+        name: &quot;sdr&quot;,
+        args: &quot;dev0=/dev/sdr0,dev1=/dev/sdr2,dev2=/dev/sdr3&quot;,
+        rx_antenna: &quot;rx&quot;,
+  },
+#if FR2 == 1
+  udc_ports: [
+  {
+    args: &quot;/dev/ttyUSB0;/dev/ttyUSB1&quot;,
+    cmd: &quot;udc-auto-cfg.sh&quot;,
+  },
+  ],
+#endif
+  rf_ports: [
+    {
+       /* RF port for the LTE cell */
+    },
+    {
+        /* RF port for the NR cell */
+#if FR2
+       udc_port: 0,
+       tx_power_offset:IF_ATTENUATION,
+#endif
+    },
+    {
+        /* RF port for the NR cell */
+#if FR2
+       udc_port: 0,
+       tx_power_offset:IF_ATTENUATION,
+#endif
+    },
+  ],
+</pre>
+<p>Both the <code>rf_ports</code> related to the FR2 cells are specifying the same <code>udc_port</code> since they are aggregated and they will use the same UDC device for the RF up/down conversion. To compute the <code>tx_power_offset</code>, See <a href="#Measure-tx_005fpower_005foffset">Measure tx_power_offset</a>.
+</p>
+
+<span id="UDC-A2-configuration"></span><h3 class="section">3.3 UDC A2 configuration</h3>
+<p>The usage of script <code>udc-auto-cfg.sh</code> relies on the newly introduced <code>udc_ports</code> array which is composed by one or multiple objects. Each object contains the configurations of the UDC devices involved in the FR2 set-up as well as the call to <code>udc-auto-cfg.sh</code> script. Each <code>udc_ports</code> object contains the following configurable parameters:
+</p><ul>
+<li> <code>cmd</code>: path to the script for the UDC configuration. The default script path is <code>enb/config</code>
+</li><li> <code>args</code>: string of UDC configuration parameters. Each parameter is separated by semicolon. The configurable parameters are:
+<ul>
+<li> UDC enumeration, mandatory. It specifies how the UDC has been mounted at Linux level. UDCA2 are mounted as /dev/ttyACMx.
+</li><li> UDC clock, optional, possible values are detailed in the dedicated subsections See <a href="#UDC-A2-args-values-for-udc_002dauto_002dcfg_002esh">UDC A2 args values for <code>udc-auto-cfg.sh</code></a>
+</li><li> UDC tx ports, optional, possible values are detailed in the dedicated subsections See <a href="#UDC-A2-args-values-for-udc_002dauto_002dcfg_002esh">UDC A2 args values for <code>udc-auto-cfg.sh</code></a>
+</li><li> UDC rx ports, optional, possible values are detailed in the dedicated subsections See <a href="#UDC-A2-args-values-for-udc_002dauto_002dcfg_002esh">UDC A2 args values for <code>udc-auto-cfg.sh</code></a>
+</li></ul>
+
+</li><li> <code>lo_freq</code>: optional float to specify the UDC LO frequency in MHz to be configured. If not present, it will be automatically computed by the <code>udc-auto-cfg.sh</code> respecting the SDR IF suitable frequency range and UDC datasheet.
+</li></ul>
+<p>This is an example of pseudo code to understand the usage of the newly introduced <code>udc_ports</code> array. The example uses a couple of UDC A2 for a single FR2 cell MIMO 2x2. The UDCs are connected to sdrX.
+</p><pre class="verbatim">  rf_driver: {
+        name: &quot;sdr&quot;,
+        args: &quot;dev0=/dev/sdrX&quot;,
+        rx_antenna: &quot;rx&quot;,
+  },
+#if FR2 == 1
+  udc_ports: [
+  {
+    /* this is udc port 0*/
+    args: &quot;/dev/ttyACMx;/dev/ttyACMy&quot;,
+    cmd: &quot;udc-auto-cfg.sh&quot;,
+  },
+  ],
+#endif
+
+  rf_ports: [
+  {
+     #if FR2
+       /* rf port related to FR2 cell =&gt; indicate corresponding udc port index
+       udc_port: 0,
+       tx_power_offset:IF_ATTENUATION,
+     #endif
+  },
+  ],
+</pre><p>To compute the <code>tx_power_offset</code>, See <a href="#Measure-tx_005fpower_005foffset">Measure tx_power_offset</a>.
+</p>
+<span id="UDC-A2-args-values-for-udc_002dauto_002dcfg_002esh"></span><span id="UDC-A2-args-values-for-udc_002dauto_002dcfg_002esh-1"></span><h4 class="subsection">3.3.1 UDC A2 args values for <code>udc-auto-cfg.sh</code></h4>
+<p>This section specifies how to configure the parameter <code>args</code> for UDC A2. The only mandatory string parameter is the UDC device enumeration, it specifies how the UDC has been mounted at Linux level. UDCA2 is mounted as /dev/ttyACMx. The other string parameters are optional, if not specified, they are configured with the default value. For the default set-up reference cabling See <a href="#RF-Connection-Diagram-of-the-UDCA2-for-1-Cell-FR2-2x2">RF Connection Diagram of the UDCA2 for 1 Cell FR2 2x2</a> and See <a href="#Connection-Diagram-of-the-UDCA2-for-multiple-Cells-FR2-2x2">Connection Diagram of the UDCA2 for multiple Cells FR2 2x2</a>
+When using the UDC A2 in default set-up cabling it is just required to specify in <code>args</code> the device enumeration, while the optional parameters <code>clock,tx,rx</code> will be set with the default values. Example of configuration line:
+</p><pre class="verbatim">args:&quot;/dev/ttyACM0;/dev/ttyACM1&quot;
+</pre>
+<p>The values accepted as <code>args</code> input for UDC A2 are:
+</p><dl compact="compact">
+<dt><code>clock:</code></dt>
+<dd><p>any clock configuration is ignored since for UDC A2 there is no command to set the clock. To work it requires always the 10MHz clock source as depicted in the default cabling connection.
+</p>
+</dd>
+<dt><code><code>tx</code>:</code></dt>
+<dd><dl compact="compact">
+<dt><code>1</code></dt>
+<dd><p>use port IF1
+      </p></dd>
+<dt><code>2</code></dt>
+<dd><p>use port IF2
+      </p></dd>
+<dt><code>default</code></dt>
+<dd><p>use value 1, IF1 port as per default cabling
+</p></dd>
+</dl>
+
+</dd>
+<dt><code><code>rx</code></code></dt>
+<dd><dl compact="compact">
+<dt><code>1</code></dt>
+<dd><p>use port IF1
+      </p></dd>
+<dt><code>2</code></dt>
+<dd><p>use port IF2
+      </p></dd>
+<dt><code>default</code></dt>
+<dd><p>use value 2, IF2 port as per default cabling
+</p></dd>
+</dl>
+</dd>
+</dl>
+
+<p>Any different usage of <code>args</code> input parameters with respect to the illustrated default case, shall match the physical cabling in the set-up. It is up to the user to verify it prior to testing.
+Example of a set-up where UDCs have inverted ports from defualt values, in this case the TX port for both the UDCs is IF2 while the RX port is IF1:
+</p><pre class="verbatim">args:&quot;/dev/ttyACM0;tx=2;rx=1;/dev/ttyACM1;tx=2;rx=1&quot;
+</pre>
+<table class="cartouche" border="1"><tr><td>
+<p>To assure the correct device enumeration, special attention shall be put when plugging in the USB cables. After a machine reboot, the device enumeration could have changed, therefore repeat the USB cable plug procedure. To double check the correct device enumeration it is possible to use, after each USB plug, the following Linux command:
+</p><pre class="verbatim">ll /dev/ttyACM*
+</pre></td></tr></table>
+
+<span id="UDC-A2-SA-Configuration-with-one-FR2-cell"></span><h4 class="subsection">3.3.2 UDC A2 SA Configuration with one FR2 cell</h4>
+<p>The example below shows the usage of the <code>udc-auto-cfg.sh</code> for UDCA2. In the example, there are 2 UDCs connected to SDR0 of the Callbox to provide a single cell FR2 SA MIMO 2x2. The first UDC is identified as /dev/ttyACM0 and the second one as /dev/ttyACM1.
+</p>
+<pre class="verbatim">  rf_driver: {
+        name: &quot;sdr&quot;,
+        args: &quot;dev0=/dev/sdr0&quot;,
+        rx_antenna: &quot;rx&quot;,
+  },
+</pre>
+<p>The <code>udc_ports</code> contains the configuration for the udc port related to the UDCA2 setup. Both the UDCs <code>/dev/ttyACM0</code> and <code>/dev/ttyACM1</code> are configured in the same <code>udc-auto-cfg.sh</code> call.
+In the <code>args</code> when the UDC device enumeration is the only specified parameter, it is assumed that the other optional parameters (<code>clock;tx;rx</code>) take the default value.
+</p><pre class="verbatim">#if FR2 == 1
+  udc_ports: [
+  {
+    args: &quot;/dev/ttyACM0;/dev/ttyACM1&quot;,
+    cmd: &quot;udc-auto-cfg.sh&quot;,
+  },
+  ],
+#endif
+</pre>
+<p>The rf port related to the FR2 cell needs to specify which <code>udc_port</code> is used. To compute the <code>tx_power_offset</code> refer to See <a href="#Measure-tx_005fpower_005foffset">Measure tx_power_offset</a>
+</p><pre class="verbatim">  rf_ports: [
+  {
+     #if FR2
+       udc_port: 0,
+       tx_power_offset:IF_ATTENUATION,
+     #endif
+  },
+  ],
+</pre>
+
+<span id="UDC-A2-NSA-Configuration-with-one-FR2-cell"></span><h4 class="subsection">3.3.3 UDC A2 NSA Configuration with one FR2 cell</h4>
+<p>This section gives an example of <code>udc_ports</code> and <code>rf_ports</code> configurtion in the case of NSA configuration with a single FR2 cell.
+In the example the SDR0 is used by the LTE cell while the UDC is connected to SDR1 of the Callbox to provide the FR2 MIMO 2x2 cell.  The first UDC is identified as /dev/ttyACM0 and the second one as /dev/ttyACM1.
+</p>
+<pre class="verbatim">  rf_driver: {
+        name: &quot;sdr&quot;,
+        args: &quot;dev0=/dev/sdr0,dev1=/dev/sdr1&quot;,
+        rx_antenna: &quot;rx&quot;,
+  },
+#if FR2 == 1
+  udc_ports: [
+  {
+    args: &quot;/dev/ttyACM0;/dev/ttyACM1&quot;,
+    cmd: &quot;udc-auto-cfg.sh&quot;,
+  },
+  ],
+#endif
+  rf_ports: [
+    {
+       /* RF port for the LTE cell */
+    },
+    {
+        /* RF port for the NR cell */
+#if FR2
+       udc_port: 0,
+       tx_power_offset:IF_ATTENUATION,
+#endif
+    },
+  ],
+</pre><p>To compute the <code>tx_power_offset</code> refer to See <a href="#Measure-tx_005fpower_005foffset">Measure tx_power_offset</a>.
+</p>
+<span id="UDC-A2-NSA-Configuration-with-Multiple-FR2-cells"></span><h4 class="subsection">3.3.4 UDC A2 NSA Configuration with Multiple FR2 cells</h4>
+<p>This section gives an example of <code>udc_ports</code> and <code>rf_ports</code> configurtion in the case of NSA configuration with two aggregated FR2 cells.
+In the example the SDR0 is used by the LTE cell while the UDC is connected though a combiner to SDR2 and SDR3 of the Callbox to provide the FR2 MIMO 2x2 cells. The first UDC is identified as /dev/ttyACM0 and the second one as /dev/ttyACM1.
+</p>
+<pre class="verbatim">  rf_driver: {
+        name: &quot;sdr&quot;,
+        args: &quot;dev0=/dev/sdr0,dev1=/dev/sdr2,dev2=/dev/sdr3&quot;,
+        rx_antenna: &quot;rx&quot;,
+  },
+#if FR2 == 1
+  udc_ports: [
+  {
+    args: &quot;/dev/ttyACM0;/dev/ttyACM1&quot;,
+    cmd: &quot;udc-auto-cfg.sh&quot;,
+  },
+  ],
+#endif
+  rf_ports: [
+    {
+       /* RF port for the LTE cell */
+    },
+    {
+        /* RF port for the NR cell */
+#if FR2
+       udc_port: 0,
+       tx_power_offset:IF_ATTENUATION,
+#endif
+    },
+    {
+        /* RF port for the NR cell */
+#if FR2
+       udc_port: 0,
+       tx_power_offset:IF_ATTENUATION,
+#endif
+    },
+  ],
+</pre>
+<p>Both the <code>rf_ports</code> related to the FR2 cells are specifying the same <code>udc_port</code> since they are aggregated and they will use the same UDC device for the RF up/down conversion. To compute the <code>tx_power_offset</code> refer to See <a href="#Measure-tx_005fpower_005foffset">Measure tx_power_offset</a>. 
+</p>
+
+<span id="UDC-B4-configuration"></span><h3 class="section">3.4 UDC B4 configuration</h3>
+<p>The usage of script <code>udc-auto-cfg.sh</code> relies on the newly introduced <code>udc_ports</code> array which is composed by one or multiple objects. Each object contains the configurations of the UDC devices involved in the FR2 set-up as well as the call to <code>udc-auto-cfg.sh</code> script. Each <code>udc_ports</code> object contains the following configurable parameters:
+</p><ul>
+<li> <code>cmd</code>: path to the script for the UDC configuration. The default script path is <code>enb/config</code>
+</li><li> <code>args</code>: string of UDC configuration parameters. Each parameter is separated by semicolon. The configurable parameters are:
+<ul>
+<li> UDC enumeration, mandatory. It specifies how the UDC has been mounted at Linux level. UDCB4 are mounted as /dev/ttyUSBx.
+</li><li> UDC clock, optional, possible values are detailed in the dedicated subsections See <a href="#UDC-B4-args-values-for-udc_002dauto_002dcfg_002esh">UDC B4 args values for <code>udc-auto-cfg.sh</code></a>
+</li><li> UDC tx ports, optional, possible values are detailed in the dedicated subsections See <a href="#UDC-B4-args-values-for-udc_002dauto_002dcfg_002esh">UDC B4 args values for <code>udc-auto-cfg.sh</code></a>
+</li><li> UDC rx ports, optional, possible values are detailed in the dedicated subsections See <a href="#UDC-B4-args-values-for-udc_002dauto_002dcfg_002esh">UDC B4 args values for <code>udc-auto-cfg.sh</code></a>
+</li></ul>
+
+</li><li> <code>lo_freq</code>: optional float to specify the UDC LO frequency in MHz to be configured. If not present, it will be automatically computed by the <code>udc-auto-cfg.sh</code> respecting the SDR IF suitable frequency range and UDC datasheet.
+</li></ul>
+<p>This is an example of pseudo code to understand the usage of the newly introduced <code>udc_ports</code> array. The example uses a UDC B4 for a single FR2 cell MIMO 2x2. The UDC is connected to sdrX.
+</p><pre class="verbatim">  rf_driver: {
+        name: &quot;sdr&quot;,
+        args: &quot;dev0=/dev/sdrX&quot;,
+        rx_antenna: &quot;rx&quot;,
+  },
+#if FR2 == 1
+  udc_ports: [
+  {
+    /* this is udc port 0*/
+    args: &quot;/dev/ttyUSBx&quot;,
+    cmd: &quot;udc-auto-cfg.sh&quot;,
+  },
+  ],
+#endif
+
+  rf_ports: [
+  {
+     #if FR2
+       /* rf port related to FR2 cell =&gt; indicate corresponding udc port index
+       udc_port: 0,
+       tx_power_offset:IF_ATTENUATION,
+     #endif
+  },
+  ],
+</pre><p>To compute the <code>tx_power_offset</code>, See <a href="#Measure-tx_005fpower_005foffset">Measure tx_power_offset</a>.
+</p>
+<span id="UDC-B4-args-values-for-udc_002dauto_002dcfg_002esh"></span><span id="UDC-B4-args-values-for-udc_002dauto_002dcfg_002esh-1"></span><h4 class="subsection">3.4.1 UDC B4 args values for <code>udc-auto-cfg.sh</code></h4>
+<p>This section specifies how to configure the parameter <code>args</code> for UDC B4. The only mandatory string parameter is the UDC device enumeration, it specifies how the UDC has been mounted at Linux level. UDCB4 is mounted as /dev/ttyUSBx. The other string parameters are optional, if not specified, they are configured with the default value. For the default set-up reference cabling See <a href="#RF-Connection-Diagram-of-the-UDCB4-for-1-Cell-FR2-2x2">RF Connection Diagram of the UDCB4 for 1 Cell FR2 2x2</a> and See <a href="#Connection-Diagram-of-the-UDCB4-for-multiple-Cells-FR2-2x2">Connection Diagram of the UDCB4 for multiple Cells FR2 2x2</a> 
+When using the UDC B4 in default set-up cabling it is just required to specify in <code>args</code> the device enumeration, while the optional parameters <code>clock,tx,rx</code> will be set with the default values. Example of configuration line:
+</p><pre class="verbatim">args:&quot;/dev/ttyUSB0&quot;
+</pre>
+<p>The values accepted as <code>args</code> input for UDC B4 are:
+</p><dl compact="compact">
+<dt><code>clock:</code></dt>
+<dd><dl compact="compact">
+<dt><code>internal</code></dt>
+<dd><p>use the internal UDC B4 clock
+      </p></dd>
+<dt><code>external</code></dt>
+<dd><p>use the clock coming from the REF_IN port of the UDC B4, this must be connected to a 10MHz reference clock source
+      </p></dd>
+<dt><code>gps</code></dt>
+<dd><p>use the clock coming from the GPS port of the UDC B4, this must be connected to a GPS clock source
+      </p></dd>
+<dt><code>default</code></dt>
+<dd><p>use the <code>internal</code> clock of the UDC B4
+</p></dd>
+</dl>
+
+
+</dd>
+<dt><code><code>tx</code>:</code></dt>
+<dd><dl compact="compact">
+<dt><code>1</code></dt>
+<dd><p>use port IF1
+      </p></dd>
+<dt><code>2</code></dt>
+<dd><p>use port IF2
+      </p></dd>
+<dt><code>3</code></dt>
+<dd><p>use port IF3
+      </p></dd>
+<dt><code>4</code></dt>
+<dd><p>use port IF4
+      </p></dd>
+<dt><code>default</code></dt>
+<dd><p>use value 1,3 indicating IF1 and IF3 ports as per default cabling
+</p></dd>
+</dl>
+
+</dd>
+<dt><code><code>rx</code></code></dt>
+<dd><dl compact="compact">
+<dt><code>1</code></dt>
+<dd><p>use port IF1
+      </p></dd>
+<dt><code>2</code></dt>
+<dd><p>use port IF2
+      </p></dd>
+<dt><code>3</code></dt>
+<dd><p>use port IF3
+      </p></dd>
+<dt><code>4</code></dt>
+<dd><p>use port IF4
+      </p></dd>
+<dt><code>default</code></dt>
+<dd><p>use value 2,4 indicating IF2 and IF4 ports as per default cabling    
+</p></dd>
+</dl>
+</dd>
+</dl>
+
+<p>Any different usage of <code>args</code> input parameters with respect to the illustrated default case, shall match the physical cabling in the set-up. It is up to the user to verify it prior to testing.
+Example of a set-up where UDCs have inverted ports from defualt values and a different clock source. UDC B4 TX ports are 2,4 and RX ports 1,3. UDC B4 using 10MHz clock source.
+</p><pre class="verbatim">args:&quot;/dev/ttyUSB0;clock=external;tx=2,4;rx=1,3&quot;
+</pre>
+<table class="cartouche" border="1"><tr><td>
+<p>To assure the correct device enumeration, special attention shall be put when plugging in the USB cable. After a machine reboot, the device enumeration could have changed, therefore repeat the USB cable plug procedure. To double check the correct device enumeration it is possible to use, after each USB plug, the following Linux command:
+</p><pre class="verbatim">ll /dev/ttyUSB*
+</pre></td></tr></table>
+
+<span id="UDC-B4-SA-Configuration-with-one-FR2-cell"></span><h4 class="subsection">3.4.2 UDC B4 SA Configuration with one FR2 cell</h4>
+<p>The example below shows the usage of the <code>udc-auto-cfg.sh</code> for UDCB4. In the example there is one UDC connected to SDR0 of the Callbox to provide a single cell FR2 SA MIMO 2x2. The UDC is identified as /dev/ttyUSB0.
+</p>
+<pre class="verbatim">  rf_driver: {
+        name: &quot;sdr&quot;,
+        args: &quot;dev0=/dev/sdr0&quot;,
+        rx_antenna: &quot;rx&quot;,
+  },
+</pre>
+<p>The <code>udc_ports</code> contains the configuration for the udc port related to the UDCB4. In the <code>args</code> when the UDC device enumeration is the only specified parameter, it is assumed that the other optional parameters (<code>clock;tx;rx</code>) take the default value.
+</p><pre class="verbatim">#if FR2 == 1
+  udc_ports: [
+  {
+    args: &quot;/dev/ttyUSB0&quot;,
+    cmd: &quot;udc-auto-cfg.sh&quot;,
+  },
+  ],
+#endif
+</pre>
+<p>The rf port related to the FR2 cell needs to specify which <code>udc_port</code> is used. To compute the <code>tx_power_offset</code> refer to See <a href="#Measure-tx_005fpower_005foffset">Measure tx_power_offset</a>.
+</p><pre class="verbatim">  rf_ports: [
+  {
+     #if FR2
+       udc_port: 0,
+       tx_power_offset:IF_ATTENUATION,
+     #endif
+  },
+  ],
+</pre>
+
+<span id="UDC-B4-NSA-Configuration-with-one-FR2-cell"></span><h4 class="subsection">3.4.3 UDC B4 NSA Configuration with one FR2 cell</h4>
+<p>This section gives an example of <code>udc_ports</code> and <code>rf_ports</code> configurtion in the case of NSA configuration with a single FR2 cell.
+In the example the SDR0 is used by the LTE cell while the UDC is connected to SDR1 of the Callbox to provide the FR2 MIMO 2x2 cell. It is assumed the usage of UDCB4 identified as /dev/ttyUSB0. 
+</p>
+<pre class="verbatim">  rf_driver: {
+        name: &quot;sdr&quot;,
+        args: &quot;dev0=/dev/sdr0,dev1=/dev/sdr1&quot;,
+        rx_antenna: &quot;rx&quot;,
+  },
+#if FR2 == 1
+  udc_ports: [
+  {
+    args: &quot;/dev/ttyUSB0&quot;,
+    cmd: &quot;udc-auto-cfg.sh&quot;,
+  },
+  ],
+#endif
+  rf_ports: [
+    {
+       /* RF port for the LTE cell */
+    },
+    {
+        /* RF port for the NR cell */
+#if FR2
+       udc_port: 0,
+       tx_power_offset:IF_ATTENUATION,
+#endif
+    },
+  ],
+</pre><p>To compute the <code>tx_power_offset</code> refer to See <a href="#Measure-tx_005fpower_005foffset">Measure tx_power_offset</a>
+</p>
+<span id="UDC-B4-NSA-Configuration-with-Multiple-FR2-cells"></span><h4 class="subsection">3.4.4 UDC B4 NSA Configuration with Multiple FR2 cells</h4>
+<p>This section gives an example of <code>udc_ports</code> and <code>rf_ports</code> configurtion in the case of NSA configuration with two aggregated FR2 cells.
+In the example the SDR0 is used by the LTE cell while the UDC is connected though a combiner to SDR2 and SDR3 of the Callbox to provide the FR2 MIMO 2x2 cells. It is assumed the usage of UDCB4 identified as /dev/ttyUSB0.
+</p>
+<pre class="verbatim">  rf_driver: {
+        name: &quot;sdr&quot;,
+        args: &quot;dev0=/dev/sdr0,dev1=/dev/sdr2,dev2=/dev/sdr3&quot;,
+        rx_antenna: &quot;rx&quot;,
+  },
+#if FR2 == 1
+  udc_ports: [
+  {
+    args: &quot;/dev/ttyUSB0&quot;,
+    cmd: &quot;udc-auto-cfg.sh&quot;,
+  },
+  ],
+#endif
+  rf_ports: [
+    {
+       /* RF port for the LTE cell */
+    },
+    {
+        /* RF port for the NR cell */
+#if FR2
+       udc_port: 0,
+       tx_power_offset:IF_ATTENUATION,
+#endif
+    },
+    {
+        /* RF port for the NR cell */
+#if FR2
+       udc_port: 0,
+       tx_power_offset:IF_ATTENUATION,
+#endif
+    },
+  ],
+</pre>
+<p>Both the <code>rf_ports</code> related to the FR2 cells are specifying the same <code>udc_port</code> since they are aggregated and they will use the same UDC device for the RF up/down conversion. To compute the <code>tx_power_offset</code> refer to See <a href="#Measure-tx_005fpower_005foffset">Measure tx_power_offset</a>.
+</p>
+
+<span id="Measure-tx_005fpower_005foffset"></span><span id="Measure-tx_005fpower_005foffset-1"></span><h3 class="section">3.5 Measure tx_power_offset</h3>
+<p>When the <code>udc_port</code> is referenced in a rf port, it is possible to specify the <code>IF_ATTENUATION</code> using the parameter <code>tx_power_offset</code>. This quantity is important for the computation of the maximum <code>tx_gain</code> applicable at each rf port to avoid UDC saturation. The <code>IF_ATTENUATION</code> corresponds to the amount of attenuation between the SDR TX port and the UDC IF port. The default value is 0, in case of aggregated cells using a combiner the attenuation is computed as <code>-10*log10(NB COMBINER PORTS)</code>, eventual additional attenuators need to be added to this value.
+</p><ul>
+<li> Example of a UDC connected directly to the SDR without any attenuation or combiner between SDR and UDC IF port:
+<pre class="verbatim">tx_power_offset:0
+</pre>
+</li><li> Example of a UDC connected to the SDR in a setup with 8 port combiner:
+<pre class="verbatim">tx_power_offset:-9
+</pre>
+</li><li> Example of a UDC connected to the SDR in a setup with 12 port combiner:
+<pre class="verbatim">tx_power_offset:-11
+</pre>
+</li><li> Example of a UDC connected to the SDR in a setup with 12 port combiner and additional 10dB physical attenuation:
+<pre class="verbatim">tx_power_offset:-21
+</pre></li></ul>
+
+<span id="Debug"></span><h3 class="section">3.6 Debug</h3>
+<p>To enable the udc-auto-cfg.sh debug logs it is required to enable the trx log level in debug mode in the configuration file. 
+Example:
+</p><pre class="verbatim">log_options: &quot;all.level=error,all.max_size=0,nas.level=debug,nas.max_size=1,
+s1ap.level=debug,s1ap.max_size=1,x2ap.level=debug,x2ap.max_size=1,
+rrc.level=debug,rrc.max_size=1,trx.level=debug,trx.max_size=1&quot;,
+</pre>
+<span id="Tested-FR2-UEs"></span><h3 class="section">3.7 Tested FR2 UEs</h3>
+<p>Following UEs have been tested in FR2:
+</p><ul>
+<li> Samsung Galaxy S20+ 5G SM-G986U1 smartphone in NSA 2CC FR2 
+</li><li> Quectel RM510Q-GL 5G NR mmWave module, M.2 form factor, in NSA 8CC FR2
+</li><li> Simcom SIM8380G-M2 Sub6 + mmW Module, M.2 form factor, in NSA 8CC FR2
+</li></ul>
+
+<span id="Annex-A"></span><span id="Annex-A-1"></span><h2 class="chapter">4 Annex A</h2>
+
+<p>This annex describes the legacy UDC and gNodeB configuration, for backward compatibility with the configuration method described in See <a href="#Configuration-Guide">Configuration Guide</a>
+</p>
+<span id="Legacy-UDC-Configuration"></span><h3 class="section">4.1 Legacy UDC Configuration</h3>
+<p>UDCs should be configured first for the target output frequency. This configuration could be done automatically by adding parameters <code>config_script</code> and <code>config_script_params</code> inside the rf_driver object. For manual configuration, you can refer to the user manual of each UDC.
+</p><ul>
+<li> <code>config_script</code>:<br> 
+This parameter specifies the script to run in order to configure the UDC. The script is called with the parameters specified in <code>config_script_params</code> for each SDR defined in args. The default path is the current directry.
+</li><li> <code>config_script_params</code>: <br>
+This field specifies the parameters to be passed to the configuration script defined in <code>config_script</code>. If there are multiple up down converters connected to different SDR cards, then the parameters to be passed to each up down converter box should be separated by a ;. The list of parameters are:
+<ul>
+<li> <code>UDC_TYPE</code>: This field specifies the UDC type to be used. It could be B2 for UDCB2 or A2 for UDCA2 or B4 for UDCB4.
+</li><li> <code>UDC_DEV</code>: This field specifies how the UDC has been mounted at Linux level. UDCB2 and UDCB4 are mounted as <code>/dev/ttyUSBx</code> and UDCA2 as <code>/dev/ttyACMx</code>.
+</li><li> <code>SDR_NUM</code>: This field is the SDR number connected to the UDC.
+</li><li> <code>OUT_FREQ</code>: This field corresponds to the FR2 frequency in Hz at the output of the UDC.
+</li></ul>
+</li></ul>
+
+<p>Amarisoft provides an example script <code>udc-config.sh</code> available under <code>enb/config/sdr</code> directory. This example script works with Amarisoft UDCA2, UDCB2 and UDCB4. 
+</p><span id="Legacy-UDCB2-Configuration"></span><h4 class="subsection">4.1.1 Legacy UDCB2 Configuration</h4>
+<p>The example below shows the use of these 2 parameters for UDCB2. There are 2 UDCs connected to SDR2 of the Calllbox to provide MIMO 2x2. The output frequency is 28.00008 GHz. The first UDC is identified as <code>/dev/ttyUSB0</code> and the second one as <code>/dev/ttyUSB1</code>.
+</p><pre class="verbatim">rf_driver: {
+    name: &quot;sdr&quot;,
+      
+    /* list of devices. 'dev0' is always the master. */
+    args: &quot;dev0=/dev/sdr0,dev1=/dev/sdr1,dev2=/dev/sdr2&quot;,
+
+    /* TDD: force the RX antenna on the RX connector */
+    rx_antenna: &quot;rx&quot;,
+
+    // sync: &quot;gps&quot;,
+    config_script: &quot;rf_driver/udc-cfg.sh&quot;,
+    config_script_params: &quot;UDC_TYPE=B2 UDC_DEV=/dev/ttyUSB0 SDR_NUM=2
+    OUT_FREQ=28000080000; UDC_TYPE=B2 UDC_DEV=/dev/ttyUSB1 SDR_NUM=2 OUT_FREQ=28000080000;&quot;,
+},
+</pre><table class="cartouche" border="1"><tr><td>
+<p>UDC B2 LO frequency is in GHz. When setting the OUT_FREQ, special attention should be made to avoid a floating point LO which is rejected by the UDC. In the above example with an OUT_FREQ of 28000080000 Hz, the IF_FREQ should be set to 3000.08 MHz in order to have a LO FREQ of 25 GHz.
+</p></td></tr></table>
+<span id="Legacy-UDCA2-Configuration"></span><h4 class="subsection">4.1.2 Legacy UDCA2 Configuration</h4>
+<p>The example below shows the use of these 2 parameters for UDCA2. There are 2 UDCs connected to SDR2 of the Calllbox to provide MIMO 2x2. The output frequency is 28.00008 GHz. The first UDC is identified as <code>/dev/ttyACM0</code> and the second one as <code>/dev/ttyACM1</code>.
+</p><pre class="verbatim">rf_driver: {
+    name: &quot;sdr&quot;,
+      
+    /* list of devices. 'dev0' is always the master. */
+    args: &quot;dev0=/dev/sdr0,dev1=/dev/sdr1,dev2=/dev/sdr2&quot;,
+
+    /* TDD: force the RX antenna on the RX connector */
+    rx_antenna: &quot;rx&quot;,
+
+    // sync: &quot;gps&quot;,
+    config_script: &quot;rf_driver/udc-cfg.sh&quot;,
+    config_script_params: &quot;UDC_TYPE=A2 UDC_DEV=/dev/ttyACM0 SDR_NUM=2
+    OUT_FREQ=28000080000; UDC_TYPE=A2 UDC_DEV=/dev/ttyACM1 SDR_NUM=2 OUT_FREQ=28000080000;&quot;,    
+},
+</pre><table class="cartouche" border="1"><tr><td>
+<p>UDC A2 LO frequency is in MHz. When setting the OUT_FREQ, special attention should be made to avoid a floating point LO which is rejected by the UDC. In the above example with an OUT_FREQ of 28000080000 Hz, the IF_FREQ should be set to 3000.08 Hz in order to have a LO FREQ of 25000 MHz.
+</p></td></tr></table>
+
+<span id="Legacy-UDCB4-Configuration"></span><h4 class="subsection">4.1.3 Legacy UDCB4 Configuration</h4>
+<p>The example below shows the use of these 2 parameters for UDCB4. There is 1 single UDC connected to SDR2 of the Callbox to provide MIMO 2x2. The output frequency is 28.00008 GHz. The UDC is identified as <code>/dev/ttyUSB0</code>.
+</p><pre class="verbatim">rf_driver: {
+    name: &quot;sdr&quot;,
+      
+    /* list of devices. 'dev0' is always the master. */
+    args: &quot;dev0=/dev/sdr0,dev1=/dev/sdr1,dev2=/dev/sdr2&quot;,
+
+    /* TDD: force the RX antenna on the RX connector */
+    rx_antenna: &quot;rx&quot;,
+
+    // sync: &quot;gps&quot;,
+    config_script: &quot;rf_driver/udc-cfg.sh&quot;,
+    config_script_params: &quot;UDC_TYPE=B4 UDC_DEV=/dev/ttyUSB0 SDR_NUM=2 OUT_FREQ=28000080000;&quot;,
+},
+</pre><table class="cartouche" border="1"><tr><td>
+<p>UDC B4 LO frequency could be set in GHz, MHz and KHz. When setting the OUT_FREQ, special attention should be made to avoid a floating point LO which is rejected by the UDC.
+</p></td></tr></table>
+
+<span id="Legacy-gNodeB-Configuration"></span><h3 class="section">4.2 Legacy gNodeB Configuration</h3>
+<span id="Legacy-NSA-Configuration-with-one-FR2-cell"></span><h4 class="subsection">4.2.1 Legacy NSA Configuration with one FR2 cell</h4>
+<p><samp>gnb-nsa.cfg</samp> could be used for NSA mmwave testing with FR2 flag enabled. This file configures one LTE cell and one FR2 cell.
+The IF frequency is pre-configured within the gNodeB config file. Its value is set to the frequency 3 GHz as it is within the range of frequencies giving the best signal EVM at the output of the UDC. It is recommended to use an IF between 2 GHz and 4 GHz.<br>
+</p>
+<p>The following extract shows the setting of the IF frequency inside this configuration file for an output FR2 frequency of 28000.08 MHz. The parameters <code>rf_dl_freq</code> and <code>rf_ul_freq</code> inside the <code>rf_ports</code> object set the IF frequencies in DL and UL. 
+</p><div class="example">
+<pre class="example">rf_ports: [
+    {
+#if FR2
+      /* an external frequency translator must be used */
+      rf_dl_freq: 3000.08, /* MHz */
+      rf_ul_freq: 3000.08, /* MHz */
+#endif
+    },
+  ],
+</pre></div>
+<p>These parameters are to be added to the rf_ports list in the position corresponding to the rf_port of the FR2 cell. 
+</p>
+<p>The parameter <code>rx_to_tx_latency</code> could also be used to increase the data rate in FR2. This parameter defines the minimum allowed latency in slots between RX and TX. If the latency is too high, the gNB scheduler may not be able to use all the PDSCH transmission occasions with subcarrier spacings larger or equal to 30 kHz. Typically for the default value of 4 msec and 120 KHz subcarrier spacing in FR2, not all PDSCH transmissions are scheduled. Setting this value to 9 slots would allow to double the data rate.
+</p>
+<span id="Legacy-NSA-Configuration-with-Multiple-FR2-cells"></span><h4 class="subsection">4.2.2 Legacy NSA Configuration with Multiple FR2 cells</h4>
+<p>You can configure multiple cells in FR2 using one single UDC setup if:
+</p><ul>
+<li> All FR2 cells have the same TDD pattern. Otherwise diferent UDC setups should be used.
+</li><li> All cells have the same LO frequency as the UDC can only handle one single LO.
+</li></ul>
+
+<p>The LO frequency of the UDC needs to be configured according to the IF frequency used in gNodeB config file. In fact, the LO frequency is set as the difference in between your configured FR2 frequency and the IF frequency set in gNodeB configuration file. In order to have the same LO frequency for all cells, you need to have different IF frequencies for each cell.
+<br>
+Let&rsquo;s assume there are 2 FR2 cells. First cell frequency is <code>28002 MHz</code> and the IF frequency is set to <code>3500 MHz</code>. The LO frequency is then equal to  <code>28002-3500=24502 MHz</code>. Your second cell should have the same LO frequency. So let&rsquo;s say you would like to set the frequency of the second FR2 cell at <code>28302 MHz</code>. In this case, the IF frequency is <code>28302-24502=3800 MHz</code> for cell2.
+</p>
+<p>Example below specifies the configuration of <code>rf_ports</code> for 2 FR2 cells as specified above.
+</p>
+<div class="example">
+<pre class="example">rf_ports: [
+    {
+#if FR2
+      /* an external frequency translator must be used */
+      rf_dl_freq: 3500, /* MHz */
+      rf_ul_freq: 3500, /* MHz */
+#endif
+    },
+        {
+#if FR2
+      /* an external frequency translator must be used */
+      rf_dl_freq: 3800, /* MHz */
+      rf_ul_freq: 3800, /* MHz */
+#endif
+    },
+
+  ],
+
+</pre></div>
+<p>Pleaes note that the UDC only requires the configuration of the primary cell. There is no need to change the <code>config_script</code> and <code>config_script_params</code> setting for the remaining cells as the UDC configuration will be the same.
+</p>
+<span id="Additional-Information"></span><h2 class="chapter">5 Additional Information</h2>
+
+<p>This document is copyright (C) 2012-2024 Amarisoft. Its redistribution
+without authorization is prohibited.
+</p>
+<p>This document is available without any express or implied warranty and is subject to change without notice. In
+no event will Amarisoft be held liable for any damages arising from the use of this document.
+</p>
+<p>For any technical issue, please raise a ticket from our support site at <a href="https://support.amarisoft.com/">https://support.amarisoft.com/</a>.
+<br>
+To learn more about our technology and solutions, e-mail us at <a href="mailto:customer@amarisoft.com">customer@amarisoft.com</a> or visit <a href="https://www.amarisoft.com">https://www.amarisoft.com</a>.
+</p>
+
+
+<hr>
+
+
+
+</body>
+</html>

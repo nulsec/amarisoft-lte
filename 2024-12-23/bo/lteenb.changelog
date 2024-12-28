@@ -1,0 +1,4 @@
+- Added powerClass14dBm-Offset-r15 parameter
+- NR: added DL MIMO 8x8 support
+- NR: added CG-SDT support
+- NB-IoT added powerClass14dBm-Offset-r14 and ce-authorisationOffset-r14 parameters

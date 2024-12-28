@@ -1,0 +1,445 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.6, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Testing VoLTE (Voice Over LTE)</title>
+
+<meta name="description" content="Testing VoLTE (Voice Over LTE)">
+<meta name="keywords" content="Testing VoLTE (Voice Over LTE)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+
+th {
+    border: 1px solid black;
+    background-color: #c0f585;
+    font-size: 14px;
+    padding: 5px;
+}
+
+td {
+    border: 1px solid black;
+    padding: 2px 4px;
+}
+
+p>img {
+    display: initial;
+}
+
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">Testing VoLTE (Voice Over LTE)</h1>
+
+<span id="SEC_Contents"></span>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+<ul class="no-bullet">
+<li><a id="toc-Introduction" href="#Introduction">1 Introduction</a>
+<ul class="no-bullet">
+  <li><a id="toc-Background-1" href="#Background-1">1.1 Background</a></li>
+  <li><a id="toc-Amarisoft-IMS-Architecture" href="#Amarisoft-IMS-Architecture">1.2 Amarisoft IMS Architecture</a></li>
+</ul></li>
+<li><a id="toc-Making-VoLTE-Calls" href="#Making-VoLTE-Calls">2 Making VoLTE Calls</a>
+<ul class="no-bullet">
+  <li><a id="toc-UE-Configuration" href="#UE-Configuration">2.1 UE Configuration</a></li>
+  <li><a id="toc-Network-Configuration" href="#Network-Configuration">2.2 Network Configuration</a></li>
+  <li><a id="toc-Step-by-Step-Volte-Call-Testing" href="#Step-by-Step-Volte-Call-Testing">2.3 Step by Step Volte Call Testing</a></li>
+  <li><a id="toc-VoLTE-with-Test-SIM-Cards" href="#VoLTE-with-Test-SIM-Cards">2.4 VoLTE with Test SIM Cards</a></li>
+  <li><a id="toc-Emergency-calls" href="#Emergency-calls">2.5 Emergency calls</a></li>
+</ul></li>
+<li><a id="toc-Logging-_0026-Wireshark" href="#Logging-_0026-Wireshark">3 Logging &amp; Wireshark</a></li>
+<li><a id="toc-Troubleshooting" href="#Troubleshooting">4 Troubleshooting</a></li>
+<li><a id="toc-Additional-Information" href="#Additional-Information">5 Additional Information</a></li>
+
+</ul>
+</div>
+
+
+
+<span id="Introduction"></span><h2 class="chapter">1 Introduction</h2>
+
+<p>This application note explains the procedure for testing Voice over LTE (VoLTE) phones using Amarisoft EPC and IMS server. Some configuration changes may apply if you use Amarisoft IMS server with a third party EPC or if you use Amarisoft EPC with an external IMS server. The verification steps could also be different depending on the commands available on third party EPC and IMS servers.
+</p>
+<p>Following sections give you a brief background on IMS followed by an overview of Amarisoft IMS architecture. Next chapter gives some hints to check if your device is VoLTE capable as well as the steps to make your VoLTE call. The last 2 chapters focus on logging and troubleshooting to ease the debug process.
+</p>
+<span id="Background"></span><span id="Background-1"></span><h3 class="section">1.1 Background</h3>
+<p>IMS (IP Multimedia Subsystem) provides the framework for IP based multimedia services in a mobile network. IMS uses IETF protocol SIP (Session Initiation Protocol) to set up and control voice and video calls, as well as instant messaging. The most common application of SIP is the setup and termination of Voice over IP (VoIP) telephone calls. The inconvenience of VoIP is its lack of guarantee for a good quality voice communication. Voice calls typically require less than 150 ms of one-way latency from mouth to ear as per the ITU G.114 standard. This could not be guaranteed when using VoIP calls with voice traffic being transmitted over default bearer in LTE on a best effort basis. <br>
+</p>
+<p>VoLTE (Voice over LTE) is a GSMA (Global System for Mobile Communications Association) initiative proposed by operators for optimum support of voice and SMS over IMS in LTE. VoLTE is the service that enables operators to provide improved QoS over SIP-based VoIP. This is basically done by using dedicated bearers to carry voice traffic. The voice dedicated bearer should have typically a QCI (QoS Class Identifier) of one as per Table Table 6.1.7 of 3GPP TS 23.203. The QCI=1 represents conversational speech with guaranteed bit rate and a packet delay budget of 100 msec.
+</p>
+<p>A user requesting access to the IMS domain requires a new level of registration. To provide the necessary attributes for registration to IMS, an ISIM (IP multimedia Services Identity Module) application was added to the UICC (Universal Integrated Circuit Card).
+</p>
+<p>The ISIM application includes:
+</p>
+<ul>
+<li> A private ID called IMPI (IP multimedia private identity). IMPI is typically assigned by the home operator and is 
+used to identify the IMS user&rsquo;s subscription. Its main role is to support the authentication procedure during 
+registration. For its syntax, the IMPI shall have the form <code>username@realm</code> as 
+specified in clause 2.1 of RFC 4282 in accordance with 3GPP TS 23.003 and 3GPP TS 23.228.
+
+</li><li> One or more public IDs called IMPU (IP Multimedia Public Identity). IMPU is primarily used for user-to-user communication. The 
+public identifier serves as a basis for message routing for IMS session-based SIP messages (e.g. INVITE). An IMPU could take the form of either a SIP URI (Uniform Resource Identifier) or a tel URI. A SIP URI is represented by <code>sip:user@domain</code> as per 3GPP TS 23.003 or 3GPP TS 23.228 while a tel URI is typically defined as a series of digits <code>tel:+15551234567</code>. 
+
+</li><li> Home domain ID. The Home Domain ID provides the means by which that IMS routes a users&rsquo; registration request to the Home IMS Network.
+</li></ul>
+
+
+<p>If there is no ISIM application, a backward compatibility mechanism is in place to derive the Home Network Domain name from the IMSI as described in the following steps:
+</p><ol>
+<li> Take the first 5 or 6 digits, depending on whether a 2 or 3 digit MNC is used as per 3GPP TS 31.102 and separate them into MCC and MNC; if the MNC is 2 digits then a zero shall be added at the beginning.
+</li><li> Use the MCC and MNC derived in step 1 to create the domain name <code>mnc&lt;MNC&gt;.mcc&lt;MCC&gt;.3gppnetwork.org</code>.
+</li><li> Add the label &quot;ims.&quot; to the beginning of the domain.
+</li><li> The result would be in the form of <code>ims.mnc&lt;MNC&gt;.mcc&lt;MCC&gt;.3gppnetwork.org</code>.
+</li></ol>
+
+<p>In the same way as above and in the absence of ISIM, IMPI could be derived from the IMSI as per 3GPP TS 23.003 clause 13.3: 
+</p><ol>
+<li> Use the whole string of IMSI digits as the username part of the private identifier. 
+</li><li> Convert the leading digits of the IMSI, i.e. MNC and MCC, into a domain name, as described above. 
+</li><li> The result would be in the form of <code>IMSI@ims.mnc&lt;MNC&gt;.mcc&lt;MCC&gt;.3gppnetwork.org</code>.
+</li></ol>
+
+<p>IMPU can also be derived from the IMSI if UICC does not contain an ISIM. This IMPU takes the format of a SIP URI and is represented by <code>sip:IMPI</code> where IMPI is derived as described above. Note that this does not prevent the user to define other IMPUs.
+</p>
+<p>The following example explains the above rules:
+</p><div class="example">
+<pre class="example">IMSI = 234150999999999
+MCC = 234
+MNC = 15
+Domain Name = ims.mnc015.mcc234.3gppnetwork.org 
+IMPI = 234150999999999@ims.mnc015.mcc234.3gppnetwork.org 
+IMPU = sip:234150999999999@ims.mnc015.mcc234.3gppnetwork.org 
+</pre></div>
+
+<span id="Amarisoft-IMS-Architecture"></span><h3 class="section">1.2 Amarisoft IMS Architecture</h3>
+
+<p>The main components of an IMS server are as follows:
+</p><ul>
+<li> P-CSCF (Proxy-Call Session Control Functions): The P-CSCF is the first point of contact for a user. It is assigned to an IMS terminal before registration, and does not change for the duration of the registration.
+</li><li> I-CSCF (Interrogating-CSCF): The I-CSCF is the entry contact within an operatorâs network for all connections destined to a subscriber. It also forwards SIP request or response to the S-CSCF.
+</li><li> Serving-CSCF (S-CSCF): The S-CSCF is basically a SIP server. It is also responsible for handling the registration process and downloading user information and service profiles from the HSS.
+</li><li> The HSS (Home Subscriber Server) is the user database containing all subscribers information to handle calls.
+</li></ul>
+
+<p>Amarisoft IMS component, LTEIMS, is an IMS standalone simple server. It has a built-in P-CSCF, I-CSCF, S-CSCF and an internal HSS. It supports precondition and dedicated bearer using Rx interface.
+</p><div align="center"><img src="img/ims_arch.webp" alt="img/ims_arch">
+</div>
+<p>The LTEIMS server could only be used for voice calls between 2 UEs registered within the Amarisoft LTE network. It can not be used for voice calls between a UE registered in Amarisoft network and any external UE in other networks. Connection to Circuit Switch networks is also not possible. 
+</p>
+<span id="Making-VoLTE-Calls"></span><h2 class="chapter">2 Making VoLTE Calls</h2>
+
+<span id="UE-Configuration"></span><h3 class="section">2.1 UE Configuration</h3>
+
+<p>There is no generic rule to activate VoLTE in a UE as different phones might have different menus. Below, you can find some useful information for Samsung S5 and OnePlus 3 devices. 
+</p>
+<p>For a Samsung S5 device, please go to
+<code>Settings</code>/<code>More networks</code>/<code>Mobile networks</code> of your handset
+and check <code>VoLTE Call</code> is ticked:
+</p>
+<div align="center"><img src="img/s5-volte.webp" alt="img/s5-volte">
+</div>
+<p>For a OnePlus3 device, the menu is under <code>Settings</code>/<code>SIM &amp; network</code>
+</p>
+<div align="center"><img src="img/oneplus3_volte_menu.webp" alt="img/oneplus3_volte_menu">
+</div>
+<p>Note that the availability of the VoLTE menu also depends on the UICC used.
+The default Amarisoft MME configuration file defines two PDNs that you should add to your device.<br>
+On a Samsung S5 device:
+</p><ul>
+<li> Go to <code>Settings</code>/<code>More networks</code>/<code>Mobile networks</code> 
+</li><li> Turn on Data roaming
+</li><li> Go back to Mobile network.
+</li><li> Add the first APN with the following parameters:
+  <ul>
+<li> Name = Internet
+  </li><li> APN = internet
+  </li><li> APN type = internet,default or APN type = default depending on the UE model
+  </li></ul>
+</li><li> Save it and select it.
+</li><li> Add second APN with following parameters:
+  <ul>
+<li> Name = IMS
+  </li><li> APN = ims
+  </li><li> APN type = ims
+  </li></ul>
+</li><li> Save it and do not select it (This APN may not be displayed).
+</li><li> Reboot your phone
+</li></ul>
+<br>
+<p>On OnePlus3 device:
+</p><ul>
+<li> Go to <code>Settings</code>/<code>SIM &amp; network</code>/<code>SIM1</code> 
+</li><li> Turn on Data roaming 
+</li><li> Go to <code>Settings</code>/<code>SIM &amp; network</code>/<code>SIM1</code>/<code>Access Point Names</code> 
+</li><li> Add the 2 APNs as explained above.
+
+</li></ul>
+
+<p>In order to test VoLTE in IPv6, make sure you set the following parameters in your APN setting:
+</p><ul>
+<li> APN protocol = IPv4/IPv6
+</li><li> APN roaming protocol = IPv4/IPv6
+</li></ul>
+
+<span id="Network-Configuration"></span><h3 class="section">2.2 Network Configuration</h3>
+
+<ul>
+<li> Edit the file <samp>config/ims.cfg</samp> to set the address of the SIP interface. You can keep the current config as it is if you use Amarisoft LTEIMS and LTEMME and if they are both running on the same PC.
+
+</li><li> Create an entry for your UE in the UE database file <samp>config/ue_db-ims.cfg</samp>. This file is included in <samp>config/mme-ims.cfg</samp> and <samp>config/ims.cfg</samp>. Your UE entry should include
+<ol>
+<li> LTE authentication parameters such as IMSI and authentication algorithm. These parameters should match the ones stored in the UICC of your device. 
+</li><li> IMS authentication parameters IMPI, IMPU and domain name. There are 2 cases:
+<ul class="no-bullet">
+<li>- Your device UICC includes an ISIM application.
+IMPI, IMPU and domain name in the UE database should match the ISIM parameters of your device. If you do not know your ISIM parameters, you can always retrieve your IMPI by looking at IMS logs inside <code>REGISTER</code> request. The IMPI must match the username argument inside <code>Authorization</code> header. As for IMPU, you can check the <code>FROM</code> field of
+the <code>SIP INVITE</code> message.
+</li><li>- Your device UICC does not include an ISIM application. IMPI, IMPU and domain name should be derived from your IMSI as explained in section Background (See <a href="#Background">Background</a>).
+</li></ul>
+</li></ol>
+
+<p>Following is the default configuration for Anritsu UICC, already available in <samp>config/ue_db-ims.cfg</samp>. This UICC does not contain ISIM application and as you can observe, the IMS related parameters are all derived from the IMSI. 
+</p><div class="example">
+<pre class="example">ue_db: [{
+    sim_algo: &quot;xor&quot;, /* USIM authentication algorithm: xor, milenage or tuak */
+    imsi: &quot;001010123456789&quot;,
+    amf: 0x9001, /* Authentication Management Field */
+    sqn: &quot;000000000000&quot;, /* Sequence Number */
+    K: &quot;00112233445566778899aabbccddeeff&quot;,
+
+    impi: &quot;001010123456789@ims.mnc001.mcc001.3gppnetwork.org&quot;,
+    impu: [&quot;001010123456789&quot;, &quot;tel:0600000000&quot;, &quot;tel:600&quot;],
+    domain: &quot;ims.mnc001.mcc001.3gppnetwork.org&quot;,
+    multi_sim: true, /* Experimental */
+}
+</pre></div>
+
+
+<p>In the above example, you can observe that we have defined 3 IMPUs:
+</p><ol>
+<li> <code>001010123456789</code> corresponds to the SIP mandatory IMPU derived from IMSI <code>sip:001010123456789@ims.mnc001.mcc001.3gppnetwork.org</code>. Note that SIP URI for IMPU must not include the domain name. If IMPU does not start by a scheme, it is assumed to be a SIP URI.
+</li><li> tel URI <code>0600000000</code> which is a number where you can reach your device.
+</li><li> tel URI <code>600</code> which is a second phone number of your device.
+
+</li></ol>
+
+</li><li> Make sure your system is started with the right configuration files. If you are running the system manually, simply make sure that you are using <samp>mme-ims.cfg</samp> as LTEMME config file and <samp>ims.cfg</samp> as LTEIMS config file. If you are using an automatic service, the used LTEMME configuration file is <samp>mme.cfg</samp>. Make sure that <samp>mme.cfg</samp> is a symbolic link pointing to <samp>mme-ims.cfg</samp> in your <code>mme/config</code> directory.
+
+<p>The IMS program should be started as root if you want IPsec support. For manual start up, you can type the following commands:
+</p>
+<div class="example">
+<pre class="example">sudo cd /root/mme
+sudo ./ltemme config/mme-ims.cfg
+sudo ./lteims config/ims.cfg
+sudo cd /root/enb
+sudo ./lteenb config/enb.cfg
+</pre></div>
+
+<p>If you have changed anything in configuration files and you are using automatic service, make sure you restart the system
+</p>
+<div class="example">
+<pre class="example">sudo service lte restart
+</pre></div>
+
+</li></ul>
+
+<p>The <code>ims</code> PDN defined in fille <samp>mme-ims.cfg</samp> allows you to test VoLTE in IPv4 and IPv6. The IP version to be used could be controlled by setting <code>pdn_type</code> to ipv4, ipv6 or ipv4v6 in file <samp>mme-ims.cfg</samp>.
+</p>
+<span id="Step-by-Step-Volte-Call-Testing"></span><h3 class="section">2.3 Step by Step Volte Call Testing</h3>
+<p>This section provides instructions for establishing a VoLTE call. 
+</p><ul>
+<li> In the default configuration, the IMS PDN is called <code>ims</code> with a range of IPv4 addresses from 192.168.4.2 to 192.168.4.254 and IPv6 prefixes from 2001:468:3000:1:: to 2001:468:3000:ffff::. Make sure your UE is correctly attached to APN &quot;ims&quot; and has obtained an IPv4 and/or IPv6 address. You can type <code>ue</code> command in LTEMME screen. The ouput should look like below:
+
+<div align="center"><img src="img/ims_ue.webp" alt="img/ims_ue">
+</div>
+<p>In this example, the UE has obtained IPv4 address 192.168.4.2 and IPv6 prefix of 2001:468:3000:1::.
+</p>
+</li><li> The IMS command line interface is used to monitor the operation of LTEIMS. At the IMS window, check the output of <code>users</code> command which lists the user database and registering state of each device. Example below
+
+<div align="center"><img src="img/ims_users.webp" alt="img/ims_users">
+</div>
+<p>If your UE is correctly registered in IMS server, you should see a line starting by <code>Binding</code> as shown in the above image.
+</p></li></ul>
+
+
+<p>At this step, you can start the VoLTE call. You have the possibility to do
+</p><ul>
+<li> MO (Mobile Originated) ECHO test: The echo phone number is specified in file <samp>ims.cfg</samp> as below
+<div class="example">
+<pre class="example">/* Echo phone number */
+echo: [&quot;tel:666&quot;, &quot;tel:+666&quot;],
+</pre></div>
+<p>You can simply call <code>666</code> to have a voice echo test.
+</p></li><li> MT (Mobile Terminated) call test: You can directly initiate a MT call from the IMS server by typing
+<div class="example">
+<pre class="example">mt_call &lt;impi&gt;
+</pre></div>
+<p>in LTEIMS screen.
+</p></li><li> End-to-end call test: you can directly originate a call from one device to another. You can use the other device IMPU tel URI to initiate a call. In the default config with Anritsu UICC, you just need to dial <code>600</code> to call the other device.
+</li></ul>
+
+<span id="VoLTE-with-Test-SIM-Cards"></span><h3 class="section">2.4 VoLTE with Test SIM Cards</h3>
+<p>Test sim cards usually have the same IMSI which means that there is no way in EPC and IMS server to distinguish between devices using the same test SIM card. Amarisoft feature <em>multi-sim</em> allows you to use the same test SIM card in several devices and yet be able to differentiate UEs with the same IMSI. Note that this is only valid if XOR authentication algorithm is used in the SIM card. To enable this feature, you need to set <code>multi_sim</code> field in <samp>ue_db-ims.cfg</samp> file to <code>true</code>. In this case, the UEs could be distinguished with their IMEIs (International Mobile Equipment Identity). 
+</p>
+<p>As long as you have only 2 phones and you would like to initiate an end to end call between the 2 phones, our default configuration with <code>multi_sim: true</code> in <samp>ue_db-ims.cfg</samp> is sufficient. You can call other phone by calling <code>600</code>.
+For more than 2 phones, it is mandatory to create an IMPU associated to each device IMEI as follows:
+</p><div class="example">
+<pre class="example">impu: [  
+        &quot;001010123456789&quot;,
+        { impu: &quot;tel:0701&quot;, imei: &quot;359027072930540&quot; },
+        { impu: &quot;tel:0702&quot;, imei: &quot;356853053276500&quot; },
+        { impu: &quot;tel:0703&quot;, imei: &quot;359027072637360&quot; },
+],
+</pre></div>
+<p>Of course you have to update the <code>imei</code> fields by the ones for your UEs. The easiest way to find <code>imei</code> of your UEs is to check the output of <code>ue</code> command in LTEMME window. It will show you the IMEISV (IMEI Software Version) of the attached devices.
+You can also find IMEI directly from your phone. Check <code>settings/more/about device/status</code> in Android and you would see IMEI.
+</p><div class="example">
+<pre class="example">IMEI = IMEISV - last 2 digits + 0
+</pre></div>
+<p>Note that you should always maintain the default IMPU derived from your IMSI in your IMPU list.
+</p>
+<span id="Emergency-calls"></span><h3 class="section">2.5 Emergency calls</h3>
+<p>Emergency calls are supported (with and without SIM card), but might require a few settings in the various configuration files:
+</p>
+<ul>
+<li> eNB configuration file
+
+<p><code>ims_emergency_support</code> parameter must be set to true.
+</p>
+</li><li> MME configuration file
+
+<p><code>ims_vops_eps</code> and <code>emc_bs</code> parameters must be set to true. For 5GC, <code>ims_vops_5gs_3gpp</code> or <code>ims_vops_5gs_n3gpp</code> parameter
+must be set to true, and <code>emc</code> parameter must be set to 1 or 3 or <code>emc_n3gpp</code> must be set to true.
+</p>
+<p>One PDN should be defined with the <code>emergency</code> parameter set to true (it identifies the PDN used for emergency calls and the associated P-CSCF address).
+</p>
+</li><li> IMS configuration file
+
+<p>Add one entry to the <code>echo</code> list with the following parameters:
+</p><ul>
+<li> <code>impu</code> parameter set to &quot;urn:service:sos&quot; or any other specific string you might need.
+  </li><li> <code>anonymous</code> parameter set to true to allow calls without SIM card.
+  </li><li> <code>authentication</code> parameter set to false if you want to skip authentication for anonymous calls.
+</li></ul>
+</li></ul>
+
+<p>You can look at the configuration files delivered for examples.
+</p>
+<span id="Logging-_0026-Wireshark"></span><h2 class="chapter">3 Logging &amp; Wireshark</h2>
+<p>The Amarisoft IMS server generates a log file <code>/tmp/ims.log</code> that could be used for for further analysis and debugging. There is also the possibility to take a Wireshark log of the interface between LTEMME and LTEIMS. Wireshark is the industry-standard free IP and SIP protocol logging and analysis tool. Wireshark complements our internal IMS logging capability by providing an independent SIP log.
+</p>
+<p>The name of the interface to log with Wireshark could be checked with <code>ifconfig</code> command. If the LTEMME and the LTEIMS run on the same machine, by default the loopback interface is used for their communication. The loopback interface is usually named <code>lo</code>. Assuming <code>lo</code> interface is used, you can take a Wireshark log by running the below command:
+</p><div class="example">
+<pre class="example">tcpdump -i lo -w ims.pcap
+</pre></div>
+
+<p>Note that you need to deactivate IPsec to be able to visualize SIP messages by replacing
+</p><div class="example">
+<pre class="example">ipsec_ealg_list: [&quot;null&quot;, &quot;aes-cbc&quot;, &quot;des-cbc&quot;, &quot;des-ede3-cbc&quot;],
+</pre></div>
+<p>by
+</p><div class="example">
+<pre class="example">ipsec_ealg_list: [&quot;null&quot;],
+</pre></div>
+
+<span id="Troubleshooting"></span><h2 class="chapter">4 Troubleshooting</h2>
+<p>Below are some of the most common issues encountered during testing with recommended actions to address each issue.
+</p><table>
+<thead><tr><th width="30%">Issue</th><th width="70%">Cause/Correction</th></tr></thead>
+<tr><td width="30%">Can not initiate VoLTE call</td><td width="70%"><ul>
+<li> First thing is to check the LTEMME log. There must be a P-CSCF address request in NAS Attach request or NAS PDN connectivity request messages. 
+<div class="example">
+<pre class="example">[NAS] UL 0064 ESM: PDN connectivity request
+Protocol discriminator = 0x7 (EPS Mobility Management)
+Security header = 0x2 (Integrity protected and ciphered)
+Auth code = 0x50ad48d0
+Sequence number = 0x04
+Protocol discriminator = 0x2 (EPS Session Management)
+EPS bearer identity = 0
+Procedure transaction identity = 3
+Message type = 0xd0 (PDN connectivity request)
+Request type = 1
+PDN type = 3 (IPv4v6)
+Access point name = &quot;ims&quot;
+Protocol configuration options:
+  ext = 1
+  configuration protocol = 0
+  Protocol ID = 0x8021 (IPCP)
+  Data = 01 00 00 10 81 06 00 00 00 00 83 06 00 00 00 00
+  Protocol ID = 0x000d (DNS Server IPv4 Address Request)
+  Data =
+  Protocol ID = 0x0003 (DNS Server IPv6 Address Request)
+  Data =
+  Protocol ID = 0x0001 (P-CSCF IPv6 Address Request)
+  Data =
+  Protocol ID = 0x000c (P-CSCF IPv4 Address Request)
+  Data =
+  Protocol ID = 0x0002 (IM CN Subsystem Signaling Flag)
+  Data =
+  Protocol ID = 0x000a (IP address allocation via NAS signalling)
+  Data =
+</pre></div>
+</li><li> Assuming P-CSCF request has been sent, you must check in the Wireshark capture of the interface or the LTEIMS log file that the UE is sending a REGISTER SIP message. This message is generally sent via UDP on port 5060. In some rare cases, TCP is used instead.
+</li></ul></td></tr>
+<tr><td width="30%">There is no P-CSCF address request in NAS messages</td><td width="70%"><ul>
+<li> Check if you see a VoLTE menu in your phone. If you do not see it, it means VoLTE support is not enabled. 
+</li><li> Sometimes, you need to access hidden menus to activate IMS and VoLTE. On some Android phones, you have the possibility to access these hidden menus by typing <code>*#*#4636#*#*</code>.
+</li><li> Some phones require a firmware update before activating IMS and VoLTE. Make sure you accept and install updates on your phone.
+</li><li> Some phones only enable VoLTE with certain mobile operators and UICC cards.
+</li></ul></td></tr>
+<tr><td width="30%">There is a P-CSCF address request in NAS messages but no REGISTER SIP message is sent by the UE</td><td width="70%"><ul>
+<li> Some phones require a special name for their IMS APN. Check NAS Attach request or NAS PDN connectivity request messages in the LTEMME log to see which APN names your device is requesting. Change the <code>access_point_name</code> of your PDN in file <samp>mme-ims.cfg</samp> accordingly.
+</li><li> Some phones require an ISIM application in the UICC before enabling VoLTE.
+</li><li> Some phones only enable VoLTE with certain mobile operators and UICC cards.
+</li></ul></td></tr>
+</table>
+
+<span id="Additional-Information"></span><h2 class="chapter">5 Additional Information</h2>
+
+<p>This document is copyright (C) 2012-2024 Amarisoft. Its redistribution
+without authorization is prohibited.
+</p>
+<p>This document is available without any express or implied warranty and is subject to change without notice. In
+no event will Amarisoft be held liable for any damages arising from the use of this document.
+</p>
+<p>For any technical issue, please raise a ticket from our support site at <a href="https://support.amarisoft.com/">https://support.amarisoft.com/</a>.
+<br>
+To learn more about our technology and solutions, e-mail us at <a href="mailto:customer@amarisoft.com">customer@amarisoft.com</a> or visit <a href="https://www.amarisoft.com">https://www.amarisoft.com</a>.
+</p>
+
+
+<hr>
+
+
+
+</body>
+</html>

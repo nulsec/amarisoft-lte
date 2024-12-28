@@ -1,0 +1,773 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.6, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Satellite toolbox</title>
+
+<meta name="description" content="Satellite toolbox">
+<meta name="keywords" content="Satellite toolbox">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+
+th {
+    border: 1px solid black;
+    background-color: #c0f585;
+    font-size: 14px;
+    padding: 5px;
+}
+
+td {
+    border: 1px solid black;
+    padding: 2px 4px;
+}
+
+p>img {
+    display: initial;
+}
+
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">Satellite toolbox</h1>
+
+
+<span id="SEC_Contents"></span>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+<ul class="no-bullet">
+<li><a id="toc-Introduction" href="#Introduction">1 Introduction</a>
+<ul class="no-bullet">
+  <li><a id="toc-Toolbox-mode" href="#Toolbox-mode">1.1 Toolbox mode</a></li>
+  <li><a id="toc-Mission-control-mode" href="#Mission-control-mode">1.2 Mission control mode</a></li>
+</ul></li>
+<li><a id="toc-Requirements" href="#Requirements">2 Requirements</a>
+<ul class="no-bullet">
+  <li><a id="toc-Hardware-requirements" href="#Hardware-requirements">2.1 Hardware requirements</a></li>
+  <li><a id="toc-Software-requirements" href="#Software-requirements">2.2 Software requirements</a></li>
+</ul></li>
+<li><a id="toc-Installation" href="#Installation">3 Installation</a>
+<ul class="no-bullet">
+  <li><a id="toc-Linux-setup" href="#Linux-setup">3.1 Linux setup</a></li>
+  <li><a id="toc-Licensing" href="#Licensing">3.2 Licensing</a></li>
+  <li><a id="toc-Initial-testing" href="#Initial-testing">3.3 Initial testing</a></li>
+</ul></li>
+<li><a id="toc-Configuration-reference" href="#Configuration-reference">4 Configuration reference</a>
+<ul class="no-bullet">
+  <li><a id="toc-Configuration-file-syntax" href="#Configuration-file-syntax">4.1 Configuration file syntax</a>
+  <ul class="no-bullet">
+    <li><a id="toc-JSON-merge-rules-1" href="#JSON-merge-rules-1">4.1.1 JSON merge rules</a></li>
+  </ul></li>
+  <li><a id="toc-Global-properties" href="#Global-properties">4.2 Global properties</a></li>
+  <li><a id="toc-Single-satellite-descriptor-object" href="#Single-satellite-descriptor-object">4.3 Single satellite descriptor object</a></li>
+  <li><a id="toc-Single-ground-cell-descriptor-object" href="#Single-ground-cell-descriptor-object">4.4 Single ground cell descriptor object</a></li>
+  <li><a id="toc-Mission-control-specific-parameters" href="#Mission-control-specific-parameters">4.5 Mission control specific parameters</a></li>
+</ul></li>
+<li><a id="toc-Examples" href="#Examples">5 Examples</a>
+<ul class="no-bullet">
+  <li><a id="toc-Toolbox-usage" href="#Toolbox-usage">5.1 Toolbox usage</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Overhead-pass" href="#Overhead-pass">5.1.1 Overhead pass</a></li>
+    <li><a id="toc-Trajectory" href="#Trajectory">5.1.2 Trajectory</a></li>
+    <li><a id="toc-Export" href="#Export">5.1.3 Export</a></li>
+  </ul></li>
+  <li><a id="toc-Mission-control" href="#Mission-control">5.2 Mission control</a></li>
+</ul></li>
+
+</ul>
+</div>
+
+
+<span id="Introduction"></span><h2 class="chapter">1 Introduction</h2>
+
+<p><code>ltesat</code> is a companion software of Amarisoft eNB/gNB for any NTN scenario and features two main functions:
+</p>
+<span id="Toolbox-mode"></span><h3 class="section">1.1 Toolbox mode</h3>
+<p>It can be used &rsquo;offline&rsquo; like a toolbox to replay or plan any satellite orbit.
+It accepts various inputs for satellite description which are compatible with eNB/gNB NTN configuration
+and can output the satellite trajectory with several formats: 
+azimuth/elevation from a given ground position, groundtrack or  ECEF coordinates.
+</p>
+<p>It can also be used as a pass predictor over a given ground position.
+It can also export a given satellite description to another format, e.g to generate a TLE file.
+</p>
+<span id="Mission-control-mode"></span><h3 class="section">1.2 Mission control mode</h3>
+<p>Secondly, it can be used as a &rsquo;mission control&rsquo; software to control several Amarisoft eNB/gNB working with a worldwide LEO constellation.
+The configuration file contains a mapping between ground cells and Amarisoft eNB/gNBs with an NTN configuration, along with the definition of a satellite constellation.
+<code>ltesat</code> will configure in realtime the eNB/gNBs to select the serving satellites for its NTN cells, in order to allow a continuous coverage in time.
+<code>ltesat</code> offers the same comprehensive logging mechanism as other Amarisoft products and smoothly interfaces with Amarisoft GUI.
+</p>
+<span id="Requirements"></span><h2 class="chapter">2 Requirements</h2>
+
+<span id="Hardware-requirements"></span><h3 class="section">2.1 Hardware requirements</h3>
+
+<ul>
+<li> <code>ltesat</code> is not a performance-intensive executable and can run on any machine.
+</li></ul>
+
+<span id="Software-requirements"></span><h3 class="section">2.2 Software requirements</h3>
+
+<ul>
+<li> A 64 bit Linux distribution. Fedora 39 is the officially supported distribution.<br>
+The following distributions are known as compatible:
+<ul>
+<li> Fedora 22 to 39
+</li><li> Cent OS 7
+</li><li> Ubuntu 14 to 22
+</li></ul>
+
+<p>Your system requires at least GLIBC 2.17.
+</p>
+
+</li></ul>
+
+
+<span id="Installation"></span><h2 class="chapter">3 Installation</h2>
+
+<p><code>ltesat</code> can be run directly from the directory where it was unpacked.
+</p>
+<span id="Linux-setup"></span><h3 class="section">3.1 Linux setup</h3>
+
+<p><code>ltesat</code> does not need external packages.
+</p>
+<span id="Licensing"></span><h3 class="section">3.2 Licensing</h3>
+
+<p><code>ltesat</code> needs a valid Amarisoft license with the NTN option to run.
+</p>
+<span id="Initial-testing"></span><h3 class="section">3.3 Initial testing</h3>
+
+<ul>
+<li> To display the satellite groundtrack:
+<div class="example">
+<pre class="example">./ltesat sat-groundtrack.cfg
+</pre></div>
+
+</li><li> To act as a mission control:
+<div class="example">
+<pre class="example">./ltesat -m sat-mc.cfg
+</pre></div>
+<p>In mission control mode, the <code>ltesat</code> runs until it receives a <code>Ctrl+C</code> termination command.
+</p>
+</li></ul>
+
+
+<span id="Configuration-reference"></span><h2 class="chapter">4 Configuration reference</h2>
+
+<span id="Configuration-file-syntax"></span><h3 class="section">4.1 Configuration file syntax</h3>
+
+<p>The main configuration file uses a syntax very similar to the
+Javascript Object Notation (JSON) with few extensions.
+</p>
+<ol>
+<li> Supported types:
+
+<ul class="no-bullet">
+<li>- Numbers (64 bit floating point). Notation: <code>13.4</code>
+</li><li>- Complex numbers. Notation: <code>1.2+3*I</code>
+</li><li>- Strings. Notation: <code> &quot;string&quot; </code>
+</li><li>- Booleans. Notation: <code>true</code> or <code>false</code>.
+</li><li>- Objects. Notation: <code> { field1: <var>value1</var>, field2: <var>value2</var>, .... } </code>
+</li><li>- Arrays. Notation: <code> [ <var>value1</var>, <var>value2</var>, .... ] </code>
+</li></ul>
+
+</li><li> The basic operations <code>+</code>, <code>-</code>, <code>*</code> and <code>/</code> are
+supported with numbers and complex numbers. <code>+</code> also concatenates
+strings. The operators <code>!</code>, <code>||</code>, <code>&amp;&amp;</code>, <code>==</code>,
+<code>!=</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;=</code>, <code>&gt;</code> are supported too.
+
+</li><li> The numbers <code>0</code> and <code>1</code> are accepted as synonyms for the
+boolean values <code>false</code> and <code>true</code>.
+
+</li><li> {} at top level are optional.
+
+</li><li> &quot; for property names are optional, unless the name starts with a number.
+
+</li><li> Properties can be duplicated.<br>
+If properties are duplicated, they will be merged following <a href="#JSON-merge-rules">JSON merge rules</a> with overriding
+occuring in reading direction (last overrides previous).<br>
+Ex:
+<pre class="verbatim">{
+    value: &quot;foo&quot;,
+    value: &quot;bar&quot;,
+    sub: {
+        value: &quot;foo&quot;
+    },
+    sub: {
+        value: &quot;bar&quot;
+    }
+}
+</pre><p>Will be equivalent to:
+</p><pre class="verbatim">{
+    value: &quot;bar&quot;,
+    sub: {
+        value: &quot;bar&quot;
+    }
+}
+</pre>
+
+
+</li><li> Files can be included using <var>include</var> keyword (must not be quoted) followed by a string (without :) representing the file to include (path is relative to current file) and terminating by a comma.<br>
+Arrays can&rsquo;t be included.<br>
+Merge will be done as for duplicate properties.<br>
+If <var>file1.cfg</var> is:
+<pre class="verbatim">    value: &quot;foo&quot;,
+    include &quot;file2.cfg&quot;,
+    foo: &quot;foo&quot;
+</pre><p>And <var>file2.cfg</var> is:
+</p><pre class="verbatim">    value: &quot;bar&quot;,
+    foo: &quot;bar&quot;
+</pre><p>Final config will be:
+</p><pre class="verbatim">{
+    value: &quot;bar&quot;,
+    foo: &quot;foo&quot;
+}
+</pre>
+</li><li> A C like preprocessor is supported. The following preprocessor commands are available:
+  <dl compact="compact">
+<dt><code>#define <var>var</var> <var>expr</var></code></dt>
+<dd><p>Define a new variable with value <var>expr</var>. <var>expr</var> must be a
+  valid JSON expression. Note that unlike the standard C preprocessor,
+  <var>expr</var> is evaluated by the preprocessor.
+  </p></dd>
+<dt><code>#undef <var>var</var></code></dt>
+<dd><p>Undefine the variable <var>var</var>.
+  </p></dd>
+<dt><code>#include <var>expr</var></code></dt>
+<dd><p>Include the file whose filename is the evaluation of the string
+  expression <var>expr</var>.
+  </p></dd>
+<dt><code>#if <var>expr</var></code></dt>
+<dd><p>Consider the following text if <var>expr</var> is true.
+  </p></dd>
+<dt><code>#else</code></dt>
+<dd><p>Alternative of <code>#if</code> block.
+  </p></dd>
+<dt><code>#elif</code></dt>
+<dd><p>Composition of <code>#else</code> and <code>#if</code>.
+  </p></dd>
+<dt><code>#endif</code></dt>
+<dd><p>End of <code>#if</code> block.
+  </p></dd>
+<dt><code>#ifdef <var>var</var></code></dt>
+<dd><p>Shortcut for <code>#if defined(var)</code>
+  </p></dd>
+<dt><code>#ifndef <var>var</var></code></dt>
+<dd><p>Shortcut for <code>#if !defined(var)</code>
+  </p></dd>
+</dl>
+
+<p>In the JSON source, every occurrence of a defined preprocessor
+  variable is replaced by its value.
+</p>
+</li><li> Backquote strings: JSON expression can be inserted in backquote delimited strings with the <code>${expr}</code> syntax. Example: <code>`abc${1+2}d`</code> is evaluated as the string <code>&quot;abc3d&quot;</code>. Preprocessor variables can be used inside the expression. Backquote strings may span several lines.
+
+</li></ol>
+
+
+<span id="JSON-merge-rules"></span><span id="JSON-merge-rules-1"></span><h4 class="subsection">4.1.1 JSON merge rules</h4>
+
+<p>Merge overriding direction depends on context, i.e source may override destination or the opposite.<br>
+JSON merge is recursive for Objects and Arrays.<br>
+</p>
+<p>Example, merging
+</p><pre class="verbatim">{
+    foo: { value: &quot;bar&quot; },
+    same: &quot;one&quot;,
+    one: 1
+}
+</pre><p>with
+</p><pre class="verbatim">{
+    foo: { value: &quot;none&quot;, second: true },
+    same: &quot;two&quot;,
+    two: 1
+}
+</pre>
+<p>Will become:
+</p><pre class="verbatim">{
+    foo: { value: &quot;bar&quot;, second: true },
+    same: &quot;one&quot;,
+    one: 1
+    two: 1
+}
+</pre><p>assuming first object overrides second one.<br>
+</p>
+
+<p>In case of Array merging, the final array length will be the maximum length of all merged arrays.<br>
+For each element of the final array, merge will be done considering defined elements only.<br>
+Ex:
+</p><pre class="verbatim">{
+    array: [0, 1, 2, { foo: &quot;bar&quot; } ],
+    array: [3, 4],
+    array: [5, 6, 7, { bar: &quot;foo&quot; }, 8 ]
+}
+</pre><p>Will be merged to:
+</p><pre class="verbatim">{
+    array: [5, 6, 7, { foo: &quot;bar&quot;, bar: &quot;foo&quot; }, 8 ],
+}
+</pre>
+
+
+<span id="Global-properties"></span><h3 class="section">4.2 Global properties</h3>
+
+<dl compact="compact">
+<dd>
+
+<span id="constellation"></span></dd>
+<dt><code>constellation_list</code></dt>
+<dd><p>Optional array of constellation objects.
+If absent, a single satellite descriptor object is parsed.See <a href="#single_005fsat">single_sat</a>.
+Each constellation object can either be:
+</p><ul>
+<li> A shell of circular orbit planes described by the following parameters:
+<dl compact="compact">
+<dt><code>n_planes</code></dt>
+<dd><p>Integer (range 1 to 72). Number of orbital planes. The orbital planes are spread evenly in longitude of ascending node.
+    </p></dd>
+<dt><code>n_sats_per_plane</code></dt>
+<dd><p>Integer (range 1 to 72). Number of satellites per orbital plane. The satellites are spread evenly in a given plane.
+    The total number of satellites in the shell is given by <code>n_planes * n_stats_per_plane</code>.
+    </p></dd>
+<dt><code>inclination</code></dt>
+<dd><p>Float (range 0.0 to 180.0). Inclination in degrees of the orbital planes.
+    </p></dd>
+<dt><code>altitude</code></dt>
+<dd><p>Float (range 200e3 to 3700e3). Altitude in meters of the shell.
+</p></dd>
+</dl>
+</li><li> An array of single satellite descriptor objects.See <a href="#single_005fsat">single_sat</a>
+</li><li> A combined TLE file containing several TLE, described by the following parameter:
+<dl compact="compact">
+<dt><code>multiple_tle_filename.</code></dt>
+<dd><p>String. Filename where the TLEs are stored. The TLEs should be stored in sequence, blank lines are ignored.
+</p></dd>
+</dl>
+</li></ul>
+
+</dd>
+<dt><code>output_mode</code></dt>
+<dd><p>Optional enumeration: az_el, groundtrack, ecef, pass (default = az_el). Selects the wanted output when operating in &rsquo;toolbox&rsquo; mode:
+</p><dl compact="compact">
+<dt><code>az_el</code></dt>
+<dd><p>Displays distance, azimuth, elevation and doppler. Needs at a least a valid ground cell definition. See <a href="#single_005fcell">single_cell</a>
+</p></dd>
+<dt><code>groundtrack</code></dt>
+<dd><p>Displays latitude, longitude and altitude.
+</p></dd>
+<dt><code>ecef</code></dt>
+<dd><p>Displays ECEF state vectors for position (X, Y, Z) and velocity (VX, VY, VZ).
+</p></dd>
+<dt><code>pass</code></dt>
+<dd><p>Displays next pass information. Needs at least a valid ground cell definition. See <a href="#single_005fcell">single_cell</a>
+</p></dd>
+</dl>
+
+</dd>
+<dt><code>output_list</code></dt>
+<dd><p>Optional boolean (default = false).
+When true, the output will consist of a single point in time, defined by <code>start_time</code> for each of the satellites.<br>
+When false, the output is a trajectory for a given satellite (as given by <code>sat_id</code>) across time (as given by <code>start_time</code>, <code>step_ms</code> and <code>n_steps</code>).
+</p>
+</dd>
+<dt><code>sat_id</code></dt>
+<dd><p>Optional integer (default = 0).
+When multiple satellites are defined, and if <code>output_list</code> is false, selects the satellite of interest.
+</p>
+</dd>
+<dt><code>step_ms</code></dt>
+<dd><p>Optional integer (range 10 to 600000, default 1000).
+Step duration in milliseconds for the satellite trajectory.
+</p>
+</dd>
+<dt><code>n_steps</code></dt>
+<dd><p>Optional integer (range 1 to 1440, default 300).
+Number of steps for the satellite trajectory.
+For the <code>pass</code> output mode, it is the consecutive number of passes to compute.
+</p>
+</dd>
+<dt><code>start_time</code></dt>
+<dd><p>Optional string, formatted &quot;YYYY-MM-DDTHH:MM:SS[.mmm]&quot; (ISO 8601 format) in UTC time.
+Defines the starting point for the satellite trajectory or pass estimation.
+If absent, the current time at execution is taken.
+</p>
+</dd>
+<dt><code>min_elevation</code></dt>
+<dd><p>Optional integer (range 0 to 80, default 10). Used only in mission control mode or <code>pass</code> output mode.
+Minimum elevation, in degrees, to consider for a valid overhead pass.
+</p>
+</dd>
+<dt><code>cells_list</code></dt>
+<dd><p>Optional array of objects. Each object is a single ground cell descriptor object.See <a href="#single_005fcell">single_cell</a><br>
+If absent, a single ground cell descriptor object is parsed directly.
+</p>
+</dd>
+<dt><code>export_type</code></dt>
+<dd><p>Optional enumeration: none, json, tle (default = none).
+Exports the satellites information, timestamped at <code>export_time</code> in the file specified by <code>export_filename</code>.<br>
+If set to <code>json</code>, it will export a JSON array of single satellite descriptor objects in the <code>ephemeris</code> format, compatible with <code>ltesat</code> or Amarisoft LTE gNB/eNB input.<br>
+If set to <code>tle</code>, it will export the generated TLEs of the satellites, compatible with the <code>multiple_tle_filename</code> input of <code>ltesat</code> or any other third party software using TLEs.
+</p>
+</dd>
+<dt><code>export_filename</code></dt>
+<dd><p>Optional string.
+Mandatory if <code>export_type</code> is not <code>none</code>, ignored otherwise.<br>
+Filename where the exported data is written.
+</p>
+</dd>
+<dt><code>export_time</code></dt>
+<dd><p>Optional string, formatted &quot;YYYY-MM-DDTHH:MM:SS[.mmm]&quot; (ISO 8601 format) in UTC time.
+Ignored if <code>export_type</code> is <code>none</code>.
+Epoch to use when generating the exported data. If absent, the current time at execution is taken.
+</p>
+</dd>
+</dl>
+
+<span id="single_005fsat"></span><span id="Single-satellite-descriptor-object"></span><h3 class="section">4.3 Single satellite descriptor object</h3>
+
+<p>This object is placed either as an element of a constellation object of array type (See <a href="#constellation">constellation</a>)
+or at the top level of the configuration file (for a single satellite configuration).<br>
+Its configuration is compatible with the <code>ntn</code> object in Amarisoft eNB/gNB configurations.<br>
+It contains the following parameters:
+</p><dl compact="compact">
+<dt><code>tle_filename</code></dt>
+<dd><p>Optional string to configure satellite ephemeris from a Two Line Elements (TLE) file.<br>
+  The file shall contain only the two lines of data and optionally a title line.<br>
+  When the parameter is present, <code>ephemeris</code> is ignored.
+  </p></dd>
+<dt><code>default_ephemeris</code></dt>
+<dd><p>Optional enumeration: <code>geo</code>, <code>meo</code>, <code>leo</code>. Default is <code>geo</code>.<br>
+  If <code>ephemeris</code> is absent, a default satellite ephemeris is generated so that the satellite is overhead the eNB ground position at the time specified by <code>start_time</code>.
+  The GEO and MEO satellite will be placed on the equatorial plane (zero inclination) at the longitude of the eNB ground position.<br>
+  The LEO satellite will be initially placed at the zenith of the eNB position.
+  </p></dd>
+<dt><code>default_altitude</code></dt>
+<dd><p>Optional float, range 200e3 to 36000e3.
+  If <code>default_ephemeris</code> is used and set to <code>meo</code> or <code>leo</code>, this parameter (in meters) allows to override the altitude of the chosen orbit.<br>
+  The parameter is ignored otherwise.
+  The default values are 550e3 for <code>leo</code> and 8063e3 for <code>meo</code>.
+  </p></dd>
+<dt><code>default_elevation_offset</code></dt>
+<dd><p>Optional float, range -90 to 90, default = 0.
+  If <code>default_ephemeris</code> is used and set to <code>leo</code>, this parameter (in degrees) allows to adjust the initial elevation of the satellite compared to the zenith position.<br>
+  The parameter is ignored otherwise.
+  Negative values will place the satellite before its zenith pass and positive values after the zenith.
+  </p></dd>
+<dt><code>ephemeris</code></dt>
+<dd><p>Optional object to configure satellite ephemeris in the form of orbital parameters.<br>
+  The ephemeris configuration is understood in a fixed ECI reference frame aligned with the J2000 vernal equinox, like a TLE configuration.
+  If absent and if <code>tle_filename</code> and <code>sv_filename</code> are also absent, a default ephemeris is generated.<br>
+  Contains the following parameters:
+    </p><dl compact="compact">
+<dt><code>eccentricity</code></dt>
+<dd><p>Float value. Range 0 to 0.99. Eccentricity, unitless
+    </p></dd>
+<dt><code>inclination</code></dt>
+<dd><p>Float value. Range <em>0</em> to <em>\pi</em>. Inclination, in radians.
+    </p></dd>
+<dt><code>semi_major_axis</code></dt>
+<dd><p>Float value. Semi-major axis, in meters.
+    </p></dd>
+<dt><code>longitude</code></dt>
+<dd><p>Float value. Range 0 to <em>2\pi</em>. Longitude of the ascending node, in radians.
+    </p></dd>
+<dt><code>periapsis</code></dt>
+<dd><p>Float value. Range 0 to <em>2\pi</em>. Argument of periapsis, in radians.
+    </p></dd>
+<dt><code>anomaly</code></dt>
+<dd><p>Float value. Range 0 to <em>2\pi</em>. Mean anomaly of the satellite on its orbit at <code>epoch</code>, in radians.
+    </p></dd>
+<dt><code>epoch</code></dt>
+<dd><p>String, formatted &quot;YYYY-MM-DDTHH:MM:SS[.mmm]&quot; (ISO 8601 format) in UTC time.
+    Epoch for the given orbital parameters.
+    </p></dd>
+</dl>
+</dd>
+</dl>
+
+<span id="single_005fcell"></span><span id="Single-ground-cell-descriptor-object"></span><h3 class="section">4.4 Single ground cell descriptor object</h3>
+<p>This object describes a ground position used as reference for <code>az_el</code> and <code>pass</code> output.&nbsp;For the mission control mode, it describes a ground footprint of the satellite beams.<br>
+It contains the following parameters:
+</p><dl compact="compact">
+<dt><code>ground_position</code></dt>
+<dd><p>Object describing the cell center, contains the following parameters:
+    </p><dl compact="compact">
+<dt><code>latitude</code></dt>
+<dd><p>Float value. Range -90 to 90. Degrees of latitude.
+        </p></dd>
+<dt><code>longitude</code></dt>
+<dd><p>Float value. Range -180 to 180. Degrees of longitude.
+        </p></dd>
+<dt><code>altitude</code></dt>
+<dd><p>Optional float value (default = 0). Range -1000m to 20km. Altitude in meters.
+    </p></dd>
+</dl>
+
+</dd>
+<dt><code>radius</code></dt>
+<dd><p>Optional float (range 1e3 to 15000e3, default 400e3, used only in mission control mode)
+    Radius of the cell in meters.
+</p>
+</dd>
+<dt><code>supported_constellations</code></dt>
+<dd><p>Optional array of integer (used only in mission control mode).
+    Allows to restrict only the satellites of the given constellation indices of the <code>constellation_list</code> array to cover the cell. See <a href="#constellation">constellation</a>
+</p></dd>
+</dl>
+
+<span id="mission_005fcontrol"></span><span id="Mission-control-specific-parameters"></span><h3 class="section">4.5 Mission control specific parameters</h3>
+
+<p>These parameters are used only when the program is launched with the <code>-m</code> option.
+They are also placed at the top level of the configuration file.
+</p>
+<dl compact="compact">
+<dt><code>ran_node_list</code></dt>
+<dd><p>Array of objects to describe the connection to Amarisoft eNB/gNB and the mapping between RAN cells and ground cells.&nbsp;    Each object contains the following parameters:
+    </p><dl compact="compact">
+<dt><code>addr</code></dt>
+<dd><p>String. IP adress and port of the COM port of the eNB/gNB.
+        </p></dd>
+<dt><code>label</code></dt>
+<dd><p>Optional string. Custom label for this eNB used in logs and console output.
+        </p></dd>
+<dt><code>mapping_list</code></dt>
+<dd><p>Array of objects. Describes the mapping between a ground cell and one or more RAN cells.
+        Each ground cell can only be referenced in one RAN node and each RAN cell can only be mapped to one ground cell.
+        Each object contains the following parameters:
+        </p><dl compact="compact">
+<dt><code>ground_cell_id</code></dt>
+<dd><p>Integer. Index of the ground cell in the <code>cell_list</code> array
+            </p></dd>
+<dt><code>ran_cell_list</code></dt>
+<dd><p>Array of integers. <code>cell_id</code> values of the RAN cells mapped to this ground cell.
+            With more than 1 cells, the mission control will ensure a small overlap between satellite pass to offer a continuous coverage of the cell and the possibilities for the UEs to perform handovers.
+        </p></dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+<dt><code>pass_overlap</code></dt>
+<dd><p>Optional integer (range 10 to 120, default 30). Overlap duration in seconds of the coverage of the ground cells with more than one RAN cell.
+</p>
+</dd>
+<dt><code>dump_ran_status</code></dt>
+<dd><p>Optional boolean. Print useful information in the console output. This options is preferred when no GUI is connected to the <code>ltesat</code> tool.
+</p>    
+</dd>
+<dt><code>log_filename</code></dt>
+<dd><p>String. Set the log filename. If no leading <code>/</code>, it is relative to the
+configuration file path.
+</p>
+</dd>
+<dt><code>log_options</code></dt>
+<dd><p>String. Set the logging options as a comma separated list of assignments.
+    </p><ul>
+<li> <var>layer</var>.level=<var>verbosity</var>. For each layer, the log verbosity can be set
+    to <code>none</code>, <code>error</code>, <code>info</code> or <code>debug</code>. In debug
+    level, the content of the transmitted data is logged.
+        
+</li><li> <var>layer</var>.max_size=<var>n</var>. When dumping data content, at
+    most <code>n</code> bytes are shown in hexa. For ASN.1, NAS or Diameter content, show the full content of the message if <code>n &gt; 0</code>.
+        </li><li> time=[sec|short|full]. Display the time as seconds, time only
+    or full date and time (default = time only).
+        </li><li> time.us=[0|1]. Dump time with microseconds precision.
+        </li><li> file=cut. Close current file log and open a new one.
+        </li><li> file.rotate=now. Rename current log with timestamp and open new one.
+        </li><li> file.rotate=<var>size</var>. Rename current log every time it reaches <var>size</var> bytes open new one.
+      Size is an integer and can be followed by K, M or G.
+        </li><li> file.path=<var>path</var>. When log rotation is enabled, move current log to this path instead of
+      initial log path.
+        </li><li> append=[0|1]. (default=0). If 0, truncate the log file when
+      opening it. Otherwise, append to it.
+    </li></ul>
+<p>Available layers are: PROD
+</p>
+</dd>
+<dt><code>log_sync</code></dt>
+<dd><p>Optional boolean (default = false). If true, logs will be synchronously dumped to file.<br>
+      Warning, this may lead to performances decrease.
+</p>
+</dd>
+<dt><code>com_addr</code></dt>
+<dd><p>String. IP adress and port on which the <code>ltesat</code> software can receive websocket connection
+</p>
+</dd>
+</dl>
+
+<span id="Examples"></span><h2 class="chapter">5 Examples</h2>
+
+<span id="Toolbox-usage"></span><h3 class="section">5.1 Toolbox usage</h3>
+
+<p>Fetch a well-known TLE from online source in a file, e.g. here is the ISS(ZARYA) TLE from 2024/03/07, stored in <samp>iss.tle</samp>:
+</p><table class="cartouche" border="1"><tr><td>
+<pre class="verbatim">1 25544U 98067A   24067.37790297  .00014521  00000-0  26457-3 0  9993
+2 25544  51.6412  99.9639 0005680 335.2557 148.0116 15.49704815442763
+</pre></td></tr></table>
+
+<span id="Overhead-pass"></span><h4 class="subsection">5.1.1 Overhead pass</h4>
+<p>Here is the configuration file to get the next 10 overhead passes over Paris, with a minimum elevation of 20Â°, from the 2024/03/10 onward, stored in <samp>sat-pass.cfg</samp>:
+</p><table class="cartouche" border="1"><tr><td>
+<pre class="verbatim">/* ltesat configuration file version ##VERSION##
+ * Copyright (C) 2024 Amarisoft
+ */
+{
+    output_mode: &quot;pass&quot;,
+    min_elevation: 20,
+    n_steps: 10,
+
+    start_time: &quot;2024-03-10T00:00:00&quot;,
+
+    ground_position: {
+        latitude: 48.8538,
+        longitude: 2.3475
+    },
+    tle_filename: &quot;iss.tle&quot;
+}
+</pre></td></tr></table>
+
+<p>It will give the following output:
+</p><pre class="verbatim">[user@host]$ ./ltesat sat-pass.cfg 
+Satellite utility version 2024-03-15, Copyright (C) 2012-2024 Amarisoft
+[OK] TLE at epoch 2024-03-07T09:04:11.000
+               T_start(UTC)      T_max(UTC) Elevation(d)      T_end(UTC)
+    2024-03-10T00:20:18.740    00:22:27.640       50.276    00:24:36.540
+    2024-03-10T01:57:11.100    01:59:26.580       81.349    02:01:42.060
+    2024-03-10T21:55:07.940    21:57:20.320       65.740    21:59:32.710
+    2024-03-10T23:32:01.760    23:34:11.600       52.915    23:36:21.450
+    2024-03-11T01:08:59.030    01:11:12.550       65.108    01:13:26.080
+    2024-03-11T02:45:58.970    02:47:52.220       37.528    02:49:45.480
+    2024-03-11T21:07:09.920    21:09:10.410       44.918    21:11:10.910
+    2024-03-11T22:43:42.410    22:45:54.320       59.901    22:48:06.240
+    2024-03-12T00:20:44.720    00:22:55.620       55.556    00:25:06.530
+    2024-03-12T01:57:35.880    01:59:43.090       55.364    02:01:50.310
+</pre>
+<span id="Trajectory"></span><h4 class="subsection">5.1.2 Trajectory</h4>
+<p>Here is the configuration file to get the detailed trajectory for one of those pass, with one point every 10 seconds over 5 minutes, stored in <samp>sat-traj.cfg</samp>:
+</p><table class="cartouche" border="1"><tr><td>
+<pre class="verbatim">/* ltesat configuration file version ##VERSION##
+ * Copyright (C) 2024 Amarisoft
+ */
+{
+    output_mode: &quot;az_el&quot;,
+    n_steps: 30,
+    step_ms: 10000,
+    start_time: &quot;2024-03-10T01:57:00&quot;,
+
+    ground_position: {
+        latitude: 48.8538,
+        longitude: 2.3475
+    },
+    tle_filename: &quot;iss.tle&quot;
+}
+</pre></td></tr></table>
+
+<p>It will give the following output:
+</p><pre class="verbatim">[user@host]$ ./ltesat sat-traj.cfg 
+Satellite utility version 2024-03-15, Copyright (C) 2012-2024 Amarisoft
+[OK] TLE at epoch 2024-03-07T09:04:11.000
+                 Time(UTC)  Distance(km)  Azimuth(d)  Elevation(d)  Doppler(ppm)
+   2024-03-10T01:57:00.000      1126.994     291.677        17.929        21.805
+   2024-03-10T01:57:10.000      1061.955     291.937        19.706        21.571
+   2024-03-10T01:57:20.000       997.688     292.233        21.673        21.288
+   2024-03-10T01:57:30.000       934.361     292.574        23.865        20.942
+   2024-03-10T01:57:40.000       872.186     292.971        26.328        20.516
+   2024-03-10T01:57:50.000       811.436     293.444        29.115        19.987
+   2024-03-10T01:58:00.000       752.465     294.017        32.295        19.324
+   2024-03-10T01:58:10.000       695.733     294.731        35.949        18.486
+   2024-03-10T01:58:20.000       641.842     295.646        40.175        17.419
+   2024-03-10T01:58:30.000       591.574     296.869        45.082        16.055
+   2024-03-10T01:58:40.000       545.940     298.594        50.778        14.314
+   2024-03-10T01:58:50.000       506.200     301.214        57.346        12.110
+   2024-03-10T01:59:00.000       473.844     305.672        64.770         9.381
+   2024-03-10T01:59:10.000       450.471     314.804        72.789         6.126
+   2024-03-10T01:59:20.000       437.526     340.282        80.217         2.454
+   2024-03-10T01:59:30.000       435.940      44.006        81.573        -1.404
+   2024-03-10T01:59:40.000       445.835      79.137        74.933        -5.155
+   2024-03-10T01:59:50.000       466.479      90.735        66.872        -8.541
+   2024-03-10T02:00:00.000       496.533      96.016        59.239       -11.418
+   2024-03-10T02:00:10.000       534.407      98.996        52.428       -13.761
+   2024-03-10T02:00:20.000       578.563     100.908        46.498       -15.621
+   2024-03-10T02:00:30.000       627.674     102.240        41.385       -17.080
+   2024-03-10T02:00:40.000       680.662     103.224        36.984       -18.220
+   2024-03-10T02:00:50.000       736.686     103.983        33.183       -19.115
+   2024-03-10T02:01:00.000       795.098     104.588        29.882       -19.822
+   2024-03-10T02:01:10.000       855.404     105.083        26.994       -20.385
+   2024-03-10T02:01:20.000       917.223     105.498        24.448       -20.837
+   2024-03-10T02:01:30.000       980.263     105.851        22.186       -21.203
+   2024-03-10T02:01:40.000      1044.297     106.156        20.162       -21.502
+   2024-03-10T02:01:50.000      1109.145     106.423        18.336       -21.748
+</pre>
+<span id="Export"></span><h4 class="subsection">5.1.3 Export</h4>
+<p>For testing purpose, it could be useful to generate a &rsquo;virtual TLE&rsquo; that simulates a satellite passing overhead a given location at a given time.
+Here is an example with the <code>default_ephemeris</code> and <code>export_type</code> parameter, stored in <samp>sat-export.cfg</samp>:
+</p><table class="cartouche" border="1"><tr><td>
+<pre class="verbatim">/* ltesat configuration file version ##VERSION##
+ * Copyright (C) 2024 Amarisoft
+ */
+
+{
+    output_mode: &quot;az_el&quot;,
+    n_steps: 10,
+    step_ms: 30000,
+    start_time: &quot;2024-03-15T14:30:00&quot;,
+
+    ground_position: {
+        latitude: 48.8538,
+        longitude: 2.3475
+    },
+
+    default_ephemeris: &quot;leo&quot;,
+    default_altitude: 700e3,
+    default_elevation_offset: -60,
+
+    export_type: &quot;tle&quot;,
+    export_time: &quot;2024-03-15T00:00:00.000&quot;,
+    export_filename: &quot;pass_14h30.tle&quot;
+}
+
+</pre></td></tr></table>
+
+<p>And the resulting TLE <samp>pass_14h30.tle</samp>:
+</p><table class="cartouche" border="1"><tr><td>
+<pre class="verbatim">1 99999U 24999A   24075.00000000 -.00000000  00000-0  00000-0 0    11
+2 99999  48.8538 305.9746       0 357.5651 150.3878 14.57888518000073
+</pre></td></tr></table>
+
+<span id="Mission-control"></span><h3 class="section">5.2 Mission control</h3>
+
+<p>Mission control file are too long to be included as is in this documentation,
+but a sample file is given in <samp>sat-mc.cfg</samp>
+</p>
+<hr>
+
+
+
+</body>
+</html>
