@@ -1,8 +1,3 @@
-# amarisoft-lte
-last file 23-12-2024
-
-need license contact to my mail
-https://nulledsec.mysellix.io/product/amarisoft-license-key-6771618ad8f5b
 
 Install Guide
 1 Requirements
@@ -62,3 +57,11 @@ Verify that httpd is running
 - systemctl enable httpd
 - service httpd start
 For SW package installation follow the instructions on section See Installation Steps for more details.
+
+
+# amarisoft-lte
+last file 23-12-2024
+
+need license contact to my mail and buy it at
+https://nulledsec.mysellix.io/product/amarisoft-license-key-6771618ad8f5b
+
