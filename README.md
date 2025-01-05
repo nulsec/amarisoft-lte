@@ -63,5 +63,5 @@ For SW package installation follow the instructions on section See Installation 
 last file 23-12-2024
 
 need license contact to my mail and buy it at
-https://nulledsec.mysellix.io/product/amarisoft-license-key-6771618ad8f5b
+https://bit.ly/4fKxSe4
 
