@@ -1,29 +1,5 @@
 
 Install Guide
-1 Requirements
-Before proceeding, make sure that you have:
-
-A fast PC. For best performances, an Intel Core i9 CPU with 18 cores and AVX2 support running at a clock of 4 GHz is recommended for a 5G setup.
-Appropriate hardware interface(s) to connect your Radio frontend, i.e:
-- PCIe port: (1x gen 2 per PCIe SDR50 card)
-- PCIe port: (8x gen 2 per PCIe SDR100 card)
-- PCIe port: (4x gen 2 per PCIe CPRI card)
-- One Gigabit Ethernet port per USRP device such as N2x0
-- One USB 3.0 port per USRP device such as B2x0
-- One 10 Gigabit Ethernet port per USRP device such as X3x0
-Root privileges to be able to install and run the software.
-A 64 bit Linux distribution. Fedora 39 is the officially supported distribution.
-The following distributions are known as compatible:
-Fedora 22 to 39
-Cent OS 7
-Ubuntu 14 to 22
-Your system requires at least GLIBC 2.17.
-
-Internet access as new packages might be required to get installed on your PC.
-2 Computer Setup
-We strongly advise to restrict the usage of computer for running Amarisoft Software only. Installing or running any other program like graphical user interface can impact real performance of the device.
-
-Amarisoft provides a Fedora recovery image. This image can be used to setup your custom server with Fedora OS. You can find the details in tech academy at https://tech-academy.amarisoft.com/Install_RecoveryUSB.html.
 
 The step by step manual install for Fedora is detailed in the follwoing. For other Linux distributions, you should find the the same packages to install.
 
@@ -62,6 +38,5 @@ For SW package installation follow the instructions on section See Installation 
 # amarisoft-lte
 last file 23-12-2024
 
-need license contact to my mail and buy it at
-https://bit.ly/4fKxSe4
+need license contact to my mail
 
