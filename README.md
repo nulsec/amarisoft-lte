@@ -40,3 +40,6 @@ last file 23-12-2024
 
 need license contact to my mail
 
+https://nulledsec.mysellix.io/product/amarisoft-key-for-digital-service-1-mount 1 Month service
+https://nulledsec.mysellix.io/product/amarisoft-license-key-6771618ad8f5b 1 Years service
+
