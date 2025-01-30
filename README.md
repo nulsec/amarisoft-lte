@@ -40,8 +40,10 @@ last file 23-12-2024
 
 need license contact to my mail
 
-3 day demo service
-1 Month service
-1 Years service
+3 day demo service $50
+
+1 Month service $199
+
+1 Years service $500
 
 
