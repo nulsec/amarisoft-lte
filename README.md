@@ -36,10 +36,14 @@ For SW package installation follow the instructions on section See Installation 
 
 
 # amarisoft-lte
-last file 23-12-2024
+last file 2025-05-21
 
 need license contact to my mail
 
-https://nulledsec.mysellix.io/product/amarisoft-key-for-digital-service-1-mount 1 Month service
-https://nulledsec.mysellix.io/product/amarisoft-key-for-digital-service-1-years 1 Years service
+3 day demo service $50
+
+1 Month service $199
+
+1 Years service $500
+
 
