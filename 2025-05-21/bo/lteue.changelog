@@ -1,0 +1,6 @@
+- Updated RRC ASN.1 to release 18.5.0
+- Updated LPP ASN.1 to release 18.4.0
+- Added coarse location reporting
+- NR: updated RRC ASN.1 to release 18.5.1
+- NR: added coarse location reporting
+- NB-IoT: added R14 servingCellMeasInfo support

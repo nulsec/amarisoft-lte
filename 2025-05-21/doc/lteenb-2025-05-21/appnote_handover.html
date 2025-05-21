@@ -1,0 +1,985 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.6, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Intra and Inter eNB handover</title>
+
+<meta name="description" content="Intra and Inter eNB handover">
+<meta name="keywords" content="Intra and Inter eNB handover">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+
+th {
+    border: 1px solid black;
+    background-color: #c0f585;
+    font-size: 14px;
+    padding: 5px;
+}
+
+td {
+    border: 1px solid black;
+    padding: 2px 4px;
+}
+
+p>img {
+    display: initial;
+}
+
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">Intra and Inter eNB handover</h1>
+
+
+<span id="SEC_Contents"></span>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+<ul class="no-bullet">
+<li><a id="toc-Introduction" href="#Introduction">1 Introduction</a></li>
+<li><a id="toc-Handover-Intra-eNB" href="#Handover-Intra-eNB">2 Handover Intra eNB</a>
+<ul class="no-bullet">
+  <li><a id="toc-LTE-Network-architecture" href="#LTE-Network-architecture">2.1 LTE Network architecture</a></li>
+  <li><a id="toc-Constraints" href="#Constraints">2.2 Constraints</a></li>
+  <li><a id="toc-MME-configuration" href="#MME-configuration">2.3 MME configuration</a></li>
+  <li><a id="toc-eNB-configuration-with-both-cells-running-on-same-SDR-card" href="#eNB-configuration-with-both-cells-running-on-same-SDR-card">2.4 eNB configuration with both cells running on same SDR card</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Neighbor-cell-info" href="#Neighbor-cell-info">2.4.1 Neighbor cell info</a></li>
+    <li><a id="toc-Measurement-configuration" href="#Measurement-configuration">2.4.2 Measurement configuration</a></li>
+  </ul></li>
+  <li><a id="toc-eNB-configuration-with-cells-running-on-two-SDR-card" href="#eNB-configuration-with-cells-running-on-two-SDR-card">2.5 eNB configuration with cells running on two SDR card</a></li>
+  <li><a id="toc-Handover-triggered-by-UE-measurement-report-1" href="#Handover-triggered-by-UE-measurement-report-1">2.6 Handover triggered by UE measurement report</a></li>
+  <li><a id="toc-Blind-handover-triggered-by-eNB-1" href="#Blind-handover-triggered-by-eNB-1">2.7 Blind handover triggered by eNB</a></li>
+</ul></li>
+<li><a id="toc-Handover-inter-eNB" href="#Handover-inter-eNB">3 Handover inter eNB</a>
+<ul class="no-bullet">
+  <li><a id="toc-Prerequisites-1" href="#Prerequisites-1">3.1 Prerequisites</a></li>
+  <li><a id="toc-LTE-Network-architecture-1" href="#LTE-Network-architecture-1">3.2 LTE Network architecture</a></li>
+  <li><a id="toc-MME-configuration-1" href="#MME-configuration-1">3.3 MME configuration</a></li>
+  <li><a id="toc-eNB1-configuration" href="#eNB1-configuration">3.4 eNB1 configuration</a>
+  <ul class="no-bullet">
+    <li><a id="toc-MME-address" href="#MME-address">3.4.1 MME address</a></li>
+    <li><a id="toc-GTP-address" href="#GTP-address">3.4.2 GTP address</a></li>
+    <li><a id="toc-X2-address" href="#X2-address">3.4.3 X2 address</a></li>
+    <li><a id="toc-eNB-ID" href="#eNB-ID">3.4.4 eNB ID</a></li>
+    <li><a id="toc-Neighbor-cell-info-1" href="#Neighbor-cell-info-1">3.4.5 Neighbor cell info</a></li>
+    <li><a id="toc-Measurement-configuration-1" href="#Measurement-configuration-1">3.4.6 Measurement configuration</a></li>
+    <li><a id="toc-SDR-clock-setting" href="#SDR-clock-setting">3.4.7 SDR clock setting</a></li>
+  </ul></li>
+  <li><a id="toc-eNB2-configuration" href="#eNB2-configuration">3.5 eNB2 configuration</a>
+  <ul class="no-bullet">
+    <li><a id="toc-MME-address-1" href="#MME-address-1">3.5.1 MME address</a></li>
+    <li><a id="toc-eNB-ID-1" href="#eNB-ID-1">3.5.2 eNB ID</a></li>
+    <li><a id="toc-GTP-address-1" href="#GTP-address-1">3.5.3 GTP address</a></li>
+    <li><a id="toc-X2-address-1" href="#X2-address-1">3.5.4 X2 address</a></li>
+    <li><a id="toc-Neighbor-cell-info-2" href="#Neighbor-cell-info-2">3.5.5 Neighbor cell info</a></li>
+    <li><a id="toc-Measurement-configuration-2" href="#Measurement-configuration-2">3.5.6 Measurement configuration</a></li>
+  </ul></li>
+  <li><a id="toc-GPS-antenna-connection" href="#GPS-antenna-connection">3.6 GPS antenna connection</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Connection" href="#Connection">3.6.1 Connection</a></li>
+    <li><a id="toc-GPS-test" href="#GPS-test">3.6.2 GPS test</a></li>
+  </ul></li>
+  <li><a id="toc-S1-and-X2-connection-check" href="#S1-and-X2-connection-check">3.7 S1 and X2 connection check</a></li>
+  <li><a id="toc-S1_002fX2-Handover-triggered-by-UE-measurement-report" href="#S1_002fX2-Handover-triggered-by-UE-measurement-report">3.8 S1/X2 Handover triggered by UE measurement report</a></li>
+  <li><a id="toc-Blind-S1_002fX2-Handover-triggered-by-eNB" href="#Blind-S1_002fX2-Handover-triggered-by-eNB">3.9 Blind S1/X2 Handover triggered by eNB</a></li>
+</ul></li>
+<li><a id="toc-Handover-using-UE-simulator" href="#Handover-using-UE-simulator">4 Handover using UE simulator</a>
+<ul class="no-bullet">
+  <li><a id="toc-Hardware-prerequisite" href="#Hardware-prerequisite">4.1 Hardware prerequisite</a></li>
+  <li><a id="toc-UE-configuration-file" href="#UE-configuration-file">4.2 UE configuration file</a></li>
+</ul></li>
+<li><a id="toc-Handover-call-flow" href="#Handover-call-flow">5 Handover call flow</a>
+<ul class="no-bullet">
+  <li><a id="toc-X2-Handover-triggered-by-UE-measurement" href="#X2-Handover-triggered-by-UE-measurement">5.1 X2 Handover triggered by UE measurement</a></li>
+  <li><a id="toc-S1-Handover-triggered-by-UE-measurement" href="#S1-Handover-triggered-by-UE-measurement">5.2 S1 Handover triggered by UE measurement</a></li>
+</ul></li>
+<li><a id="toc-5G-SA-Handover" href="#g_t5G-SA-Handover">6 5G SA Handover</a>
+<ul class="no-bullet">
+  <li><a id="toc-Intra-gNB-Handover" href="#Intra-gNB-Handover">6.1 Intra gNB Handover</a></li>
+  <li><a id="toc-Inter-gNB-Handover" href="#Inter-gNB-Handover">6.2 Inter gNB Handover</a>
+  <ul class="no-bullet">
+    <li><a id="toc-XnAP-Handover" href="#XnAP-Handover">6.2.1 XnAP Handover</a></li>
+    <li><a id="toc-Handover-procedures" href="#Handover-procedures">6.2.2 Handover procedures</a></li>
+  </ul></li>
+</ul></li>
+<li><a id="toc-Troubleshooting" href="#Troubleshooting">7 Troubleshooting</a>
+<ul class="no-bullet">
+  <li><a id="toc-Preconditions" href="#Preconditions">7.1 Preconditions</a></li>
+  <li><a id="toc-Measurement-reports-not-triggered" href="#Measurement-reports-not-triggered">7.2 Measurement reports not triggered</a></li>
+  <li><a id="toc-Handover-is-triggered-but-UE-fails-to-move-on-target-cell" href="#Handover-is-triggered-but-UE-fails-to-move-on-target-cell">7.3 Handover is triggered but UE fails to move on target cell</a></li>
+  <li><a id="toc-TRX-discontinuity-too-wide" href="#TRX-discontinuity-too-wide">7.4 TRX discontinuity too wide</a></li>
+</ul></li>
+
+</ul>
+</div>
+
+
+<span id="Introduction"></span><h2 class="chapter">1 Introduction</h2>
+
+<p>This application notes aims to provide the procedure for running intra and Inter eNB/gNB handover scenarios on Amarisoft products using commercial UE.<br>
+</p>
+<p>In the case where handover tests are run with Amarisoft UE simulator (instead of commercial UE), please See <a href="#handover-using-UE-simulator">handover using UE simulator</a> for UE prerequisites and parameters. 
+</p>
+<span id="Handover-Intra-eNB"></span><h2 class="chapter">2 Handover Intra eNB</h2>
+<span id="LTE-Network-architecture"></span><h3 class="section">2.1 LTE Network architecture</h3>
+<img src="img/handover_intra.webp" alt="img/handover_intra"> 
+<p>Setup is composed of : 
+</p><ul>
+<li> One MME and one eNB running on same PC and connected through S1 interface 
+</li><li> One or Two SDR cards 
+</li></ul>
+<span id="Constraints"></span><h3 class="section">2.2 Constraints</h3>
+<span id="constraints"></span><p>In order to test Inter Frequency/Band handover between two cells running on same eNB, one or two SDR cards are required depending on the spectrum used by both cells.<br>
+<br>PCIe SDR cards have a bandwidth of 56Mhz (USRP N2x0 is 40Mhz). By consequence, if both cells can fit in this bandwidth, handover can be carried out with one SDR only. Otherwise, two SDR cards are required.
+</p>
+<img src="img/sdr_bandwidth.webp" alt="jpg"> 
+<p>In the example above, there is no overlap between the two cells neither in Uplink nor in downlink. 
+If a higher bandwidth had been used (20Mhz as instance), both cells would have overlapped, resulting in interference.<br> 
+</p>
+<p>Others constraints:
+</p><ul>
+<li> The difference of the center frequencies of each cell must be a multiple of 300 kHz (hence the difference of their EARFCN must be a multiple of 3).
+</li><li> The difference between the center frequency of each cell and the average of center frequencies must be a multiple of 15 kHz.
+</li><li> The number of cells that could be configured in a frequency band depends on the total bandwidth of the lte band and the configured bandwidth of each cell + the offsets.
+
+</li><li> The cells must have the same <code>prach-ConfigIndex</code> (SIB2), i.e. their PRACH must have the same duration and transmitted in the same subframes.
+</li><li> Multiple cells can be set at the same frequency provided their physical cell identity (<code>n_id_cell</code> property) and PRACH <code>rootSequenceIndex</code> (SIB2) are different to minimize the inter-cell interference. In the current version, there is no resource reservation among the cells, so a performance degradation happens if they transmit at the same time in the same resource blocks. So it is currently better to use cells at different frequencies.
+</li></ul>
+
+<p>Let&rsquo;s take the following example to configure 3 cells in band 7:
+</p><div class="example">
+<pre class="example">cell 1 DL frequency: 2627 MHz
+cell 2 DL frequency: 2642 MHz
+cell 3 DL frequency: 2657 MHz 
+average_dl_freq <em>= (2627+2642+2657)/3 = 2642</em> MHz
+cell1_freq_offset <em>= 2627-2642 = -15</em> MHz
+cell2_freq_offset <em>= 2642-2642 = 0</em> MHz
+cell3_freq_offset <em>= 2657-2642 = 15</em> MHz
+</pre></div>
+
+<p>We can observe that the difference between the center frequency of each cell and the average of center frequencies is indeed a multiple of 15 kHz and the difference between the DL EARFCNs are a multiple of 3.
+</p>
+<span id="MME-configuration"></span><h3 class="section">2.3 MME configuration</h3>
+<p>For running intra eNB Handover, no specific configuration is required on MME side. 
+Default configuration files can be used without customization 
+</p>
+<span id="eNB-configuration-with-both-cells-running-on-same-SDR-card"></span><h3 class="section">2.4 eNB configuration with both cells running on same SDR card</h3>
+<p>As described in previous section, it&rsquo;s possible to configure two or more cells on the same SDR card as long as it fulfills the spectrum constraints. See <a href="#constraints">constraints</a> for more details.<br>
+</p>
+<span id="Neighbor-cell-info"></span><h4 class="subsection">2.4.1 Neighbor cell info</h4>
+
+<p>In <code>enb.cfg</code> file, for each cell, set neighbour cell info using <code>ncell_list</code> parameters: 
+</p><pre class="verbatim">
+/* high 24 bits of SIB1.cellIdentifier */
+  enb_id: 0x1A2E0,
+
+cell_list: [
+  {
+    dl_earfcn: 3350,  /* DL center frequency: 2680 MHz (Band 7) */
+
+    n_id_cell: 1,
+    cell_id: 0x01,
+    tac: 0x0001,
+    root_sequence_index: 204, /* PRACH root sequence index */
+
+    /* Neighbour cell list (used for handover) */
+    ncell_list: [
+      { n_id_cell: 2, dl_earfcn: 3299, cell_id: 0x1a2e002, tac: 1 },
+    ],
+  },
+  {
+    dl_earfcn: 3299, /* DL center frequency: 2674.9 MHz (Band 7) */
+
+    n_id_cell: 2,
+    cell_id: 0x02,
+    tac: 0x0001,
+    root_sequence_index: 86, /* PRACH root sequence index */
+
+    /* Neighbour cell list (used for handover) */
+    ncell_list: [
+      { n_id_cell: 1, dl_earfcn: 3350, cell_id: 0x1a2e001, tac: 1 },
+    ],
+  },
+  ], /* cell_list */
+</pre><br><p>where: 
+</p><ul>
+<li> <code>n_id_cell</code> is n_id_cell of neighbour cell 
+</li><li> <code>dl_earfcn</code> is the downlink earfcn of neighbour cell
+</li><li> <code>cell_id</code> is the EUTRAN cell identifier (concatenation of the <code>enb_id</code> and <code>cell_id</code> of neighbour cell)
+</li></ul>
+<br><p>Please refer to lteenb.pdf for more details about cell list parameters 
+</p>
+<span id="Measurement-configuration"></span><h4 class="subsection">2.4.2 Measurement configuration</h4>
+
+<p>In order to trigger measurement reports (a1,a2 and a3) at UE side when cells level will fluctuate, set <code>meas_config_desc</code> parameters in <code>enb.cfg</code> file (under <code>cell_default</code> object) : 
+<br>Example: 
+</p><pre class="verbatim">    /* measurement configuration */
+    meas_config_desc: {
+        a1_report_type: &quot;rsrp&quot;,
+        a1_rsrp: -70,
+        a1_hysteresis: 0,
+        a1_time_to_trigger: 640,
+        a2_report_type: &quot;rsrp&quot;,
+        a2_rsrp: -80,
+        a2_hysteresis: 0,
+        a2_time_to_trigger: 640,
+        eutra_handover: {
+          a3_report_type: &quot;rsrp&quot;,
+          a3_offset: 6,
+          hysteresis: 0,
+          time_to_trigger: 480
+        }
+    },
+
+    /* measurement gap configuration */
+    meas_gap_config: &quot;gp0&quot;,
+
+    /* if true, initiate a handover when a suitable measurement report
+       is received */
+    ho_from_meas: true,
+</pre>
+<p>Please refer to lteenb.pdf for more details about meas_config_desc parameters 
+</p>
+<span id="eNB-configuration-with-cells-running-on-two-SDR-card"></span><h3 class="section">2.5 eNB configuration with cells running on two SDR card</h3>
+<p>For Inter frequency/band handover two SDR cards may be required if spectrum used by both cells is larger than SDR bandwidth (56Mhz for PCIe SDR card) . 
+<br>In that case, cell configuration is slightly different and <code>rf_port</code> used by each cell must be defined. 
+</p>
+<br><p>Others parameters (Neighbor cell info and Measurement configuration) remain identical.
+</p>
+<br><p>Example: 
+</p><pre class="verbatim"> cell_list: [
+  {
+    rf_port: 0, /* means that cell 0x01 will use dev0=/dev/sdr0 */
+    dl_earfcn: 3350,  /* DL center frequency: 2680 MHz (Band 7) */
+    n_id_cell: 1,
+    cell_id: 0x01,
+    tac: 0x0001,
+    root_sequence_index: 204, /* PRACH root sequence index */
+    /* Neighbour cell list (used for handover) */
+    ncell_list: [
+      { n_id_cell: 2, dl_earfcn: 3299, cell_id: 0x1a2e002, tac: 1 },
+    ],
+  },
+  {
+    rf_port: 1,  /* means that cell 0x02 will use dev1=/dev/sdr1 */
+    dl_earfcn: 3299, /* DL center frequency: 2674.9 MHz (Band 7) */
+    n_id_cell: 2,
+    cell_id: 0x02,
+    tac: 0x0001,
+    root_sequence_index: 86, /* PRACH root sequence index */
+
+    /* Neighbour cell list (used for handover) */
+    ncell_list: [
+      { n_id_cell: 1, dl_earfcn: 3350, cell_id: 0x1a2e001, tac: 1 },
+    ],
+</pre><br>
+<p>In config/rf_driver, both SDR cards must be defined as well. See trx_sdr.pdf for more details.   
+</p><pre class="verbatim">rf_driver: {
+    name: &quot;sdr&quot;,
+
+    /* list of devices. 'dev0' is always the master. */
+    args: &quot;dev0=/dev/sdr0,dev1=/dev/sdr1&quot;,
+</pre>
+<table class="cartouche" border="1"><tr><td>
+<p>Note: When two SDR cards are used on same eNB, SDR1 must be connected to SDR0 through USB cable provided by Amarisoft in order to synchronize the Radio frames. See installguide.pdf for more details.
+</p></td></tr></table>
+
+<span id="Handover-triggered-by-UE-measurement-report-1"></span><h3 class="section">2.6 Handover triggered by UE measurement report</h3>
+<span id="Handover-triggered-by-UE-measurement-report"></span>
+<p>In order to carry out handover based on UE measurement report, once enb is configured, the only thing to do is to decrease step by step cell gain at eNB side (command <code>cell_gain cell_id gain</code> on eNB screen) . Example : cell_gain 1 -20
+</p>
+<table class="cartouche" border="1"><tr><td>
+<p>Note: To perform handover and not a reselection, it&rsquo;s recommended to run uplink or downlink transfer using iperf as instance in order to keep UE in RRC connected state
+</p></td></tr></table>
+
+<span id="Blind-handover-triggered-by-eNB-1"></span><h3 class="section">2.7 Blind handover triggered by eNB</h3>
+<span id="Blind-handover-triggered-by-eNB"></span>
+<p>In order to carry out blind handover, eNB command can be used. To do this: 
+</p><ul>
+<li> Start downlink or Uplink transfer (with iperf as instance) in order to keep UE in RRC connected state 
+</li><li> On eNB screen, enter <code>ue</code> command to identify UE id at eNB level (<code>eNB_UE_ID</code>) 
+</li><li> Enter <code>handover</code> command with the following parameters : eNB_UE_ID pci dl_earfcn type 
+</li></ul>
+
+<p>Where : 
+</p><ul>
+<li> eNB_UE_ID is UE ID at eNB level 
+</li><li> pci is physical Cell ID of target cell (neighbor cell).
+</li><li> dl_earfcn is downlink earfcn of target cell (neighbor cell).
+</li><li> type is handover type. Use <code>intra</code> here. 
+</li></ul>
+
+<p>Example of handover command :  <code>handover 14 2 3299 intra</code> <br>
+</p>
+<span id="Handover-inter-eNB"></span><h2 class="chapter">3 Handover inter eNB</h2>
+
+<span id="Prerequisites-1"></span><h3 class="section">3.1 Prerequisites</h3>
+<span id="Prerequisites"></span>
+<p>In order to test handover between two different eNB, some prerequisites must be fulfilled:<br>
+</p><ul>
+<li> Each eNB must be running on a different PC (host). It&rsquo;s not possible to run 2 eNB components on same Hardware. </li><li> By consequence two eNB licenses are required to run inter eNB handover scenario. Only one MME license is needed.  
+</li><li> Radio frames must be synchronized between eNB1 and eNB2.<br> The most convenient way is to use GPS antenna on both eNB. Any active GPS antenna accepting a 3.3V DC supply can be used, 
+</li><li> Each eNB is configured with one cell (using one SDR card). UE can attach on each cell independently 
+</li></ul>
+<p>Note: MME component can be run on same PC as eNB.  This will be the setup described in this document<br> 
+</p>
+<span id="LTE-Network-architecture-1"></span><h3 class="section">3.2 LTE Network architecture</h3>
+<img src="img/handover_X2.webp" alt="img/handover_X2"> 
+<p>Setup is composed of : 
+</p><ul>
+<li> One MME and one eNB (named eNB1) running on the same PC (IP address 192.168.30.1)  
+</li><li> A second eNB (eNB2) running on a different PC (IP address 192.168.30.2) 
+</li></ul>
+<br><p>MME and both eNB connected through S1 interface 
+<br>eNB1 and eNB2 connected through X2 interface 
+</p>
+<span id="MME-configuration-1"></span><h3 class="section">3.3 MME configuration</h3>
+
+<p>In order to connect both eNB to same MME, default (loopback) GTP address must be changed and replaced with IP address of PC where MME component is running. 
+</p>
+<br><p>in <code>mme.cfg</code> file, change :
+</p><pre class="verbatim">  gtp_addr: &quot;127.0.1.100&quot;,
+</pre><p>with 
+</p><pre class="verbatim">  gtp_addr: &quot;192.168.30.1&quot;,
+</pre><br>
+
+<table class="cartouche" border="1"><tr><td>
+<p>Note: If another MME component is running on PC where eNB2 is running, this one must be turned off. 
+</p></td></tr></table>
+
+<span id="eNB1-configuration"></span><h3 class="section">3.4 eNB1 configuration</h3>
+
+<p>This section aims to describe the modifications required on eNB to carry out inter eNB handover.<br> 
+The initial setting of eNB (cell, earfcn , gain, SDR configuration, etc.. ) are not covered in this document.<br> Please refer to lteots.pdf document for more details on basic configurations. 
+</p>
+<span id="MME-address"></span><h4 class="subsection">3.4.1 MME address</h4>
+
+<p>In <code>enb.cfg</code> file, replace default (loopback) MME address with IP address of PC1 (192.168.30.1).
+</p><pre class="verbatim">mme_list: [ 
+    { 
+      /* address of MME for S1AP connection. Must be modified if the MME
+         runs on a different host. */
+      mme_addr: &quot;192.168.30.1&quot;,
+    },
+  ],
+</pre>
+<span id="GTP-address"></span><h4 class="subsection">3.4.2 GTP address</h4>
+
+<p>As for MME, default GTP address must be changed and replaced with IP address of the PC1 (instead of using loopback IP address). 
+</p>
+<p>However, as IP address of PC1 is already used by MME, it&rsquo;s not possible to reuse it. <br> 
+The solution is to create an IP alias (192.168.30.3 as instance) and use this alias as gtp_addr for eNB1.<br> 
+</p>
+<p>To create the alias: 
+</p><ul>
+<li> Run <code>ifconfig</code> command 
+</li><li> Check ethernet interface name (example &quot;eth2:&quot; ) 
+</li><li> Enter command <code>ifconfig eth2:1 192.168.30.3/24</code>
+</li><li> Check alias has been created with  <code>ifconfig</code> command
+</li></ul>
+
+<table class="cartouche" border="1"><tr><td>
+<p>Note: This hint is not needed if MME is running on its own PC and don&rsquo;t have, as consequence, the same IP address as eNB1. 
+</p></td></tr></table>
+
+<p>Once the IP alias has been created , update <code>enb.cfg</code> file and replace default gtp_addr with this value 
+</p><pre class="verbatim">/* GTP bind address (=address of the ethernet interface connected to
+     the MME). Must be modified if the MME runs on a different host. */
+  gtp_addr: &quot;192.168.30.3&quot;,
+</pre>
+
+<span id="X2-address"></span><h4 class="subsection">3.4.3 X2 address</h4>
+
+<p>In order to connect both eNB through X2 interface, X2 peer IP address (eNB2) must be set . 
+In  <code>enb.cfg</code> file , add the following parameter : 
+</p><pre class="verbatim">  x2_peers:[&quot;192.168.30.2&quot;],
+</pre>
+<span id="eNB-ID"></span><h4 class="subsection">3.4.4 eNB ID</h4>
+<p>Each eNB must have a unique ID. 
+The default value is: 
+</p><pre class="verbatim">enb_id: 0x1A2D0
+</pre>
+<span id="Neighbor-cell-info-1"></span><h4 class="subsection">3.4.5 Neighbor cell info</h4>
+
+<p>In <code>enb.cfg</code> file, set neighbour cell (eNB2 cell) info using <code>ncell_list</code> parameters: 
+</p><pre class="verbatim">cell_list: [
+  {
+    dl_earfcn: 3350,  /* DL center frequency: 2680 MHz (Band 7) */
+
+    n_id_cell: 1,
+    cell_id: 0x01,
+    tac: 0x0001,
+    root_sequence_index: 204, /* PRACH root sequence index */
+
+    /* Neighbour cell list (used for handover) */
+    ncell_list: [
+      { n_id_cell: 2, dl_earfcn: 6300, cell_id: 0x1A2D102, tac: 1 },
+    ],
+  },
+</pre><br><p>where: 
+</p><ul>
+<li> <code>n_id_cell</code> is n_id_cell of eNB2 cell 
+</li><li> <code>dl_earfcn</code> is the downlink earfcn of eNB2 cell
+</li><li> <code>cell_id</code> is the EUTRAN cell identifier (concatenation of the <code>enb_id</code> and <code>cell_id</code> of eNB2 cell)
+</li></ul>
+
+<span id="Measurement-configuration-1"></span><h4 class="subsection">3.4.6 Measurement configuration</h4>
+
+<p>In order to trigger measurement reports (a1,a2 and a3) at UE side when cells level will fluctuate, set <code>meas_config_desc</code> parameters in <code>enb.cfg</code> file (under <code>cell_default</code> object) : 
+Example: 
+</p><pre class="verbatim">    /* measurement configuration */
+    meas_config_desc: {
+        a1_report_type: &quot;rsrp&quot;,
+        a1_rsrp: -70,
+        a1_hysteresis: 0,
+        a1_time_to_trigger: 640,
+        a2_report_type: &quot;rsrp&quot;,
+        a2_rsrp: -80,
+        a2_hysteresis: 0,
+        a2_time_to_trigger: 640,
+        eutra_handover: {
+          a3_report_type: &quot;rsrp&quot;,
+          a3_offset: 6,
+          hysteresis: 0,
+          time_to_trigger: 480
+        }
+    },
+
+    /* measurement gap configuration */
+    meas_gap_config: &quot;gp0&quot;,
+
+    /* if true, initiate a handover when a suitable measurement report
+       is received */
+    ho_from_meas: true,
+</pre>
+<p>Please refer to lteenb.pdf for more details about meas_config_desc parameters 
+</p>
+<span id="SDR-clock-setting"></span><h4 class="subsection">3.4.7 SDR clock setting</h4>
+
+<p>As described in hardware prerequisite section, both eNB must be synchronized using a GPS clock antenna.<br> 
+If PCIe SDR cards are used on your setup, the synchronization source must be changed.<br>  
+</p>
+<p>In /root/enb/config/rf_driver folder, open config file used by enb.cfg file and uncomment <code> sync</code> parameter. 
+</p><pre class="verbatim"> /* synchronization source: internal, gps, external (default = internal) */
+     sync: &quot;gps&quot;,  
+</pre><p>Whith this modification, PCIe SDR card will get its clock from the GPS antenna. 
+</p>
+<br>
+
+<span id="eNB2-configuration"></span><h3 class="section">3.5 eNB2 configuration</h3>
+
+<span id="MME-address-1"></span><h4 class="subsection">3.5.1 MME address</h4>
+
+<p>As for eNB1 , in <code>enb.cfg</code> file, replace default (loopback) MME address with IP address of PC where MME component is running (192.168.30.1).
+</p><pre class="verbatim">mme_list: [ 
+    { 
+      /* address of MME for S1AP connection. Must be modified if the MME
+         runs on a different host. */
+      mme_addr: &quot;192.168.30.1&quot;,
+    },
+  ],
+</pre>
+<span id="eNB-ID-1"></span><h4 class="subsection">3.5.2 eNB ID</h4>
+
+<p>As both eNB are connected to same MME component, their ID must be different.<br>  
+In <code>enb.cfg</code> file change enb_id to be different of eNB1 
+</p><pre class="verbatim">/* high 24 bits of SIB1.cellIdentifier */
+  enb_id: 0x1A2D1, 
+</pre>
+<span id="GTP-address-1"></span><h4 class="subsection">3.5.3 GTP address</h4>
+
+<p>As for eNB1 , GTP address must be changed.<br>
+However, as there is no MME component on this PC (eNB2 only), the IP constraint encountered with eNB1 is not present and GTP address can be the one of PC2 
+</p>
+<pre class="verbatim">/* GTP bind address (=address of the ethernet interface connected to
+     the MME). Must be modified if the MME runs on a different host. */
+  gtp_addr: &quot;192.168.30.2&quot;,
+</pre>
+<span id="X2-address-1"></span><h4 class="subsection">3.5.4 X2 address</h4>
+
+<p>As for eNB1, X2 peer IP address (eNB1) must be set.<br> 
+In  <code>enb.cfg</code> file, add the following parameter: 
+</p><pre class="verbatim">  x2_peers:[&quot;192.168.30.1&quot;],
+</pre><br>
+
+<span id="Neighbor-cell-info-2"></span><h4 class="subsection">3.5.5 Neighbor cell info</h4>
+
+<p>As for eNB1, in <code>enb.cfg</code> file, set neighbour cell (eNB1 cell) info using <code>ncell_list</code> parameters: 
+</p><pre class="verbatim">cell_list: [
+  {
+    dl_earfcn: 6300,  /* DL center frequency: 2680 MHz (Band 7) */
+
+    n_id_cell: 2,
+    cell_id: 0x01,
+    tac: 0x0001,
+    root_sequence_index: 204, /* PRACH root sequence index */
+
+    /* Neighbour cell list (used for handover) */
+    ncell_list: [
+      { n_id_cell: 1, dl_earfcn: 3350, cell_id: 0x1A2D001, tac: 1 },
+    ],
+  },
+</pre><br><p>where: 
+</p><ul>
+<li> <code>n_id_cell</code> is n_id_cell of eNB1 cell 
+</li><li> <code>dl_earfcn</code> is the downlink earfcn of eNB1 cell
+</li><li> <code>cell_id</code> is the EUTRAN cell identifier (concatenation of the <code>enb_id</code> and <code>cell_id</code> of eNB1 cell),
+</li></ul>
+
+<span id="Measurement-configuration-2"></span><h4 class="subsection">3.5.6 Measurement configuration</h4>
+
+<p>As for eNB1 , in <code>enb.cfg</code> file, under cell_default object, set <code>meas_config_desc</code> parameters: 
+Example : 
+</p><pre class="verbatim">    /* measurement configuration */
+    meas_config_desc: {
+        a1_report_type: &quot;rsrp&quot;,
+        a1_rsrp: -70,
+        a1_hysteresis: 0,
+        a1_time_to_trigger: 640,
+        a2_report_type: &quot;rsrp&quot;,
+        a2_rsrp: -80,
+        a2_hysteresis: 0,
+        a2_time_to_trigger: 640,
+        eutra_handover: {
+          a3_report_type: &quot;rsrp&quot;,
+          a3_offset: 6,
+          hysteresis: 0,
+          time_to_trigger: 480
+        }
+    },
+
+    /* measurement gap configuration */
+    meas_gap_config: &quot;gp0&quot;,
+
+    /* if true, initiate a handover when a suitable measurement report
+       is received */
+    ho_from_meas: true,
+</pre><p>Please refer to lteenb.pdf for more details about meas_config_desc parameters 
+</p>
+
+<span id="GPS-antenna-connection"></span><h3 class="section">3.6 GPS antenna connection</h3>
+
+<span id="Connection"></span><h4 class="subsection">3.6.1 Connection</h4>
+<ul>
+<li> Place your GPS antenna in a place where GPS signal is likely to be found (outdoor). 
+</li><li> Connect each GPS antenna to SMA connector <code>GPS</code> of PCIe SDR card on eNB1 and eNB2. 
+</li></ul>
+
+<span id="GPS-test"></span><h4 class="subsection">3.6.2 GPS test</h4>
+<p>Once connection is done, you can check if GPS clock is locked. To do this : 
+</p><ul>
+<li> Stop LTE service on your PC (service lte stop) 
+</li><li> Go under <code>/root/trx_sdr</code> folder 
+</li><li> Enter the command <code>./sdr_util -c 0 gps_state</code>
+</li><li> If GPS clock is locked, date and time will be displayed : 
+<pre class="verbatim">    GPS locked
+    TAI: 2018-11-20 16:18:29
+    UTC: 2018-11-20 16:17:52
+</pre>
+</li></ul>
+
+<table class="cartouche" border="1"><tr><td>
+<p>Note: The GPS takes a few minutes to lock if the GPS antenna is connected.
+</p></td></tr></table>
+
+<span id="S1-and-X2-connection-check"></span><h3 class="section">3.7 S1 and X2 connection check</h3>
+
+<p>Once eNB1,eNB2 and MME have be configured, you can start each component and check the connections. 
+</p><ul>
+<li> On MME screen, enter <code>enb</code> command. Both eNB should be listed 
+</li><li> On both eNB screen, enter <code>s1</code> command. S1 connection state should be &quot;setup_done&quot;
+</li><li> On both eNB screen, enter <code>x2</code> command. X2 Peer connection state should be &quot;setup_done&quot; 
+</li><li> If X2 peer connection state is &quot;disconnected&quot;, just enter <code>x2connect</code> command and check again with <code>x2</code> command afterwards.
+</li></ul>
+
+<p>Your setup is now completed ! You can connect your UE and run handover test . 
+</p>
+<span id="S1_002fX2-Handover-triggered-by-UE-measurement-report"></span><h3 class="section">3.8 S1/X2 Handover triggered by UE measurement report</h3>
+
+<p>In order to carry out Handover based on UE measurement report, the only thing to is to decrease step by step cell gain at eNB side (command <code>cell_gain cell_id gain</code> on eNB screen) . Example : cell_gain 1 -20
+</p>
+<br><p>To trigger a S1 handover rather than X2, just remove the x2_peers connection in eNB configuration files<br>
+</p><table class="cartouche" border="1"><tr><td>
+<p>Note: To perform Handover and not a reselection, it&rsquo;s recommended to run uplink or downlink transfer with iperf as instance in order to keep UE in RRC connected state
+</p></td></tr></table>
+
+<span id="Blind-S1_002fX2-Handover-triggered-by-eNB"></span><h3 class="section">3.9 Blind S1/X2 Handover triggered by eNB</h3>
+
+<p>In order to carry out blind X2 or S1 handover, eNB command can be used. To do this: 
+</p><ul>
+<li> Start downlink or Uplink transfer (with iperf as instance) in order to keep UE in RRC connected state 
+</li><li> On eNB screen, enter <code>ue</code> command to identify UE id at eNB level (<code>eNB_UE_ID</code>) 
+</li><li> Enter <code>handover</code> command with the following parameters : eNB_UE_ID pci dl_earfcn type 
+</li></ul>
+
+<p>Where : 
+</p><ul>
+<li> eNB_UE_ID is UE ID at eNB level 
+</li><li> pci is physical Cell ID of target cell (eNB2).
+</li><li> dl_earfcn is downlink earfcn of target cell (eNB2).
+</li><li> type is handover type. Can be intra, s1 or x2.
+</li></ul>
+
+<p>Example of X2 handover command :  <code>handover 14 2 3350 x2</code> <br>
+</p>
+<span id="Handover-using-UE-simulator"></span><h2 class="chapter">4 Handover using UE simulator</h2>
+<span id="handover-using-UE-simulator"></span><span id="Hardware-prerequisite"></span><h3 class="section">4.1 Hardware prerequisite</h3>
+
+<p>When Amarisoft UE simulator is used for testing handover, two SDR cards are required. 
+SDR1 card will be connected to cell 1, SDR2 card will be connected to cell 2.
+</p>
+<span id="UE-configuration-file"></span><h3 class="section">4.2 UE configuration file</h3>
+
+<p>In ue.cfg file, both cells must be declared 
+<br>Example :
+</p><pre class="verbatim">cells: [
+    {
+      dl_earfcn: 6300,
+      n_antenna_dl: 2,
+      n_antenna_ul: 1,
+    },
+    {
+      dl_earfcn: 3350,
+      n_antenna_dl: 2,
+      n_antenna_ul: 1,
+    },
+  ],
+</pre>
+<p>On top of that, SDR mapping must be defined :
+<br>Example :
+</p><pre class="verbatim">rf_driver: {
+    name: &quot;sdr&quot;,
+    args: &quot;dev0=/dev/sdr0,dev1=/dev/sdr1&quot;,
+    },
+</pre>
+<p>The mapping between Cells and SDR cards is made automatically and follows the same order as the declaration in the configuration file. 
+</p>
+<br><p>The example here above results in: 
+</p><ul>
+<li> SDR card#0 listening on earfcn 6300
+</li><li> SDR card#1 listening on earfcn 3350 
+</li></ul>
+<p>The RF connection must be done accordingly.
+</p>
+<br><p>For 5G SA handover similar concepts apply, for that please refer to the provided example configuration file <code>ue-nr-2cc-sa.cfg</code>.<br>
+</p>
+<table class="cartouche" border="1"><tr><td>
+<p>Note: When two cells are declared on UE side, both cells must be active otherwise UE will remain in SIB detection state indefinitely
+</p></td></tr></table>
+
+<span id="Handover-call-flow"></span><h2 class="chapter">5 Handover call flow</h2>
+
+<p>In order to help the investigation, here are the expected call flows of handover scenario 
+</p><span id="X2-Handover-triggered-by-UE-measurement"></span><h3 class="section">5.1 X2 Handover triggered by UE measurement</h3>
+<span id="X2-handover"></span><img src="img/log-X2.webp" alt="img/log-X2"> 
+<img src="img/log-X22.webp" alt="img/log-X22"> 
+<ol>
+<li> <b>RRC Connection Reconfiguration</b>:  
+
+<br><p>Sent by eNB to UE to configure measurement report events
+<br>Three event reports <code>a1</code>, <code>a2</code>, <code>a3</code> are configured in <code>RRC Connection Reconfiguration</code>
+<br>Two event reports <code>a2</code>, <code>a3</code> are activated 
+</p>
+<br><p>Example of a1 report configuration within RRC Connection Reconfiguration message:
+</p><pre class="verbatim">reportConfigToAddModList {
+          {
+            reportConfigId 1,
+            reportConfig reportConfigEUTRA: {
+              triggerType event: {
+                eventId eventA1: {
+                  a1-Threshold threshold-RSRP: 90
+                },
+                hysteresis 0,
+                timeToTrigger ms640
+              },
+              triggerQuantity rsrp,
+              reportQuantity both,
+              maxReportCells 1,
+              reportInterval ms120,
+              reportAmount r1
+            }
+</pre>
+
+<br>
+</li><li> <b>Measurement Report A2</b>:  
+
+<br><p>Sent by UE to eNB when the serving cell becomes worse than a threshold
+</p><pre class="verbatim"> message c1: measurementReport: {
+    criticalExtensions c1: measurementReport-r8: {
+      measResults {
+        measId 2,
+        measResultPCell {
+          rsrpResult 79,
+          rsrqResult 34
+        }
+      }
+</pre><br>
+</li><li> <b>RRC Connection Reconfiguration</b>:<br> 
+<br>Upon reception of <code>a2</code> meas report, network reconfigures UE event report (deactivate <code>a2</code>, activate <code>a1</code> and activate Measurement Gap) through <code>RRC Connection Reconfiguration</code> message   
+<br>Note: Measurement Gap have an impact on throughput as no transmission and reception happens during gap periods
+
+<img src="img/MeasGap.webp" alt="img/MeasGap"> 
+<br>
+</li><li> <b>Measurement Report A3</b>: <br> 
+<br>Sent by UE to eNB when a neighbouring cell becomes better than the serving cell by an offset
+<br>Upon reception of <code>a3</code> meas report, network trigger the Handover through X2 interface 
+<pre class="verbatim">message c1: measurementReport: {
+    criticalExtensions c1: measurementReport-r8: {
+      measResults {
+        measId 3,
+        measResultPCell {
+          rsrpResult 79,
+          rsrqResult 34
+        },
+        measResultNeighCells measResultListEUTRA: {
+          {
+            physCellId 2,
+            measResult {
+              rsrpResult 90,
+              rsrqResult 34
+            }
+</pre><br>
+</li><li> <b>Handover request</b>: <br> 
+<br>Sent by eNB1 to eNB2 to set up the inter eNB handover through X2AP interface (X2AP trace level must be set to &quot;debug&quot; to see this message) 
+
+<br>
+</li><li> <b>Handover request acknowledge</b>: <br> 
+Sent by eNB2 to eNB1 to acknowledge eNB handover 
+
+<br>
+</li><li> <b>RRC Connection Reconfiguration</b>: <br> 
+<br> Once eNB2 acknowledges the X2 handover request, eNB1 triggers a handover at UE side by sending the <code>RRCconnectionReconfiguration</code>. 
+<br>This message provides mobility information as described below as well as target cell information for UE to establisgh a RRC connection request on target cell. 
+<pre class="verbatim">mobilityControlInfo {
+        targetPhysCellId 2,
+        carrierFreq {
+          dl-CarrierFreq 3350
+        },
+</pre>
+<br>
+</li><li> <b>RRC Connection Reconfiguration Complete</b>: <br> 
+<br>Once UE has moved from eNB1 to eNB2 , it sends the <code>RCC Connection Reconfiguration Complete</code> on the target cell (eNB2) 
+<br>To see this message, a log must be captured on eNB2 this time 
+
+</li></ol>
+<br>
+<p>Traffic should be now resumed on target cell. 
+</p>
+<span id="S1-Handover-triggered-by-UE-measurement"></span><h3 class="section">5.2 S1 Handover triggered by UE measurement</h3>
+
+<p>S1 inter eNB handover has the same call flow as X2 handover when it comes to the messages exchanged between UE and eNB (See <a href="#X2-handover">X2 handover</a> call flow for more details).
+</p>
+<br><p>The main difference is on the Handover procedure at eNB side. Handover request is sent to MME through S1 interface and not to peer eNB through X2 interface. 
+</p>
+<img src="img/log-S1.webp" alt="img/log-S1"> 
+<img src="img/log-S12.webp" alt="img/log-S12"> 
+
+<ol>
+<li> <b>Handover required</b>: <br> 
+<br>Upon reception of Measurement Report A3, eNB1 triggers a Handover by sending a <code>Handover required</code> to MME.
+The source eNodeB indicates which bearers are subject to data forwarding. 
+<br>
+</li><li> <b>Handover Request</b>: <br> 
+<br>MME sends <code>Handover Request</code> message to the target eNodeB. This message creates the UE context in the target eNodeB, including information about the bearers, and the security context 
+<br>
+</li><li> <b>Handover Request Acknowledge</b>: <br> 
+<br>Target eNodeB responds back to the MME with a <code>Handover Request Acknowledge</code> message. This message carries the Handover Command message (RRC Connection Reconfiguration Request) in a transparent container
+<br>
+</li><li> <b>Handover Command</b>: <br> 
+<br>MME sends a Handover Command message to the source eNodeB.
+<br>
+</li><li> <b>RRC Connection Reconfiguration</b>: <br> 
+<br>Upon reception of the Handover command, source eNB sends the <code>RRC Connection Reconfiguration</code> message to the UE.
+The message contains a new C-RNTI and new DRB IDs. Upon reception of this message the UE will remove any EPS bearers for which it did not receive the corresponding EPS radio bearers in the target cell.
+<br>
+</li><li> <b>RRC Connection Reconfiguration Complete</b>: <br> 
+<br>UE uses the preamble assigned in the handover command to send a RACH to the target eNodeB. The target eNodeB accepts the request and responds back with a timing adjustment and an uplink resource.
+UE uses the assigned resources to transmit the <code>RRC Connection Reconfiguration Complete</code> (Handover Confirm message)
+<br>
+</li><li> <b>Handover Notify</b>: <br> 
+<br>Target eNodeB sends a Handover Notify message to MME. Handover is successful
+</li></ol>
+
+<span id="g_t5G-SA-Handover"></span><h2 class="chapter">6 5G SA Handover</h2>
+<img src="img/5g_ho.webp" alt="img/5g_ho">
+<p>Amarisoft software supports intra gNB, XnAP and NGAP Handover.<br>
+</p><span id="Intra-gNB-Handover"></span><h3 class="section">6.1 Intra gNB Handover</h3>
+<br><p>The gNodeB can run several NR cells. The cells can be configured individually and share the same NG interfaces with the Core Network.<br>
+<br>
+Cells can be configured on one (intra-band) or several (intra/inter band) SDR cards. Refer to lteenb.pdf, section 7.6.1, for limitations related to intra-band cells configured on the same SDR card.<br>
+<br>An example of multi cell configuration for SA handover is given in <code>config/gnb-sa-ho.cfg</code>.<br>
+<br>For each cell, a list of neighbor cells can be provided as in the example below:<br>
+</p><pre class="verbatim">ncell_list: 
+[
+  {
+    rat: &quot;nr&quot;, 
+    cell_id: 0x02,
+  } 
+],
+</pre><br><p>where <code>cell_id</code> is the cell_id of the neighbor cell.<br>
+</p>
+<p>The handover can be manually initiated with the handover monitor command, the handover remote API, or automatically initiated based on UE measurements.<br>
+<br>In case of handover based on UE measurement reports, a measurement object can be configured as in the example below:<br>
+</p><pre class="verbatim">/* measurement configuration */
+    meas_config_desc: {
+      a1_report_type: &quot;rsrp&quot;,
+      a1_rsrp: -60,
+      a1_hysteresis: 10,
+      a1_time_to_trigger: 100,
+      a2_report_type: &quot;rsrp&quot;,
+      a2_rsrp: -70,
+      a2_hysteresis: 0,
+      a2_time_to_trigger: 100,
+      nr_handover: {
+        a3_report_type: &quot;rsrp&quot;,
+        a3_offset: 6,
+        hysteresis: 0,
+        time_to_trigger: 100
+      }
+    },
+    meas_gap_config: {
+      pattern_id: 0
+    },
+</pre>
+<br><p>For handover procedure triggered by UE measurement report refer to <a href="#Handover-triggered-by-UE-measurement-report">Handover triggered by UE measurement report</a>.<br>
+<br>To perform blind intra gNB handover triggered by gNB, the <code>handover</code> command or remote API can be used, refer to lteenb.pdf for more details.<br>
+</p>
+<span id="Inter-gNB-Handover"></span><h3 class="section">6.2 Inter gNB Handover</h3>
+<br><p>The same prerequisites as per inter-eNB <a href="#Prerequisites">Prerequisites</a> apply.<br>
+</p>
+<p>In case of inter gNB Handover (XnAP or NGAP), each gNB runs on a different host and they are both connected to the same AMF. AMF can run on one of the gNB machine or on a third one. The gtp_address defined in each gNB configuration has to be set to the address of the ethernet interface connected to the AMF.<br>
+</p><pre class="verbatim">/* GTP bind address (=address of the ethernet interface connected to
+     the AMF). Must be modified if the AMF runs on a different host. */
+  gtp_addr: &quot;192.168.30.1&quot;,
+</pre>
+<br><p>As both gNBs are connected to same AMF component, their ID must be different.
+Use a unique gnb_id on each configuration file.<br>
+</p><pre class="verbatim">gnb_id: 0x12345,
+</pre>
+<br><p>Each gNB configuration must define the serving cell and a list of fully described neighbor cells, as in the example below:
+</p>
+<pre class="verbatim">nr_cell_list: [
+{
+  rf_port: 0,
+  cell_id: 0x01,
+  n_id_cell: 500,
+    
+  band: 78,
+  dl_nr_arfcn: 621300,
+
+  ncell_list: [ 
+  {
+    ssb_nr_arfcn: 525850,
+    dl_nr_arfcn: 526000,
+    ul_nr_arfcn: 502000,
+    n_id_cell: 501,
+    gnb_id_bits: 28,
+    nr_cell_id: 0x1234502,
+    tac: 1,
+    band: 7,
+    ssb_subcarrier_spacing: 15,
+    ssb_period: 5,
+    ssb_offset: 0,
+    ssb_duration: 1
+        
+   }],
+}
+</pre><br><p>Refer to lteenb.pdf for more details about each parameter.<br>
+</p><span id="XnAP-Handover"></span><h4 class="subsection">6.2.1 XnAP Handover</h4>
+<br><p>To perform XnAP handover, a Xn connection between the gNBs is needed, for that <code>xn_peers</code> parameter has to be set to the ip address of the other gNB (refer to lteenb.pdf).<br>
+</p><pre class="verbatim">  xn_peers:[&quot;192.168.30.2&quot;],
+</pre><br><p>If this interface is not connected, NGAP handover is performed.<br>
+</p><span id="Handover-procedures"></span><h4 class="subsection">6.2.2 Handover procedures</h4>
+<br><p>The handover can be manually initiated with the handover monitor command, the handover remote API, or automatically initiated based on UE measurements.<br>
+<br>In case of handover based on UE measurements, the same measurement configuration as for intra gNB handover can be used on both gNB. 
+</p><pre class="verbatim">/* measurement configuration */
+    meas_config_desc: {
+      a1_report_type: &quot;rsrp&quot;,
+      a1_rsrp: -60,
+      a1_hysteresis: 10,
+      a1_time_to_trigger: 100,
+      a2_report_type: &quot;rsrp&quot;,
+      a2_rsrp: -70,
+      a2_hysteresis: 0,
+      a2_time_to_trigger: 100,
+      nr_handover: {
+        a3_report_type: &quot;rsrp&quot;,
+        a3_offset: 6,
+        hysteresis: 0,
+        time_to_trigger: 100
+      }
+    },
+    meas_gap_config: {
+      pattern_id: 0
+    },
+</pre>
+
+<br><p>To trigger an handover based on UE measurement report refer to <a href="#Handover-triggered-by-UE-measurement-report">Handover triggered by UE measurement report</a>.<br>
+<br>For details about <code>handover</code> monitor and remote API command refer to lteenb.pdf.<br>
+</p>
+<span id="Troubleshooting"></span><h2 class="chapter">7 Troubleshooting</h2>
+<p>This chapter aims to list some basic checks to be done when handover is not carry out as expected. 
+</p><span id="Preconditions"></span><h3 class="section">7.1 Preconditions</h3>
+<p>Before to start handover testing, you must check first that UE can connect on each eNB/gNB independently and run Uplink/Downlink transfer.<br>
+If UE can&rsquo;t attach, check that: 
+</p><ul>
+<li> For 4G, eNB and MME are connected using <code>s1</code> command on eNB screen. S1 connection state should be &quot;setup_done&quot;
+</li><li> For 5G, gNB and 5GS are connected using <code>xn</code> command on eNB screen. Xn connection state should be &quot;setup_done&quot;
+</li><li> (For inter eNB/gNB handover) Check GPS clock is locked using <code>./sdr_util gps_state</code> command under /root/trx_sdr folder (LTE service must be turned off previously) . If GPS clock is locked, date and time will be displayed
+</li></ul>
+
+<span id="Measurement-reports-not-triggered"></span><h3 class="section">7.2 Measurement reports not triggered</h3>
+<p>If measurement reports are not sent by UE, check that : 
+</p><ol>
+<li> Measurement configuration parameters have been set in enb.cfg file 
+</li><li> Thresholds set in Measurement configuration are not too low and that UE doesn&rsquo;t lose the RRC connection before sending the events. a1_rsrp: -70 and a2_rsrp: -80 can be used as instance. 
+</li><li> UE is in connected mode during the test and not it idle when cell conditions fulfill handover conditions. 
+</li></ol>
+
+<span id="Handover-is-triggered-but-UE-fails-to-move-on-target-cell"></span><h3 class="section">7.3 Handover is triggered but UE fails to move on target cell</h3>
+<p>If after handover, UE is not seen on target cells check that 
+</p><ol>
+<li> Radio frame are synchronized on both cells thanks to GPS antenna clock 
+</li><li> UE can attach previously on target cell.  
+</li><li> Cell power of target cell is good enough for UE to handover (may happen when consecutive handover are triggered between two cells) 
+</li></ol>
+
+<span id="TRX-discontinuity-too-wide"></span><h3 class="section">7.4 TRX discontinuity too wide</h3>
+<p>This message may happen if both cells running on two different SDR cards of same enB are not synchronized. 
+In that case, check that USB cable is connected between OUT and IN of master and slave SDR card respectively. See installguide.pdf for more details. 
+</p>
+<hr>
+
+
+
+</body>
+</html>

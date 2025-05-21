@@ -1,0 +1,9 @@
+- Updated LPP ASN.1 to release 18.4.0
+- Updated LPPa ASN.1 to release 18.1.0
+- Added an option to force EMM and ESM status message sending
+- Added new filters to ue_get remote API
+- NR: updated NRPPa ASN.1 to release 18.5.0
+- NR: added MBS broadcast support
+- NR: added IP 3 tuple to ursp_rules remote API
+- NR: added an option to force 5GMM and 5GSM status message sending
+- ePDG: added prf-aes128-xcbc algorithm
