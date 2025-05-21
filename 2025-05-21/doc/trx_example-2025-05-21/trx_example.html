@@ -1,0 +1,461 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.6, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>TRX Software Development Kit</title>
+
+<meta name="description" content="TRX Software Development Kit">
+<meta name="keywords" content="TRX Software Development Kit">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+
+th {
+    border: 1px solid black;
+    background-color: #c0f585;
+    font-size: 14px;
+    padding: 5px;
+}
+
+td {
+    border: 1px solid black;
+    padding: 2px 4px;
+}
+
+p>img {
+    display: initial;
+}
+
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">TRX Software Development Kit</h1>
+
+
+<span id="SEC_Contents"></span>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+<ul class="no-bullet">
+<li><a id="toc-Introduction" href="#Introduction">1 Introduction</a></li>
+<li><a id="toc-Lifetime" href="#Lifetime">2 Lifetime</a>
+<ul class="no-bullet">
+  <li><a id="toc-Initialization" href="#Initialization">2.1 Initialization</a></li>
+  <li><a id="toc-Sample-rate" href="#Sample-rate">2.2 Sample rate</a></li>
+  <li><a id="toc-Start" href="#Start">2.3 Start</a></li>
+  <li><a id="toc-Runtime" href="#Runtime">2.4 Runtime</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Clock" href="#Clock">2.4.1 Clock</a></li>
+    <li><a id="toc-IQ-reception" href="#IQ-reception">2.4.2 IQ reception</a></li>
+    <li><a id="toc-IQ-transmition" href="#IQ-transmition">2.4.3 IQ transmition</a></li>
+    <li><a id="toc-Stop" href="#Stop">2.4.4 Stop</a></li>
+    <li><a id="toc-Terminate" href="#Terminate">2.4.5 Terminate</a></li>
+  </ul></li>
+</ul></li>
+<li><a id="toc-IQ-samples" href="#IQ-samples">3 IQ samples</a></li>
+<li><a id="toc-Example" href="#Example">4 Example</a></li>
+<li><a id="toc-Optimizations-1" href="#Optimizations-1">5 Optimizations</a>
+<ul class="no-bullet">
+  <li><a id="toc-IQ-samples-convertion" href="#IQ-samples-convertion">5.1 IQ samples convertion</a></li>
+  <li><a id="toc-Multi_002dthreading" href="#Multi_002dthreading">5.2 Multi-threading</a>
+  <ul class="no-bullet">
+    <li><a id="toc-TX" href="#TX">5.2.1 TX</a></li>
+    <li><a id="toc-RX" href="#RX">5.2.2 RX</a></li>
+  </ul></li>
+  <li><a id="toc-NUMA" href="#NUMA">5.3 NUMA</a></li>
+</ul></li>
+<li><a id="toc-Troubleshooting" href="#Troubleshooting">6 Troubleshooting</a>
+<ul class="no-bullet">
+  <li><a id="toc-Logs" href="#Logs">6.1 Logs</a></li>
+  <li><a id="toc-Metadata" href="#Metadata">6.2 Metadata</a></li>
+</ul></li>
+<li><a id="toc-Remote-API" href="#Remote-API">7 Remote API</a>
+<ul class="no-bullet">
+  <li><a id="toc-Receive-messages" href="#Receive-messages">7.1 Receive messages</a></li>
+  <li><a id="toc-Send-messages" href="#Send-messages">7.2 Send messages</a></li>
+</ul></li>
+<li><a id="toc-Change-history" href="#Change-history">8 Change history</a>
+<ul class="no-bullet">
+  <li><a id="toc-Version-2024_002d09_002d13" href="#Version-2024_002d09_002d13">8.1 Version 2024-09-13</a></li>
+  <li><a id="toc-Version-2024_002d06_002d14" href="#Version-2024_002d06_002d14">8.2 Version 2024-06-14</a></li>
+  <li><a id="toc-Version-2023_002d12_002d15" href="#Version-2023_002d12_002d15">8.3 Version 2023-12-15</a></li>
+</ul></li>
+<li><a id="toc-License" href="#License">9 License</a></li>
+
+</ul>
+</div>
+
+
+<span id="Introduction"></span><h2 class="chapter">1 Introduction</h2>
+
+<p>The purpose of this document is to explain how to implement a driver for
+Amarisoft software(s) to use any kind of frquency domain radio frontend.<br>
+Such a driver must implement the TRX API defined in <code>trx_driver.h</code> and will
+be used by Amarisoft software as a shared library.<br>
+This API a pure standard C API but may be implemented in any language as long as it
+respects ABI.<br>
+</p>
+<br>
+
+<p>The shared library will be loaded by Amarisoft software that will control its lifetime.<br>
+This implies to run in user mode.
+</p>
+<img src="img/trx1.webp" alt="img/trx1">
+
+<p>In this document, <code>software</code> will represent Amarisoft Software (Ex: eNB, UE...) and
+<code>driver</code> will represent the shared library implementing the TRX API.
+</p>
+
+<span id="Lifetime"></span><h2 class="chapter">2 Lifetime</h2>
+
+<img src="img/trx2.webp" alt="img/trx2">
+
+<span id="Initialization"></span><h3 class="section">2.1 Initialization</h3>
+
+<p>Software will first manually open the driver, will load the only
+required exported symbol (<code>trx_driver_init</code>) and will call it.<br>
+</p>
+<p>In this phase the driver will provide the various callbacks that the software
+will use during runtime.<br>
+The function <code>trx_get_param_string</code> and <code>trx_get_param_double</code> may be used
+to access fields of <code>rf_driver</code> section of software configuration file.<br>
+Any context may be saved inside <code>TRXState-&gt;opaque</code>.<br>
+</p>
+<p>After initialization, software may call any of the provided callbacks.<br>
+</p>
+<p>We recommend to also read the commentary associated to each callback in <code>trx_driver</code>.
+</p>
+<p>The minimum set of callbacks to be implemented are:
+</p>
+<ul>
+<li> trx_start_func2
+</li><li> trx_read_func2
+</li><li> trx_write_func2
+</li><li> trx_end_func
+</li></ul>
+
+
+<span id="Sample-rate"></span><h3 class="section">2.2 Sample rate</h3>
+
+<p>After initialization has been done, the sofware will require estimating the signal sampling rate
+for each RF port.<br>
+The sample rate can be either manually set in software config file
+(<a href="https://tech-academy.amarisoft.com/lteenb.doc#prop.rf_ports.sample_rate">eNB</a>,
+<a href="https://tech-academy.amarisoft.com/lteue.doc#prop.sample_rate">UE</a>) or provided by the
+driver itself through the <code>trx_get_sample_rate_func</code> callback.
+</p>
+<span id="Start"></span><h3 class="section">2.3 Start</h3>
+
+<p>Once initialization is done, software will call <code>trx_start_func2</code> function to
+provide to the driver the configuration of all RF ports.<br>
+A RF port defines a signal at a specific frequency and bandwidth with multiple antenna.
+</p>
+<span id="Runtime"></span><h3 class="section">2.4 Runtime</h3>
+
+<span id="Clock"></span><h4 class="subsection">2.4.1 Clock</h4>
+
+<p>Software don&rsquo;t use any local clock such as the OS clock or any other mechanism.<br>
+Its progress is full driven by the reception of IQ samples provided by the driver.<br>
+In other words, any computed time inside software will be derived by the amount of
+received samples.<br>
+This time information is called a timestamp, expressed in samples and can be easily
+converted to natural unit (s, ms...) using the sample rate.
+</p>
+<pre class="verbatim">    &lt;time&gt; = &lt;timestamp&gt; / &lt;sample_rate&gt;
+</pre>
+<span id="IQ-reception"></span><h4 class="subsection">2.4.2 IQ reception</h4>
+
+<p>Regularily, the software will call <code>trx_read_func2</code>.<br>
+The purpose of this function is to wait for available IQ samples
+and provide them to the software with a timestamp.<br>
+</p>
+<p>The timestamp represent the time at which the signal corresponding to
+the IQ samples has been received at antenna level.<br>
+Its origin can be arbitrary except in case where eNB has to be synchronized with
+other base stations, the origin must be Jan 1st 1970 (TAI).<br>
+</p>
+<p>The provided timestamp is the timestamp of the first provided IQ sample.<br>
+</p>
+<p>As the software uses the provided timestamp for its clock, any subsequent call
+to this callback should provide IQ samples with a greater timestamp.<br>
+If not the IQ samples wil be skipped.<br>
+If any discontinuity is found, the missing IQ samples will be generated with an
+empty signal.<br>
+</p>
+<p>If no new IQ samples are available since the last call, the function should block
+until new IQ samples are available.
+</p>
+<img src="img/trx3.webp" alt="img/trx3">
+
+
+<span id="IQ-transmition"></span><h4 class="subsection">2.4.3 IQ transmition</h4>
+
+<p>Regularily, the software will call <code>trx_write_func2</code>.<br>
+The purpose of this function is to provide IQ samples to be transmitted to the radio fronted.<br>
+The associated timestamp defines when the signal has to be sent and is based on the same timestamp
+clock used for reception.<br>
+Basically it means that the timestamp should be in the future to let the RF chain some time to send
+it.<br>
+If it is not the case, it means the software is late and samples should be skipped.<br>
+How much in advance the IQ samples are provided depends on many parameters with a optenital
+high jitter, which means in practical driver should be able to buffer the IQ sample somewhere.<br>
+</p>
+<p>The call should not block and should be as fast as possible.<br>
+</p>
+<p>Note that to identify RX/TX period for TDD case, the callback will be called with <code>samples</code>
+being NULL (The flag <code>TRX_WRITE_FLAG_PADDING</code> will be also set) during RX period.<br>
+This information may be used to turn on/off any PA or switch.
+</p>
+
+<span id="Stop"></span><h4 class="subsection">2.4.4 Stop</h4>
+
+<span id="Terminate"></span><h4 class="subsection">2.4.5 Terminate</h4>
+
+
+<span id="IQ-samples"></span><h2 class="chapter">3 IQ samples</h2>
+
+<p>Amarisoft IQ are coded with 32 bits float type and have following range:
+</p>
+<pre class="verbatim">    -1.0 &lt;= IQ &lt;= 1.0
+</pre>
+<p>It is up to the driver to normalize IQ and to adapt their level for any AGC or predefined gain.<br>
+The type of samples in read and write callbacks are void* but should be casted to <code>TRXComplex</code> format.<br>
+</p>
+<p>It is up to the driver to convert IQ samples from/to this format.
+Note that this step is crucial for performances and you should have it optimized as much as possible (See <a href="#Optimizations">Optimizations</a>).
+</p>
+
+<span id="Example"></span><h2 class="chapter">4 Example</h2>
+
+<p>A dummy driver example is implemented in <code>trx_example.c</code>.
+</p>
+<p><code>trx_example</code> is a dummy transceiver driver for the Amarisoft LTE
+eNodeB. It simulates zero samples coming from a source synchronized to
+the PC clock and optionally outputs the maximum amplitude of the
+downlink I/Q samples.
+</p>
+<p>You can compile the trx_example driver by just typing <code>make</code>.<br>
+Then copy <code>trx_example.so</code> to the lteenb installation directory.<br>
+You can enable it with the following property in the eNodeB configuration:
+</p>
+<pre class="verbatim">  rf_driver: {
+     name: &quot;example&quot;,
+     dump_max: 1, /* enable maximum amplitude output */
+  },
+  tx_gain: 0,
+  rx_gain: 0,
+  sample_rate: 11.52, /* set the sample rate to 11.52 MHz */
+
+</pre>
+
+<span id="Optimizations"></span><span id="Optimizations-1"></span><h2 class="chapter">5 Optimizations</h2>
+
+<span id="IQ-samples-convertion"></span><h3 class="section">5.1 IQ samples convertion</h3>
+
+<p>For fast IQ samples convertion, optimized routine are available in <code>convert16_see.c</code>.
+</p>
+<p>This is a example code of fixed point/floating point numbers optimized with SSE instructions.
+This file must be compiled with &quot;-msse4.1&quot; gcc option.
+</p>
+<p>For more information on Intel SSE/AVX: <a href="https://software.intel.com/sites/landingpage/IntrinsicsGuide/">https://software.intel.com/sites/landingpage/IntrinsicsGuide/</a>
+</p>
+<span id="Multi_002dthreading"></span><h3 class="section">5.2 Multi-threading</h3>
+
+<p>To take advantage of multiple cores CPU architcture, the read and write callbacks have a multi-thread flavour.
+Each direction may be implemented independently.
+</p>
+<span id="TX"></span><h4 class="subsection">5.2.1 TX</h4>
+
+<p>If <code>trx_write_mt_func</code> is implemented, the software may call it simultaneously from different thread
+so that you need to ensure to avoid any thread race condition.<br>
+Functionnaly speaking, this function must do the same as <code>trx_write_func2</code>.
+</p>
+<span id="RX"></span><h4 class="subsection">5.2.2 RX</h4>
+
+<p>To allow multi-threaded IQ reception, the driver needs to implement the two following callbacks:
+</p><dl compact="compact">
+<dt><code>trx_read_timestamp_func</code></dt>
+<dd><p>Will be called sequentially from the same thread as for <code>trx_read_func2</code>
+but does not return any IQ sample, only incremented timestamp will be used.<br>
+This means that this function must tell the software up to what timestamp IQ samples
+are available.<br>
+If this callback is not implemented, the software will use the standard <code>trx_write_func2</code>.
+</p>
+</dd>
+<dt><code>trx_read_mt_func</code></dt>
+<dd><p>This callback is used to retrieve IQ samples at a defined timestamp and be called
+simultaneously from multiple threads.<br>
+It <code>trx_read_mt_func</code> will be called with <code>timestamp + count</code> always below
+the last timestamp provided by <code>trx_read_timestamp_func</code>.<br>
+Any IQ samples will never be requested twice or simultaneousl which means that as soon
+as they have been provided, they can be discarded.<br>
+Part of IQ samples may not be requested (Ex: during TDD TX time or if they are not necessary).<br>
+If thoses callbacks are not implemented, the software will use the standard <code>trx_read_func2</code>.
+</p></dd>
+</dl>
+
+
+<span id="NUMA"></span><h3 class="section">5.3 NUMA</h3>
+
+<p>If your system has a NUMA architecture (Multiple socket, NUMA CPU cores) and your driver
+is using memory and/or hardware bounded to a NUMA node, the software can take advantage
+of it by allocating its memory and processing IQ samples on the same NUMA node.<br>
+For instance, if your driver is communicating with a PCIe device, allocating memory and processing
+IQ samples on the same NUMA node the PCIe lanes are connected to will reduce the system memory bandwidth
+and may drastically improve performances.<br>
+</p>
+<p>To take advantage of it, you need to implement the <code>trx_get_numa_nodes</code> callback
+that will be called before <code>trx_start_func2</code>.
+</p>
+
+<span id="Troubleshooting"></span><h2 class="chapter">6 Troubleshooting</h2>
+
+<span id="Logs"></span><h3 class="section">6.1 Logs</h3>
+
+<p>To ease troubleshooting, you can access the software log system with <code>trx_log_func</code>
+function provided in <code>TRXState</code> during init.<br>
+Some helpers are also provided: <code>trx_log_full</code>, <code>trx_log</code>, <code>trx_log1</code>.<br>
+</p>
+<p>The log function is thread safe but if you want to use them from a thread created by the
+driver, the thread has to be a POSIX thread and <code>trx_pthread_init</code>/<code>trx_pthread_terminate</code>
+must be called at thread creation/termination.<br>
+</p>
+<p>A log may be skipped depending on its level and the current software TRX layer level configuration.
+To avoid overhead of log creation in the case where a log would be skipped, the driver may
+implement <code>trx_log_set_level_func</code> to be informed of the current configuration (and subsequent
+runtime changes) and test level threshold earlier.
+</p>
+
+<span id="Metadata"></span><h3 class="section">6.2 Metadata</h3>
+
+<p>Software can get some feedback from the driver to log potential errors/problems on IQ samples
+handling.<br>
+</p>
+<dl compact="compact">
+<dt><code>TRXReadMetadata</code></dt>
+<dd><p>This structure is passed to <code>trx_read_func2</code> and <code>trx_read_mt_func</code> callbacks. The driver
+may set the overflow property if TRX_READ_MD_OVERFLOW is set and drivers estimate it has an overflow
+in its reception buffer (i.e IQ samples are lost.
+</p></dd>
+<dt><code>TRXWriteMetadata</code></dt>
+<dd><p>This structure is passed to <code>trx_write_func2</code> and <code>trx_write_mt_func</code> callbacks. If
+TRX_WRITE_MD_UNDERFLOW is set, the driver may set cur_timestamp_set to 1 and fill cur_timestamp
+with the estimated current timestamp at antenna level.<br>
+This will inform software if the provided IQ samples are lost (Because <code>timestamp &gt; cur_timestamp</code>)
+or not and will also provide information on the remaining time budget.<br>
+With this, the software can take decisions to reduce its processing to go faster and will be used
+to display stats in the <code>t cpu</code> monitor command (RX/TX diff).<br>
+If this is not set, the software will rely on the last timestamp provided by read APIs that may be less
+accurate.
+</p></dd>
+</dl>
+
+
+<span id="Remote-API"></span><h2 class="chapter">7 Remote API</h2>
+
+<p>Since version 14 of API you can receive and send messages via remote API.<br>
+Please refer to the remote API section of your software component for usage.
+</p>
+<p><code>trx_msg_recv_func</code> can be called from a different thread than read and write functions.<br>
+<code>TRXMsg</code> API is thread safe.
+</p>
+<span id="Receive-messages"></span><h3 class="section">7.1 Receive messages</h3>
+
+<p>All <code>trx</code> messages will be sent to <code>trx_msg_recv_func</code>.<br>
+Use <code>TRXMsg-&gt;get_double</code> and <code>TRXMsg-&gt;get_string</code> API to get data from incoming message.<br>
+Use <code>TRXMsg-&gt;set_double</code> and <code>TRXMsg-&gt;set_string</code> API to set data for response.<br>
+</p>
+<p>Then use <code>TRXMsg-&gt;send</code> API when your response is ready to be sent.
+</p>
+<p>If you need to send response later, use <code>TRXMsg-&gt;set_timeout</code> API, then
+call <code>TRXMsg-&gt;send</code> API when your response is ready to be sent.
+</p>
+<p>The <code>timeout_cb</code> will be called when timeout occurs.
+You need to call <code>TRXMsg-&gt;send</code> to free resources.
+</p>
+<p>Those APIs are thread safe but if you want to use them from a thread created by the
+driver, the thread has to be a POSIX thread and <code>trx_pthread_init</code>/<code>trx_pthread_terminate</code>
+must be called at thread creation/termination.<br>
+</p>
+
+<span id="Send-messages"></span><h3 class="section">7.2 Send messages</h3>
+
+<p>To send a message, call <code>trx_msg_send_func</code>.<br>
+This will create a message that you can populate with
+<code>TRXMsg-&gt;set_double</code> and <code>TRXMsg-&gt;set_string</code> API.
+</p>
+<p>Then call <code>TRXMsg-&gt;send</code> API to send your message.
+</p>
+<p>The message type will be <code>trx</code> and the client must register
+to this type of message to receive it.
+</p>
+
+<span id="Change-history"></span><h2 class="chapter">8 Change history</h2>
+
+
+<span id="Version-2024_002d09_002d13"></span><h3 class="section">8.1 Version 2024-09-13</h3>
+
+<ul>
+<li> added <code>rx_timestamp_offset</code> to cell info
+</li><li> added <code>pattern2</code> to cell info
+</li></ul>
+
+<span id="Version-2024_002d06_002d14"></span><h3 class="section">8.2 Version 2024-06-14</h3>
+
+<ul>
+<li> added trx_write_mt_end_func API for multi-threading
+</li><li> added NR TDD pattern 2 in cell info
+</li></ul>
+
+<span id="Version-2023_002d12_002d15"></span><h3 class="section">8.3 Version 2023-12-15</h3>
+
+<ul>
+<li> Major update for all concepts
+</li></ul>
+
+
+<span id="License"></span><h2 class="chapter">9 License</h2>
+
+<p><code>trx_example</code> is copyright (C) 2012-2025 Amarisoft. Its redistribution
+without authorization is prohibited.
+</p>
+<p><code>trx_example</code> is available without any express or implied warranty. In
+no event will Amarisoft be held liable for any damages arising from
+the use of this software.
+</p>
+<p>For more information on licensing, please refer to <code>license.pdf</code> file.
+</p>
+
+<hr>
+
+
+
+</body>
+</html>

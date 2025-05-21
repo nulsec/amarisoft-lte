@@ -1,0 +1,1448 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.6, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>LTE License Server</title>
+
+<meta name="description" content="LTE License Server">
+<meta name="keywords" content="LTE License Server">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+
+th {
+    border: 1px solid black;
+    background-color: #c0f585;
+    font-size: 14px;
+    padding: 5px;
+}
+
+td {
+    border: 1px solid black;
+    padding: 2px 4px;
+}
+
+p>img {
+    display: initial;
+}
+
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">LTE License Server</h1>
+
+
+<span id="SEC_Contents"></span>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+<ul class="no-bullet">
+<li><a id="toc-Introduction" href="#Introduction">1 Introduction</a></li>
+<li><a id="toc-Features" href="#Features">2 Features</a></li>
+<li><a id="toc-Requirements" href="#Requirements">3 Requirements</a>
+<ul class="no-bullet">
+  <li><a id="toc-Hardware-requirements" href="#Hardware-requirements">3.1 Hardware requirements</a></li>
+  <li><a id="toc-Software-requirements" href="#Software-requirements">3.2 Software requirements</a></li>
+</ul></li>
+<li><a id="toc-License-server-installation" href="#License-server-installation">4 License server installation</a>
+<ul class="no-bullet">
+  <li><a id="toc-Adding-a-floating-license" href="#Adding-a-floating-license">4.1 Adding a floating license</a></li>
+  <li><a id="toc-Connecting-a-component-to-license-server" href="#Connecting-a-component-to-license-server">4.2 Connecting a component to license server</a></li>
+  <li><a id="toc-Adding-multiple-floating-licenses" href="#Adding-multiple-floating-licenses">4.3 Adding multiple floating licenses</a></li>
+  <li><a id="toc-Multiple-LTELICENSE-instances-running-on-the-same-PC" href="#Multiple-LTELICENSE-instances-running-on-the-same-PC">4.4 Multiple LTELICENSE instances running on the same PC</a></li>
+  <li><a id="toc-OpenSSL" href="#OpenSSL">4.5 OpenSSL</a></li>
+</ul></li>
+<li><a id="toc-Configuration-reference" href="#Configuration-reference">5 Configuration reference</a>
+<ul class="no-bullet">
+  <li><a id="toc-Configuration-file-syntax" href="#Configuration-file-syntax">5.1 Configuration file syntax</a>
+  <ul class="no-bullet">
+    <li><a id="toc-JSON-merge-rules-1" href="#JSON-merge-rules-1">5.1.1 JSON merge rules</a></li>
+  </ul></li>
+  <li><a id="toc-Global-properties" href="#Global-properties">5.2 Global properties</a></li>
+</ul></li>
+<li><a id="toc-Remote-API-1" href="#Remote-API-1">6 Remote API</a>
+<ul class="no-bullet">
+  <li><a id="toc-Messages" href="#Messages">6.1 Messages</a></li>
+  <li><a id="toc-Startup" href="#Startup">6.2 Startup</a></li>
+  <li><a id="toc-Errors" href="#Errors">6.3 Errors</a></li>
+  <li><a id="toc-Sample-nodejs-program" href="#Sample-nodejs-program">6.4 Sample nodejs program</a></li>
+  <li><a id="toc-Common-messages" href="#Common-messages">6.5 Common messages</a></li>
+  <li><a id="toc-License-messages-1" href="#License-messages-1">6.6 License messages</a></li>
+</ul></li>
+<li><a id="toc-Command-line-monitor-reference" href="#Command-line-monitor-reference">7 Command line monitor reference</a></li>
+<li><a id="toc-Log-file-format-1" href="#Log-file-format-1">8 Log file format</a></li>
+<li><a id="toc-Change-history" href="#Change-history">9 Change history</a>
+<ul class="no-bullet">
+  <li><a id="toc-Version-2024_002d09_002d13" href="#Version-2024_002d09_002d13">9.1 Version 2024-09-13</a></li>
+  <li><a id="toc-Version-2024_002d06_002d14" href="#Version-2024_002d06_002d14">9.2 Version 2024-06-14</a></li>
+  <li><a id="toc-Version-2023_002d12_002d15" href="#Version-2023_002d12_002d15">9.3 Version 2023-12-15</a></li>
+  <li><a id="toc-Version-2023_002d06_002d10" href="#Version-2023_002d06_002d10">9.4 Version 2023-06-10</a></li>
+  <li><a id="toc-Version-2023_002d03_002d17" href="#Version-2023_002d03_002d17">9.5 Version 2023-03-17</a></li>
+  <li><a id="toc-Version-2022_002d12_002d16" href="#Version-2022_002d12_002d16">9.6 Version 2022-12-16</a></li>
+  <li><a id="toc-Version-2022_002d06_002d17" href="#Version-2022_002d06_002d17">9.7 Version 2022-06-17</a></li>
+  <li><a id="toc-Version-2021_002d12_002d17" href="#Version-2021_002d12_002d17">9.8 Version 2021-12-17</a></li>
+</ul></li>
+<li><a id="toc-License" href="#License">10 License</a></li>
+
+</ul>
+</div>
+
+
+<span id="Introduction"></span><h2 class="chapter">1 Introduction</h2>
+
+<p>LTE License Server is a floating license server allowing to dispatch your
+Amarisoft LTE components licenses over multiple hardwares.
+</p>
+
+<span id="Features"></span><h2 class="chapter">2 Features</h2>
+
+<ul>
+<li> Share licenses over multiple hardwares.
+</li><li> Allow use of VM for Amarisoft LTE/NR components.
+</li><li> Command line monitor.
+</li><li> Remote API using WebSocket.
+</li></ul>
+
+<span id="Requirements"></span><h2 class="chapter">3 Requirements</h2>
+
+<span id="Hardware-requirements"></span><h3 class="section">3.1 Hardware requirements</h3>
+
+<ul>
+<li> Any PC, with a network connection, which is reachable from the other PCs running Amarisoft LTE/NR components (EPC, eNodeB, etc.) requiring a floating license from this server.
+</li></ul>
+
+<span id="Software-requirements"></span><h3 class="section">3.2 Software requirements</h3>
+
+<ul>
+<li> A 64 bit Linux distribution. Fedora 39 is the officially supported distribution.<br>
+The following distributions are known as compatible:
+<ul>
+<li> Fedora 22 to 39
+</li><li> Cent OS 7
+</li><li> Ubuntu 14 to 22
+</li></ul>
+
+<p>Your system requires at least GLIBC 2.17.
+</p>
+
+
+</li></ul>
+
+<span id="License-server-installation"></span><h2 class="chapter">4 License server installation</h2>
+
+<p>The picture below shows a possible license server configuration. 
+</p>
+<div align="center"><img src="img/license_server.webp" alt="png">
+</div>
+<p>The license server can also run on one of the PC running Amarisoft LTE/NR components.
+</p>
+<p>Amarisoft provides a USB dongle containing the license key file (<code>ltelicense.key</code>) required  by LTELICENSE to run.<br> This is the only file that must be present under <code>/.amarisoft</code> folder of the USB dongle. Component license key files (ltemme.key, lteenb.key, etc..) must no be copied in this USB key.<br>
+</p>
+<p>The USB dongle has to be mounted on the PC which acts as license server. <code>Chapter 2.7 of installguide.pdf</code> explains how to mount a USB drive. Once the dongle is correctly mounted, the steps below can be followed:
+</p>
+<ul>
+<li> If not yet done, download the SW release tarball from your Extranet (amarisoft.YYYY-MM-DD.tar.gz)
+</li><li> Untar it (&quot;tar xzf amarisoft.YYYY-MM-DD.tar.gz&quot;) and copy the ltelicense-linux-YYYY-MM-DD.tar.gz from your release tarball to your license server PC 
+</li><li> Untar it (&quot;tar xzf ltelicense-linux.YYYY-MM-DD.tar.gz&quot;). This will create a directory called YYYY-MM-DD.
+</li><li> Go to the directory YYYY-MM-DD and execute the following command with ROOT priviledges. The LTELICENSE can be run directly from the directory where it has been unpacked. No
+need for explicit installation.
+<div class="example">
+<pre class="example">./ltelicense_server config/license.cfg 
+</pre></div>
+
+</li></ul>
+
+<p>You can also install it and make it run as a service using <code>install.sh</code>
+script and <code>OTS</code> provided within your release tarball.
+</p>
+<p>At this point your LTELICENSE should be up and running.
+<br>
+</p><span id="Adding-a-floating-license"></span><h3 class="section">4.1 Adding a floating license</h3>
+
+<p>When requesting to Amarisoft a new license key for any of your NR/LTE components, please ask for floating license. 
+</p>
+<p>Once you get the component license files (like lteenb.key, ltemme.key, ...), place them under <code>$HOME/.amarisoft/floating/</code> of the license server machine.
+</p>
+<p>You can configure additional paths or change this path by editing the <code>licenses</code> array in the configuration file <code>config/license.cfg</code>, (see <a href="#licenses">licenses</a>).
+</p>
+<p>Configuration file example:
+</p><div class="example">
+<pre class="example">{
+  log_options: &quot;license.level=info,all.max_size=0,license.max_size=1&quot;,
+  log_filename: &quot;/tmp/license.log&quot;,
+
+  bind_addr: &quot;[::]&quot;,
+
+  licenses: [
+    <strong>&quot;/root/.amarisoft/floating/&quot;</strong>
+  ]
+}
+</pre></div>
+
+<p>When license file is installed, you can restart LTELICENSE or type <code>reload</code> in monitor.
+</p>
+
+<span id="Connecting-a-component-to-license-server"></span><h3 class="section">4.2 Connecting a component to license server</h3>
+
+<p>Once the license server is up and running, you can now configure the Amarisoft components (i.e eNB, MME etc.. ) so they can connect to the server and retrieve the floating license.
+</p><br>
+<ul>
+<li> On the PC which runs the components, create a directory called <samp>.amarisoft</samp> under <code>${HOME}</code> where <code>${HOME}</code> is the home directory of the <code>root</code> user. (example /root/.amarisoft ) 
+</li><li> Under this directory, create a license_server.cfg file and add the license server parameters :
+
+<p>Example : 
+</p>
+<div class="example">
+<pre class="example">{
+    license_server: {
+        server_addr: &quot;192.168.1.20&quot; 
+    }
+}
+</pre></div>
+
+</li><li> server_addr value is the IP address of your license server, change it accordingly. 
+
+</li><li> Alternatively, it is also possible to define the <code>license_server</code> object inside each component&rsquo;s configuration file, please refer to lteenb.pdf and ltemme.pdf.
+
+</li></ul>
+
+<span id="Adding-multiple-floating-licenses"></span><h3 class="section">4.3 Adding multiple floating licenses</h3>
+<p>The license server can provide different license types to multiple setups.
+<br>To distinguish the licenses, the <code>tag</code> field can be used.
+<br>The <code>licenses</code> object in the configuration file <code>config/license.cfg</code> can look as the example below.<br>
+</p><pre class="verbatim">licenses:[
+          {
+            file: &quot;/root/.amarisoft/floating_eNB600&quot;,
+            tag: &quot;eNB600&quot; 
+          }, 
+          {
+            file: &quot;/root/.amarisoft/floating_gNB200&quot;,
+            tag: &quot;gNB200&quot; 
+          }
+         ]
+</pre> 
+<br><p><code>tag</code> can be anything.<br> 
+<br>Each HW setup running a component (i.e eNB, MME etc.. ) has to be configured with a matching tag, as below:
+</p>
+<br><p>First setup
+</p><pre class="verbatim">license_server:{
+            server_addr:â192.168.0.20â,
+            tag: âeNB600â,
+            }
+</pre>
+<br><p>Second setup
+</p><pre class="verbatim">license_server:{
+            server_addr:â192.168.0.20â,
+            tag: âgNB200â,
+            }
+
+</pre>
+<p>If the components run on the same HW the <code>license_server</code> object can be defined inside each configuration file (enb.cfg, mme.cfg, ...).
+</p>
+<p>All license key files related to your license server (same code id) can be donwloaded by clicking on &quot;<code>All</code>&quot; link on your Extranet.
+</p>
+<p>Once you have unzipped the tarball, place the corresponding key files under the paths indicated in the the <code>licenses</code> object.
+</p>
+<span id="Multiple-LTELICENSE-instances-running-on-the-same-PC"></span><h3 class="section">4.4 Multiple LTELICENSE instances running on the same PC</h3>
+
+<p>A single license server can delivery floating licenses to many components, however if you have more than one USB dongles you can also run multiple instances of <code>ltelicense_server</code> on the same server.
+</p>
+<p>In case of two USB dongles, mount also the second usb key and run a second license server, you should now have two instances of the follwing:
+<br>
+</p><pre class="verbatim">./ltelicense_server config/license.cfg
+</pre><br>
+<p>In the configuration of each license server (license.cfg) you need to define different port numbers in <code>bind_addr</code> and which license key file to use in <code>licenses</code> array, like the following:
+</p>
+
+<br><p>First instance
+</p><pre class="verbatim">{
+   log_options: &quot;license.level=info,all.max_size=0,license.max_size=1&quot;,
+   log_filename: &quot;/tmp/license_1.log&quot;,
+   bind_addr: &quot;[::]:9050&quot;,
+   licenses: [
+       {
+         file: &quot;/root/.amarisoft/ltemme-77-76-b7-9e-b8-da-bd-4d.key&quot;,
+       }
+   ]
+}
+</pre>
+<br><p>Second instance
+</p><pre class="verbatim">
+{
+   log_options: &quot;license.level=info,all.max_size=0,license.max_size=1&quot;,
+   log_filename: &quot;/tmp/license_2.log&quot;,
+   bind_addr: &quot;[::]:9051&quot;,
+   licenses: [
+       {
+         file: &quot;/root/.amarisoft/ltemme-61-77-c8-95-ae-a8-80-2d.key&quot;,
+       }
+   ]
+}
+</pre>
+<br><p>Inside each component configuration file (like enb.cfg or mme.cfg) you need to set the license server port number you want to connect to, examples:
+<br>
+</p><pre class="verbatim">license_server:{
+  server_addr:192.168.0.20:9050,
+}
+</pre>
+<pre class="verbatim">license_server:{
+  server_addr:192.168.0.20:9051,
+}
+</pre>
+
+<span id="OpenSSL"></span><h3 class="section">4.5 OpenSSL</h3>
+
+
+<p>LTELICENSE has been compiled against openssl version 1.1.1w.<br>
+If your system does not have compatible version installed you may have this error message at startup:
+</p><div class="example">
+<pre class="example">error while loading shared libraries: libssl.so.1.1: cannot open shared object file: No such file or directory
+</pre></div>
+
+<p>To overcome this problem, you may:
+</p><ul>
+<li> Copy libssl.so.1.1 and libcrypto.so.1.1 from
+<code>libs</code> subdirectory of your release tarball.<br>
+If you have installed software with automatic install script, this should have been done automatically.
+
+
+
+</li><li> Compile and install proper openssl version yourself
+
+</li></ul>
+
+<p>In case of persisting issue, raise a ticket from our support site at <a href="https://support.amarisoft.com/">https://support.amarisoft.com/</a>
+with the information provided by below commands executed in LTELICENSE directory:
+</p><div class="example">
+<pre class="example">uname -a
+ls -l
+ldd ./ltelicense
+openssl version
+</pre></div>
+
+
+
+
+<span id="Configuration-reference"></span><h2 class="chapter">5 Configuration reference</h2>
+
+<span id="Configuration-file-syntax"></span><h3 class="section">5.1 Configuration file syntax</h3>
+
+<p>The main configuration file uses a syntax very similar to the
+Javascript Object Notation (JSON) with few extensions.
+</p>
+<ol>
+<li> Supported types:
+
+<ul class="no-bullet">
+<li>- Numbers (64 bit floating point). Notation: <code>13.4</code>
+</li><li>- Complex numbers. Notation: <code>1.2+3*I</code>
+</li><li>- Strings. Notation: <code> &quot;string&quot; </code>
+</li><li>- Booleans. Notation: <code>true</code> or <code>false</code>.
+</li><li>- Objects. Notation: <code> { field1: <var>value1</var>, field2: <var>value2</var>, .... } </code>
+</li><li>- Arrays. Notation: <code> [ <var>value1</var>, <var>value2</var>, .... ] </code>
+</li></ul>
+
+</li><li> The basic operations <code>+</code>, <code>-</code>, <code>*</code> and <code>/</code> are
+supported with numbers and complex numbers. <code>+</code> also concatenates
+strings. The operators <code>!</code>, <code>||</code>, <code>&amp;&amp;</code>, <code>==</code>,
+<code>!=</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;=</code>, <code>&gt;</code> are supported too.
+
+</li><li> The numbers <code>0</code> and <code>1</code> are accepted as synonyms for the
+boolean values <code>false</code> and <code>true</code>.
+
+</li><li> {} at top level are optional.
+
+</li><li> &quot; for property names are optional, unless the name starts with a number.
+
+</li><li> Properties can be duplicated.<br>
+If properties are duplicated, they will be merged following <a href="#JSON-merge-rules">JSON merge rules</a> with overriding
+occuring in reading direction (last overrides previous).<br>
+Ex:
+<pre class="verbatim">{
+    value: &quot;foo&quot;,
+    value: &quot;bar&quot;,
+    sub: {
+        value: &quot;foo&quot;
+    },
+    sub: {
+        value: &quot;bar&quot;
+    }
+}
+</pre><p>Will be equivalent to:
+</p><pre class="verbatim">{
+    value: &quot;bar&quot;,
+    sub: {
+        value: &quot;bar&quot;
+    }
+}
+</pre>
+
+
+</li><li> Files can be included using <var>include</var> keyword (must not be quoted) followed by a string (without :) representing the file to include (path is relative to current file) and terminating by a comma.<br>
+Arrays can&rsquo;t be included.<br>
+Merge will be done as for duplicate properties.<br>
+If <var>file1.cfg</var> is:
+<pre class="verbatim">    value: &quot;foo&quot;,
+    include &quot;file2.cfg&quot;,
+    foo: &quot;foo&quot;
+</pre><p>And <var>file2.cfg</var> is:
+</p><pre class="verbatim">    value: &quot;bar&quot;,
+    foo: &quot;bar&quot;
+</pre><p>Final config will be:
+</p><pre class="verbatim">{
+    value: &quot;bar&quot;,
+    foo: &quot;foo&quot;
+}
+</pre>
+</li><li> A C like preprocessor is supported. The following preprocessor commands are available:
+  <dl compact="compact">
+<dt><code>#define <var>var</var> <var>expr</var></code></dt>
+<dd><p>Define a new variable with value <var>expr</var>. <var>expr</var> must be a
+  valid JSON expression. Note that unlike the standard C preprocessor,
+  <var>expr</var> is evaluated by the preprocessor.
+  </p></dd>
+<dt><code>#undef <var>var</var></code></dt>
+<dd><p>Undefine the variable <var>var</var>.
+  </p></dd>
+<dt><code>#include <var>expr</var></code></dt>
+<dd><p>Include the file whose filename is the evaluation of the string
+  expression <var>expr</var>.
+  </p></dd>
+<dt><code>#if <var>expr</var></code></dt>
+<dd><p>Consider the following text if <var>expr</var> is true.
+  </p></dd>
+<dt><code>#else</code></dt>
+<dd><p>Alternative of <code>#if</code> block.
+  </p></dd>
+<dt><code>#elif</code></dt>
+<dd><p>Composition of <code>#else</code> and <code>#if</code>.
+  </p></dd>
+<dt><code>#endif</code></dt>
+<dd><p>End of <code>#if</code> block.
+  </p></dd>
+<dt><code>#ifdef <var>var</var></code></dt>
+<dd><p>Shortcut for <code>#if defined(var)</code>
+  </p></dd>
+<dt><code>#ifndef <var>var</var></code></dt>
+<dd><p>Shortcut for <code>#if !defined(var)</code>
+  </p></dd>
+</dl>
+
+<p>In the JSON source, every occurrence of a defined preprocessor
+  variable is replaced by its value.
+</p>
+</li><li> Backquote strings: JSON expression can be inserted in backquote delimited strings with the <code>${expr}</code> syntax. Example: <code>`abc${1+2}d`</code> is evaluated as the string <code>&quot;abc3d&quot;</code>. Preprocessor variables can be used inside the expression. Backquote strings may span several lines.
+
+</li></ol>
+
+
+<span id="JSON-merge-rules"></span><span id="JSON-merge-rules-1"></span><h4 class="subsection">5.1.1 JSON merge rules</h4>
+
+<p>Merge overriding direction depends on context, i.e source may override destination or the opposite.<br>
+JSON merge is recursive for Objects and Arrays.<br>
+</p>
+<p>Example, merging
+</p><pre class="verbatim">{
+    foo: { value: &quot;bar&quot; },
+    same: &quot;one&quot;,
+    one: 1
+}
+</pre><p>with
+</p><pre class="verbatim">{
+    foo: { value: &quot;none&quot;, second: true },
+    same: &quot;two&quot;,
+    two: 1
+}
+</pre>
+<p>Will become:
+</p><pre class="verbatim">{
+    foo: { value: &quot;bar&quot;, second: true },
+    same: &quot;one&quot;,
+    one: 1
+    two: 1
+}
+</pre><p>assuming first object overrides second one.<br>
+</p>
+
+<p>In case of Array merging, the final array length will be the maximum length of all merged arrays.<br>
+For each element of the final array, merge will be done considering defined elements only.<br>
+Ex:
+</p><pre class="verbatim">{
+    array: [0, 1, 2, { foo: &quot;bar&quot; } ],
+    array: [3, 4],
+    array: [5, 6, 7, { bar: &quot;foo&quot; }, 8 ]
+}
+</pre><p>Will be merged to:
+</p><pre class="verbatim">{
+    array: [5, 6, 7, { foo: &quot;bar&quot;, bar: &quot;foo&quot; }, 8 ],
+}
+</pre>
+
+<br>
+<span id="Global-properties"></span><h3 class="section">5.2 Global properties</h3>
+
+<!-- prop: -->
+
+<dl compact="compact">
+<dt><code>bind_addr</code></dt>
+<dd>
+<p>String. Set the IP address (and optional port) on which the license
+server will listen to component requests.
+The default port is 9050. It is normally the IP
+address of the network interface connected to other components.
+</p>
+<span id="licenses"></span></dd>
+<dt><code>licenses</code></dt>
+<dd>
+<p>Array. List of path or license files to use with this server.<br>
+Each member can be a string representing a path or a filename.<br>
+Path will be parsed recursively and all license inside will be used.<br>
+Member can also be an object with following parameters:
+  </p><dl compact="compact">
+<dt><code>file</code></dt>
+<dd><p>String. Represent a path or filename.
+  </p></dd>
+<dt><code>tag</code></dt>
+<dd><p>Optional string. If set, server will allocate license to client
+  with same tag field.
+  </p></dd>
+</dl>
+
+</dd>
+<dt><code>com_addr</code></dt>
+<dd><p>Optional string. Address of the WebSocket server remote API. See <a href="#Remote-API">Remote API</a>.<br>
+If set, the WebSocket server for remote API will be enabled and bound to this address.<br>
+Default port is 9006.<br>
+Setting IP address to [::] will make remote API reachable through all network interfaces.
+</p>
+</dd>
+<dt><code>com_name</code></dt>
+<dd><p>Optional string. Sets server name. LICENSE by default
+</p>
+
+</dd>
+<dt><code>com_ssl_certificate</code></dt>
+<dd><p>Optional string. If set, forces SSL for WebSockets. Defines CA
+certificate filename.
+</p>
+</dd>
+<dt><code>com_ssl_key</code></dt>
+<dd><p>Optional string. Mandatory if <var>com_ssl_certificate</var> is set. Defines CA
+private key filename.
+</p>
+</dd>
+<dt><code>com_ssl_peer_verify</code></dt>
+<dd><p>Optional boolean (default is false). If <var>true</var>, server will check
+client certificate.
+</p>
+</dd>
+<dt><code>com_ssl_ca</code></dt>
+<dd><p>Optional string. Set CA certificate. In case of peer verification with self signed
+certificate, you should use the client certificate.
+</p>
+
+</dd>
+<dt><code>com_log_lock</code></dt>
+<dd><p>Optional boolean (default is false). If <var>true</var>, logs configuration can&rsquo;t be changed
+via <code>config_set</code> remote API.
+</p>
+</dd>
+<dt><code>com_log_us</code></dt>
+<dd><p>Optional boolean (default is false). If <var>true</var>, logs sent by <code>log_get</code> remote API
+response will have a <code>timestamp_us</code> parameters instead of <code>timestamp</code>
+</p>
+</dd>
+<dt><code>com_auth</code></dt>
+<dd><p>Optional object. If set, remote API access will require authentication.<br>
+Authentication mechanism is describe in <a href="#Remote-API-Startup">Remote API Startup</a> section.<br>
+</p>
+<dl compact="compact">
+<dt><code>passfile</code></dt>
+<dd><p>Optional string. Defines filename where password is stored (plaintext).<br>
+    If not set, <code>password</code> must be set
+</p>
+</dd>
+<dt><code>password</code></dt>
+<dd><p>Optional string. Defines password.<br>
+    If not set, <code>passfile</code> must be set.
+</p>
+</dd>
+<dt><code>unsecure</code></dt>
+<dd><p>Optional boolean (default  false). If set, allow password to be sent plaintext.<br>
+    NB: you should set it to true if you access it from a Web Browser (Ex: Amarisoft GUI)
+    without SSL (https) as your Web Browser may prevent secure access to work.
+</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>com_log_count</code></dt>
+<dd><p>Optional number (Default = 8192). Defines number of logs to keep in memory before dropping them.<br>
+Must be between 4096 and 2097152).
+</p>
+</dd>
+<dt><code>log_filename</code></dt>
+<dd>
+<p>String. Set the log filename. If no leading <code>/</code>, it is relative to the
+configuration file path. See <a href="#Log-file-format">Log file format</a>.
+</p>
+<span id="log_005foptions"></span></dd>
+<dt><code>log_options</code></dt>
+<dd>
+<p>String. Set the logging options as a comma separated list of assignments.
+</p>
+<ul>
+<li> <var>layer</var>.level=<var>verbosity</var>. For each layer, the log verbosity can be set
+to <code>none</code>, <code>error</code>, <code>info</code> or <code>debug</code>. In debug
+level, the content of the transmitted data is logged.
+
+</li><li> <var>layer</var>.max_size=<var>n</var>. When dumping data content, at
+most <code>n</code> bytes are shown in hexa. For ASN.1, NAS or Diameter content, show the full content of the message if <code>n &gt; 0</code>.
+
+</li><li> <var>layer</var>.payload=[0|1]. Dump ASN.1, NAS, SGsAP or Diameter payload in hexadecimal.
+
+</li><li> <var>layer</var>.key=[0|1]. Dump security keys (NAS and RRC layers).
+
+</li><li> <var>layer</var>.crypto=[0|1]. Dump plain and ciphered data (NAS and PCDP layers).
+
+
+
+
+
+</li><li> time=[sec|short|full]. Display the time as seconds, time only
+or full date and time (default = time only).
+
+</li><li> time.us=[0|1]. Dump time with microseconds precision.
+
+</li><li> file=cut. Close current file log and open a new one.
+
+</li><li> file.rotate=now. Move and rename to the same directory or to the directory pointed by <code>file.path</code>
+  and open a new log file (Headers are kept).
+
+</li><li> file.rotate=<var>size</var>. Every time log file size reaches <var>size</var> bytes,
+  move and rename to the same directory or to the directory pointed by <code>file.path</code>,
+  and open a new log file (Headers are kept).<br>
+  Size is an integer and can be followed by K, M or G.
+
+</li><li> file.rotate=#<var>count</var>. Everytime number of logs in log file reaches <var>count</var>,
+  move and rename to the same directory or to the directory pointed by <code>file.path</code>,
+  and open a new log file (Headers are kept).<br>
+  Size is an integer and can be followed by K, M or G.
+
+</li><li> file.path=<var>path</var>. When log rotation is enabled (<code>file.rotate</code> set),
+  rename and move current log to this path instead of initial log path.
+
+</li><li> append=[0|1]. (default=0). If 0, truncate the log file when
+  opening it. Otherwise, append to it.
+
+</li></ul>
+
+<p>Available layers are: <code>license</code>
+</p>
+</dd>
+<dt><code>log_sync</code></dt>
+<dd><p>Optional boolean (default = false). If true, logs will be synchronously dumped to file.<br>
+  Warning, this may lead to performances decrease.
+</p>
+
+</dd>
+</dl>
+
+<span id="Remote-API"></span><span id="Remote-API-1"></span><h2 class="chapter">6 Remote API</h2>
+
+<p>You can access LTELICENSE via a remote API.<br>
+Protocol used is WebSocket as defined in RFC 6455
+(<a href="https://tools.ietf.org/html/rfc6455">https://tools.ietf.org/html/rfc6455</a>).<br>
+</p>
+<p>Note that Origin header is mandatory for the server to accept connections.<br>
+This behavior is determined by the use of <code>nopoll</code> library.<br>
+Any value will be accepted.
+</p>
+<p>To learn how to use it, you can refer to our the following <a href="https://tech-academy.amarisoft.com/RemoteAPI.html">tutorial</a>.
+</p>
+
+<span id="Messages"></span><h3 class="section">6.1 Messages</h3>
+
+<p>Messages exchanged between client and LTELICENSE server are in strict JSON
+format.<br>
+</p>
+<p>Each message is represented by an object. Multiple message can be sent to
+server using an array of message objects.<br>
+</p>
+<p>Time and delay values are floating number in seconds.<br>
+</p>
+<p>There are 3 types of messages:
+</p>
+<ul>
+<li> Request
+
+<p>Message sent by client.<br>
+Common definition:
+</p>
+<!-- prop:request -->
+
+<dl compact="compact">
+<dt><code>message</code></dt>
+<dd><p>String. Represent type of message. This parameter is mandatory and depending
+  on its value, other parameters will apply.<br>
+</p>
+</dd>
+<dt><code>message_id</code></dt>
+<dd><p>Optional any type. If set, response sent by the server to this message will
+  have same message_id. This is used to identify response as WebSocket does not
+  provide such a concept.
+</p>
+</dd>
+<dt><code>start_time</code></dt>
+<dd><p>Optional float. Represent the delay before executing the message.<br>
+  If not set, the message is executed when received.<br>
+</p>
+</dd>
+<dt><code>absolute_time</code></dt>
+<dd><p>Optional boolean (default = false). If set, <code>start_time</code> is interpreted as absolute.<br>
+  You can get current clock of system using <code>time</code> member of any response.
+</p>
+</dd>
+<dt><code>standalone</code></dt>
+<dd><p>Optional boolean (default = false). If set, message will survive WebSocket disconnection,
+  else, if socket is disconnected before end of processing, the message will be cancelled.
+</p>
+<span id="loop_005fcount"></span></dd>
+<dt><code>loop_count</code></dt>
+<dd><p>Optional integer (default = 0, max = 1000000). If set, message will be repeated <code>loop_count</code> time(s)
+  after <code>loop_delay</code> (From message beginning of event).<br>
+  Response will have a <code>loop_index</code> to indicate iteration number.
+</p>
+<span id="loop_005fdelay"></span></dd>
+<dt><code>loop_delay</code></dt>
+<dd><p>Optional number (min = 0.1, max = 86400). Delay in seconds to repeat message from its <code>start_time</code>.
+  Mandatory when <code>loop_count</code> is set &gt; 0.
+</p>
+</dd>
+</dl>
+
+</li><li> Response
+
+<p>Message sent by server after any request message as been processed.<br>
+Common definition:
+</p>
+<!-- prop:response -->
+
+<dl compact="compact">
+<dt><code>message</code></dt>
+<dd><p>String. Same as request.
+</p>
+</dd>
+<dt><code>message_id</code></dt>
+<dd><p>Optional any type. Same as in request.
+</p>
+</dd>
+<dt><code>time</code></dt>
+<dd><p>Number representing time in seconds since start of the process.<br>
+  Usefull to send command with absolute time.
+</p>
+</dd>
+<dt><code>utc</code></dt>
+<dd><p>Number representing UTC seconds.
+</p>
+</dd>
+</dl>
+
+</li><li> Events
+
+<p>Message sent by server on its own initiative.<br>
+Common definition:
+</p>
+<!-- prop:event -->
+
+<dl compact="compact">
+<dt><code>message</code></dt>
+<dd><p>String. Event name.
+</p>
+</dd>
+<dt><code>time</code></dt>
+<dd><p>Number representing time in seconds.<br>
+  Usefull to send command with absolute time.
+</p>
+</dd>
+</dl>
+
+</li></ul>
+
+
+<span id="Remote-API-Startup"></span><span id="Startup"></span><h3 class="section">6.2 Startup</h3>
+
+
+<p>When WebSocket connections is setup, LTELICENSE will send a first message with
+name set to <code>com_name</code> and type set to LICENSE.<br>
+</p>
+<p>If authentication is not set, message will be <code>ready</code>:
+</p>
+<div class="example">
+<pre class="example">{
+    &quot;message&quot;: &quot;ready&quot;,
+    &quot;type&quot;: &quot;LICENSE&quot;,
+    &quot;name&quot;: &lt;com_name&gt;,
+    &quot;version&quot;: &lt;software version&gt;,
+    &quot;product&quot;: &lt;Amarisoft product name (optional)&gt;
+}
+</pre></div>
+
+<p>If authentication is set, message will be <code>authenticate</code> :
+</p>
+<div class="example">
+<pre class="example">{
+    &quot;message&quot;: &quot;authenticate&quot;,
+    &quot;type&quot;: &quot;LICENSE&quot;,
+    &quot;name&quot;: &lt;com_name&gt;,
+    &quot;challenge&quot;: &lt;random challenge&gt;
+}
+</pre></div>
+
+<p>To authenticate, the client must answer with a <code>authenticate</code> message
+and a <code>res</code> parameter where:
+</p>
+<div class="example">
+<pre class="example">res = HMAC-SHA256( &quot;&lt;type&gt;:&lt;password&gt;:&lt;name&gt;&quot;, &quot;&lt;challenge&gt;&quot; )
+</pre></div>
+
+<p><code>res</code> is a string and HMAC-SHA256 refers to the standard algorithm
+(<a href="https://en.wikipedia.org/wiki/HMAC">https://en.wikipedia.org/wiki/HMAC</a>)
+</p>
+<p>If the authentication succeeds, the response will have a <code>ready</code> field
+set to <code>true</code>.
+</p>
+<div class="example">
+<pre class="example">{
+    &quot;message&quot;: &quot;authenticate&quot;,
+    &quot;message_id&quot;: &lt;message id&gt;,
+    &quot;ready&quot;: true
+}
+</pre></div>
+
+<p>If authentication fails, the response will have an <code>error</code> field and will
+provide a new challenge.
+</p>
+<div class="example">
+<pre class="example">{
+    &quot;message&quot;: &quot;authenticate&quot;,
+    &quot;message_id&quot;: &lt;message id&gt;,
+    &quot;error&quot;: &lt;error message&gt;,
+    &quot;type&quot;: &quot;LICENSE&quot;,
+    &quot;name: &lt;name&gt;,
+    &quot;challenge&quot;: &lt;new random challenge&gt;
+}
+</pre></div>
+
+
+<p>If any other message is sent before authentication succeeds,
+the error <code>&quot;Authentication not done&quot;</code> will be sent as a response.
+</p>
+
+<span id="Errors"></span><h3 class="section">6.3 Errors</h3>
+
+<p>If a message produces an error, response will have an error string field
+representing the error.
+</p>
+
+<span id="Sample-nodejs-program"></span><h3 class="section">6.4 Sample nodejs program</h3>
+
+<p>You will find in this documentation a sample program: <code>ws.js</code>.<br>
+It is located in <code>doc</code> subdirectory.<br>
+This is a nodejs program that allow to send message to LTELICENSE.<br>
+It requires nodejs to be installed:
+</p><div class="example">
+<pre class="example">dnf install nodejs npm
+npm install nodejs-websocket
+</pre></div>
+
+<p>Use relevant package manager instead of NPM depending on your Linux distribution.<br>
+</p>
+<p>Then simply start it with server name and message you want to send:
+</p><div class="example">
+<pre class="example">./ws.js 127.0.0.1:9006 '{&quot;message&quot;: &quot;config_get&quot;}'
+</pre></div>
+
+
+<span id="Common-messages"></span><h3 class="section">6.5 Common messages</h3>
+
+<dl compact="compact">
+<dt><code>config_get</code></dt>
+<dd><p>Retrieve current config.<br>
+</p>
+<p>Response definition:
+    </p><dl compact="compact">
+<dt><code>type</code></dt>
+<dd><p>Always &quot;LICENSE&quot;
+</p>
+</dd>
+<dt><code>name</code></dt>
+<dd><p>String representing server name.
+</p>
+<span id="config_005fget-logs-member"></span></dd>
+<dt><code>logs</code></dt>
+<dd><p>Object representing log configuration.<br>
+      With following elements:
+        </p><dl compact="compact">
+<dt><code>layers</code></dt>
+<dd><p>Object. Each member of the object represent a log layer configuration:
+</p>
+<dl compact="compact">
+<dt><code>layer name</code></dt>
+<dd><p>Object. The member name represent log layer name and parameters are:
+</p>
+<dl compact="compact">
+<dt><code>level</code></dt>
+<dd><p>See <a href="#log_005foptions">log_options</a>
+                  </p></dd>
+<dt><code>max_size</code></dt>
+<dd><p>See <a href="#log_005foptions">log_options</a>
+                  </p></dd>
+<dt><code>key</code></dt>
+<dd><p>See <a href="#log_005foptions">log_options</a>
+                  </p></dd>
+<dt><code>crypto</code></dt>
+<dd><p>See <a href="#log_005foptions">log_options</a>
+                  </p></dd>
+<dt><code>payload</code></dt>
+<dd><p>See <a href="#log_005foptions">log_options</a>
+                </p></dd>
+</dl>
+
+</dd>
+</dl>
+
+</dd>
+<dt><code>count</code></dt>
+<dd><p>Number. Number of bufferizer logs.
+</p>
+</dd>
+<dt><code>rotate</code></dt>
+<dd><p>Optional number. Max log file size before rotation.
+</p>
+</dd>
+<dt><code>rotate_count</code></dt>
+<dd><p>Optional number. Max log count before rotation.
+</p>
+</dd>
+<dt><code>path</code></dt>
+<dd><p>Optional string. Log rotation path.
+</p>
+</dd>
+<dt><code>bcch</code></dt>
+<dd><p>Boolean. True if BCCH dump is enabled (eNB only).
+</p>
+</dd>
+<dt><code>mib</code></dt>
+<dd><p>Boolean. True if MIB dump is enabled (eNB only).
+        </p></dd>
+</dl>
+
+</dd>
+<dt><code>locked</code></dt>
+<dd><p>Optional boolean. If <code>true</code>, logs configuration can&rsquo;t be changed
+      with <code>config_set</code> API.
+</p>
+
+</dd>
+</dl>
+
+</dd>
+<dt><code>config_set</code></dt>
+<dd><p>Change current config.<br>
+  Each member is optional.<br>
+  Message definition:
+    </p><dl compact="compact">
+<dt><code>logs</code></dt>
+<dd><p>Optional object. Represent logs configuration. Same structure as config_get (See <a href="#config_005fget-logs-member">config_get logs member</a>).<br>
+      All elements are optional.<br>
+      Layer name can be set to <code>all</code> to set same configuration for all layers.<br>
+      If set and logs are locked, response will have <code>logs</code> property set to <code>locked</code>.
+</p>
+
+</dd>
+</dl>
+
+</dd>
+<dt><code>log_get</code></dt>
+<dd><p>Get logs.<br>
+  This API has a per connection behavior. This means that the response will depend on previous calls
+  to this API within the same WebSocket connection.<br>
+  In practice, logs that have been provided in a response won&rsquo;t be part of subsequent request unless
+  connection is reestablished. To keep on receiving logs, client should send a new <code>log_get</code> request
+  as soon as the previous response has been received.<br>
+  If a request is sent before previous request has been replied, previous request will be replied right now
+  without considering specific min/max/timeout conditions.
+</p>
+<p>Message definition:
+    </p><dl compact="compact">
+<dt><code>min</code></dt>
+<dd><p>Optional number (default = 1). Minimum amount of logs to retrieve.<br>
+      Response won&rsquo;t be sent until this limit is reached (Unless timeout occurs).
+</p>
+</dd>
+<dt><code>max</code></dt>
+<dd><p>Optional number (default = 4096). Maximum logs sent in a response.
+</p>
+</dd>
+<dt><code>timeout</code></dt>
+<dd><p>Optional number (default = 1). If at least 1 log is available and no
+      more logs have been generated for this time, response will be sent.
+</p>
+</dd>
+<dt><code>allow_empty</code></dt>
+<dd><p>Optional boolean (default = false). If set, response will be sent after timeout,
+      event if no logs are available.
+</p>
+</dd>
+<dt><code>rnti</code></dt>
+<dd><p>Optional number. If set, send only logs matching rnti.
+</p>
+</dd>
+<dt><code>ue_id</code></dt>
+<dd><p>Optional number. If set, send only logs with matching ue_id.
+</p>
+</dd>
+<dt><code>layers</code></dt>
+<dd><p>Optional Object. Each member name represents a log layer and values must be
+      string representing maximum level. See <a href="#log_005foptions">log_options</a>.<br>
+      If <var>layers</var> is not set, all layers level will be set to <var>debug</var>,
+      else it will be set to <var>none</var>.<br>
+      Note also the logs is also limited by general log level. See <a href="#log_005foptions">log_options</a>.<br>
+</p>
+</dd>
+<dt><code>short</code></dt>
+<dd><p>Optional boolean (default = false). If set, only first line of logs will be dumped.
+</p>
+</dd>
+<dt><code>headers</code></dt>
+<dd><p>Optional boolean. If set, send log file headers.
+</p>
+</dd>
+<dt><code>start_timestamp</code></dt>
+<dd><p>Optional number. Is set, filter logs older than this value in milliseconds.
+</p>
+</dd>
+<dt><code>end_timestamp</code></dt>
+<dd><p>Optional number. Is set, filter logs more recent than this value in milliseconds.
+</p>
+</dd>
+<dt><code>max_size</code></dt>
+<dd><p>Optional number (default = 1048576, i.e. 1MB). Maximum size in bytes of the generated
+      JSON message. If the response exceeds this size, the sending of logs will be
+      forced independently from other parameters.
+</p>
+</dd>
+</dl>
+
+<p>Response definition:
+    </p><dl compact="compact">
+<dt><code>logs</code></dt>
+<dd><p>Array. List of logs. Each item is a an object with following members:
+        </p><dl compact="compact">
+<dt><code>data</code></dt>
+<dd><p>Array. Each item is a string representing a line of log.
+</p>
+</dd>
+<dt><code>timestamp</code></dt>
+<dd><p>Number. Milliseconds since January 1st 1970. Not present if <code>com_log_us</code> is set in configuration.<br>
+</p>
+</dd>
+<dt><code>timestamp_us</code></dt>
+<dd><p>Number. Microseconds since January 1st 1970. Only present if <code>com_log_us</code> is set in configuration.<br>
+</p>
+</dd>
+<dt><code>layer</code></dt>
+<dd><p>String. Log layer.
+</p>
+</dd>
+<dt><code>level</code></dt>
+<dd><p>String. Log level: <var>error</var>, <var>warn</var>, <var>info</var> or <var>debug</var>.
+</p>
+</dd>
+<dt><code>dir</code></dt>
+<dd><p>Optional string. Log direction: <var>UL</var>, <var>DL</var>, <var>FROM</var> or <var>TO</var>.
+</p>
+</dd>
+<dt><code>ue_id</code></dt>
+<dd><p>Optional number. UE_ID.
+</p>
+</dd>
+<dt><code>cell</code></dt>
+<dd><p>Optional number (only for PHY layer logs). Cell ID.
+</p>
+</dd>
+<dt><code>rnti</code></dt>
+<dd><p>Optional number (only for PHY layer logs). RNTI.
+</p>
+</dd>
+<dt><code>frame</code></dt>
+<dd><p>Optional number (only for PHY layer logs). Frame number (Subframe is decimal part).
+</p>
+</dd>
+<dt><code>channel</code></dt>
+<dd><p>Optional string (only for PHY layer logs). Channel name.
+</p>
+</dd>
+<dt><code>src</code></dt>
+<dd><p>String. Server name.
+</p>
+</dd>
+<dt><code>idx</code></dt>
+<dd><p>Integer. Log index.
+</p>
+</dd>
+<dt><code>headers</code></dt>
+<dd><p>Optional array. Array of strings.
+</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>discontinuity</code></dt>
+<dd><p>Optional number. If set, this means some logs have been discarded due to log buffer overflow.
+</p>
+</dd>
+<dt><code>microseconds</code></dt>
+<dd><p>Optional boolean. Present and set to true if <code>com_log_us</code> is set in configuration file.
+    </p></dd>
+</dl>
+
+</dd>
+<dt><code>log_set</code></dt>
+<dd><p>Add log.<br>
+  Message definition:
+    </p><dl compact="compact">
+<dt><code>log</code></dt>
+<dd><p>Optional string. Log message to add. If set, <var>layer</var> and <var>level</var> are mandatory.
+</p>
+</dd>
+<dt><code>layer</code></dt>
+<dd><p>String. Layer name. Only mandatory if <var>log</var> is set.
+</p>
+</dd>
+<dt><code>level</code></dt>
+<dd><p>String. Log level: <var>error</var>, <var>warn</var>, <var>info</var> or <var>debug</var>. Only mandatory if <var>log</var> is set.
+</p>
+</dd>
+<dt><code>dir</code></dt>
+<dd><p>Optional string. Log direction: <var>UL</var>, <var>DL</var>, <var>FROM</var> or <var>TO</var>.
+</p>
+</dd>
+<dt><code>ue_id</code></dt>
+<dd><p>Optional number. UE_ID.
+</p>
+</dd>
+<dt><code>flush</code></dt>
+<dd><p>Optional boolean (default = false). If set, flushes fog file.
+</p>
+</dd>
+<dt><code>rotate</code></dt>
+<dd><p>Optional boolean (default = false). If set, forces log file rotation.
+</p>
+</dd>
+<dt><code>cut</code></dt>
+<dd><p>Optional boolean (default = false). If set, forces log file reset.
+</p>
+</dd>
+</dl>
+
+
+</dd>
+<dt><code>log_reset</code></dt>
+<dd><p>Resets logs buffer.
+</p>
+</dd>
+<dt><code>license</code></dt>
+<dd><p>Retrieves license file information.
+</p>
+<p>Response definition:
+    </p><dl compact="compact">
+<dt><code>products</code></dt>
+<dd><p>String. List of products, separated by commas.
+      </p></dd>
+<dt><code>user</code></dt>
+<dd><p>String. License username.
+      </p></dd>
+<dt><code>validity</code></dt>
+<dd><p>String. License end of validity date.
+      </p></dd>
+<dt><code>id</code></dt>
+<dd><p>Optional string. License ID.
+      </p></dd>
+<dt><code>id_type</code></dt>
+<dd><p>Optional string. License ID type. Can be <code>host_id</code> or <code>dongle_id</code>
+      </p></dd>
+<dt><code>uid</code></dt>
+<dd><p>Optional string. License unique ID.
+      </p></dd>
+<dt><code>filename</code></dt>
+<dd><p>Optional string. License filename.
+      </p></dd>
+<dt><code>server</code></dt>
+<dd><p>Optional string. License server URL.
+      </p></dd>
+<dt><code>server_id</code></dt>
+<dd><p>Optional string. License server ID.
+    </p></dd>
+</dl>
+
+
+</dd>
+<dt><code>quit</code></dt>
+<dd><p>Terminates ltelicense.
+</p>
+</dd>
+<dt><code>help</code></dt>
+<dd><p>Provides list of available messages in <var>messages</var> array of strings
+  and events to register in <var>events</var> array of strings.<br>
+</p>
+</dd>
+<dt><code>stats</code></dt>
+<dd><p>Report statistics for LTELICENSE.<br>
+  Every time this message is received by server, statistics are reset.<br>
+  Warning, calling this message from multiple connections simultaneously will modify the
+  statistics sampling time.
+</p>
+
+<p>Response definition:
+    </p><dl compact="compact">
+<dt><code>cpu</code></dt>
+<dd><p>Object. Each member name defines a type and its value cpu load in % of one core.
+</p>
+</dd>
+<dt><code>instance_id</code></dt>
+<dd><p>Number. Constant over process lifetime. Changes on process restart.
+</p>
+
+
+</dd>
+</dl>
+
+
+
+</dd>
+</dl>
+
+
+
+<span id="License-messages"></span><span id="License-messages-1"></span><h3 class="section">6.6 License messages</h3>
+
+<dl compact="compact">
+<dt><code>reload</code></dt>
+<dd><p>Force license reload.<br>
+  If config file has been changed, modifications will be applied.
+</p>
+</dd>
+<dt><code>list</code></dt>
+<dd><p>Retrieve licenses states.<br>
+  Response definition:
+    </p><dl compact="compact">
+<dt><code>licenses</code></dt>
+<dd><p>Array of objects representing licenses with following properties:
+        </p><dl compact="compact">
+<dt><code>uid</code></dt>
+<dd><p>String. License unique ID
+          </p></dd>
+<dt><code>products</code></dt>
+<dd><p>String. List of associated products separated by commas.
+          </p></dd>
+<dt><code>origin</code></dt>
+<dd><p>String. License origin.
+          </p></dd>
+<dt><code>tag</code></dt>
+<dd><p>Optional string. Associated tag
+          </p></dd>
+<dt><code>max</code></dt>
+<dd><p>Integer. Maximum number of allowed connections.
+          </p></dd>
+<dt><code>version</code></dt>
+<dd><p>String. License version limit.
+          </p></dd>
+<dt><code>connections</code></dt>
+<dd><p>Array of object representing current connections:
+            </p><dl compact="compact">
+<dt><code>product</code></dt>
+<dd><p>String. Associated product
+              </p></dd>
+<dt><code>name</code></dt>
+<dd><p>String. Name
+              </p></dd>
+<dt><code>origin</code></dt>
+<dd><p>String. Connection host and port
+            </p></dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+</dd>
+<dt><code>message</code></dt>
+<dd><p>Send message to all connected clients.<br>
+  Message definition:
+    </p><dl compact="compact">
+<dt><code>text</code></dt>
+<dd><p>String. Message to send.
+    </p></dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<span id="Command-line-monitor-reference"></span><h2 class="chapter">7 Command line monitor reference</h2>
+
+<p>The following commands are available:
+</p>
+<dl compact="compact">
+<dt><code>help</code></dt>
+<dd><p>Display the help. Use <code>help <var>command</var></code> to have a more
+detailed help about a command.
+</p>
+</dd>
+<dt><code>log [<var>log_options</var>]</code></dt>
+<dd><p>Display the current log state. If <var>log_options</var> are given, change
+the log options. The syntax is the same as the <code>log_options</code>
+configuration property.
+</p>
+</dd>
+<dt><code>msg <var>message</var></code></dt>
+<dd><p>Send a message to all connected component in their monitor window.
+</p>
+</dd>
+<dt><code>msgto client_id message</code></dt>
+<dd><p>Send a message to a specific client.
+</p>
+</dd>
+<dt><code>client</code></dt>
+<dd><p>List connected clients.
+</p>
+</dd>
+<dt><code>close client_id [message]</code></dt>
+<dd><p>Send a close message to a spcific clent, with an optionl text.
+</p>
+</dd>
+<dt><code>list</code></dt>
+<dd><p>List all license with their state.
+</p>
+</dd>
+<dt><code>reload</code></dt>
+<dd><p>Reload licenses from configured path. If config file has been changed, path will be updated has well.
+</p>
+</dd>
+<dt><code>quit</code></dt>
+<dd><p>Stop server.
+</p>
+</dd>
+</dl>
+
+
+<span id="Log-file-format"></span><span id="Log-file-format-1"></span><h2 class="chapter">8 Log file format</h2>
+
+
+<span id="Change-history"></span><h2 class="chapter">9 Change history</h2>
+
+
+<span id="Version-2024_002d09_002d13"></span><h3 class="section">9.1 Version 2024-09-13</h3>
+
+<ul>
+<li> added <code>license</code> remote API
+</li><li> <code>com_logs_lock</code> parameter is renamed to <code>com_log_lock</code>. <code>com_logs_lock</code> is still supported for backward compatibility
+</li><li> added <code>com_log_us</code> parameter
+</li></ul>
+
+<span id="Version-2024_002d06_002d14"></span><h3 class="section">9.2 Version 2024-06-14</h3>
+
+<ul>
+<li> OpenSSL library is upgraded to 1.1.1w
+</li><li> added <code>clients</code>, <code>close</code> and <code>msgto</code> monitor commands
+</li></ul>
+
+<span id="Version-2023_002d12_002d15"></span><h3 class="section">9.3 Version 2023-12-15</h3>
+
+<ul>
+<li> added <code>com_ssl_ca</code> parameter for SSL verification
+</li></ul>
+
+<span id="Version-2023_002d06_002d10"></span><h3 class="section">9.4 Version 2023-06-10</h3>
+
+<ul>
+<li> <code>com_logs_lock</code> parameter added to disable logs configuration change via remote API
+</li></ul>
+
+<span id="Version-2023_002d03_002d17"></span><h3 class="section">9.5 Version 2023-03-17</h3>
+
+<ul>
+<li> <code>com_addr</code> and <code>bind_addr</code> parameters now use [::] address instead of 0.0.0.0 in the delivered configuration file to allow IPv6 connection
+</li><li> <code>reload</code> command now handles configuration file modifications
+</li></ul>
+
+<span id="Version-2022_002d12_002d16"></span><h3 class="section">9.6 Version 2022-12-16</h3>
+
+<ul>
+<li> <code>utc</code> parameter is added to remote API response messages
+</li></ul>
+
+<span id="Version-2022_002d06_002d17"></span><h3 class="section">9.7 Version 2022-06-17</h3>
+
+<ul>
+<li> OpenSSL library is upgraded to 1.1.1n
+</li><li> <code>start_timestamp</code> and <code>end_timestamp</code> are added to <code>log_get</code> API
+</li></ul>
+
+<span id="Version-2021_002d12_002d17"></span><h3 class="section">9.8 Version 2021-12-17</h3>
+
+<ul>
+<li> <code>license</code> monitor command is added
+</li></ul>
+
+
+<span id="License"></span><h2 class="chapter">10 License</h2>
+
+<p><code>ltelicense</code> is copyright (C) 2012-2025 Amarisoft. Its redistribution
+without authorization is prohibited.
+</p>
+<p><code>ltelicense</code> is available without any express or implied warranty. In
+no event will Amarisoft be held liable for any damages arising from
+the use of this software.
+</p>
+<p>For more information on licensing, please refer to <code>license.pdf</code> file.
+</p>
+
+
+
+<hr>
+
+
+
+</body>
+</html>

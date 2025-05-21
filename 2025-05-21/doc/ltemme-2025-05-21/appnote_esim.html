@@ -1,0 +1,253 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.6, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Device Testing using Amarisoft eSIM</title>
+
+<meta name="description" content="Device Testing using Amarisoft eSIM">
+<meta name="keywords" content="Device Testing using Amarisoft eSIM">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+
+th {
+    border: 1px solid black;
+    background-color: #c0f585;
+    font-size: 14px;
+    padding: 5px;
+}
+
+td {
+    border: 1px solid black;
+    padding: 2px 4px;
+}
+
+p>img {
+    display: initial;
+}
+
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">Device Testing using Amarisoft eSIM</h1>
+
+<span id="SEC_Contents"></span>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+<ul class="no-bullet">
+<li><a id="toc-Introduction" href="#Introduction">1 Introduction</a>
+<ul class="no-bullet">
+  <li><a id="toc-Background-1" href="#Background-1">1.1 Background</a></li>
+</ul></li>
+<li><a id="toc-Amarisoft-eSIM" href="#Amarisoft-eSIM">2 Amarisoft eSIM</a>
+<ul class="no-bullet">
+  <li><a id="toc-eSIM-Profile" href="#eSIM-Profile">2.1 eSIM Profile</a></li>
+  <li><a id="toc-eSIM-Activation" href="#eSIM-Activation">2.2 eSIM Activation</a></li>
+  <li><a id="toc-eSIM-states" href="#eSIM-states">2.3 eSIM states</a></li>
+  <li><a id="toc-Network-Configuration" href="#Network-Configuration">2.4 Network Configuration</a></li>
+</ul></li>
+<li><a id="toc-Additional-Information" href="#Additional-Information">3 Additional Information</a></li>
+
+</ul>
+</div>
+
+
+
+<span id="Introduction"></span><h2 class="chapter">1 Introduction</h2>
+
+<p>This application note gives you a brief background on eSIM followed by an overview of Amarisoft eSIM profile. It explains how to activate eSIM in your device and how to start testig with Amarisoft eSIM. 
+</p>
+<span id="Background"></span><span id="Background-1"></span><h3 class="section">1.1 Background</h3>
+
+<p>eSIM stands for Embedded SIM which is a digital version of the physical SIM card. There are multiple differences between a physical SIM and an eSIM. The most obvious one is that a physical SIM is a removable chip while an eSIM is a chip built into a device. Yet, the main difference is the number of profiles that the SIM can handle. A profile is essentially a combination of data and applications such as the IMSI (International Mobile Subscriber Identifier), which enables the device to connect to the operatorâs network. 
+</p>
+<p>Traditional UICC (Universal Integrated Circuit Card) SIMs store a profile from a single network operator. Each physical SIM card has a single ICCID (Integrated Circuit Card Identifier) which is a unique identifier of the physical SIM and is determined by the SIM supplier. The ICCID helps operators to identify and track SIMs and subscribers; it is typically linked to subscriber information and is part of the SIM profile. 
+</p>
+<p>An eSIM, however, is capable of storing multiple network profiles thanks to the eUICC (embedded Universal Integrated Circuit Card) component. The term eUICC is often used to mean the whole physical card or chip but it is also a secure element capable of management of multiple network profiles in an eSIM. In case of eUICC SIM, each profile acts as a virtual SIM within the physical SIM container and has its own ICCID. As a result, the ICCID can no longer be used as a unique identifier of an eUICC SIM as there will be as many ICCIDs as the number of profiles. 
+</p>
+<p>In order to resolve this issue, a new identifier EID (eUICC Identifier) has been introduced. The main purpose of the EID is to provide a unique global serial number for eUICC SIMs which is not related to service subscriptions. It is a 32-digit number set during the manufacturing process. 
+</p>
+<p>The following image captures the different notions explained above.<br>
+</p>
+<div align="center"><img src="img/esim.webp" alt="img/esim">
+</div>
+<p>Before using your device, an eSim should be provisioned. eSIM provisioning is the process of remotely activating an eSIM in a device, allowing it to connect to a mobile network or service provider.  <br>
+</p>
+<p>A simple eSIM provisioning architecture is depicted in the following:<br>
+</p>
+<div align="center"><img src="img/esim_arch.webp" alt="img/esim_arch">
+</div>
+<p>The different entities are:
+</p>
+<ul>
+<li> SM-DP+ Server: 
+
+<p>SM-DP (Subscription Manager Data Preparation) Server is essentially a platform for storing and delivering digital eSIM Profiles. The platform prepares the Profile Packages and secures each one of the profiles by an individual key called Profile Activation Key. These Profile activation keys, along with the Protected Profile Packages, are stored in a secure manner in a repository. Whenever a profile is downloaded and activated by a device, the SM-DP+ binds the Profile to the EID of the device.
+</p>
+</li><li> LPA: 
+
+<p>The LPA (Local Profile Assistant) is a functional element in a device that provides 3 main functions: 
+</p> 
+<ul>
+<li> LPD (Local Profile Download), 
+</li><li> LDS (Local Discovery Server),
+</li><li> LUI (Local User Interface).
+</li></ul>
+
+<p>Management of the profiles on the eSIM is generally done by the LPA, as it serves as a bridge between the SM-DP+ and the eUICC SIM.
+</p>
+<p>In Android devices, LPA is typically a standalone system app that is included in the Android build image. 
+</p>
+</li><li> eUICC SIM: eUICC SIM is an embedded SIM card running eUICC software that allows remote SIM provisioning and handling of multiple network profiles. 
+
+</li></ul>
+
+
+<span id="Amarisoft-eSIM"></span><h2 class="chapter">2 Amarisoft eSIM</h2>
+
+<span id="eSIM-Profile"></span><h3 class="section">2.1 eSIM Profile</h3>
+
+<p>Amarisoft eSIM contains a test profile matching the default configurtion available in <samp>ue_db-ims.cfg</samp> which is located under <code>mme/config</code> directory. 
+</p>
+<div class="example">
+<pre class="example">ue_db: [{
+    sim_algo: &quot;xor&quot;, /* USIM authentication algorithm: xor, milenage or tuak */
+    imsi: &quot;001010123456789&quot;,
+    amf: 0x9001, /* Authentication Management Field */
+    sqn: &quot;000000000000&quot;, /* Sequence Number */
+    K: &quot;00112233445566778899aabbccddeeff&quot;,
+
+    impi: &quot;001010123456789@ims.mnc001.mcc001.3gppnetwork.org&quot;,
+    impu: [&quot;001010123456789&quot;, &quot;tel:0600000000&quot;, &quot;tel:600&quot;],
+    domain: &quot;ims.mnc001.mcc001.3gppnetwork.org&quot;,
+    multi_sim: true, /* Experimental */
+}
+</pre></div>
+
+<p>All eSIMs have the same IMSI and K as above in order to provide seamless operation with Amarisoft Core Network. The authentication algorithm is XOR and the home PLMN is set to test PLMN with MCC of 001 and MNC of 01. <br>
+</p>
+<table class="cartouche" border="1"><tr><td>
+<p>Unlike the physical SIM card, the Amarisoft eSIM is not configurable. 
+</p></td></tr></table>
+
+<span id="eSIM-Activation"></span><h3 class="section">2.2 eSIM Activation</h3>
+
+<p>The eSIM of your device could be activated in 2 ways:
+</p>
+<ul>
+<li> Using a QR code:
+
+<p>Enabling the eSIM via QR code is the recommended way if the device under test is a smartphone with a camera. The menu for adding an eSIM varies depending on the phone and the OS used. On a Samsung Galaxy phone, this is available under Settings/Connections/SIM manager/Add eSIM/Scan QR code. 
+</p></li><li> Using a LPA String:
+
+<p>IoT devices or modules do not have a camera to scan a QR code. Hence, the information inside the QR code should be entered manually. The information inside a QR code is actually a LPA string allowing the communication between the LPA entity of your device and the SM-DP+ server. The string below is an example of such a string: <br>
+</p>
+<div class="example">
+<pre class="example">LPA:1$esim.prod.com$4147494C454E542054454348 
+
+</pre></div>
+
+<p>where <br>
+</p>
+<p><b>LPA:1</b> is the registration protocol <br>
+</p>
+<p><b>esim.prod.com</b> is the address of the SM-DP+ server <br>
+</p>
+<p><b>4147494C454E542054454348</b> is the Activation Key <br>
+</p>
+<p>Module makers such as Quectel and Telit have some specific AT commands to enable LPA and add a profile manually. As an example <code>AT+QESIM</code> AT command series manages eSIM and profile downloads in eSIM capable Quectel modules. 
+</p>                         
+</li></ul>
+
+<span id="eSIM-states"></span><h3 class="section">2.3 eSIM states</h3>
+
+<p>An eSIM could be in 2 different states in the device:
+</p>
+<ul>
+<li> Enabled: This state means that the eSIM has been downloaded in a device and is actively used.
+</li><li> Disabled: it means the eSIM has been downloaded in a device but not used currently, or temporarily disabled. This will allow switching between different profiles without requiring a profile download each time. 
+</li></ul>
+
+<p>An eSIM can also be deleted from the device. In this case, the eSIM profile becomes available for download on other devices. <br>
+</p>
+<table class="cartouche" border="1"><tr><td>
+<p>The eSIM enabling/disabling/delete requires access to the Internet. So please make sure that your device has internet access via another SIM card or WIFI.
+</p></td></tr></table>
+
+<span id="Network-Configuration"></span><h3 class="section">2.4 Network Configuration</h3>
+
+<p>As mentioned above, Amarisoft eSIM contains a test profile matching the default configuration available in <samp>ue_db-ims.cfg</samp> file. As a result, any device with Amarisoft eSIM can register to Amarisoft network without requiring any configuration change. Some devices, however, use a 16 byte response during authentication while Amarisoft core network expectes an 8 byte response. If the registrayion fails, checking the core network logs allows to verify if the authentication failure is due to the lenght of the UE authentication response. 
+If this is the case, follow these guidelines:
+</p>
+<ul>
+<li> Edit the UE database file <samp>mme/config/ue_db-ims.cfg</samp>. 
+
+</li><li> Add <code>res_len: 16</code> to the UE entry as below:
+
+<div class="example">
+<pre class="example">ue_db: [{
+    sim_algo: &quot;xor&quot;, /* USIM authentication algorithm: xor, milenage or tuak */
+    imsi: &quot;001010123456789&quot;,
+    amf: 0x9001, /* Authentication Management Field */
+    sqn: &quot;000000000000&quot;, /* Sequence Number */
+    K: &quot;00112233445566778899aabbccddeeff&quot;,
+
+    impi: &quot;001010123456789@ims.mnc001.mcc001.3gppnetwork.org&quot;,
+    impu: [&quot;001010123456789&quot;, &quot;tel:0600000000&quot;, &quot;tel:600&quot;],
+    domain: &quot;ims.mnc001.mcc001.3gppnetwork.org&quot;,
+    multi_sim: true, /* Experimental */
+    
+    <b>res_len: 16</b>, 
+}
+</pre></div>
+
+</li></ul>
+
+<span id="Additional-Information"></span><h2 class="chapter">3 Additional Information</h2>
+
+<p>This document is copyright (C) 2012-2025 Amarisoft. Its redistribution
+without authorization is prohibited.
+</p>
+<p>This document is available without any express or implied warranty and is subject to change without notice. In
+no event will Amarisoft be held liable for any damages arising from the use of this document.
+</p>
+<p>For any technical issue, please raise a ticket from our support site at <a href="https://support.amarisoft.com/">https://support.amarisoft.com/</a>.
+<br>
+To learn more about our technology and solutions, e-mail us at <a href="mailto:customer@amarisoft.com">customer@amarisoft.com</a> or visit <a href="https://www.amarisoft.com">https://www.amarisoft.com</a>.
+</p>
+
+
+<hr>
+
+
+
+</body>
+</html>

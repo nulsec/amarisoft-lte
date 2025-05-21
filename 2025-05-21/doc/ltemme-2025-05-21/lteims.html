@@ -1,0 +1,3053 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.6, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>LTE IMS Server</title>
+
+<meta name="description" content="LTE IMS Server">
+<meta name="keywords" content="LTE IMS Server">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+
+th {
+    border: 1px solid black;
+    background-color: #c0f585;
+    font-size: 14px;
+    padding: 5px;
+}
+
+td {
+    border: 1px solid black;
+    padding: 2px 4px;
+}
+
+p>img {
+    display: initial;
+}
+
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">LTE IMS Server</h1>
+
+
+<span id="SEC_Contents"></span>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+<ul class="no-bullet">
+<li><a id="toc-Introduction" href="#Introduction">1 Introduction</a></li>
+<li><a id="toc-Features" href="#Features">2 Features</a></li>
+<li><a id="toc-Requirements" href="#Requirements">3 Requirements</a>
+<ul class="no-bullet">
+  <li><a id="toc-Hardware-requirements" href="#Hardware-requirements">3.1 Hardware requirements</a></li>
+  <li><a id="toc-Known-compatible-UE" href="#Known-compatible-UE">3.2 Known compatible UE</a></li>
+  <li><a id="toc-Software-requirements" href="#Software-requirements">3.3 Software requirements</a></li>
+</ul></li>
+<li><a id="toc-Installation" href="#Installation">4 Installation</a>
+<ul class="no-bullet">
+  <li><a id="toc-Fedora-setup" href="#Fedora-setup">4.1 Fedora setup</a></li>
+  <li><a id="toc-License-key-installation" href="#License-key-installation">4.2 License key installation</a></li>
+  <li><a id="toc-Initial-testing" href="#Initial-testing">4.3 Initial testing</a></li>
+  <li><a id="toc-Samsung-S5-configuration" href="#Samsung-S5-configuration">4.4 Samsung S5 configuration</a></li>
+</ul></li>
+<li><a id="toc-Configuration-reference" href="#Configuration-reference">5 Configuration reference</a>
+<ul class="no-bullet">
+  <li><a id="toc-Configuration-file-syntax" href="#Configuration-file-syntax">5.1 Configuration file syntax</a>
+  <ul class="no-bullet">
+    <li><a id="toc-JSON-merge-rules-1" href="#JSON-merge-rules-1">5.1.1 JSON merge rules</a></li>
+  </ul></li>
+  <li><a id="toc-Properties" href="#Properties">5.2 Properties</a>
+  <ul class="no-bullet">
+    <li><a id="toc-User-database-options" href="#User-database-options">5.2.1 User database options</a></li>
+  </ul></li>
+</ul></li>
+<li><a id="toc-Remote-API-1" href="#Remote-API-1">6 Remote API</a>
+<ul class="no-bullet">
+  <li><a id="toc-Messages" href="#Messages">6.1 Messages</a></li>
+  <li><a id="toc-Startup" href="#Startup">6.2 Startup</a></li>
+  <li><a id="toc-Errors" href="#Errors">6.3 Errors</a></li>
+  <li><a id="toc-Sample-nodejs-program" href="#Sample-nodejs-program">6.4 Sample nodejs program</a></li>
+  <li><a id="toc-Common-messages" href="#Common-messages">6.5 Common messages</a></li>
+  <li><a id="toc-LTE-messages-1" href="#LTE-messages-1">6.6 LTE messages</a></li>
+  <li><a id="toc-LTE-events" href="#LTE-events">6.7 LTE events</a></li>
+  <li><a id="toc-Examples" href="#Examples">6.8 Examples</a></li>
+</ul></li>
+<li><a id="toc-Command-line-monitor-reference" href="#Command-line-monitor-reference">7 Command line monitor reference</a></li>
+<li><a id="toc-Log-file-format-1" href="#Log-file-format-1">8 Log file format</a>
+<ul class="no-bullet">
+  <li><a id="toc-IMS_002c-SIP" href="#IMS_002c-SIP">8.1 IMS, SIP</a></li>
+  <li><a id="toc-CX_002c-RX" href="#CX_002c-RX">8.2 CX, RX</a></li>
+  <li><a id="toc-MEDIA" href="#MEDIA">8.3 MEDIA</a></li>
+</ul></li>
+<li><a id="toc-Change-history" href="#Change-history">9 Change history</a>
+<ul class="no-bullet">
+  <li><a id="toc-Version-2025_002d05_002d21" href="#Version-2025_002d05_002d21">9.1 Version 2025-05-21</a></li>
+  <li><a id="toc-Version-2025_002d03_002d14" href="#Version-2025_002d03_002d14">9.2 Version 2025-03-14</a></li>
+  <li><a id="toc-Version-2024_002d12_002d13" href="#Version-2024_002d12_002d13">9.3 Version 2024-12-13</a></li>
+  <li><a id="toc-Version-2024_002d09_002d13" href="#Version-2024_002d09_002d13">9.4 Version 2024-09-13</a></li>
+  <li><a id="toc-Version-2024_002d06_002d14" href="#Version-2024_002d06_002d14">9.5 Version 2024-06-14</a></li>
+  <li><a id="toc-Version-2024_002d03_002d15" href="#Version-2024_002d03_002d15">9.6 Version 2024-03-15</a></li>
+  <li><a id="toc-Version-2023_002d12_002d15" href="#Version-2023_002d12_002d15">9.7 Version 2023-12-15</a></li>
+  <li><a id="toc-Version-2023_002d09_002d08" href="#Version-2023_002d09_002d08">9.8 Version 2023-09-08</a></li>
+  <li><a id="toc-Version-2023_002d06_002d10" href="#Version-2023_002d06_002d10">9.9 Version 2023-06-10</a></li>
+  <li><a id="toc-Version-2023_002d03_002d17" href="#Version-2023_002d03_002d17">9.10 Version 2023-03-17</a></li>
+  <li><a id="toc-Version-2022_002d12_002d16" href="#Version-2022_002d12_002d16">9.11 Version 2022-12-16</a></li>
+  <li><a id="toc-Version-2022_002d09_002d16" href="#Version-2022_002d09_002d16">9.12 Version 2022-09-16</a></li>
+  <li><a id="toc-Version-2022_002d06_002d17" href="#Version-2022_002d06_002d17">9.13 Version 2022-06-17</a></li>
+  <li><a id="toc-Version-2022_002d03_002d18" href="#Version-2022_002d03_002d18">9.14 Version 2022-03-18</a></li>
+  <li><a id="toc-Version-2021_002d12_002d17" href="#Version-2021_002d12_002d17">9.15 Version 2021-12-17</a></li>
+  <li><a id="toc-Version-2021_002d09_002d17" href="#Version-2021_002d09_002d17">9.16 Version 2021-09-17</a></li>
+</ul></li>
+<li><a id="toc-License" href="#License">10 License</a></li>
+<li><a id="toc-Abbreviations" href="#Abbreviations">Abbreviations</a></li>
+
+</ul>
+</div>
+
+
+<span id="Introduction"></span><h2 class="chapter">1 Introduction</h2>
+
+<p>LTEIMS is an IMS standalone simple server.
+It has a built-in P-CSCF, I-CSCF, S-CSCF, HSS.
+It also allows SMS handling including SMS over SG by connecting to the Amarisoft MME.
+</p>
+<span id="Features"></span><h2 class="chapter">2 Features</h2>
+
+<ul>
+<li> Implements P-CSCF with built-in I-CSCF, S-CSCF and HSS.
+</li><li> Support of SIP protocol.
+</li><li> Support of MD5, AKAv1 and AKAv2 authentication.
+</li><li> Support of ISIM cards using the XOR, Milenage or TUAK authentication algorithm.
+</li><li> Support of IPsec (ESP/transport).
+</li><li> Support of voice, video calls: MO and MT.
+</li><li> Support of voice echo test.
+</li><li> Support of hold.
+</li><li> Support of SMS (GSM 3.40) using SIP MESSAGE and SMS over SG.
+</li><li> Support of IPv4 and IPv6.
+</li><li> Support of precondition and dedicated bearer using Rx interface or N5 interface.
+</li><li> Support of emergency call.
+</li><li> Configurable user database.
+</li><li> External authentication using Cx interface.
+</li><li> Command line monitor.
+</li><li> Remote API using WebSocket.
+</li></ul>
+
+<span id="Requirements"></span><h2 class="chapter">3 Requirements</h2>
+
+<span id="Hardware-requirements"></span><h3 class="section">3.1 Hardware requirements</h3>
+
+<ul>
+<li> LTEIMS can run on the same PC as the Amarisoft eNodeB if a simple and 
+compact solution is needed. Otherwise, any reasonnably recent PC with
+at least one Gigabit Ethernet port is acceptable.
+
+</li><li> A VoLTE compatible UE is necessary (See <a href="#VoLTE-Call">VoLTE Call</a>, note that it may depends on UE).
+
+</li><li> A test USIM with ISIM application should be plugged into the UE. IMSI and secret key must be known.
+A standard USIM may also work but it depends on the UE implementation.
+
+</li></ul>
+
+<span id="Known-compatible-UE"></span><h3 class="section">3.2 Known compatible UE</h3>
+
+<p>The Amarisoft IMS server has been tested with the following UE models:
+</p><ul>
+<li> Samsung S5
+</li><li> LG MS870
+</li></ul>
+
+
+<span id="Software-requirements"></span><h3 class="section">3.3 Software requirements</h3>
+
+<ul>
+<li> A 64 bit Linux distribution. Fedora 39 is the officially supported distribution.<br>
+The following distributions are known as compatible:
+<ul>
+<li> Fedora 22 to 39
+</li><li> Cent OS 7
+</li><li> Ubuntu 14 to 22
+</li></ul>
+
+<p>Your system requires at least GLIBC 2.17.
+</p>
+
+
+</li></ul>
+
+<span id="Installation"></span><h2 class="chapter">4 Installation</h2>
+
+<p>The network access thru the Gigabit Ethernet port must be correctly configured.
+</p>
+<p>LTEIMS can be run directly from the directory when it was unpacked. No
+need for explicit installation.
+</p>
+
+<span id="Fedora-setup"></span><h3 class="section">4.1 Fedora setup</h3>
+
+<p>If you want to use SMS over SG with the Amarisoft MME or precondition with QoS, you need support of SCTP protocol for which
+the necessary packages are not usually installed. In order to install them, do as root user:
+</p>
+<ul>
+<li> Fedora
+<div class="example">
+<pre class="example">dnf install lksctp-tools kernel-modules-extra
+</pre></div>
+
+</li><li> Ubuntu
+<div class="example">
+<pre class="example">sudo apt-get install lksctp-tools linux-image-extra-3.13.0-24-generic
+</pre></div>
+
+<p>Note that linux-image-extra package name may differ depending on your kernel version.
+</p>
+</li></ul>
+
+<p>To verify that SCTP kernel module is running, do as root user:
+</p><div class="example">
+<pre class="example">checksctp
+</pre></div>
+<p>If it reports that the protocol is not supported,
+</p><ul>
+<li> check if you have a /etc/modprobe.d/sctp-blacklist.conf file
+</li><li> edit it to comment the &rsquo;blacklist sctp&rsquo; line
+</li></ul>
+
+<p>Then reboot the PC in case the Linux kernel was upgraded too.
+</p>
+<span id="License-key-installation"></span><h3 class="section">4.2 License key installation</h3>
+
+<p>LTEIMS needs a <code>LTEMME</code> license key to run.
+Please refer to the <code>ltemme</code> documentation.
+</p>
+<span id="Initial-testing"></span><h3 class="section">4.3 Initial testing</h3>
+
+<ul>
+<li> Edit the file <samp>config/ims.cfg</samp> to set the address of the SIP interface. Normally it is the address
+of the Ethernet interface that will receive SIP packets.<br>
+You can keep the current config if you use it with the Amarisoft MME and its <samp>config/mme-ims.cfg</samp> config file.
+
+</li><li> Start the program as root with:
+
+<div class="example">
+<pre class="example">./lteims config/ims.cfg
+</pre></div>
+
+<p>[The root access is only needed if you want IPsec support.]
+</p>
+</li><li> The command line interface is used to monitor the operation of LTEIMS and to change the logging options.<br>
+Use <code>help</code> to get the list of commands and <code>quit</code> to stop the program.
+
+</li><li> Use <code>users</code> to list the user database and registering state.
+
+</li></ul>
+
+<span id="Samsung-S5-configuration"></span><h3 class="section">4.4 Samsung S5 configuration</h3>
+
+<p>Your UE must run at least Android 5.0 (Even if Android 5.0 is installed, try to update software
+(several times) as a sub-release is necessary).<br>
+If not, please update it.<br>
+</p>
+<p>To check your UE is configured for VoLTE, please go to
+<code>Settings</code>/<code>More networks</code>/<code>Mobile networks</code> of your handset
+and check <code>VoLTE Call</code> is checked:
+</p>
+<span id="VoLTE-Call"></span><img src="img/s5-volte.webp" alt="img/s5-volte">
+
+
+<p>We assume you are using the system with Amarisoft MME and <samp>config/mme-ims.cfg</samp> config file.<br>
+As there are two PDN defined, you must add them to the UE.<br>
+</p>
+<ul>
+<li> Go to Settings/More networks/Mobile networks
+</li><li> Turn on Data roaming
+</li><li> Check VoLTE Call (If not present, it means your device is not up to date or does not support VoLTE).
+</li><li> Go to Network operators, search for networks and select Amarisoft network.
+</li><li> Go back to Mobile network.
+</li><li> Add the first APN with the following parameters:
+  <ul>
+<li> Name = Internet
+  </li><li> APN = internet
+  </li><li> APN type = default
+  </li></ul>
+</li><li> Save it and select it.
+</li><li> Add second APN with following parameters:
+  <ul>
+<li> Name = IMS
+  </li><li> APN = ims
+  </li><li> APN type = ims
+  </li></ul>
+</li><li> Save it and do not select it (This APN may not be displayed).
+</li><li> Reboot your phone
+
+</li></ul>
+
+
+<span id="Configuration-reference"></span><h2 class="chapter">5 Configuration reference</h2>
+
+<span id="Configuration-file-syntax"></span><h3 class="section">5.1 Configuration file syntax</h3>
+
+<p>The main configuration file uses a syntax very similar to the
+Javascript Object Notation (JSON) with few extensions.
+</p>
+<ol>
+<li> Supported types:
+
+<ul class="no-bullet">
+<li>- Numbers (64 bit floating point). Notation: <code>13.4</code>
+</li><li>- Complex numbers. Notation: <code>1.2+3*I</code>
+</li><li>- Strings. Notation: <code> &quot;string&quot; </code>
+</li><li>- Booleans. Notation: <code>true</code> or <code>false</code>.
+</li><li>- Objects. Notation: <code> { field1: <var>value1</var>, field2: <var>value2</var>, .... } </code>
+</li><li>- Arrays. Notation: <code> [ <var>value1</var>, <var>value2</var>, .... ] </code>
+</li></ul>
+
+</li><li> The basic operations <code>+</code>, <code>-</code>, <code>*</code> and <code>/</code> are
+supported with numbers and complex numbers. <code>+</code> also concatenates
+strings. The operators <code>!</code>, <code>||</code>, <code>&amp;&amp;</code>, <code>==</code>,
+<code>!=</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;=</code>, <code>&gt;</code> are supported too.
+
+</li><li> The numbers <code>0</code> and <code>1</code> are accepted as synonyms for the
+boolean values <code>false</code> and <code>true</code>.
+
+</li><li> {} at top level are optional.
+
+</li><li> &quot; for property names are optional, unless the name starts with a number.
+
+</li><li> Properties can be duplicated.<br>
+If properties are duplicated, they will be merged following <a href="#JSON-merge-rules">JSON merge rules</a> with overriding
+occuring in reading direction (last overrides previous).<br>
+Ex:
+<pre class="verbatim">{
+    value: &quot;foo&quot;,
+    value: &quot;bar&quot;,
+    sub: {
+        value: &quot;foo&quot;
+    },
+    sub: {
+        value: &quot;bar&quot;
+    }
+}
+</pre><p>Will be equivalent to:
+</p><pre class="verbatim">{
+    value: &quot;bar&quot;,
+    sub: {
+        value: &quot;bar&quot;
+    }
+}
+</pre>
+
+
+</li><li> Files can be included using <var>include</var> keyword (must not be quoted) followed by a string (without :) representing the file to include (path is relative to current file) and terminating by a comma.<br>
+Arrays can&rsquo;t be included.<br>
+Merge will be done as for duplicate properties.<br>
+If <var>file1.cfg</var> is:
+<pre class="verbatim">    value: &quot;foo&quot;,
+    include &quot;file2.cfg&quot;,
+    foo: &quot;foo&quot;
+</pre><p>And <var>file2.cfg</var> is:
+</p><pre class="verbatim">    value: &quot;bar&quot;,
+    foo: &quot;bar&quot;
+</pre><p>Final config will be:
+</p><pre class="verbatim">{
+    value: &quot;bar&quot;,
+    foo: &quot;foo&quot;
+}
+</pre>
+</li><li> A C like preprocessor is supported. The following preprocessor commands are available:
+  <dl compact="compact">
+<dt><code>#define <var>var</var> <var>expr</var></code></dt>
+<dd><p>Define a new variable with value <var>expr</var>. <var>expr</var> must be a
+  valid JSON expression. Note that unlike the standard C preprocessor,
+  <var>expr</var> is evaluated by the preprocessor.
+  </p></dd>
+<dt><code>#undef <var>var</var></code></dt>
+<dd><p>Undefine the variable <var>var</var>.
+  </p></dd>
+<dt><code>#include <var>expr</var></code></dt>
+<dd><p>Include the file whose filename is the evaluation of the string
+  expression <var>expr</var>.
+  </p></dd>
+<dt><code>#if <var>expr</var></code></dt>
+<dd><p>Consider the following text if <var>expr</var> is true.
+  </p></dd>
+<dt><code>#else</code></dt>
+<dd><p>Alternative of <code>#if</code> block.
+  </p></dd>
+<dt><code>#elif</code></dt>
+<dd><p>Composition of <code>#else</code> and <code>#if</code>.
+  </p></dd>
+<dt><code>#endif</code></dt>
+<dd><p>End of <code>#if</code> block.
+  </p></dd>
+<dt><code>#ifdef <var>var</var></code></dt>
+<dd><p>Shortcut for <code>#if defined(var)</code>
+  </p></dd>
+<dt><code>#ifndef <var>var</var></code></dt>
+<dd><p>Shortcut for <code>#if !defined(var)</code>
+  </p></dd>
+</dl>
+
+<p>In the JSON source, every occurrence of a defined preprocessor
+  variable is replaced by its value.
+</p>
+</li><li> Backquote strings: JSON expression can be inserted in backquote delimited strings with the <code>${expr}</code> syntax. Example: <code>`abc${1+2}d`</code> is evaluated as the string <code>&quot;abc3d&quot;</code>. Preprocessor variables can be used inside the expression. Backquote strings may span several lines.
+
+</li></ol>
+
+
+<span id="JSON-merge-rules"></span><span id="JSON-merge-rules-1"></span><h4 class="subsection">5.1.1 JSON merge rules</h4>
+
+<p>Merge overriding direction depends on context, i.e source may override destination or the opposite.<br>
+JSON merge is recursive for Objects and Arrays.<br>
+</p>
+<p>Example, merging
+</p><pre class="verbatim">{
+    foo: { value: &quot;bar&quot; },
+    same: &quot;one&quot;,
+    one: 1
+}
+</pre><p>with
+</p><pre class="verbatim">{
+    foo: { value: &quot;none&quot;, second: true },
+    same: &quot;two&quot;,
+    two: 1
+}
+</pre>
+<p>Will become:
+</p><pre class="verbatim">{
+    foo: { value: &quot;bar&quot;, second: true },
+    same: &quot;one&quot;,
+    one: 1
+    two: 1
+}
+</pre><p>assuming first object overrides second one.<br>
+</p>
+
+<p>In case of Array merging, the final array length will be the maximum length of all merged arrays.<br>
+For each element of the final array, merge will be done considering defined elements only.<br>
+Ex:
+</p><pre class="verbatim">{
+    array: [0, 1, 2, { foo: &quot;bar&quot; } ],
+    array: [3, 4],
+    array: [5, 6, 7, { bar: &quot;foo&quot; }, 8 ]
+}
+</pre><p>Will be merged to:
+</p><pre class="verbatim">{
+    array: [5, 6, 7, { foo: &quot;bar&quot;, bar: &quot;foo&quot; }, 8 ],
+}
+</pre>
+
+
+<span id="Properties"></span><h3 class="section">5.2 Properties</h3>
+
+<!-- prop: -->
+
+<dl compact="compact">
+<dt><code>log_filename</code></dt>
+<dd>
+<p>String. Set the log filename. If no leading <code>/</code>, it is relative to the
+configuration file path. See <a href="#Log-file-format">Log file format</a>.
+</p>
+<span id="log_005foptions"></span></dd>
+<dt><code>log_options</code></dt>
+<dd>
+<p>String. Set the logging options as a comma separated list of assignments.
+</p>
+<ul>
+<li> <var>layer</var>.level=<var>verbosity</var>. For each layer, the log verbosity can be set
+to <code>none</code>, <code>error</code>, <code>info</code> or <code>debug</code>. In debug
+level, the content of the transmitted data is logged.
+
+</li><li> <var>layer</var>.max_size=<var>n</var>. When dumping data content, at
+most <code>n</code> bytes are shown in hexa. For ASN.1, NAS or Diameter content, show the full content of the message if <code>n &gt; 0</code>.
+
+</li><li> <var>layer</var>.payload=[0|1]. Dump ASN.1, NAS, SGsAP or Diameter payload in hexadecimal.
+
+</li><li> <var>layer</var>.key=[0|1]. Dump security keys (NAS and RRC layers).
+
+</li><li> <var>layer</var>.crypto=[0|1]. Dump plain and ciphered data (NAS and PCDP layers).
+
+</li><li> <var>layer</var>.verbose=[0|1]. If <code>layer</code> is <code>ipsec</code>, dump all packets filtering informations.
+
+
+
+
+</li><li> time=[sec|short|full]. Display the time as seconds, time only
+or full date and time (default = time only).
+
+</li><li> time.us=[0|1]. Dump time with microseconds precision.
+
+</li><li> file=cut. Close current file log and open a new one.
+
+</li><li> file.rotate=now. Move and rename to the same directory or to the directory pointed by <code>file.path</code>
+  and open a new log file (Headers are kept).
+
+</li><li> file.rotate=<var>size</var>. Every time log file size reaches <var>size</var> bytes,
+  move and rename to the same directory or to the directory pointed by <code>file.path</code>,
+  and open a new log file (Headers are kept).<br>
+  Size is an integer and can be followed by K, M or G.
+
+</li><li> file.rotate=#<var>count</var>. Everytime number of logs in log file reaches <var>count</var>,
+  move and rename to the same directory or to the directory pointed by <code>file.path</code>,
+  and open a new log file (Headers are kept).<br>
+  Size is an integer and can be followed by K, M or G.
+
+</li><li> file.path=<var>path</var>. When log rotation is enabled (<code>file.rotate</code> set),
+  rename and move current log to this path instead of initial log path.
+
+</li><li> append=[0|1]. (default=0). If 0, truncate the log file when
+  opening it. Otherwise, append to it.
+
+</li></ul>
+
+<p>Available layers are: <code>ims</code>, <code>sip</code>, <code>media</code>, <code>rx</code>, <code>cx</code>, <code>n5</code>
+</p>
+</dd>
+<dt><code>log_sync</code></dt>
+<dd><p>Optional boolean (default = false). If true, logs will be synchronously dumped to file.<br>
+  Warning, this may lead to performances decrease.
+</p>
+
+</dd>
+<dt><code>sip_addr</code></dt>
+<dd><p>Array. Each item is an object representing a SIP server socket defined as follow:<br>
+  </p><dl compact="compact">
+<dt><code>addr</code></dt>
+<dd><p>String. Set the IP address (and an optional port) on which IMS server will
+    listen for SIP packets. The default port is 5060.
+</p>
+</dd>
+<dt><code>bind_addr</code></dt>
+<dd><p>Optional string. Defines network interface on which IMS will listen.<br>
+    If not specified, the addr parameter is used.
+</p>
+</dd>
+<dt><code>port_min</code></dt>
+<dd><p>Optional integer (Default is 10000). Defines lower bound of UDP media socket.
+</p>
+</dd>
+<dt><code>port_max</code></dt>
+<dd><p>Optional integer (Default is 20000). Defines upper bound of UDP media socket.
+</p>
+</dd>
+<dt><code>trunk</code></dt>
+<dd><p>Optional boolean (default is false). Defines the address to use for SIP trunk.
+</p>
+</dd>
+</dl>
+
+<p>NB:
+  </p><ul>
+<li> SIP socket object can be represented by a simple string. Thus, it will
+  represent <code>addr</code> parameter and all other parameters will use default value.
+  </li><li> For legacy, <code>sip_addr</code> can be a single SIP socket (Object or String)
+  instead of an Array.
+  </li></ul>
+
+</dd>
+<dt><code>sctp_addr</code></dt>
+<dd><p>String. Set the IP address (and an optional port) for MME connection.<br>
+This is only necessary for SMS over SG feature.
+</p>
+</dd>
+<dt><code>cx_server_addr</code></dt>
+<dd><p>String. Set the IP address (and optional port) of Cx SCTP
+connection to the HSS. The default port is 3868.
+</p>
+</dd>
+<dt><code>cx_bind_addr</code></dt>
+<dd><p>Optional string. IP address and optional port on which the Cx SCTP
+connection is bound. If not set, <code>sctp_addr</code> is used.
+</p>
+</dd>
+<dt><code>cx_origin_realm</code></dt>
+<dd><p>Optional string. Defines the string sent in the Origin-Realm AVP for
+Cx messages. Default is set to <code>amarisoft.com</code>.
+</p>
+</dd>
+<dt><code>cx_origin_host</code></dt>
+<dd><p>Optional string. Defines the string sent in the Origin-Host AVP for
+Cx messages. Default is set to <code>ims.amarisoft.com</code>.
+</p>
+</dd>
+<dt><code>cx_watchdog_duration</code></dt>
+<dd><p>Optional integer (range 0 to 36000000, default = 0). Tw watchdog timer in
+milliseconds to send the Diameter Device Watchdog Request message.
+The value 0 deactives the watchdog.
+</p>
+</dd>
+<dt><code>rx_server_addr</code></dt>
+<dd><p>Optional string. Set the IP address (and optional port) of Rx SCTP
+connection to the MME. The default port is 3868. If not set,
+<code>cx_server_addr</code> is used.
+</p>
+</dd>
+<dt><code>rx_bind_addr</code></dt>
+<dd><p>Optional string. IP address and optional port on which the Rx SCTP
+connection is bound. If not set, <code>cx_bind_addr</code> is used.
+</p>
+</dd>
+<dt><code>rx_origin_realm</code></dt>
+<dd><p>Optional string. Defines the string sent in the Origin-Realm AVP for
+Rx messages. Default is set to <code>amarisoft.com</code>.
+</p>
+</dd>
+<dt><code>rx_origin_host</code></dt>
+<dd><p>Optional string. Defines the string sent in the Origin-Host AVP for
+Rx messages. Default is set to <code>ims.amarisoft.com</code>.
+</p>
+</dd>
+<dt><code>rx_watchdog_duration</code></dt>
+<dd><p>Optional integer (range 0 to 36000000, default = 0). Tw watchdog timer in
+milliseconds to send the Diameter Device Watchdog Request message.
+The value 0 deactives the watchdog.
+</p>
+</dd>
+<dt><code>use_n5</code></dt>
+<dd><p>Optional boolean (default = false). If set, the N5 interface is used instead of the Rx interface.
+</p>
+</dd>
+<dt><code>n5</code></dt>
+<dd><p>Optional object used to configure the N5 interface with the PCF.
+ </p><dl compact="compact">
+<dt><code>api_root</code></dt>
+<dd><p>String. apiRoot as defined in 3GPP TS 29.501: &lt;scheme&gt;://&lt;host&gt;:&lt;port&gt;, where &lt;scheme&gt; is &quot;http&quot; or &quot;https&quot;. 
+  </p></dd>
+<dt><code>transaction_timeout</code></dt>
+<dd><p>Optional integer (range 1 to 15000, default = 4000). Defines the timeout in
+  milliseconds for a transaction with the PCF.
+  </p></dd>
+<dt><code>bind_addr</code></dt>
+<dd><p>Optional string. IP address and optional port on which the N5 TCP
+  connection is bound. If not set, <code>cx_bind_addr</code> is used.
+ </p></dd>
+</dl>
+
+</dd>
+<dt><code>domain</code></dt>
+<dd><p>String. Global SIP domain used for IMPU and authentication. May be overriden at user level.<br>
+This parameter is not used to recover IMPU.
+</p>
+<span id="tcp_005fthreshold"></span></dd>
+<dt><code>tcp_threshold</code></dt>
+<dd><p>Optional integer (default = 1300). Set packet threshold in bytes to use TCP instead of UDP.
+</p>
+<span id="tcp_005fkeepalive"></span></dd>
+<dt><code>tcp_keepalive</code></dt>
+<dd><p>Optional integer (default = 900). Time in seconds before sending keepalive on TCP connections. 0 means disabling keepalive.
+</p>
+<span id="tcp_005fkeepcount"></span></dd>
+<dt><code>tcp_keepcount</code></dt>
+<dd><p>Optional integer (default = 2). Number of TCP keepalive failure before releasing socket.
+</p>
+<span id="session_005fexpires"></span></dd>
+<dt><code>session_expires</code></dt>
+<dd><p>Optional object. Defines session timer configuration.<br>
+Parameters are the following:
+  </p><dl compact="compact">
+<dt><code>duration</code></dt>
+<dd><p>Optional integer (default = 1800). Session duration in seconds.
+    </p></dd>
+<dt><code>min</code></dt>
+<dd><p>Optional integer (default = 90). Minimum allowed session expires.
+    </p></dd>
+<dt><code>refresher</code></dt>
+<dd><p>Optional string (default = uac). Defines session refresher when it is up to the IMS to take this decision.
+    </p></dd>
+<dt><code>method</code></dt>
+<dd><p>Optional string (default = update). Defines SIP method to use for session refresh when IMS is the refresher.
+    </p></dd>
+<dt><code>force</code></dt>
+<dd><p>Optional boolean (default = true). If set to true, forces the refresher in IMS request with the <code>refresher</code> value.
+  </p></dd>
+</dl>
+<p>For legacy purpose, <code>session_expires</code> can be an integer. If so, only <code>duration</code> is set and other
+  parameters are kept to their default value.
+</p>
+<span id="g_t100rel"></span></dd>
+<dt><code>100rel</code></dt>
+<dd><p>Optional boolean (default = true). Enable/disable support of provisional response
+</p>
+<span id="precondition"></span></dd>
+<dt><code>precondition</code></dt>
+<dd><p>Optional string (default = on). Values can be &quot;on&quot;, &quot;off&quot; or &quot;silent&quot;.<br>
+On: IMS will handled QoS according to the standard.<br>
+Off: no precondition and no dedicated bearer establishment.<br>
+Silent: dedicated bearers will be established regardless the SIP and SDP content.<br>
+Note that a Rx connection is necessary to allow dedicated bearer establishment.
+</p>
+<span id="p_005fcalled_005fparty_005fid"></span></dd>
+<dt><code>p_called_party_id</code></dt>
+<dd><p>Optional boolean (default is false). Enable P-Called-Party-ID header for INVITE and MESSAGE requests.
+</p>
+</dd>
+<dt><code>ipsec</code></dt>
+<dd><p>Optional boolean (default is true). Enable/disable support of IPsec.<br>
+</p>
+</dd>
+<dt><code>ipsec_tun_setup_script_filename</code></dt>
+<dd><p>Optional string (default is /tmp/.ipsec_tun_setup_script).
+Path and name of the temporary file created to configure the IPsec TUN interface.
+</p>
+</dd>
+<dt><code>ipsec_aalg_list</code></dt>
+<dd><p>Array of strings. Each string represent IPsec authentication algorithm supported by IMS.<br>
+&quot;null&quot; may be used to indicate no authentication.<br>
+Supported algorithms are:
+</p><ul>
+<li> hmac-md5-96
+</li><li> hmac-md5-128
+</li><li> hmac-sha-1-96
+</li><li> hmac-sha-1-160
+</li><li> aes-cmac-96
+</li><li> aes-gmac
+</li></ul>
+
+</dd>
+<dt><code>ipsec_ealg_list</code></dt>
+<dd><p>Array of strings. Each string represent IPsec encryption algorithm supported by IMS.<br>
+&quot;null&quot; may be used to indicate no encryption.<br>
+Supported algorithms are:
+</p><ul>
+<li> aes-cbc
+</li><li> des-cbc
+</li><li> des-ede3-cbc
+</li><li> blowfish
+</li><li> aes-ctr
+</li><li> aes-gcm
+</li></ul>
+
+</dd>
+<dt><code>ipsec_mtu</code></dt>
+<dd><p>Optional integer (range 68 to 65535, default = 1400). MTU for IPsec network interface.
+</p>
+</dd>
+<dt><code>ipsec_ifname</code></dt>
+<dd><p>Optional string. If set, use this interface for IPsec. In that case, <code>ipsec_netns</code> must be
+set and interface must be added to the network namepsace.<br>
+In this mode, used to run lteims with non root privileges, it is up to the user to configure
+the tun interface.<br>
+In particular:
+</p><ul>
+<li> Add tun interface to specififed network namespace
+</li><li> Add <code>sip_addr</code> IP addresses to the interface
+</li><li> Set MTU (<code>ipsec_mtu</code> will be ignored)
+</li><li> Set routes
+</li><li> Set CAP_SYS_ADMIN and CAP_NET_RAW capabilities to <var>PROG</var>
+</li></ul>
+
+<p>Ex:
+</p><pre class="verbatim">setcap cap_sys_admin,cap_net_raw=ep lteims
+ip tuntap add mode tun &lt;ifname&gt;
+ip link set dev &lt;ifname&gt; name &lt;ifname&gt; netns &lt;netns&gt;
+ip netns exec $netns ip addr add 192.168.4.1/0 dev &lt;ifname&gt;
+ip netns exec $netns ip addr add 192.168.0.103/0 dev &lt;ifname&gt;
+ip netns exec $netns ip link set &lt;ifname&gt; up mtu 1400
+ip netns exec $netns ip route add default dev &lt;ifname&gt;
+</pre>
+
+</dd>
+<dt><code>ipsec_netns</code></dt>
+<dd><p>Optional string. Must be set if <code>ipsec_ifname</code> is set. Defines network namespace name
+used for IPsec.
+</p>
+
+<span id="dialog_005ftimeout"></span></dd>
+<dt><code>dialog_timeout</code></dt>
+<dd><p>Optional integer (default = 30). Time in seconds of call session. Stop call if no
+activity has been detected during this time.
+</p>
+<span id="auth_005fon_005fregister_005fonly"></span></dd>
+<dt><code>auth_on_register_only</code></dt>
+<dd><p>Optional boolean (default = true). If true, don&rsquo;t try to authenticate other request than
+register (unless expires is set to 0).
+</p>
+</dd>
+<dt><code>trunk</code></dt>
+<dd><p>Optional object. If set, IMS will accept incoming calls from a SIP trunk and will forward
+unknown calls to SIP trunk (<a href="https://tech-academy.amarisoft.com/how_to_run_volte_call_using_a_sip_trunk.wiki">https://tech-academy.amarisoft.com/how_to_run_volte_call_using_a_sip_trunk.wiki</a>).<br>
+SIP trunk must accept non authenticated requests.
+Parameters are the following:
+  </p><dl compact="compact">
+<dt><code>addr</code></dt>
+<dd><p>String. IP address of the SIP trunk.
+    </p></dd>
+<dt><code>name</code></dt>
+<dd><p>String. SIP trunk account user name.
+    </p></dd>
+<dt><code>domain</code></dt>
+<dd><p>Optional string (default = same as <code>addr</code>). If set, use this for SIP uri domain.
+    </p></dd>
+<dt><code>tcp_threshold</code></dt>
+<dd><p>Optional integer (default = 0). If &gt; 0, will override global <code>tcp_threshold</code> parameter.
+  </p></dd>
+</dl>
+
+</dd>
+<dt><code>com_addr</code></dt>
+<dd><p>Optional string. Address of the WebSocket server remote API. See <a href="#Remote-API">Remote API</a>.<br>
+If set, the WebSocket server for remote API will be enabled and bound to this address.<br>
+Default port is 9003.<br>
+Setting IP address to [::] will make remote API reachable through all network interfaces.
+</p>
+</dd>
+<dt><code>com_name</code></dt>
+<dd><p>Optional string. Sets server name. IMS by default
+</p>
+
+</dd>
+<dt><code>com_ssl_certificate</code></dt>
+<dd><p>Optional string. If set, forces SSL for WebSockets. Defines CA
+certificate filename.
+</p>
+</dd>
+<dt><code>com_ssl_key</code></dt>
+<dd><p>Optional string. Mandatory if <var>com_ssl_certificate</var> is set. Defines CA
+private key filename.
+</p>
+</dd>
+<dt><code>com_ssl_peer_verify</code></dt>
+<dd><p>Optional boolean (default is false). If <var>true</var>, server will check
+client certificate.
+</p>
+</dd>
+<dt><code>com_ssl_ca</code></dt>
+<dd><p>Optional string. Set CA certificate. In case of peer verification with self signed
+certificate, you should use the client certificate.
+</p>
+
+</dd>
+<dt><code>com_log_lock</code></dt>
+<dd><p>Optional boolean (default is false). If <var>true</var>, logs configuration can&rsquo;t be changed
+via <code>config_set</code> remote API.
+</p>
+</dd>
+<dt><code>com_log_us</code></dt>
+<dd><p>Optional boolean (default is false). If <var>true</var>, logs sent by <code>log_get</code> remote API
+response will have a <code>timestamp_us</code> parameters instead of <code>timestamp</code>
+</p>
+</dd>
+<dt><code>com_auth</code></dt>
+<dd><p>Optional object. If set, remote API access will require authentication.<br>
+Authentication mechanism is describe in <a href="#Remote-API-Startup">Remote API Startup</a> section.<br>
+</p>
+<dl compact="compact">
+<dt><code>passfile</code></dt>
+<dd><p>Optional string. Defines filename where password is stored (plaintext).<br>
+    If not set, <code>password</code> must be set
+</p>
+</dd>
+<dt><code>password</code></dt>
+<dd><p>Optional string. Defines password.<br>
+    If not set, <code>passfile</code> must be set.
+</p>
+</dd>
+<dt><code>unsecure</code></dt>
+<dd><p>Optional boolean (default  false). If set, allow password to be sent plaintext.<br>
+    NB: you should set it to true if you access it from a Web Browser (Ex: Amarisoft GUI)
+    without SSL (https) as your Web Browser may prevent secure access to work.
+</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>com_log_count</code></dt>
+<dd><p>Optional number (Default = 8192). Defines number of logs to keep in memory before dropping them.<br>
+Must be between 4096 and 2097152).
+</p>
+
+<span id="sim_005fevents"></span></dd>
+<dt><code>sim_events</code></dt>
+<dd><p>Array of object. Each element defines a remote API request (<a href="#Remote-API">Remote API</a>)
+  except that <code>message</code> field is replaced by <code>event</code>.<br>
+</p>
+</dd>
+<dt><code>sim_events_loop_count</code></dt>
+<dd><p>If set, will define <code>loop_count</code> for each event of <code>sim_events</code>, See <a href="#loop_005fcount">loop_count</a>.
+</p>
+</dd>
+<dt><code>sim_events_loop_delay</code></dt>
+<dd><p>If set, will define <code>loop_delay</code> for each event of <code>sim_events</code>, See <a href="#loop_005fdelay">loop_delay</a>.
+</p>
+
+
+</dd>
+<dt><code>license_server</code></dt>
+<dd><p>Configuration of the Amarisoft license server to use.<br>
+Object with following properties:
+</p>
+<dl compact="compact">
+<dt><code>server_addr</code></dt>
+<dd><p>String. IP address of the license server.
+</p></dd>
+<dt><code>name</code></dt>
+<dd><p>Optional string. Text to be displayed inside server monitor or remote API.
+</p></dd>
+<dt><code>tag</code></dt>
+<dd><p>Optional string. If set, server will only allow license with same tag.
+</p></dd>
+</dl>
+
+<p>Example:
+</p><pre class="verbatim">license_server: {
+    server_addr: &quot;192.168.0.20&quot;,
+    name: &quot;My license&quot;
+}
+</pre>
+
+<span id="sms_005fexpires"></span></dd>
+<dt><code>sms_expires</code></dt>
+<dd><p>Integer (default = 86400). Delay in seconds before SMS is removed from database. If a MO
+SMS contains the TP-Validity-Period field, it will be used instead of <code>sms_expires</code>.
+</p>
+<span id="sms_005fhook_005fonly"></span></dd>
+<dt><code>sms_hook_only</code></dt>
+<dd><p>Optional boolean (default = false). If set, when SMS is received and at least one
+WebSocket client has registered to <code>sms</code> event, don&rsquo;t process SMS internally
+(Only CP/RP layer will be handled).
+</p>
+<span id="binding_005fexpires"></span></dd>
+<dt><code>binding_expires</code></dt>
+<dd><p>Integer (default = 3600, max = 864000). Default duration in seconds for registration.
+</p>
+<span id="subscribe_005fexpires"></span></dd>
+<dt><code>subscribe_expires</code></dt>
+<dd><p>Integer (default = 0, max = 864000). Subscription expiration. If set to 0, use value sent by UE.
+</p>
+</dd>
+<dt><code>user_agent</code></dt>
+<dd><p>Optional string (default = Amarisoft-IMS-2025-05-21). SIP user agent.
+</p>
+</dd>
+<dt><code>force_user_agent</code></dt>
+<dd><p>Boolean (default = true). If true, IMS user-agent will always be used, else remote peer&rsquo;s one
+will be used.
+</p>
+</dd>
+<dt><code>early_media</code></dt>
+<dd><p>Boolean (default = true). Enable/disable handling of early media.
+</p>
+</dd>
+<dt><code>path</code></dt>
+<dd><p>Optional string (default = sip:ims.mnc001.mcc001.3gppnetwork.org).
+SIP path. If registration supports <code>path</code>, defines content of the <code>Path</code> header in
+registration response. If set to an empty string, <code>Path</code> header won&rsquo;t be set.
+</p>
+</dd>
+<dt><code>timer_t1</code></dt>
+<dd><p>Optional number (default = 2). SIP T1 timer duration in seconds.
+</p>
+</dd>
+<dt><code>timer_t2</code></dt>
+<dd><p>Optional number (default = 16). SIP T2 timer duration in seconds.
+</p>
+</dd>
+<dt><code>timer_t4</code></dt>
+<dd><p>Optional number (default = 17). SIP T4 timer duration in seconds.
+</p>
+<span id="custom_005fheaders"></span></dd>
+<dt><code>custom_headers</code></dt>
+<dd><p>Array of object. Each object represents a custom header to add to requests and/or responses,
+defined as follows:
+  </p><dl compact="compact">
+<dt><code>name</code></dt>
+<dd><p>String. Header name
+</p>
+</dd>
+<dt><code>value</code></dt>
+<dd><p>Optional string. Header value. If not set, replace is forced to <code>true</code> and header
+    will only be removed if present.
+</p>
+</dd>
+<dt><code>codes</code></dt>
+<dd><p>Number or array of numbers of the SIP responses on which to apply custom headers.<br>
+    <code>0</code> can be used for all codes.
+</p>
+</dd>
+<dt><code>methods</code></dt>
+<dd><p>String or array of strings of the SIP method on which to apply custom headers.<br>
+    <code>*</code> can be used for all methods.<br>
+    If <code>codes</code> is set, the custom headers will be applied to the responses of
+    the associated request.
+</p>
+</dd>
+<dt><code>replace</code></dt>
+<dd><p>Optional boolean (default = false). If set, allow only one occurence of the header.
+</p>
+
+</dd>
+</dl>
+
+</dd>
+<dt><code>sms_centre_address</code></dt>
+<dd><p>Optional object used to configure the SMS centre address.
+Contains the following parameters:
+</p><dl compact="compact">
+<dt><code>type_of_number</code></dt>
+<dd><p>Optional enumeration &quot;unknown&quot;, &quot;international&quot;, &quot;national&quot; (default = &quot;unknown&quot;).
+  SMS centre address type of number.
+  </p></dd>
+<dt><code>numbering_plan</code></dt>
+<dd><p>Optional enumeration &quot;unknown&quot;, &quot;national&quot;, &quot;private&quot; (default = &quot;unknown&quot;).
+  SMS centre address numbering plan identification.
+  </p></dd>
+<dt><code>number</code></dt>
+<dd><p>String. Contains optional &rsquo;+&rsquo; at first position followed by a maximum of 20 digits. SMS centre address number.
+</p></dd>
+</dl>
+
+<span id="sms_005fretry_005fdelay"></span></dd>
+<dt><code>sms_retry_delay</code></dt>
+<dd><p>Integer. Time in s to retry SMS sending.
+</p>
+</dd>
+<dt><code>echo</code></dt>
+<dd><p>IMPU (See <a href="#impu">impu</a>). If set, this defines the phone number(s) for echo service.<br>
+</p>
+</dd>
+<dt><code>mt_call_sdp_file</code></dt>
+<dd><p>String. File to use as SDP when using MT call.
+</p>
+<span id="sms_005fmessage_005ffilter"></span></dd>
+<dt><code>sms_message_filter</code></dt>
+<dd><p>Optional object. Allows to define the IMS behavior for a list of SMS related messages.<br>
+Each property name represents a SMS message type. The ones currently supported are
+<code>cp_data</code>, <code>cp_ack</code>, <code>rp_data</code> and <code>rp_ack</code>.<br>
+Each property value is an enum: <code>treat</code> (message is processed),
+<code>ignore</code> (message is ignored) or <code>reject</code> (message is rejected).<br>
+By default all procedures are treated.<br>
+</p>
+<p>Example:
+</p><pre class="verbatim">sms_message_filter: {
+    cp_data: &quot;treat&quot;,
+    rp_ack: &quot;reject&quot;
+}
+</pre>
+<span id="sms_005fforced_005fcp_005fcause"></span></dd>
+<dt><code>sms_forced_cp_cause</code></dt>
+<dd><p>Optional integer (range 0 to 255). Allows to override the CP error cause selected by the IMS
+with the one configured. Set to 0 to deactivate the override.
+</p>
+<span id="sms_005fforced_005frp_005fcause"></span></dd>
+<dt><code>sms_forced_rp_cause</code></dt>
+<dd><p>Optional integer (range 0 to 255). Allows to override the RP error cause selected by the IMS
+with the one configured. Set to 0 to deactivate the override.
+</p>
+</dd>
+<dt><code>mms_server_bind_addr</code></dt>
+<dd><p>Defines network interface on which MMS server will listen.
+It is used to configure the MMSC in the UE. 
+MMS proxy is not supported and shall not be configured in the UE.
+</p>
+<p>Example:
+</p><pre class="verbatim">mms_server_bind_addr: &quot;192.168.3.1:1111&quot;
+MMSC: http://192.168.3.1:1111
+</pre>
+<span id="mms_005fexpires"></span></dd>
+<dt><code>mms_expires</code></dt>
+<dd><p>Optional integer (default = 86400). Delay in seconds before MMS is removed from database.
+</p>
+</dd>
+</dl>
+
+<span id="User-database-options"></span><h4 class="subsection">5.2.1 User database options</h4>
+
+<!-- prop: -->
+
+<dl compact="compact">
+<dd>
+<span id="ue_005fdb"></span></dd>
+<dt><code>ue_db</code></dt>
+<dd>
+<p>Array of objects. Configure the user database. Each element is an
+entry for one user. Note that this part can be shared between Amarisoft MME and IMS.
+The following properties are available:
+</p>
+<dl compact="compact">
+<dt><code>imsi</code></dt>
+<dd><p>Optional string. Set the IMSI.<br>
+  Shall be present if <code>nai</code> is absent.
+</p>
+</dd>
+<dt><code>nai</code></dt>
+<dd><p>Optional string. Network specific identifier-based SUPI.<br>
+  Shall be present if <code>imsi</code> is absent.
+</p>
+</dd>
+<dt><code>multi_sim</code></dt>
+<dd><p>Optional boolean (default = false). If true, allow several UEs to
+  have the same IMSI (useful when using several identifical test SIM
+  cards in different UEs at the same time). They are distinguished with
+  their IMEI. Note: it is only allowed with the XOR authentication algorithm.
+</p>
+</dd>
+<dt><code>impi</code></dt>
+<dd><p>String. Defines user IMPI. Must be fully filled with hostname if necessary.<br>
+  If you don&rsquo;t know your IMPI, please look at IMS logs inside <var>REGISTER</var>
+  request. The IMPI must match the <var>username</var> argument inside
+  <var>Authorization</var> header.
+</p>
+<span id="impu"></span></dd>
+<dt><code>impu</code></dt>
+<dd><p>Array of strings or array of objects.<br>
+  Each string represents an IMPU. <code>sip</code>, <code>tel</code> and <code>urn</code> scheme are supported.
+  Note that sip URI must not include hostname.<br>
+  If IMPU does not start by a scheme, it is assumed to be a sip URI.<br>
+  Ex:
+  </p><ul>
+<li> sip:user
+  </li><li> user
+  </li><li> tel:+33123456789
+  </li><li> urn:service:sos
+  </li></ul>
+
+<p>If impu is an object, it has following members:
+  <span id="impu-configuration"></span>  </p><dl compact="compact">
+<dt><code>impu</code></dt>
+<dd><p>IMPU as defined above.
+    </p></dd>
+<dt><code>imei</code></dt>
+<dd><p>IMEI associated to this IMPU. Allows to filter calls and SMS for
+    a specific UE.<br>
+    Only relevant if multi_sim is set to true.
+    </p></dd>
+<dt><code>anonymous</code></dt>
+<dd><p>Optional boolean (default is false). If true, allow Anonymous connection (Emergency call) and mask impu in SIP headers.
+    </p></dd>
+<dt><code>anonymous_callback</code></dt>
+<dd><p>Optional number (default is 0). If anonymous is set, defines how long in seconds after an anonymous call has been done,
+    the network can call back the caller. In that case, caller will be identified with a SIP IMPU derived from its IMEI.<br>
+    </p></dd>
+<dt><code>authentication</code></dt>
+<dd><p>Optional boolean (default is true). If false, disable authentication.
+    </p></dd>
+<dt><code>ring_only</code></dt>
+<dd><p>Optional boolean (default is false). If true, IMS will go up to ringing state but not further.
+    </p></dd>
+<dt><code>precondition</code></dt>
+<dd><p>Optional string. Values can be &quot;on&quot;, &quot;off&quot; or &quot;silent&quot;.<br>
+    On mode: IMS will try to guess precondition from supported header, SDP content and/or VoLTE compatibility of client.<br>
+    Off mode: no precondition and no dedicated bearer establishment.<br>
+    Silent mode: dedicated bearers will be established whatever the SIP and SDP content.<br>
+    </p></dd>
+<dt><code>100rel</code></dt>
+<dd><p>Optional boolean (default = true). Enable/disable 100rel support for this IMPU.
+    </p></dd>
+<dt><code>preferred</code></dt>
+<dd><p>Optional boolean (default: false). If set, this <code>impu</code> will be used for preferred identity and for INVITE request URI.
+    </p></dd>
+<dt><code>asserted</code></dt>
+<dd><p>Optional boolean (default: false). If set, this <code>impu</code> will be used for asserted identity.
+    </p></dd>
+<dt><code>associated</code></dt>
+<dd><p>Optional boolean (default: true). If set to false, this <code>impu</code> will not be used for associated URI.
+    </p></dd>
+<dt><code>early_media</code></dt>
+<dd><p>Boolean (default = true). Enable/disable handling of early media for this IMPU.
+    </p></dd>
+<dt><code>display_name</code></dt>
+<dd><p>Optional string. If set, SIP headers will use this field for display name.
+    </p></dd>
+<dt><code>domain</code></dt>
+<dd><p>Optional string. Used to override user or global config.
+    </p></dd>
+<dt><code>p_called_party_id</code></dt>
+<dd><p>Optional string. If set, forces P-Called-Party-ID header for INVITE and MESSAGE requests,
+    no matter if <code>p_called_party_id</code> global parameter is set or not.
+    </p></dd>
+<dt><code>answer_delay</code></dt>
+<dd><p>Optional number. If set, when doing a echo call on this IMPU, OK response to INVITE request
+    will be delayed by <code>answer_delay</code> in seconds.
+    </p></dd>
+<dt><code>sms_delay</code></dt>
+<dd><p>Optional number. If set, IMS will wait <code>sms_delay</code> seconds before sending SMS to this IMPU.
+    </p></dd>
+<dt><code>media_delay</code></dt>
+<dd><p>Optional number. Delay sending of media packet in seconds.
+    </p></dd>
+<dt><code>remote_control</code></dt>
+<dd><p>Optional boolean. If set to true on a echo impu, the sending of final of INVITE request will be controled
+    by <code>dialog_set</code> remote API with <code>answer</code> action (The delay to send answer is defined by <code>dialog_timeout</code>
+    parameter.<br>
+    A remote API <code>invite</code> event will be sent with dialog <code>session_id</code>.
+    </p></dd>
+<dt><code>sdp_file</code></dt>
+<dd><p>Optional string. When used in echo mode, use the SDP file to force the media sent in server SDP response.
+    </p></dd>
+<dt><code>session_expires</code></dt>
+<dd><p>Optional object. If set, will override global session timer parameters for that impu, See <a href="#session_005fexpires">session_expires</a>.<br>
+    If IMS is the server (MO call and echo call), caller configuration will be used, else (MT call) callee&rsquo;s one will
+    be used.
+    </p></dd>
+<dt><code>bitrate_factor</code></dt>
+<dd><p>Optional number (Default = 1). Media bitrate are estimated from SDP. When setting up the dedicated bearer via
+    Rx interface, the bitrate is multiplied by this number.
+    </p></dd>
+<dt><code>audio</code></dt>
+<dd><p>Optional boolean (default = true). If set to false, audio media will be rejected.
+    </p></dd>
+<dt><code>video</code></dt>
+<dd><p>Optional boolean (default = true). If set to false, video media will be rejected.
+    </p></dd>
+<dt><code>text</code></dt>
+<dd><p>Optional boolean (default = true). If set to false, text media will be rejected.
+</p>
+</dd>
+<dt><code>callflow_modifier</code></dt>
+<dd><p>Optional object or array of objects. This allows to modify IMS behavior and messages.<br>
+    Each object will define a modification in the SIP callflow.<br>
+    The modifier will be applied with following rules:<br>
+    </p><ul>
+<li> On MO dialogs, callee modifiers will be used.
+    </li><li> On MT dialogs, caller modifiers will be used.
+    </li></ul>
+<p>Each object is defined this way:
+    </p><dl compact="compact">
+<dt><code>method</code></dt>
+<dd><p>Optional string. Defines on which step to apply modifier (if not set, applies on any of the following). Modifier applies on reception or sending of
+      message depending on <code>dir</code> parameter<br>
+      If set to <code>INVITE.OK</code>, modifier applies on final answer of INVITE request.<br>
+      If set to <code>INVITE.TRYING</code>, modifier applies on 100 SIP responses.<br>
+      If set to <code>INVITE.RINGING</code>, modifier applies on 180 SIP responses.<br>
+      If set to <code>INVITE.SESSION_PROGRESS</code>, modifier applies on 183 SIP responses.<br>
+      If set to <code>INVITE</code>, <code>SUBSCRIBE</code>, <code>REGISTER</code>, <code>UPDATE</code>, <code>CANCEL</code>, <code>PRACK</code>,
+      <code>MESSAGE</code>, modifier applies on received or sent requests.<br>
+      If set to <code>REGISTER.SOS</code>, modifier applies on reception of emergency REGISTER.<br>
+      If set to <code>REINVITE</code>,  modifier applies on received or sent INVITE requests during an established dialog.
+</p>
+</dd>
+<dt><code>log</code></dt>
+<dd><p>Optional string. If set, add logs (<code>IMS</code> layer) for modifier.
+</p>
+</dd>
+<dt><code>code</code></dt>
+<dd><p>Optional number (between 100 and 699). If set, modifier will generate a SIP response with this code and
+      modifier will apply on this message.<br>
+      If code is not set, no response wil be generated.
+</p>
+</dd>
+<dt><code>stop</code></dt>
+<dd><p>Optional boolean (default = true). If set to true and modifier applies within a dialog, dialog will be stopped. In that case, normal
+      callflow will be stopped.
+</p>
+</dd>
+<dt><code>dir</code></dt>
+<dd><p>Optional string (default = both). Can be <code>tx</code> to apply modifier on sent messages, <code>rx</code> to apply modifier on received messages
+      or <code>both</code> for both type of messages.
+</p>
+</dd>
+<dt><code>transparent</code></dt>
+<dd><p>Optional boolean (default = false). If <code>true</code>, modifier will be applied without stopping the normal call flow.
+</p>
+</dd>
+<dt><code>content</code></dt>
+<dd><p>Optional string. Represent a filename used to fill body of generated message and may replace already set content
+      with same <code>content_type</code> (Ex: use application/sdp to remove SDP).<br>
+      If set to null, no content will be added but content removal will be applied.
+</p>
+</dd>
+<dt><code>content_type</code></dt>
+<dd><p>Optional string. Mandatory if <code>content</code> is set, will define response content type.
+</p>
+</dd>
+<dt><code>access_network</code></dt>
+<dd><p>Optional string (default = false). List of RAT separated by comma. If set the callflow will only be affected
+      if <code>P-Access-Network-Info</code> matches the selected RAT. Can be <code>lte</code> (3GPP-E-UTRA), <code>nr</code> (3GPP-NR),
+      or <code>n3gpp</code> (IEEE).
+</p>
+</dd>
+<dt><code>custom_headers</code></dt>
+<dd><p>Optional Array of object. Apply specific headers on the generated response as defined in <a href="#custom_005fheaders">custom_headers</a>,
+      except that <code>code</code> and <code>methods</code> parameters are useless.
+</p>
+</dd>
+<dt><code>impu</code></dt>
+<dd><p>Optional string. Is set, modifier will be applied only if counterpart of the dialog matches this IMPU:
+        </p><ul>
+<li> On MO dialogs, caller IMPU.
+        </li><li> On MT dialogs, callee IMPU.
+        </li></ul>
+
+</dd>
+<dt><code>imei</code></dt>
+<dd><p>Optional string. Is set, modifier will be applied only if counterpart (Cf <code>impu</code>) has same IMEI provided
+      during registration.
+</p>
+</dd>
+<dt><code>ttl</code></dt>
+<dd><p>Optional integer (&gt; 0) (Time To Live). If set, callflow modifier will be removed after having being applied <code>ttl</code> times.
+</p>
+</dd>
+<dt><code>tts</code></dt>
+<dd><p>Optional integer (default = 0) (Time To Start).
+      If set, callflow modifier will not be applied for the the <code>tts</code> times it has been triggered.
+      This will differ <code>ttl</code> decreasing.
+</p>
+</dd>
+<dt><code>send_delay</code></dt>
+<dd><p>Optional number (default = 0, max = 60). Delay in seconds of SIP message sending
+</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>code</code></dt>
+<dd><p>Deprecated. See <code>callflow_modifier</code>
+    </p></dd>
+<dt><code>method</code></dt>
+<dd><p>Deprecated. See <code>callflow_modifier</code>
+    </p></dd>
+<dt><code>content</code></dt>
+<dd><p>Deprecated. See <code>callflow_modifier</code>
+    </p></dd>
+<dt><code>content_type</code></dt>
+<dd><p>Deprecated. See <code>callflow_modifier</code>
+    </p></dd>
+<dt><code>transparent</code></dt>
+<dd><p>Deprecated. See <code>callflow_modifier</code>
+</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>authent_type</code></dt>
+<dd><p>Optional string (default = AKAv1). Defines minimum authentication level.<br>
+  If client does no specify authentication algo, server will use this value.<br>
+  Else, server will allow authentication only if client provided algo is at
+  least the one specified by this parameter.<br>
+  Values are (from lowest security to highest):
+    </p><dl compact="compact">
+<dt><code>none</code></dt>
+<dd><p>Disable authentication.
+    </p></dd>
+<dt><code>MD5</code></dt>
+<dd><p>MD5 digest authentication.
+    </p></dd>
+<dt><code>AKAv1</code></dt>
+<dd><p>AKAv1 authentication.
+    </p></dd>
+<dt><code>AKAv2</code></dt>
+<dd><p>AKAv2 with MD5 hash authentication.
+    </p></dd>
+<dt><code>AKAv2-SHA-256</code></dt>
+<dd><p>AKAv2 with SHA-256 hash authentication.
+    </p></dd>
+</dl>
+
+</dd>
+<dt><code>authent_qop</code></dt>
+<dd><p>Optional string (default = none). Defines authentication qop parameter and can be:
+    </p><dl compact="compact">
+<dt><code>none</code></dt>
+<dd><p>Don&rsquo;t set qop.
+    </p></dd>
+<dt><code>auth</code></dt>
+<dd><p>Use <code>auth</code> qop directive.
+    </p></dd>
+</dl>
+
+</dd>
+<dt><code>pwd</code></dt>
+<dd><p>Optional string. Password set for MD5 authentication. If set and
+  <var>authent_type</var> is not set, <var>authent_type</var> is set to MD5.
+</p>
+</dd>
+<dt><code>mt_call_sdp_file</code></dt>
+<dd><p>Optional string. File to use as SDP when using MT call. Overrides global parameter.
+</p>
+</dd>
+<dt><code>domain</code></dt>
+<dd><p>Optional string. If set, overrides global config.
+</p>
+</dd>
+<dt><code>auth_on_register_only</code></dt>
+<dd><p>Optional boolean. If set, overrides global config.
+</p>
+</dd>
+<dt><code>force_sms_over_sg</code></dt>
+<dd><p>Optional boolean. If set, forces use of SMS over SG.
+</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>ue_db_filename</code></dt>
+<dd><p>Optional string. If present, store the current IMS state in a
+persistent file. The IMS state contains in particular the registration info
+and pending SMS.
+</p>
+</dd>
+</dl>
+
+
+<span id="Remote-API"></span><span id="Remote-API-1"></span><h2 class="chapter">6 Remote API</h2>
+
+<p>You can access LTEIMS via a remote API.<br>
+Protocol used is WebSocket as defined in RFC 6455
+(<a href="https://tools.ietf.org/html/rfc6455">https://tools.ietf.org/html/rfc6455</a>).<br>
+</p>
+<p>Note that Origin header is mandatory for the server to accept connections.<br>
+This behavior is determined by the use of <code>nopoll</code> library.<br>
+Any value will be accepted.
+</p>
+<p>To learn how to use it, you can refer to our the following <a href="https://tech-academy.amarisoft.com/RemoteAPI.html">tutorial</a>.
+</p>
+
+<span id="Messages"></span><h3 class="section">6.1 Messages</h3>
+
+<p>Messages exchanged between client and LTEIMS server are in strict JSON
+format.<br>
+</p>
+<p>Each message is represented by an object. Multiple message can be sent to
+server using an array of message objects.<br>
+</p>
+<p>Time and delay values are floating number in seconds.<br>
+</p>
+<p>There are 3 types of messages:
+</p>
+<ul>
+<li> Request
+
+<p>Message sent by client.<br>
+Common definition:
+</p>
+<!-- prop:request -->
+
+<dl compact="compact">
+<dt><code>message</code></dt>
+<dd><p>String. Represent type of message. This parameter is mandatory and depending
+  on its value, other parameters will apply.<br>
+</p>
+</dd>
+<dt><code>message_id</code></dt>
+<dd><p>Optional any type. If set, response sent by the server to this message will
+  have same message_id. This is used to identify response as WebSocket does not
+  provide such a concept.
+</p>
+</dd>
+<dt><code>start_time</code></dt>
+<dd><p>Optional float. Represent the delay before executing the message.<br>
+  If not set, the message is executed when received.<br>
+</p>
+</dd>
+<dt><code>absolute_time</code></dt>
+<dd><p>Optional boolean (default = false). If set, <code>start_time</code> is interpreted as absolute.<br>
+  You can get current clock of system using <code>time</code> member of any response.
+</p>
+</dd>
+<dt><code>standalone</code></dt>
+<dd><p>Optional boolean (default = false). If set, message will survive WebSocket disconnection,
+  else, if socket is disconnected before end of processing, the message will be cancelled.
+</p>
+<span id="loop_005fcount"></span></dd>
+<dt><code>loop_count</code></dt>
+<dd><p>Optional integer (default = 0, max = 1000000). If set, message will be repeated <code>loop_count</code> time(s)
+  after <code>loop_delay</code> (From message beginning of event).<br>
+  Response will have a <code>loop_index</code> to indicate iteration number.
+</p>
+<span id="loop_005fdelay"></span></dd>
+<dt><code>loop_delay</code></dt>
+<dd><p>Optional number (min = 0.1, max = 86400). Delay in seconds to repeat message from its <code>start_time</code>.
+  Mandatory when <code>loop_count</code> is set &gt; 0.
+</p>
+</dd>
+</dl>
+
+</li><li> Response
+
+<p>Message sent by server after any request message as been processed.<br>
+Common definition:
+</p>
+<!-- prop:response -->
+
+<dl compact="compact">
+<dt><code>message</code></dt>
+<dd><p>String. Same as request.
+</p>
+</dd>
+<dt><code>message_id</code></dt>
+<dd><p>Optional any type. Same as in request.
+</p>
+</dd>
+<dt><code>time</code></dt>
+<dd><p>Number representing time in seconds since start of the process.<br>
+  Usefull to send command with absolute time.
+</p>
+</dd>
+<dt><code>utc</code></dt>
+<dd><p>Number representing UTC seconds.
+</p>
+</dd>
+</dl>
+
+</li><li> Events
+
+<p>Message sent by server on its own initiative.<br>
+Common definition:
+</p>
+<!-- prop:event -->
+
+<dl compact="compact">
+<dt><code>message</code></dt>
+<dd><p>String. Event name.
+</p>
+</dd>
+<dt><code>time</code></dt>
+<dd><p>Number representing time in seconds.<br>
+  Usefull to send command with absolute time.
+</p>
+</dd>
+</dl>
+
+</li></ul>
+
+
+<span id="Remote-API-Startup"></span><span id="Startup"></span><h3 class="section">6.2 Startup</h3>
+
+
+<p>When WebSocket connections is setup, LTEIMS will send a first message with
+name set to <code>com_name</code> and type set to IMS.<br>
+</p>
+<p>If authentication is not set, message will be <code>ready</code>:
+</p>
+<div class="example">
+<pre class="example">{
+    &quot;message&quot;: &quot;ready&quot;,
+    &quot;type&quot;: &quot;IMS&quot;,
+    &quot;name&quot;: &lt;com_name&gt;,
+    &quot;version&quot;: &lt;software version&gt;,
+    &quot;product&quot;: &lt;Amarisoft product name (optional)&gt;
+}
+</pre></div>
+
+<p>If authentication is set, message will be <code>authenticate</code> :
+</p>
+<div class="example">
+<pre class="example">{
+    &quot;message&quot;: &quot;authenticate&quot;,
+    &quot;type&quot;: &quot;IMS&quot;,
+    &quot;name&quot;: &lt;com_name&gt;,
+    &quot;challenge&quot;: &lt;random challenge&gt;
+}
+</pre></div>
+
+<p>To authenticate, the client must answer with a <code>authenticate</code> message
+and a <code>res</code> parameter where:
+</p>
+<div class="example">
+<pre class="example">res = HMAC-SHA256( &quot;&lt;type&gt;:&lt;password&gt;:&lt;name&gt;&quot;, &quot;&lt;challenge&gt;&quot; )
+</pre></div>
+
+<p><code>res</code> is a string and HMAC-SHA256 refers to the standard algorithm
+(<a href="https://en.wikipedia.org/wiki/HMAC">https://en.wikipedia.org/wiki/HMAC</a>)
+</p>
+<p>If the authentication succeeds, the response will have a <code>ready</code> field
+set to <code>true</code>.
+</p>
+<div class="example">
+<pre class="example">{
+    &quot;message&quot;: &quot;authenticate&quot;,
+    &quot;message_id&quot;: &lt;message id&gt;,
+    &quot;ready&quot;: true
+}
+</pre></div>
+
+<p>If authentication fails, the response will have an <code>error</code> field and will
+provide a new challenge.
+</p>
+<div class="example">
+<pre class="example">{
+    &quot;message&quot;: &quot;authenticate&quot;,
+    &quot;message_id&quot;: &lt;message id&gt;,
+    &quot;error&quot;: &lt;error message&gt;,
+    &quot;type&quot;: &quot;IMS&quot;,
+    &quot;name: &lt;name&gt;,
+    &quot;challenge&quot;: &lt;new random challenge&gt;
+}
+</pre></div>
+
+
+<p>If any other message is sent before authentication succeeds,
+the error <code>&quot;Authentication not done&quot;</code> will be sent as a response.
+</p>
+
+<span id="Errors"></span><h3 class="section">6.3 Errors</h3>
+
+<p>If a message produces an error, response will have an error string field
+representing the error.
+</p>
+
+<span id="Sample-nodejs-program"></span><h3 class="section">6.4 Sample nodejs program</h3>
+
+<p>You will find in this documentation a sample program: <code>ws.js</code>.<br>
+It is located in <code>doc</code> subdirectory.<br>
+This is a nodejs program that allow to send message to LTEIMS.<br>
+It requires nodejs to be installed:
+</p><div class="example">
+<pre class="example">dnf install nodejs npm
+npm install nodejs-websocket
+</pre></div>
+
+<p>Use relevant package manager instead of NPM depending on your Linux distribution.<br>
+</p>
+<p>Then simply start it with server name and message you want to send:
+</p><div class="example">
+<pre class="example">./ws.js 127.0.0.1:9003 '{&quot;message&quot;: &quot;config_get&quot;}'
+</pre></div>
+
+
+<span id="Common-messages"></span><h3 class="section">6.5 Common messages</h3>
+
+<dl compact="compact">
+<dt><code>config_get</code></dt>
+<dd><p>Retrieve current config.<br>
+</p>
+<p>Response definition:
+    </p><dl compact="compact">
+<dt><code>type</code></dt>
+<dd><p>Always &quot;IMS&quot;
+</p>
+</dd>
+<dt><code>name</code></dt>
+<dd><p>String representing server name.
+</p>
+<span id="config_005fget-logs-member"></span></dd>
+<dt><code>logs</code></dt>
+<dd><p>Object representing log configuration.<br>
+      With following elements:
+        </p><dl compact="compact">
+<dt><code>layers</code></dt>
+<dd><p>Object. Each member of the object represent a log layer configuration:
+</p>
+<dl compact="compact">
+<dt><code>layer name</code></dt>
+<dd><p>Object. The member name represent log layer name and parameters are:
+</p>
+<dl compact="compact">
+<dt><code>level</code></dt>
+<dd><p>See <a href="#log_005foptions">log_options</a>
+                  </p></dd>
+<dt><code>max_size</code></dt>
+<dd><p>See <a href="#log_005foptions">log_options</a>
+                  </p></dd>
+<dt><code>key</code></dt>
+<dd><p>See <a href="#log_005foptions">log_options</a>
+                  </p></dd>
+<dt><code>crypto</code></dt>
+<dd><p>See <a href="#log_005foptions">log_options</a>
+                  </p></dd>
+<dt><code>payload</code></dt>
+<dd><p>See <a href="#log_005foptions">log_options</a>
+                  </p></dd>
+<dt><code>verbose</code></dt>
+<dd><p>Optional boolean. See <a href="#log_005foptions">log_options</a>
+                </p></dd>
+</dl>
+
+</dd>
+</dl>
+
+</dd>
+<dt><code>count</code></dt>
+<dd><p>Number. Number of bufferizer logs.
+</p>
+</dd>
+<dt><code>rotate</code></dt>
+<dd><p>Optional number. Max log file size before rotation.
+</p>
+</dd>
+<dt><code>rotate_count</code></dt>
+<dd><p>Optional number. Max log count before rotation.
+</p>
+</dd>
+<dt><code>path</code></dt>
+<dd><p>Optional string. Log rotation path.
+</p>
+</dd>
+<dt><code>bcch</code></dt>
+<dd><p>Boolean. True if BCCH dump is enabled (eNB only).
+</p>
+</dd>
+<dt><code>mib</code></dt>
+<dd><p>Boolean. True if MIB dump is enabled (eNB only).
+        </p></dd>
+</dl>
+
+</dd>
+<dt><code>locked</code></dt>
+<dd><p>Optional boolean. If <code>true</code>, logs configuration can&rsquo;t be changed
+      with <code>config_set</code> API.
+</p>
+</dd>
+<dt><code>custom_headers</code></dt>
+<dd><p>Array. Current custom headers configuration See <a href="#custom_005fheaders">custom_headers</a>.
+</p>
+
+</dd>
+</dl>
+
+</dd>
+<dt><code>config_set</code></dt>
+<dd><p>Change current config.<br>
+  Each member is optional.<br>
+  Message definition:
+    </p><dl compact="compact">
+<dt><code>logs</code></dt>
+<dd><p>Optional object. Represent logs configuration. Same structure as config_get (See <a href="#config_005fget-logs-member">config_get logs member</a>).<br>
+      All elements are optional.<br>
+      Layer name can be set to <code>all</code> to set same configuration for all layers.<br>
+      If set and logs are locked, response will have <code>logs</code> property set to <code>locked</code>.
+</p>
+</dd>
+<dt><code>precondition</code></dt>
+<dd><p>See <a href="#precondition">precondition</a>
+</p>
+</dd>
+<dt><code>session_expires</code></dt>
+<dd><p>See <a href="#session_005fexpires">session_expires</a>
+</p>
+</dd>
+<dt><code>sms_retry_delay</code></dt>
+<dd><p>See <a href="#sms_005fretry_005fdelay">sms_retry_delay</a>
+</p>
+</dd>
+<dt><code>sms_expires</code></dt>
+<dd><p>See <a href="#sms_005fexpires">sms_expires</a>
+</p>
+</dd>
+<dt><code>sms_hook_only</code></dt>
+<dd><p>See <a href="#sms_005fhook_005fonly">sms_hook_only</a>
+</p>
+</dd>
+<dt><code>binding_expires</code></dt>
+<dd><p>See <a href="#binding_005fexpires">binding_expires</a>
+</p>
+</dd>
+<dt><code>subscribe_expires</code></dt>
+<dd><p>See <a href="#subscribe_005fexpires">subscribe_expires</a>
+</p>
+</dd>
+<dt><code>auth_on_register_only</code></dt>
+<dd><p>See <a href="#auth_005fon_005fregister_005fonly">auth_on_register_only</a>
+</p>
+</dd>
+<dt><code>dialog_timeout</code></dt>
+<dd><p>See <a href="#dialog_005ftimeout">dialog_timeout</a>
+</p>
+</dd>
+<dt><code>p_called_party_id</code></dt>
+<dd><p>See <a href="#p_005fcalled_005fparty_005fid">p_called_party_id</a>
+</p>
+</dd>
+<dt><code>sms_message_filter</code></dt>
+<dd><p>See <a href="#sms_005fmessage_005ffilter">sms_message_filter</a>
+</p>
+</dd>
+<dt><code>sms_forced_cp_cause</code></dt>
+<dd><p>See <a href="#sms_005fforced_005fcp_005fcause">sms_forced_cp_cause</a>
+</p>
+</dd>
+<dt><code>sms_forced_rp_cause</code></dt>
+<dd><p>See <a href="#sms_005fforced_005frp_005fcause">sms_forced_rp_cause</a>
+</p>
+</dd>
+<dt><code>mms_expires</code></dt>
+<dd><p>See <a href="#mms_005fexpires">mms_expires</a>
+</p>
+</dd>
+<dt><code>custom_headers</code></dt>
+<dd><p>Optional array. If set, will replace <code>custom_headers</code> as defined in config file (See <a href="#custom_005fheaders">custom_headers</a>)
+or previous call to <code>config_set</code>.
+</p>
+</dd>
+<dt><code>100rel</code></dt>
+<dd><p>See <a href="#g_t100rel">100rel</a>
+</p>
+</dd>
+<dt><code>tcp_threshold</code></dt>
+<dd><p>See <a href="#tcp_005fthreshold">tcp_threshold</a>
+</p>
+</dd>
+<dt><code>tcp_keepalive</code></dt>
+<dd><p>See <a href="#tcp_005fkeepalive">tcp_keepalive</a>
+</p>
+</dd>
+<dt><code>tcp_keepcount</code></dt>
+<dd><p>See <a href="#tcp_005fkeepcount">tcp_keepcount</a>
+</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>log_get</code></dt>
+<dd><p>Get logs.<br>
+  This API has a per connection behavior. This means that the response will depend on previous calls
+  to this API within the same WebSocket connection.<br>
+  In practice, logs that have been provided in a response won&rsquo;t be part of subsequent request unless
+  connection is reestablished. To keep on receiving logs, client should send a new <code>log_get</code> request
+  as soon as the previous response has been received.<br>
+  If a request is sent before previous request has been replied, previous request will be replied right now
+  without considering specific min/max/timeout conditions.
+</p>
+<p>Message definition:
+    </p><dl compact="compact">
+<dt><code>min</code></dt>
+<dd><p>Optional number (default = 1). Minimum amount of logs to retrieve.<br>
+      Response won&rsquo;t be sent until this limit is reached (Unless timeout occurs).
+</p>
+</dd>
+<dt><code>max</code></dt>
+<dd><p>Optional number (default = 4096). Maximum logs sent in a response.
+</p>
+</dd>
+<dt><code>timeout</code></dt>
+<dd><p>Optional number (default = 1). If at least 1 log is available and no
+      more logs have been generated for this time, response will be sent.
+</p>
+</dd>
+<dt><code>allow_empty</code></dt>
+<dd><p>Optional boolean (default = false). If set, response will be sent after timeout,
+      event if no logs are available.
+</p>
+</dd>
+<dt><code>rnti</code></dt>
+<dd><p>Optional number. If set, send only logs matching rnti.
+</p>
+</dd>
+<dt><code>ue_id</code></dt>
+<dd><p>Optional number. If set, send only logs with matching ue_id.
+</p>
+</dd>
+<dt><code>layers</code></dt>
+<dd><p>Optional Object. Each member name represents a log layer and values must be
+      string representing maximum level. See <a href="#log_005foptions">log_options</a>.<br>
+      If <var>layers</var> is not set, all layers level will be set to <var>debug</var>,
+      else it will be set to <var>none</var>.<br>
+      Note also the logs is also limited by general log level. See <a href="#log_005foptions">log_options</a>.<br>
+</p>
+</dd>
+<dt><code>short</code></dt>
+<dd><p>Optional boolean (default = false). If set, only first line of logs will be dumped.
+</p>
+</dd>
+<dt><code>headers</code></dt>
+<dd><p>Optional boolean. If set, send log file headers.
+</p>
+</dd>
+<dt><code>start_timestamp</code></dt>
+<dd><p>Optional number. Is set, filter logs older than this value in milliseconds.
+</p>
+</dd>
+<dt><code>end_timestamp</code></dt>
+<dd><p>Optional number. Is set, filter logs more recent than this value in milliseconds.
+</p>
+</dd>
+<dt><code>max_size</code></dt>
+<dd><p>Optional number (default = 1048576, i.e. 1MB). Maximum size in bytes of the generated
+      JSON message. If the response exceeds this size, the sending of logs will be
+      forced independently from other parameters.
+</p>
+</dd>
+</dl>
+
+<p>Response definition:
+    </p><dl compact="compact">
+<dt><code>logs</code></dt>
+<dd><p>Array. List of logs. Each item is a an object with following members:
+        </p><dl compact="compact">
+<dt><code>data</code></dt>
+<dd><p>Array. Each item is a string representing a line of log.
+</p>
+</dd>
+<dt><code>timestamp</code></dt>
+<dd><p>Number. Milliseconds since January 1st 1970. Not present if <code>com_log_us</code> is set in configuration.<br>
+</p>
+</dd>
+<dt><code>timestamp_us</code></dt>
+<dd><p>Number. Microseconds since January 1st 1970. Only present if <code>com_log_us</code> is set in configuration.<br>
+</p>
+</dd>
+<dt><code>layer</code></dt>
+<dd><p>String. Log layer.
+</p>
+</dd>
+<dt><code>level</code></dt>
+<dd><p>String. Log level: <var>error</var>, <var>warn</var>, <var>info</var> or <var>debug</var>.
+</p>
+</dd>
+<dt><code>dir</code></dt>
+<dd><p>Optional string. Log direction: <var>UL</var>, <var>DL</var>, <var>FROM</var> or <var>TO</var>.
+</p>
+</dd>
+<dt><code>ue_id</code></dt>
+<dd><p>Optional number. UE_ID.
+</p>
+</dd>
+<dt><code>cell</code></dt>
+<dd><p>Optional number (only for PHY layer logs). Cell ID.
+</p>
+</dd>
+<dt><code>rnti</code></dt>
+<dd><p>Optional number (only for PHY layer logs). RNTI.
+</p>
+</dd>
+<dt><code>frame</code></dt>
+<dd><p>Optional number (only for PHY layer logs). Frame number (Subframe is decimal part).
+</p>
+</dd>
+<dt><code>channel</code></dt>
+<dd><p>Optional string (only for PHY layer logs). Channel name.
+</p>
+</dd>
+<dt><code>src</code></dt>
+<dd><p>String. Server name.
+</p>
+</dd>
+<dt><code>idx</code></dt>
+<dd><p>Integer. Log index.
+</p>
+</dd>
+<dt><code>headers</code></dt>
+<dd><p>Optional array. Array of strings.
+</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>discontinuity</code></dt>
+<dd><p>Optional number. If set, this means some logs have been discarded due to log buffer overflow.
+</p>
+</dd>
+<dt><code>microseconds</code></dt>
+<dd><p>Optional boolean. Present and set to true if <code>com_log_us</code> is set in configuration file.
+    </p></dd>
+</dl>
+
+</dd>
+<dt><code>log_set</code></dt>
+<dd><p>Add log.<br>
+  Message definition:
+    </p><dl compact="compact">
+<dt><code>log</code></dt>
+<dd><p>Optional string. Log message to add. If set, <var>layer</var> and <var>level</var> are mandatory.
+</p>
+</dd>
+<dt><code>layer</code></dt>
+<dd><p>String. Layer name. Only mandatory if <var>log</var> is set.
+</p>
+</dd>
+<dt><code>level</code></dt>
+<dd><p>String. Log level: <var>error</var>, <var>warn</var>, <var>info</var> or <var>debug</var>. Only mandatory if <var>log</var> is set.
+</p>
+</dd>
+<dt><code>dir</code></dt>
+<dd><p>Optional string. Log direction: <var>UL</var>, <var>DL</var>, <var>FROM</var> or <var>TO</var>.
+</p>
+</dd>
+<dt><code>ue_id</code></dt>
+<dd><p>Optional number. UE_ID.
+</p>
+</dd>
+<dt><code>flush</code></dt>
+<dd><p>Optional boolean (default = false). If set, flushes fog file.
+</p>
+</dd>
+<dt><code>rotate</code></dt>
+<dd><p>Optional boolean (default = false). If set, forces log file rotation.
+</p>
+</dd>
+<dt><code>cut</code></dt>
+<dd><p>Optional boolean (default = false). If set, forces log file reset.
+</p>
+</dd>
+</dl>
+
+
+</dd>
+<dt><code>log_reset</code></dt>
+<dd><p>Resets logs buffer.
+</p>
+</dd>
+<dt><code>license</code></dt>
+<dd><p>Retrieves license file information.
+</p>
+<p>Response definition:
+    </p><dl compact="compact">
+<dt><code>products</code></dt>
+<dd><p>String. List of products, separated by commas.
+      </p></dd>
+<dt><code>user</code></dt>
+<dd><p>String. License username.
+      </p></dd>
+<dt><code>validity</code></dt>
+<dd><p>String. License end of validity date.
+      </p></dd>
+<dt><code>id</code></dt>
+<dd><p>Optional string. License ID.
+      </p></dd>
+<dt><code>id_type</code></dt>
+<dd><p>Optional string. License ID type. Can be <code>host_id</code> or <code>dongle_id</code>
+      </p></dd>
+<dt><code>uid</code></dt>
+<dd><p>Optional string. License unique ID.
+      </p></dd>
+<dt><code>filename</code></dt>
+<dd><p>Optional string. License filename.
+      </p></dd>
+<dt><code>server</code></dt>
+<dd><p>Optional string. License server URL.
+      </p></dd>
+<dt><code>server_id</code></dt>
+<dd><p>Optional string. License server ID.
+    </p></dd>
+</dl>
+
+
+</dd>
+<dt><code>quit</code></dt>
+<dd><p>Terminates lteims.
+</p>
+</dd>
+<dt><code>help</code></dt>
+<dd><p>Provides list of available messages in <var>messages</var> array of strings
+  and events to register in <var>events</var> array of strings.<br>
+</p>
+</dd>
+<dt><code>stats</code></dt>
+<dd><p>Report statistics for LTEIMS.<br>
+  Every time this message is received by server, statistics are reset.<br>
+  Warning, calling this message from multiple connections simultaneously will modify the
+  statistics sampling time.
+</p>
+
+<p>Response definition:
+    </p><dl compact="compact">
+<dt><code>cpu</code></dt>
+<dd><p>Object. Each member name defines a type and its value cpu load in % of one core.
+</p>
+</dd>
+<dt><code>instance_id</code></dt>
+<dd><p>Number. Constant over process lifetime. Changes on process restart.
+</p>
+
+</dd>
+<dt><code>counters</code></dt>
+<dd><p>Object. List of counters, with following sub members:
+</p>
+<dl compact="compact">
+<dt><code>messages</code></dt>
+<dd><p>Object. Each member name is the message name and its value is its occurence.<br>
+      To get list of message, type <var>cevent help msg</var> in LTEIMS monitor.
+</p>
+</dd>
+<dt><code>errors</code></dt>
+<dd><p>Object. Each member name is the error name and its value is its occurence.<br>
+      To get list of message, type <var>cevent help error</var> in LTEIMS monitor.
+</p>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+
+</dd>
+<dt><code>register</code></dt>
+<dd><p>Register client for messages generated by server.
+  Message definition:
+    </p><dl compact="compact">
+<dt><code>register</code></dt>
+<dd><p>Optional string or array of string. List of messages to register to.<br>
+      Can be <code>users_update</code>, <code>sms</code>
+</p>
+</dd>
+<dt><code>unregister</code></dt>
+<dd><p>Optional string or array of string. List of messages to unregister.<br>
+      Can be <code>users_update</code>, <code>sms</code>
+</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>ipsec</code></dt>
+<dd><p>Report ipsec SAs.<br>
+</p>  
+
+<p>Response definition:
+    </p><dl compact="compact">
+<dt><code>SAs</code></dt>
+<dd><p>Array. List of object representing a security association witth following definition:
+</p>
+<dl compact="compact">
+<dt><code>type</code></dt>
+<dd><p>String. IP version, can be <code>IPv4</code> or <code>IPv6</code>.
+        </p></dd>
+<dt><code>dir</code></dt>
+<dd><p>String. Direction, can be <code>in</code> or <code>out</code>.
+        </p></dd>
+<dt><code>spi</code></dt>
+<dd><p>Number. SPI.
+        </p></dd>
+<dt><code>ue_id</code></dt>
+<dd><p>Number. Associated <code>ue_id</code>.
+        </p></dd>
+<dt><code>mode</code></dt>
+<dd><p>String. ESP type, can be <code>tunnel</code> or <code>transport</code>
+        </p></dd>
+<dt><code>src</code></dt>
+<dd><p>String. Source IP address.
+        </p></dd>
+<dt><code>dst</code></dt>
+<dd><p>String. Destination IP address.
+        </p></dd>
+<dt><code>tun_src</code></dt>
+<dd><p>Optional string. Tunnel source IP address.
+        </p></dd>
+<dt><code>tun_dst</code></dt>
+<dd><p>Optional string. Tunnel destination IP address.
+        </p></dd>
+<dt><code>src_prefix</code></dt>
+<dd><p>Number. Source network prefix.
+        </p></dd>
+<dt><code>dst_prefix</code></dt>
+<dd><p>Number. Destination network prefix.
+        </p></dd>
+<dt><code>authent_key</code></dt>
+<dd><p>String. Authentication key in hexadecimal form (Empty string authentication is disabled).
+        </p></dd>
+<dt><code>cipher_key</code></dt>
+<dd><p>String. Ciphering key in hexadecimal form (Empty string ciphering is disabled).
+      </p></dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+
+
+
+<span id="LTE-messages"></span><span id="LTE-messages-1"></span><h3 class="section">6.6 LTE messages</h3>
+
+<dl compact="compact">
+<dd>
+<span id="users_005fget"></span></dd>
+<dt><code>users_get</code></dt>
+<dd><p>Get users state.<br>
+  Message definition:
+    </p><dl compact="compact">
+<dt><code>registered_only.</code></dt>
+<dd><p>Optional boolean (default = false). If set, only registered user will be dumped.
+    </p></dd>
+</dl>
+
+<p>Response definition:
+    </p><dl compact="compact">
+<dt><code>users</code></dt>
+<dd><p>Array of object. Each item represents a user with following parameters:
+      </p><dl compact="compact">
+<dt><code>impi</code></dt>
+<dd><p>String. IMPI of user (IP Multimedia Private identity).
+        </p></dd>
+<dt><code>force_sms_over_sg</code></dt>
+<dd><p>Optional boolean. Current SMS over SG forcing state.
+        </p></dd>
+<dt><code>bindings</code></dt>
+<dd><p>Array of object. One for each contact binding:
+        </p><dl compact="compact">
+<dt><code>uri</code></dt>
+<dd><p>String. Contact URI.
+          </p></dd>
+<dt><code>impu</code></dt>
+<dd><p>Array of strings. List of associated IMPUs.
+          </p></dd>
+<dt><code>q</code></dt>
+<dd><p>Number. Contact priority.
+          </p></dd>
+<dt><code>video</code></dt>
+<dd><p>Optional boolean. Video support.
+          </p></dd>
+<dt><code>sms</code></dt>
+<dd><p>Optional boolean. SMS pending.
+          </p></dd>
+<dt><code>imei</code></dt>
+<dd><p>Optional string. IMEI.
+          </p></dd>
+<dt><code>expires</code></dt>
+<dd><p>Integer. Number of seconds before binding expiration.
+        </p></dd>
+</dl>
+</dd>
+<dt><code>dialogs</code></dt>
+<dd><p>Array of object. One for each current dialog:
+        </p><dl compact="compact">
+<dt><code>remote</code></dt>
+<dd><p>String. IMPI of remote user.
+        </p></dd>
+</dl>
+</dd>
+<dt><code>sms</code></dt>
+<dd><p>Integer. Number of pending SMS.
+      </p></dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+<dt><code>users_add</code></dt>
+<dd><p>Add users.<br>
+  Message definition:
+    </p><dl compact="compact">
+<dt><code>users.</code></dt>
+<dd><p>Array of object. Same as info in configuration file: See <a href="#ue_005fdb">ue_db</a>.
+    </p></dd>
+</dl>
+
+</dd>
+<dt><code>user_set</code></dt>
+<dd><p>Configure user.<br>
+  Message definition:
+    </p><dl compact="compact">
+<dt><code>impi</code></dt>
+<dd><p>String. IMPI of user to configure.
+</p>
+</dd>
+<dt><code>force_sms_over_sg</code></dt>
+<dd><p>Optional boolean. Set/unset forcing of SMS over SG.
+    </p></dd>
+</dl>
+
+</dd>
+<dt><code>impu_set</code></dt>
+<dd><p>Configure impu.<br>
+  Message definition:
+    </p><dl compact="compact">
+<dt><code>impu</code></dt>
+<dd><p>String. IMPU to configure.
+</p>
+</dd>
+<dt><code>*</code></dt>
+<dd><p>Same parameters as <code>impu</code> configuration object. See <a href="#impu-configuration">impu configuration</a>.
+</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>impu_add</code></dt>
+<dd><p>Add impu.<br>
+  Message definition:
+    </p><dl compact="compact">
+<dt><code>impu</code></dt>
+<dd><p>String or object. IMPU to add See <a href="#impu-configuration">impu configuration</a>.
+</p>
+</dd>
+<dt><code>impi</code></dt>
+<dd><p>String. User for which to add IMPU. Can be set to <code>echo</code> to add it to the echo list.
+    </p></dd>
+</dl>
+
+</dd>
+<dt><code>impu_del</code></dt>
+<dd><p>Remove impu.<br>
+  Message definition:
+    </p><dl compact="compact">
+<dt><code>impu</code></dt>
+<dd><p>String or object. IMPU to add See <a href="#impu-configuration">impu configuration</a>.
+</p>
+</dd>
+<dt><code>impi</code></dt>
+<dd><p>String. User for which to remove IMPU. Can be set to <code>echo</code> to remove it from the echo list.
+    </p></dd>
+</dl>
+
+</dd>
+<dt><code>sms</code></dt>
+<dd><p>Send SMS.<br>
+  Message definition:
+    </p><dl compact="compact">
+<dt><code>impi</code></dt>
+<dd><p>Optional string. IMPI of user (IP Multimedia Private identity).
+      </p></dd>
+<dt><code>impu</code></dt>
+<dd><p>Optional string. If IMPI is not set, try to get user from IMPU (IP Multimedia Public identity).
+      </p></dd>
+<dt><code>text</code></dt>
+<dd><p>String. SMS text to send.
+      </p></dd>
+<dt><code>sender</code></dt>
+<dd><p>Optional string. Sets SMS sender.
+      </p></dd>
+<dt><code>validity</code></dt>
+<dd><p>Optional integer (Default = 86400). Validity period in seconds.
+      </p></dd>
+<dt><code>binary</code></dt>
+<dd><p>Optional string. If set (and <code>text</code> is not set), must be a base64 string representing binary data
+      of the TP-User-Data.
+      </p></dd>
+<dt><code>binary_hex</code></dt>
+<dd><p>Optional string. If set (and <code>text</code> is not set), must be an hexadecimal string representing binary data
+      of the TP-User-Data.
+      </p></dd>
+<dt><code>tp_udl</code></dt>
+<dd><p>Optional integer. Used when <code>binary</code> is set. If present, it sets the TP-User-Data-Length field.
+      If not present, the TP-User-Data-Length field is set to the number of octets of the <code>binary</code> field.
+      </p></dd>
+<dt><code>tp_udhi_present</code></dt>
+<dd><p>Optional boolean (default is false). When <code>binary</code> is set, indicates if TP-User-Data start with
+      a user-data header or not.
+      </p></dd>
+<dt><code>pid</code></dt>
+<dd><p>Optional integer (default is 0). Defines protocol identifier.
+      </p></dd>
+<dt><code>dcs</code></dt>
+<dd><p>Optional integer (default is 4). Defines data coding scheme. If the <code>text</code> parameter was provided,
+      it&rsquo;s up to the user to ensure that the <code>dcs</code> value is coherent with the encoding automatically
+      selected (7 bit default GSM alphabet or UCS2).
+      </p></dd>
+<dt><code>sos</code></dt>
+<dd><p>Optional boolean (default = false). If set, will only try to reach emergency registered UEs.
+    </p></dd>
+</dl>
+
+</dd>
+<dt><code>sms_flush</code></dt>
+<dd><p>Flush pending SMS.<br>
+  Message definition:
+    </p><dl compact="compact">
+<dt><code>impi</code></dt>
+<dd><p>String. IMPI of user (IP Multimedia Private identity).
+    </p></dd>
+</dl>
+
+</dd>
+<dt><code>mms</code></dt>
+<dd><p>Send MMS.<br>
+  Message definition:
+    </p><dl compact="compact">
+<dt><code>filename</code></dt>
+<dd><p>String. File name to send. Extensions jpg, jpeg, png, gif and txt are supported.
+      </p></dd>
+<dt><code>from</code></dt>
+<dd><p>String. Sender phone number.
+      </p></dd>
+<dt><code>to</code></dt>
+<dd><p>String. Receiver phone number.
+      </p></dd>
+<dt><code>sos</code></dt>
+<dd><p>Optional boolean (default = false). If set, will only try to reach emergency registered UEs.
+    </p></dd>
+</dl>
+
+</dd>
+<dt><code>mms_server</code></dt>
+<dd><p>Display the address of the MMS server or return an error if the MMS server is not started.
+  Response definition:
+    </p><dl compact="compact">
+<dt><code>address</code></dt>
+<dd><p>String. Address of the MMS server.
+    </p></dd>
+</dl>
+
+</dd>
+<dt><code>mt_call</code></dt>
+<dd><p>Initiate a mobile terminating call.<br>
+  Message definition:
+    </p><dl compact="compact">
+<dt><code>impi</code></dt>
+<dd><p>String. IMPI (IP Multimedia Private identity) of user to call.
+      </p></dd>
+<dt><code>impu</code></dt>
+<dd><p>String. IMPU (IP Multimedia Public identity) of user to call.
+      </p></dd>
+<dt><code>contact</code></dt>
+<dd><p>String. Contact SIP uri of user to call.
+      </p></dd>
+<dt><code>sdp_file</code></dt>
+<dd><p>Optional string. Define file to use as sdp. Will override <var>mt_call_sdp_file</var> parameter.
+      </p></dd>
+<dt><code>sip_file</code></dt>
+<dd><p>Optional string. Deprecated. Same as <code>sdp_file</code>.
+      </p></dd>
+<dt><code>caller</code></dt>
+<dd><p>Optional string. Use it to force caller IMPU. If IMPU is in user database,
+      the P-Asserted-Identity header will be added.
+      </p></dd>
+<dt><code>sos</code></dt>
+<dd><p>Optional boolean (default = false). If set, will only try to reach emergency registered UEs.
+      </p></dd>
+<dt><code>duration</code></dt>
+<dd><p>Optional number. If set, call duration in seconds (The server will close the dialog).
+    </p></dd>
+</dl>
+<p>Response definition:
+    </p><dl compact="compact">
+<dt><code>session_id</code></dt>
+<dd><p>String. If call has started, provides its session ID.
+    </p></dd>
+</dl>
+
+</dd>
+<dt><code>dialog_get</code></dt>
+<dd><p>Get list of current pending dialogs.<br>
+  Dialog will persist 30s after being stopped.
+  Message definition:
+    </p><dl compact="compact">
+<dt><code>session_id</code></dt>
+<dd><p>Optional string. If set, filter on session ID.
+    </p></dd>
+</dl>
+<p>Response definition:
+    </p><dl compact="compact">
+<dt><code>dialogs</code></dt>
+<dd><p>Array of object representing dialogs as follow:
+      <span id="dialog_005fget"></span>      </p><dl compact="compact">
+<dt><code>session_id</code></dt>
+<dd><p>String. Dialog session ID.
+        </p></dd>
+<dt><code>state</code></dt>
+<dd><p>String. Dialog state, can be <code>init</code>, <code>ringing</code>, <code>start</code>, <code>hold</code> or <code>stop</code>.
+        </p></dd>
+<dt><code>type</code></dt>
+<dd><p>String. Dialog type, can be <code>server</code>, <code>echo</code> or <code>mt call</code>
+        </p></dd>
+<dt><code>to</code></dt>
+<dd><p>Callee IMPU.
+        </p></dd>
+<dt><code>from</code></dt>
+<dd><p>Caller IMPU.
+        </p></dd>
+<dt><code>mt_dialog</code></dt>
+<dd><p>Optional string. In case of server dialog, session id of associated MT dialog.
+        </p></dd>
+<dt><code>mo_dialog</code></dt>
+<dd><p>Optional string. In case of client dialog, session id of associated MO dialog.
+        </p></dd>
+<dt><code>date</code></dt>
+<dd><p>Integer. Dialog creation time in seconds since 1st January 1970.
+        </p></dd>
+<dt><code>duration</code></dt>
+<dd><p>Number. Number of seconds since dialog has started.
+        </p></dd>
+<dt><code>event_list</code></dt>
+<dd><p>Array of object representing events that has occurred during dialog lifetime.<br>
+        Each element have the following definition:
+        </p><dl compact="compact">
+<dt><code>type</code></dt>
+<dd><p>String. Event type, can be <code>state</code>, when a state change occurs,
+          <code>send</code> and <code>recv</code> when receiving or sending message.
+          </p></dd>
+<dt><code>timestamp</code></dt>
+<dd><p>Number. Event time in seconds since dialog creation.
+          </p></dd>
+<dt><code>state</code></dt>
+<dd><p>String. Dialog state when event has occurred as defined above.
+        </p></dd>
+</dl>
+</dd>
+<dt><code>medias</code></dt>
+<dd><p>Array of object representing media state.<br>
+        Each media is an object having following definition:
+        </p><dl compact="compact">
+<dt><code>type</code></dt>
+<dd><p>String. Media type, can be <code>audio</code>, <code>video</code> or <code>text</code>.
+          </p></dd>
+<dt><code>qos</code></dt>
+<dd><p>String. QoS state, can be:
+          </p><ul>
+<li> disabled: QoS not enabled, IETF mode used.
+          </li><li> required: QoS required but not yet initiated.
+          </li><li> pending: QoS dedicated bearer establishment in progress.
+          </li><li> erab_set: QoS done.
+          </li></ul>
+</dd>
+<dt><code>dir</code></dt>
+<dd><p>String. Media current direction, can be <code>sendrecv</code>, <code>sendonly</code>, <code>recvonly</code> or <code>inactive</code>.
+          </p></dd>
+<dt><code>rtp_addr</code></dt>
+<dd><p>String. RTP packets destination address.
+          </p></dd>
+<dt><code>rtp_recv_count</code></dt>
+<dd><p>Integer. Number of RTP packets received.
+          </p></dd>
+<dt><code>rtp_send_count</code></dt>
+<dd><p>Integer. Number of RTP packets sent.
+          </p></dd>
+<dt><code>rtcp_addr</code></dt>
+<dd><p>String. RTCP packets destination address.
+          </p></dd>
+<dt><code>rtcp_recv_count</code></dt>
+<dd><p>Integer. Number of RTCP packets received.
+          </p></dd>
+<dt><code>rtcp_send_count</code></dt>
+<dd><p>Integer. Number of RTCP packets sent.
+        </p></dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<span id="dialog_005fset"></span></dd>
+<dt><code>dialog_set</code></dt>
+<dd><p>Perform action on dialog
+  Message definition:
+    </p><dl compact="compact">
+<dt><code>session_id</code></dt>
+<dd><p>String. Session ID of dialog to stop. If set to <code>*</code>, applies to the latest dialog found
+      (usefull when only one dialog available).
+      </p></dd>
+<dt><code>action</code></dt>
+<dd><p>String. Action to perform.<br>
+        </p><table>
+<thead><tr><th>Action</th><th>Description</th></tr></thead>
+<tr><td>stop</td><td>Forces termination of the dialog.</td></tr>
+<tr><td>answer</td><td>Triggers INVITE final answer of an echo called configured with <code>remote_control</code> option.</td></tr>
+<tr><td>reinvite</td><td>Forces sending of INVITE if the dialog is started.</td></tr>
+<tr><td>hold</td><td>If call is not held locally, hold it, unhold it. Applies on MT and ECHO calls only.</td></tr>
+<tr><td>downgrade</td><td>Downgrades call by removing one media.</td></tr>
+<tr><td>media</td><td>Modify media behavior.</td></tr>
+<tr><td>ecall-info</td><td>In case eCall has been set during INVITE, forces sending of SIP INFO message
+        to trigger MSD report.</td></tr>
+</table>
+</dd>
+<dt><code>code</code></dt>
+<dd><p>Optional integer. If action is <code>answer</code>, forces SIP code.<br>
+      It action is <code>stop</code>, set protocol cause of SIP reason header.
+      </p></dd>
+<dt><code>reason</code></dt>
+<dd><p>Optional string. If action is <code>stop</code>, set reason text of SIP reason header.
+      </p></dd>
+<dt><code>reason_protocol</code></dt>
+<dd><p>Optional string. If action is <code>stop</code>, set protocol of SIP reason header.
+      </p></dd>
+<dt><code>sdp_file</code></dt>
+<dd><p>Optional string. Applicable on MT call dialogs only. Forces a new SDP to be sent.
+      </p></dd>
+<dt><code>media</code></dt>
+<dd><p>Optional string. If action is <code>downgrade</code>, defines media to remove (Can be <code>audio</code>, <code>video</code> or <code>text</code>).<br>
+      If action is <code>hold</code>, hold/unhold only applies to this type of media
+      </p></dd>
+<dt><code>rtp</code></dt>
+<dd><p>Optional boolean (default = false). If action is <code>media</code>, set it to false to block rtp packet streaming or true to re-enable it.
+      </p></dd>
+<dt><code>rtcp</code></dt>
+<dd><p>Optional boolean (default = false). If action is <code>media</code>, set it to false to block rtcp packet streaming or true to re-enable it.
+    </p></dd>
+</dl>
+
+</dd>
+<dt><code>unregister</code></dt>
+<dd><p>Force a network deregistration of a binding.&nbsp;  Message definition:
+    </p><dl compact="compact">
+<dt><code>uri</code></dt>
+<dd><p>String. Binding URI (Address of Record)
+    </p></dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<span id="LTE-events"></span><h3 class="section">6.7 LTE events</h3>
+
+<p>Following events are sent by IMS if they have been registered on WebSocket.
+</p>
+<dl compact="compact">
+<dt><code>sms</code></dt>
+<dd><p>Generated by SMS reception:
+    </p><dl compact="compact">
+<dt><code>sender</code></dt>
+<dd><p>String. SMS originator.
+      </p></dd>
+<dt><code>destination</code></dt>
+<dd><p>String. SMS destination.
+      </p></dd>
+<dt><code>text</code></dt>
+<dd><p>String. SMS text.
+      </p></dd>
+<dt><code>binary</code></dt>
+<dd><p>String. If <code>text</code> is not set, base64 encoded string of SMS data.
+      </p></dd>
+<dt><code>dcs</code></dt>
+<dd><p>Integer. Data coding scheme.
+      </p></dd>
+<dt><code>date</code></dt>
+<dd><p>Integer. SMS sending date in seconds since January 1st 1970.
+    </p></dd>
+</dl>
+
+</dd>
+<dt><code>users_update</code></dt>
+<dd>
+<p>Event generated when a change occurs on a user (Registration, call, sms...).
+    </p><dl compact="compact">
+<dt><code>users_update</code></dt>
+<dd><p>Array of object. Each item represents a user (See <a href="#users_005fget">users_get</a>).
+</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>dialog</code></dt>
+<dd><p>Generated when a dialog&rsquo;s state has changed.
+      </p><dl compact="compact">
+<dt><code>dialog</code></dt>
+<dd><p>Object. Same as <a href="#dialog_005fget">dialog_get</a>
+      </p></dd>
+</dl>
+
+</dd>
+</dl>
+
+<span id="Examples"></span><h3 class="section">6.8 Examples</h3>
+
+<ol>
+<li> Config
+    <ol>
+<li> Client sends
+<pre class="verbatim">{
+    &quot;message&quot;: &quot;config_get&quot;,
+    &quot;message_id&quot;: &quot;foo&quot;
+}
+</pre>
+</li><li> Server replies
+<pre class="verbatim">{
+    &quot;message_id&quot;: &quot;foo&quot;,
+    &quot;message&quot;: &quot;config_get&quot;,
+    &quot;name&quot;: &quot;UE&quot;,
+    &quot;logs&quot;: {
+        &quot;phy&quot;: {
+            &quot;level&quot;: &quot;error&quot;,
+            &quot;max_size&quot;: 0
+        },
+        ...
+        &quot;rrc&quot;: {
+            &quot;level&quot;: &quot;debug&quot;,
+            &quot;max_size&quot;: 1
+        }
+    }
+}
+</pre>
+</li></ol>
+
+</li><li> Error
+    <ol>
+<li> Client sends
+<pre class="verbatim">{
+    &quot;message&quot;: &quot;bar&quot;,
+    &quot;message_id&quot;: &quot;foo&quot;
+}
+</pre>
+</li><li> Server replies
+<pre class="verbatim">{
+    &quot;message_id&quot;: &quot;foo&quot;,
+    &quot;message&quot;: &quot;bar&quot;,
+    &quot;error&quot;: &quot;Unknown message: bar&quot;
+}
+</pre>
+</li></ol>
+</li></ol>
+
+
+
+
+<span id="Command-line-monitor-reference"></span><h2 class="chapter">7 Command line monitor reference</h2>
+
+<p>The following commands are available:
+</p>
+<dl compact="compact">
+<dt><code>help</code></dt>
+<dd><p>Display the help. Use <code>help <var>command</var></code> to have a more
+detailed help about a command.
+</p>
+</dd>
+<dt><code>log [<var>log_options</var>]</code></dt>
+<dd><p>Display the current log state. If <var>log_options</var> are given, change
+the log options. The syntax is the same as the <code>log_options</code>
+configuration property.
+</p>
+</dd>
+<dt><code>mme</code></dt>
+<dd><p>Lists MME connections
+</p>
+</dd>
+<dt><code>sms <var>impi</var> or <var>impu</var> <var>text</var></code></dt>
+<dd><p>Send a SMS to the user identified by <var>impi</var> or <var>impu</var> if <var>impi</var> has not been found.
+</p>
+</dd>
+<dt><code>sms_flush <var>impi</var></code></dt>
+<dd><p>Flush pending SMS.
+</p>
+</dd>
+<dt><code>mms <var>filename from to</var></code></dt>
+<dd><p>Send a MMS to the user identified by <var>to</var>.
+Extensions jpg, jpeg, png, gif and txt are supported.
+For any other extension value, the content type is interpreted as octet stream.
+</p>
+</dd>
+<dt><code>mms_server</code></dt>
+<dd><p>Display the address of the MMS server or return an error if the MMS server is not started.
+</p>
+</dd>
+<dt><code>mt_call <var>callee</var> [-d <var>duration</var>] [<var>sip_file</var>] [<var>caller</var>]</code></dt>
+<dd><p>Initiate a mobile terminating call.<br>
+<var>callee</var> can be IMPI, IMPU or contact URI.<br>
+<var>sip_file</var> Define file to use as sdp. Will override <var>mt_call_sdp_file</var> parameter.<br>
+<var>caller</var> can be used to force caller IMPU. If IMPU is in user database,
+the P-Asserted-Identity header will be added.<br>
+<var>duration</var> duration of the call in seconds before server closes it.
+</p>
+</dd>
+<dt><code>dialog</code></dt>
+<dd><p>Lists all dialogs.
+</p>
+</dd>
+<dt><code>dialog_set <var>dialog-index</var> <var>action</var></code></dt>
+<dd><p>Perform action on dialog.<br>
+Can be <code>stop</code>, <code>hold</code> or <code>reinvite</code> (Cf <a href="#dialog_005fset">dialog_set</a>).
+</p>
+</dd>
+<dt><code>quit</code></dt>
+<dd><p>Stop the program and exit.
+</p>
+</dd>
+</dl>
+
+
+<span id="Log-file-format"></span><span id="Log-file-format-1"></span><h2 class="chapter">8 Log file format</h2>
+
+<span id="IMS_002c-SIP"></span><h3 class="section">8.1 IMS, SIP</h3>
+
+<p>When a message is dumped, the format is:
+</p><div class="example">
+<pre class="example">time layer dir id message
+</pre></div>
+
+<dl compact="compact">
+<dt><code>time</code></dt>
+<dd><p>Time using the selected format.
+</p></dd>
+<dt><code>layer</code></dt>
+<dd><p>Indicate the layer.
+</p></dd>
+<dt><code>dir</code></dt>
+<dd><p>FROM or TO or - (No direction associated).
+</p></dd>
+<dt><code>id</code></dt>
+<dd><p>For <code>IMS</code>, represents a unique ID associated with a UE binding.<br>
+For <code>SIP</code>, represents a unique ID associated to a SIP dialog.
+</p></dd>
+<dt><code>message</code></dt>
+<dd><p>Log message.
+</p></dd>
+</dl>
+
+
+<span id="CX_002c-RX"></span><h3 class="section">8.2 CX, RX</h3>
+
+<p>When a message is dumped, the format is:
+</p><div class="example">
+<pre class="example">time layer dir addr message
+</pre></div>
+
+<dl compact="compact">
+<dt><code>time</code></dt>
+<dd><p>Time using the selected format.
+</p></dd>
+<dt><code>layer</code></dt>
+<dd><p>Indicate the layer.
+</p></dd>
+<dt><code>dir</code></dt>
+<dd><p>FROM or TO or - (No direction associated).
+</p></dd>
+<dt><code>addr</code></dt>
+<dd><p>Source IP address for incoming messages.<br>
+Destination IP address for outgoing messages.<br>
+</p></dd>
+<dt><code>message</code></dt>
+<dd><p>Log message.
+</p></dd>
+</dl>
+
+
+<span id="MEDIA"></span><h3 class="section">8.3 MEDIA</h3>
+
+<p>When a message is dumped, the format is:
+</p><div class="example">
+<pre class="example">time layer id dir protocol/media message
+</pre></div>
+
+<dl compact="compact">
+<dt><code>time</code></dt>
+<dd><p>Time using the selected format.
+</p></dd>
+<dt><code>layer</code></dt>
+<dd><p>Indicate the layer.
+</p></dd>
+<dt><code>dir</code></dt>
+<dd><p>FROM or TO or - (No direction associated).
+</p></dd>
+<dt><code>id</code></dt>
+<dd><p>SIP associated dialog id.
+</p></dd>
+<dt><code>protocol</code></dt>
+<dd><p>Can be either <code>RTP</code> or <code>RTCP</code>.
+</p></dd>
+<dt><code>media</code></dt>
+<dd><p>Media type: <code>audio</code>, <code>video</code> or <code>text</code>.
+</p></dd>
+<dt><code>message</code></dt>
+<dd><p>Log message.
+</p></dd>
+</dl>
+
+
+
+
+<span id="Change-history"></span><h2 class="chapter">9 Change history</h2>
+
+<span id="Version-2025_002d05_002d21"></span><h3 class="section">9.1 Version 2025-05-21</h3>
+
+<ul>
+<li> Add Early media support
+</li></ul>
+
+<span id="Version-2025_002d03_002d14"></span><h3 class="section">9.2 Version 2025-03-14</h3>
+
+<ul>
+<li> added <code>audio</code> and <code>text</code> parameter to <code>impu</code> configuration
+</li><li> added <code>log</code> option to callflow modifier
+</li><li> added <code>ipsec_tun_setup_script_filename</code> parameter
+</li><li> added allow header removal in <code>custom_headers</code>
+</li><li> added <code>mms_server</code> remote API and monitor command
+</li></ul>
+
+<span id="Version-2024_002d12_002d13"></span><h3 class="section">9.3 Version 2024-12-13</h3>
+
+<ul>
+<li> added <code>anonymous_callback</code> IMPU parameter
+</li><li> added <code>send_delay</code> to callflow modifier
+</li><li> added <code>ecall-info</code> to <code>dialog_set</code> remote API
+</li></ul>
+
+<span id="Version-2024_002d09_002d13"></span><h3 class="section">9.4 Version 2024-09-13</h3>
+
+<ul>
+<li> added <code>bitrate_factor</code> parameter to <code>impu</code> configuration
+</li><li> added <code>video</code> parameter to <code>impu</code> configuration
+</li><li> added media parameter for <code>action_set</code>/<code>hold</code> remote API to hold a specific media only
+</li><li> added SMS status report adn SMS command support
+</li><li> added <code>license</code> remote API
+</li><li> added <code>tts</code> parameter to <code>callflow_modifier</code> object
+</li><li> <code>com_logs_lock</code> parameter is renamed to <code>com_log_lock</code>. <code>com_logs_lock</code> is still supported for backward compatibility
+</li><li> added <code>com_log_us</code> parameter
+</li><li> added <code>reason</code> to <code>dialog_stop</code> monitor command
+</li><li> added <code>sos</code> parameter to <code>sms</code> remote API
+</li><li> added NG eCall support
+</li></ul>
+
+<span id="Version-2024_002d06_002d14"></span><h3 class="section">9.5 Version 2024-06-14</h3>
+
+<ul>
+<li> OpenSSL library is upgraded to 1.1.1w
+</li><li> added <code>ipsec_ifname</code> and <code>ipsec_netns</code> parameters to allow IPsec with non root privileges
+</li><li> added <code>AKAv2-SHA-256</code> authentication scheme
+</li><li> added <code>AES-GCM</code> IPsec cipher
+</li><li> added <code>AES-GMAC</code> IPsec authentication
+</li></ul>
+
+<span id="Version-2024_002d03_002d15"></span><h3 class="section">9.6 Version 2024-03-15</h3>
+
+<ul>
+<li> added <code>ttl</code> parameter to <code>callflow_modifier</code> object
+</li><li> added <code>reason_protocol</code> parameter to <code>dialog_set</code>.<code>stop</code> remote API
+</li><li> added <code>sms_delay</code> parameter to <code>impu</code> configuration
+</li><li> added SIP trunk documentation
+</li><li> added support of &rsquo;+&rsquo; in <code>sms_centre_address</code>
+</li><li> added <code>ipsec_mtu</code> parameter
+</li><li> updated SIP code list
+</li></ul>
+
+<span id="Version-2023_002d12_002d15"></span><h3 class="section">9.7 Version 2023-12-15</h3>
+
+<ul>
+<li> session timer support added
+</li><li> added <code>loop_count</code> and <code>loop_delay</code> to remote API messages
+</li><li> added <code>sim_events</code>, <code>sim_events_loop_count</code> and <code>sim_events_loop_delay</code>
+</li><li> added <code>com_ssl_ca</code> parameter for SSL verification
+</li><li> added <code>dialog</code> remote API event
+</li><li> added <code>session_expires</code> parameter to <code>impu</code> object
+</li><li> added <code>duration</code>, <code>min</code>, <code>refresher</code>, <code>method</code> and <code>force</code> to <code>session_expires</code> object
+</li></ul>
+
+<span id="Version-2023_002d09_002d08"></span><h3 class="section">9.8 Version 2023-09-08</h3>
+
+<ul>
+<li> added <code>media</code> action to <code>dialog_set</code> remote API to allow blocking or not rtp and/or rtcp streams
+</li><li> <code>sms_centre_address</code> parameter is added
+</li><li> <code>ipsec</code> remote API added
+</li><li> <code>tcp_threshold</code> can now be changed during runtime with <code>config_set</code> remote API
+</li><li> <code>sms_flush</code> remote API added
+</li></ul>
+
+<span id="Version-2023_002d06_002d10"></span><h3 class="section">9.9 Version 2023-06-10</h3>
+
+<ul>
+<li> N5 interface support is added
+</li><li> added <code>impu_add</code> and <code>impu_del</code> remote API
+</li><li> added <code>echo</code> monitor command
+</li><li> added <code>auth</code> qop parameter
+</li><li> <code>com_logs_lock</code> parameter added to disable logs configuration change via remote API
+</li></ul>
+
+<span id="Version-2023_002d03_002d17"></span><h3 class="section">9.10 Version 2023-03-17</h3>
+
+<ul>
+<li> <code>com_addr</code> parameter now uses [::] address instead of 0.0.0.0 in the delivered configuration file to allow IPv6 connection
+</li><li> added <code>media_delay</code> to callflow modifier
+</li><li> <code>auth_on_register_only</code> default value is changed to true instead of false
+</li><li> added <code>REGISTER.SOS</code> callflow modifier
+</li><li> added <code>INVITE.RINGING</code> callflow modifier
+</li><li> added <code>INVITE.SESSION_PROGRESS</code> callflow modifier
+</li><li> added <code>REINVITE</code> callflow modifier
+</li><li> added code -2 to callflow modifier
+</li><li> added <code>code</code> and <code>reason</code> parameters for <code>dialog_set</code>/<code>action</code> stop remote API
+</li><li> added <code>downgrade</code> action and <code>media</code> parameter to <code>dialog_set</code> remote API
+</li></ul>
+
+
+<span id="Version-2022_002d12_002d16"></span><h3 class="section">9.11 Version 2022-12-16</h3>
+
+<ul>
+<li> added <code>custom_headers</code> for <code>callflow_modifier</code>
+</li><li> added <code>path</code> parameter for registration
+</li><li> added <code>dialog_set</code> remote API and monitor command. Replaces <code>dialog_stop</code>, <code>reinvite</code> and <code>dialog_answer</code> APIs
+</li><li> added <code>hold</code> action on <code>dialog_set</code> remote API and monitor command
+</li><li> added <code>imei</code> and <code>impu</code> filters on <code>callflow_modifier</code>
+</li><li> added <code>sdp_file</code> to <code>dialog_set/reinvite</code> remote API
+</li><li> added <code>utc</code> parameter to remote API response messages
+</li></ul>
+
+
+<span id="Version-2022_002d09_002d16"></span><h3 class="section">9.12 Version 2022-09-16</h3>
+
+<ul>
+<li> &quot;ipsec debug&quot; monitor is now deprecated. Set ipsec.verbose to 1 in log configuration
+</li><li> <code>callflow_modifier</code> is added to impu definition and allows multiple modifiers
+</li><li> allowed <code>callflow_modifier</code> based on <code>P-Access-Network-Info</code> header
+</li><li> <code>tcp_keepalive</code> default value changed to 15 minutes
+</li><li> <code>tcp_keepcount</code> parameter is added
+</li><li> <code>custom_headers</code> parameter is added to <code>config_get</code> and <code>config_set</code> remote API
+</li><li> <code>date</code> parameter is added to <code>sms</code> remote API event
+</li></ul>
+
+<span id="Version-2022_002d06_002d17"></span><h3 class="section">9.13 Version 2022-06-17</h3>
+
+<ul>
+<li> OpenSSL library is upgraded to 1.1.1n
+</li><li> <code>code</code> parameter in <code>impu</code> objet now accepts the value -1 to ignore an incoming SIP message
+</li><li> <code>tcp_keepalive</code> is added to control keepalive on TCP sockets
+</li><li> allowed dual emergency/non emergency registration
+</li><li> <code>sos</code> option is added to <code>mt_call</code> and <code>sms</code> remote APIs
+</li><li> <code>start_timestamp</code> and <code>end_timestamp</code> are added to <code>log_get</code> API
+</li></ul>
+
+<span id="Version-2022_002d03_002d18"></span><h3 class="section">9.14 Version 2022-03-18</h3>
+
+<ul>
+<li> IMEI is now taken into account to improve calls between UEs using the same IMSI
+</li><li> <code>binding_expires</code> parameter maximum value is increased from 3600 to 864000
+</li></ul>
+
+<span id="Version-2021_002d12_002d17"></span><h3 class="section">9.15 Version 2021-12-17</h3>
+
+<ul>
+<li> a new <code>sdp_file</code> parameter is added to force the SDP used in echo mode
+</li><li> a new <code>answer_delay</code> parameter is added to IMPU configuration
+to delay final answer to INVITE request
+</li><li> a new <code>INVITE.OK</code> option has been added to <code>method</code> parameter of
+IMPU configuration to apply <code>code</code> on final answer to INVITE request.
+</li><li> a new <code>remote_control</code> option has been added to IMPU configuration. It can be handled via
+a new <code>invite</code> remote API event and a new <code>dialog_answer</code> remote API.
+</li><li> a new <code>transparent</code> option has been added to IMPU configuration to avoid affecting normal callflow.
+</li><li> a new <code>impu_set</code> remote API is added to dynamically update impu configurations.
+</li><li> <code>REGISTER</code> handling has been added to impu <code>method</code> parameter.
+</li><li> <code>INVITE.TRYING</code> handling has been added to impu <code>method</code> parameter.
+</li><li> <code>license</code> monitor command is added
+</li></ul>
+
+<span id="Version-2021_002d09_002d17"></span><h3 class="section">9.16 Version 2021-09-17</h3>
+
+<ul>
+<li> the minimum GLIBC version is now 2.17
+</li><li> logs can be displayed with microseconds precision
+</li><li> <code>precondition</code> global parameter syntax is updated. Legacy boolean values are still available but we recommend to use <code>on</code> and <code>off</code> instead
+</li><li> <code>force_user_agent parameter</code> is added to avoid overriding the UE user-agent string when forwarding SIP packets between UEs
+</li><li> <code>prefered</code> parameter is renamed to <code>preferred</code>. Legacy name is still supported
+</li><li> the logging format is further described
+</li></ul>
+
+
+<span id="License"></span><h2 class="chapter">10 License</h2>
+
+<p><code>lteims</code> is copyright (C) 2012-2025 Amarisoft. Its redistribution
+without authorization is prohibited.
+</p>
+<p><code>lteims</code> is available without any express or implied warranty. In
+no event will Amarisoft be held liable for any damages arising from
+the use of this software.
+</p>
+<p>For more information on licensing, please refer to <code>license.pdf</code> file.
+</p>
+
+
+<span id="Abbreviations"></span><h2 class="unnumbered">Abbreviations</h2>
+
+<dl compact="compact">
+<dt>APN</dt>
+<dd><p>Access Point Name
+</p></dd>
+<dt>IMPU</dt>
+<dd><p>IP Multimedia Public Identity
+</p></dd>
+<dt>IMPI</dt>
+<dd><p>IP Multimedia Private Identity
+</p></dd>
+</dl>
+
+<hr>
+
+
+
+</body>
+</html>

@@ -1,0 +1,9 @@
+- Added DECOR support
+- Updated RRC ASN.1 to release 18.5.0
+- Updated LPPa ASN.1 to release 18.1.0
+- Added new options to RRC UE information procedure
+- NR: updated RRC ASN.1 to release 18.5.1
+- NR: updated NRPPa ASN.1 to release 18.5.0
+- NR: added MBS broadcast support
+- NR: added new options to RRC UE information procedure
+- NR: added an option to configure the BCCH modification period coefficient
