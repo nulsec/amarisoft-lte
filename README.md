@@ -39,8 +39,8 @@ For SW package installation follow the instructions on section See Installation 
 last file 2025-05-21
 
 need license contact to my mail
+nuledsec[at]proton.me
 
-3 day demo service $50
 
 1 Month service $199
 
