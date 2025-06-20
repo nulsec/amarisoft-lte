@@ -44,6 +44,6 @@ nuledsec[at]proton.me
 
 1 Month service $199
 
-1 Years service $500
+1 Years service $3000 * 3 license
 
 
