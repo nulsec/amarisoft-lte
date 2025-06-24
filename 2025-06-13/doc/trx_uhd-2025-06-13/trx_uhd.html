@@ -1,0 +1,373 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.6, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>UHD Compatible RF frontends</title>
+
+<meta name="description" content="UHD Compatible RF frontends">
+<meta name="keywords" content="UHD Compatible RF frontends">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+
+th {
+    border: 1px solid black;
+    background-color: #c0f585;
+    font-size: 14px;
+    padding: 5px;
+}
+
+td {
+    border: 1px solid black;
+    padding: 2px 4px;
+}
+
+p>img {
+    display: initial;
+}
+
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">UHD Compatible RF frontends</h1>
+
+<span id="SEC_Contents"></span>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+<ul class="no-bullet">
+<li><a id="toc-Introduction" href="#Introduction">1 Introduction</a>
+<ul class="no-bullet">
+  <li><a id="toc-Compatibility" href="#Compatibility">1.1 Compatibility</a></li>
+</ul></li>
+<li><a id="toc-Installation-with-the-Amarisoft-software" href="#Installation-with-the-Amarisoft-software">2 Installation with the Amarisoft software</a>
+<ul class="no-bullet">
+  <li><a id="toc-Introduction-1" href="#Introduction-1">2.1 Introduction</a></li>
+  <li><a id="toc-Automatic-Installation" href="#Automatic-Installation">2.2 Automatic Installation</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Amarisoft-OTS" href="#Amarisoft-OTS">2.2.1 Amarisoft OTS</a></li>
+    <li><a id="toc-Direct-install-1" href="#Direct-install-1">2.2.2 Direct install</a></li>
+  </ul></li>
+  <li><a id="toc-Manual-Installation-1" href="#Manual-Installation-1">2.3 Manual Installation</a>
+  <ul class="no-bullet">
+    <li><a id="toc-UHD" href="#UHD">2.3.1 UHD</a></li>
+    <li><a id="toc-TRX-driver" href="#TRX-driver">2.3.2 TRX driver</a>
+    <ul class="no-bullet">
+      <li><a id="toc-Compile-your-driver" href="#Compile-your-driver">2.3.2.1 Compile your driver</a></li>
+    </ul></li>
+    <li><a id="toc-Configuration-file" href="#Configuration-file">2.3.3 Configuration file</a></li>
+  </ul></li>
+</ul></li>
+<li><a id="toc-Configuration" href="#Configuration">3 Configuration</a></li>
+<li><a id="toc-Frontends" href="#Frontends">4 Frontends</a>
+<ul class="no-bullet">
+  <li><a id="toc-USRP-N200_002fN210-setup" href="#USRP-N200_002fN210-setup">4.1 USRP N200/N210 setup</a></li>
+  <li><a id="toc-USRP-B200_002fB210-setup" href="#USRP-B200_002fB210-setup">4.2 USRP B200/B210 setup</a></li>
+  <li><a id="toc-USRP-X300_002fX310-setup" href="#USRP-X300_002fX310-setup">4.3 USRP X300/X310 setup</a></li>
+</ul></li>
+
+</ul>
+</div>
+
+
+<span id="Introduction"></span><h2 class="chapter">1 Introduction</h2>
+
+
+<span id="Compatibility"></span><h3 class="section">1.1 Compatibility</h3>
+
+<p>Amarisoft components are compatible with following UHD devices:
+</p><ul>
+<li> Ettus USRP n2x0 series
+</li><li> Ettus USRP b2x0 series
+</li><li> Ettus USRP x3x0 series
+</li><li> Ettus USRP n3x0 series
+</li></ul>
+
+<p>Compatibility have been tested up to UHD 3.x versions
+</p>
+
+<span id="Installation-with-the-Amarisoft-software"></span><h2 class="chapter">2 Installation with the Amarisoft software</h2>
+
+<span id="Introduction-1"></span><h3 class="section">2.1 Introduction</h3>
+
+<p>You have two ways to install the TRX driver for the UHD compatible RF frontends:
+</p><ul>
+<li> automatic
+</li><li> manual
+</li></ul>
+
+<p>Notes:
+</p><ul>
+<li> these methods would install some packages, so make sure you have root privileges when you run the script.
+</li><li> this install creates a symlink for the TRX driver so please do not remove this directory afterwards.
+</li></ul>
+
+
+<span id="Automatic-Installation"></span><h3 class="section">2.2 Automatic Installation</h3>
+
+
+<p>There are two automatic methods available.<br>
+Both are only available on Fedora and Ubuntu distribution.<br>
+</p>
+<span id="Amarisoft-OTS"></span><h4 class="subsection">2.2.1 Amarisoft OTS</h4>
+
+<p>If you are using Amarisoft OTS install, i.e using the <samp>install.sh</samp> script provided
+with your Amarisoft software components, you&rsquo;ll be asked during process to select proper
+RF frontend model.
+</p>
+
+<span id="Direct-install"></span><span id="Direct-install-1"></span><h4 class="subsection">2.2.2 Direct install</h4>
+
+<p>To start your automatic install, use the following command where <samp>&lt;path&gt;</samp> is the path
+to the directory where you have already installed your LTE component (eNB or UE) and
+<samp>type</samp> should be set to <samp>enb</samp> or <samp>ue</samp> accordingly.
+</p>
+<div class="example">
+<pre class="example">./install &lt;path&gt; &lt;type&gt;
+</pre></div>
+
+<p>Then, inside <samp>&lt;path&gt;</samp>, select your frontend model:
+</p>
+<div class="example">
+<pre class="example">./config/rf_select.sh &lt;model&gt;
+</pre></div>
+
+<p>Where <samp>&lt;model&gt;</samp> can be <samp>n2x0</samp>, <samp>b2x0</samp>, <samp>x3x0</samp> or <samp>n3x0</samp>.
+</p>
+
+
+<span id="Manual-Installation"></span><span id="Manual-Installation-1"></span><h3 class="section">2.3 Manual Installation</h3>
+
+<span id="UHD"></span><h4 class="subsection">2.3.1 UHD</h4>
+
+<p>Follow Ettus documentation to install UHD driver: <a href="https://files.ettus.com/manual/page_build_guide.html">https://files.ettus.com/manual/page_build_guide.html</a>.
+</p>
+
+<span id="TRX-driver"></span><h4 class="subsection">2.3.2 TRX driver</h4>
+
+<span id="Compile-your-driver"></span><h4 class="subsubsection">2.3.2.1 Compile your driver</h4>
+
+<p>As Amarisoft provides UHD TRX driver source code, you need to compile it locally.<br>
+</p>
+<p>You need development package to be installed as explained on Ettus webpage.<br>
+Then just type:
+</p>
+<div class="example">
+<pre class="example">make
+</pre></div>
+
+<p>This will create a <samp>trx_uhd.so</samp> that you need to copy inside your
+Amarisoft component (<samp>eNB</samp> or <samp>UE</samp>) directory.
+</p>
+
+<span id="Configuration-file"></span><h4 class="subsection">2.3.3 Configuration file</h4>
+
+<p>Config files are located inside <samp>config.ue</samp> and <samp>config.enb</samp> directories.
+Depending on the component you want to use copy the proper directory
+inside your Amarisoft component config subdirectory:
+</p>
+<div class="example">
+<pre class="example">cp -r config.xx &lt;path&gt;/config/rf_driver
+</pre></div>
+
+<p>Note that destination name must be <samp>rf_driver</samp>.
+</p>
+
+<span id="Configuration"></span><h2 class="chapter">3 Configuration</h2>
+
+<p>The following properties are available:
+</p>
+<dl compact="compact">
+<dt><code>args</code></dt>
+<dd><p>String. Set the UHD specific arguments (they are defined in the UHD documentation).
+</p>
+</dd>
+<dt><code>sync</code></dt>
+<dd><p>Optional string. Select the synchronization type. <code>none</code> is the
+default value and selects the internal clock. <code>external</code> selects
+an external clock and PPS. <code>mimo</code> selects the N2x0 MIMO
+cable. <code>external_clock</code> selects an external clock but keeps the
+internal PPS.
+</p>
+</dd>
+<dt><code>dl_sample_bits</code></dt>
+<dd><p>Optional integer (default = 16). Se the number of bits per DL
+sample. Allowed values are 8, 12 or 16.
+</p>
+</dd>
+<dt><code>ul_sample_bits</code></dt>
+<dd><p>Optional integer (default = 16). Se the number of bits per UL
+sample. Allowed values are 8, 12 or 16 (Use 8 bits carefully).
+</p>
+</dd>
+<dt><code>tx_subdev</code></dt>
+<dd><p>Optional string. Sets tx subdev as specified in <a href="http://files.ettus.com/manual/classuhd_1_1usrp_1_1multi__usrp.html#a3b8d9d9fb9a1ec51e81a207cd299e517">UHD API</a>.
+</p>
+</dd>
+<dt><code>rx_subdev</code></dt>
+<dd><p>Optional string. Sets rx subdev as specified in <a href="http://files.ettus.com/manual/classuhd_1_1usrp_1_1multi__usrp.html#a7f94ed00059cc7dd30567d031b3f9679">UHD API</a>.
+</p>
+</dd>
+</dl>
+
+
+
+
+<span id="Frontends"></span><h2 class="chapter">4 Frontends</h2>
+
+<span id="USRP-N200_002fN210-setup"></span><h3 class="section">4.1 USRP N200/N210 setup</h3>
+
+<p>The radio front end must be connected to one gigabit Ethernet port (don&rsquo;t use a
+switch to connect them to avoid potential packet losses).
+</p>
+<p>If you have 2 radio frontends for MIMO setup you may connect second device to
+first one using MIMO cable or connect it to another gigabit Ethernet port
+(MIMO cable remains necessary).
+</p>
+<ul>
+<li> Configure the Ethernet interface for the USRP. The parameters are:
+
+<ul>
+<li> IPv4 address: <code>192.168.10.1</code>
+    </li><li> Subnet mask: <code>255.255.255.0</code>
+    </li><li> MTU size: <code>4000</code>
+  </li></ul>
+
+<p>Verify that you can ping the USRP device. Its default IP address is
+<code>192.168.10.2</code>:
+</p>
+<div class="example">
+<pre class="example">ping 192.168.10.2
+</pre></div>
+
+<p>The large MTU size is needed to use <em>Jumbo frames</em> which optimizes
+the Ethernet bandwidth.
+</p>
+<p>For following steps, you should change network stack buffer sizes (Run as <code>root</code>):
+</p><div class="example">
+<pre class="example">sysctl -w net.core.rmem_max=50000000
+sysctl -w net.core.wmem_max=1048576
+</pre></div>
+
+</li><li> Check that the USRP is visible:
+
+<div class="example">
+<pre class="example">uhd_usrp_probe --args addr=192.168.10.2
+</pre></div>
+
+<p>It should print the various capabilities of the USRP device. You can
+send and receive some baseband samples to test the speed of the
+Ethernet connection:
+</p>
+<pre class="verbatim">/usr/share/uhd/examples/benchmark_rate --args \
+             addr=192.168.10.2,send_frame_size=3972,recv_frame_size=3972 \
+             --tx_rate 12500000 --rx_rate 12500000 --duration 30
+</pre>
+<p>NB: you may find <code>benchmark_rate</code> there:
+</p><ul>
+<li> Fedora 19/20: /usr/lib64/uhd/examples/benchmark_rate
+  </li><li> Ubuntu 14.04: /usr/lib/uhd/examples/benchmark_rate
+</li></ul>
+
+
+<p>The test runs during 30 seconds. There should be no error, overflow nor
+underflow.
+</p>
+</li><li> If you did not already do it before, calibrate your device. Run as <code>root</code> in this order:
+
+<div class="example">
+<pre class="example">uhd_cal_rx_iq_balance --verbose --args addr=192.168.10.2
+
+uhd_cal_tx_iq_balance --verbose --args addr=192.168.10.2
+
+uhd_cal_tx_dc_offset --verbose --args addr=192.168.10.2
+</pre></div>
+
+<p>It takes a few minutes for each command.
+</p>
+
+</li><li> MIMO. In order to simplify the setup, you can use the MIMO cable which
+synchronizes the USRP clocks and allows one USRP
+to act as an Ethernet switch for the other.
+Else you need to connect each USRP on a different network interface.
+
+</li></ul>
+
+
+<span id="USRP-B200_002fB210-setup"></span><h3 class="section">4.2 USRP B200/B210 setup</h3>
+
+
+<p>The USRP B200/B210 are supported, but on some PCs the USB3 interface
+does not work reliably. Moreover, there are still evolutions in the
+corresponding UHD driver.
+</p>
+<p>We recommend the following steps to try it:
+</p>
+<ol>
+<li> Check that the B2x0 is available and upload the firmware:
+
+<div class="example">
+<pre class="example">uhd_usrp_probe
+</pre></div>
+
+</li><li> Check that USB3 interface is working:
+
+<pre class="verbatim">/usr/share/uhd/examples/benchmark_rate --args master_clock_rate=11.52e6 \
+             --tx_rate 11520000 --rx_rate 11520000 --duration 30
+</pre>
+<p>The test runs during 30 seconds. There should be no error, overflow
+nor underflow.
+</p>
+</li></ol>
+
+<p>NB: You should take a look at configuration file in <code>config/b2x0</code> as it may require
+some changes depending on desired bandwidth.
+</p>
+
+<span id="USRP-X300_002fX310-setup"></span><h3 class="section">4.3 USRP X300/X310 setup</h3>
+
+<p>The USRP X300/X310 are supported. The setup is very similar to the
+N200/N210. The UHD driver version &gt;= 3.7.0 must be installed. The X3x0
+has a specific support for LTE sample rates.
+</p>
+
+<p>NB: You should take a look at configuration file in <code>config/x3x0</code> as it may require
+some changes depending on desired bandwidth.
+</p>
+
+
+
+
+<hr>
+
+
+
+</body>
+</html>

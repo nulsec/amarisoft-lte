@@ -1,0 +1,632 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.6, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>LTE Web Interface</title>
+
+<meta name="description" content="LTE Web Interface">
+<meta name="keywords" content="LTE Web Interface">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+
+th {
+    border: 1px solid black;
+    background-color: #c0f585;
+    font-size: 14px;
+    padding: 5px;
+}
+
+td {
+    border: 1px solid black;
+    padding: 2px 4px;
+}
+
+p>img {
+    display: initial;
+}
+
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">LTE Web Interface</h1>
+
+
+<span id="SEC_Contents"></span>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+<ul class="no-bullet">
+<li><a id="toc-Introduction" href="#Introduction">1 Introduction</a></li>
+<li><a id="toc-Features" href="#Features">2 Features</a></li>
+<li><a id="toc-Requirements" href="#Requirements">3 Requirements</a>
+<ul class="no-bullet">
+  <li><a id="toc-Software-requirements" href="#Software-requirements">3.1 Software requirements</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Web-server-mode" href="#Web-server-mode">3.1.1 Web server mode</a></li>
+    <li><a id="toc-Standalone-mode" href="#Standalone-mode">3.1.2 Standalone mode</a></li>
+  </ul></li>
+</ul></li>
+<li><a id="toc-Installation" href="#Installation">4 Installation</a>
+<ul class="no-bullet">
+  <li><a id="toc-Web-server-mode-1" href="#Web-server-mode-1">4.1 Web server mode</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Server-side" href="#Server-side">4.1.1 Server side</a></li>
+    <li><a id="toc-Client" href="#Client">4.1.2 Client</a></li>
+    <li><a id="toc-Troubleshoot" href="#Troubleshoot">4.1.3 Troubleshoot</a></li>
+  </ul></li>
+  <li><a id="toc-Standalone-mode-1" href="#Standalone-mode-1">4.2 Standalone mode</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Linux" href="#Linux">4.2.1 Linux</a></li>
+    <li><a id="toc-Windows" href="#Windows">4.2.2 Windows</a></li>
+    <li><a id="toc-Wireshark" href="#Wireshark">4.2.3 Wireshark</a></li>
+  </ul></li>
+  <li><a id="toc-GUI-definition" href="#GUI-definition">4.3 GUI definition</a></li>
+</ul></li>
+<li><a id="toc-Manage-your-clients-1" href="#Manage-your-clients-1">5 Manage your clients</a>
+<ul class="no-bullet">
+  <li><a id="toc-Log-files" href="#Log-files">5.1 Log files</a></li>
+  <li><a id="toc-WebSocket" href="#WebSocket">5.2 WebSocket</a></li>
+  <li><a id="toc-URL" href="#URL">5.3 URL</a></li>
+  <li><a id="toc-Client-action-1" href="#Client-action-1">5.4 Client action</a></li>
+  <li><a id="toc-Server-store" href="#Server-store">5.5 Server store</a></li>
+  <li><a id="toc-Configure-your-clients" href="#Configure-your-clients">5.6 Configure your clients</a></li>
+</ul></li>
+<li><a id="toc-Log-display" href="#Log-display">6 Log display</a>
+<ul class="no-bullet">
+  <li><a id="toc-Introduction-1" href="#Introduction-1">6.1 Introduction</a></li>
+  <li><a id="toc-Navigating" href="#Navigating">6.2 Navigating</a></li>
+  <li><a id="toc-Filtering" href="#Filtering">6.3 Filtering</a></li>
+  <li><a id="toc-Display-physical-layer-statistics" href="#Display-physical-layer-statistics">6.4 Display physical layer statistics</a></li>
+  <li><a id="toc-Display-resource-block-allocation" href="#Display-resource-block-allocation">6.5 Display resource block allocation</a></li>
+  <li><a id="toc-Display-constellation-and-channel-response-time" href="#Display-constellation-and-channel-response-time">6.6 Display constellation and channel response time</a></li>
+  <li><a id="toc-Miscellaneous" href="#Miscellaneous">6.7 Miscellaneous</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Time-origin" href="#Time-origin">6.7.1 Time origin</a></li>
+    <li><a id="toc-Pause-log-update" href="#Pause-log-update">6.7.2 Pause log update</a></li>
+  </ul></li>
+</ul></li>
+<li><a id="toc-Change-history" href="#Change-history">7 Change history</a>
+<ul class="no-bullet">
+  <li><a id="toc-Version-2025_002d03_002d14" href="#Version-2025_002d03_002d14">7.1 Version 2025-03-14</a></li>
+  <li><a id="toc-Version-2024_002d12_002d13" href="#Version-2024_002d12_002d13">7.2 Version 2024-12-13</a></li>
+  <li><a id="toc-Version-2024_002d09_002d13" href="#Version-2024_002d09_002d13">7.3 Version 2024-09-13</a></li>
+  <li><a id="toc-Version-2024_002d06_002d14" href="#Version-2024_002d06_002d14">7.4 Version 2024-06-14</a></li>
+  <li><a id="toc-Version-2024_002d03_002d15" href="#Version-2024_002d03_002d15">7.5 Version 2024-03-15</a></li>
+  <li><a id="toc-Version-2023_002d12_002d15" href="#Version-2023_002d12_002d15">7.6 Version 2023-12-15</a></li>
+  <li><a id="toc-Version-2023_002d09_002d08" href="#Version-2023_002d09_002d08">7.7 Version 2023-09-08</a></li>
+  <li><a id="toc-Version-2023_002d06_002d10" href="#Version-2023_002d06_002d10">7.8 Version 2023-06-10</a></li>
+  <li><a id="toc-Version-2023_002d03_002d17" href="#Version-2023_002d03_002d17">7.9 Version 2023-03-17</a></li>
+  <li><a id="toc-Version-2022_002d06_002d17" href="#Version-2022_002d06_002d17">7.10 Version 2022-06-17</a></li>
+  <li><a id="toc-Version-2022_002d03_002d18" href="#Version-2022_002d03_002d18">7.11 Version 2022-03-18</a></li>
+  <li><a id="toc-Version-2021_002d12_002d17" href="#Version-2021_002d12_002d17">7.12 Version 2021-12-17</a></li>
+</ul></li>
+<li><a id="toc-License" href="#License">8 License</a></li>
+
+</ul>
+</div>
+
+
+<span id="Introduction"></span><h2 class="chapter">1 Introduction</h2>
+
+<p>LTE Web Interface is a HTML5 graphical user interface.<br>
+It allows to analyze Amarisoft LTE software logs and get information from the system.<br>
+It can communicates using WebSocket for real time analysis.<br>
+It also interact with LTE UE simulator to generate and execute scenario.
+</p>
+<p>Using node webkit, it is possible to use it as a standalone application and associate it
+with your log files in your file browser.
+</p>
+<span id="Features"></span><h2 class="chapter">2 Features</h2>
+
+<ul class="no-bullet">
+<li>- Display logs from files.
+
+</li><li>- Display logs in real time through WebSocket.
+
+</li><li>- Display physical layer statistics in charts.
+
+</li><li>- Display resource block allocation.
+
+</li><li>- Support of real time constellation display.
+
+</li><li>- Display of HFN in logs.
+
+</li><li>- Support and display of per cell analytics.
+
+</li><li>- Support of ZIP files for opening and exporting logs.
+
+</li><li>- Support of wireshark for extended message decoding (SMS, IP).
+
+</li><li>- Configure UE simulation scenario and execute them.
+
+</li></ul>
+
+<span id="Requirements"></span><h2 class="chapter">3 Requirements</h2>
+
+<span id="Software-requirements"></span><h3 class="section">3.1 Software requirements</h3>
+
+<span id="Web-server-mode"></span><h4 class="subsection">3.1.1 Web server mode</h4>
+
+<p>Mandatory:
+</p><ul>
+<li> An up and running web Server to host pages (Ex: Apache).
+</li><li> Chrome or Firefox web browser (Other browser have not been tested)
+</li></ul>
+
+<p>Optional:
+</p><ul>
+<li> PHP support on web browser.
+</li></ul>
+
+<span id="Standalone-mode"></span><h4 class="subsection">3.1.2 Standalone mode</h4>
+
+<p>Node Webkit must be installed on your system.
+</p>
+
+<span id="Installation"></span><h2 class="chapter">4 Installation</h2>
+
+<span id="Web-server-mode-1"></span><h3 class="section">4.1 Web server mode</h3>
+
+<span id="Server-side"></span><h4 class="subsection">4.1.1 Server side</h4>
+
+<p>Simply copy all file to a HTTP server directory.<br>
+</p>
+<p>For apache:
+</p><pre class="verbatim">cp -r &lt;directory&gt; /var/www/html/lte
+</pre>
+
+<span id="Client"></span><h4 class="subsection">4.1.2 Client</h4>
+
+<p>Use your HTTP server URL.
+</p>
+<p>For apache, <code>http://&lt;server name&gt;/lte/</code>
+</p>
+<span id="Troubleshoot"></span><h4 class="subsection">4.1.3 Troubleshoot</h4>
+
+<p>If you are not familiar with Linux and web servers, you may need to look on the web
+for information on how to setup a web server correctly (Depending on your Linux flavour,
+there are too many possible environment, which is out of the scope of this document).
+</p>
+<p>However, if you use Apache with Fedora, here are the common things you can try:
+</p>
+<ul>
+<li> Check your web server is started:
+<pre class="verbatim">sudo service httpd status
+</pre>
+<p>If it is inactive, you may start it:
+</p><pre class="verbatim">sudo service httpd start
+</pre>
+</li><li> Check and update filesystem permissions to grant Apache access to the pages.
+
+</li><li> <code>SELinux</code> may prevent apache to host pages properly. You may disable it this way:
+<pre class="verbatim">sudo setenforce 0
+</pre>
+</li></ul>
+
+
+<span id="Standalone-mode-1"></span><h3 class="section">4.2 Standalone mode</h3>
+
+<p>You may use the GUI as a standalone application.<br>
+For this, you need Node WebKit to be installed on your machine.
+</p>
+<span id="Linux"></span><h4 class="subsection">4.2.1 Linux</h4>
+
+<p>To install it on Fedora:
+</p><pre class="verbatim">sudo dnf install nodejs npm
+sudo npm install -g nw --unsafe-perm=true
+</pre>
+<p>Then, copy directory wherever you want, and you can use it this way:
+</p>
+<pre class="verbatim">&lt;directory&gt;./logview.sh &lt;file1.log&gt; &lt;file2.log&gt; ...
+</pre>
+<span id="Windows"></span><h4 class="subsection">4.2.2 Windows</h4>
+
+<p>On windows, follow <a href="https://nwjs.io/">https://nwjs.io/</a> to download archive.<br>
+Extract it to <code>&lt;nw-dir&gt;</code>.
+</p>
+<p>You may place it to <code>c:\Program Files\nwjs</code>
+</p>
+<p>If you want to place it elsewhere, you will have to edit logview.bat to change path
+</p>
+<p>To open application, you just need to double click on <code>logview.bat</code> file.<br>
+You may open it with log file as command line argument.
+</p>
+<span id="Wireshark"></span><h4 class="subsection">4.2.3 Wireshark</h4>
+
+<p>If wireshark is installed on your system, you will benefit
+advanced logs for different layers.
+</p>
+<p>On windows system, you may update <code>tshark</code> path by editing
+<code>TSHARK_WIN32</code> or <code>TSHARK_LINUX</code> variables in <code>client.js</code>
+according to your system.
+</p>
+
+<span id="GUI-definition"></span><h3 class="section">4.3 GUI definition</h3>
+
+<p>The GUI is divided into several panels.
+</p>
+<img src="img/gui_ltewww_def.webp" alt="img/gui_ltewww_def">
+
+<ul>
+<li> Client panel.
+  This is where you add, remove and configure your sources (See <a href="#Manage-your-clients">Manage your clients</a>).<br>
+
+</li><li> Main tab panel. In this tab panel you can select:
+  <ul>
+<li> log panel
+    </li><li> stats panel
+    </li><li> for each WebSocket client, its own panel
+    </li><li> UE Simulation panel
+  </li></ul>
+
+</li><li> Log panel. This is where all logs from all clients will be displayed.
+
+</li><li> Detail panel. Display selected log detailed information.
+
+</li></ul>
+
+
+<span id="Manage-your-clients"></span><span id="Manage-your-clients-1"></span><h2 class="chapter">5 Manage your clients</h2>
+
+<p>To display log and/or interact with Amarisoft software, you need to add a client.<br>
+The list of your client is displayed on left panel of the interface.
+</p>
+
+<span id="Log-files"></span><h3 class="section">5.1 Log files</h3>
+
+<p>You can display logs generated by an Amarisoft LTE software by clicking on
+<code>Load file</code> button in client panel and selecting the log file.
+</p>
+<p>A entry will be added on client panel and logs will be parsed and displayed
+on log panel.
+</p>
+<img src="img/gui_ltewww_client.webp" alt="img/gui_ltewww_client">
+
+<p>The green tick <img src="img/ok.webp" alt="img/ok"> means the client is enabled and logs are displayed.<br>
+When selecting a client, a list of actions will be available on the top toolbar (See <a href="#Client-action">Client action</a>).
+</p>
+
+<span id="WebSocket"></span><h3 class="section">5.2 WebSocket</h3>
+
+<p>To create a WebSocket client, you first need to enable remote API on Amarisoft software
+component (MME, eNB, IMS, UE Simulator).<br>
+This is done via <code>com_addr</code> parameter. Please refer to the component documentation
+for more detail.<br>
+</p>
+<p>Then click on <code>Add server</code> button:
+</p>
+<img src="img/gui_ltewww_server.webp" alt="img/gui_ltewww_server">
+
+<p>Enter name that will appear on client panel and the address you entered as <code>com_addr</code>.<br>
+</p>
+<p>After clicking on update button, the client will try to connect.<br>
+If connection is successful, the configuration window will appear so that you configure logs:
+</p>
+<img src="img/gui_ltewww_server2.webp" alt="img/gui_ltewww_server2">
+
+<p>For each layer you can define:
+</p><ul>
+<li> Filter. This is the level of log that will be downloaded to the GUI.
+  </li><li> Level. This is the level of log on the component, as defined in <code>log_options</code> of its configuration file.<br>
+  Each time the client connects to the component, it applies the configuration defined here, overriding its current log level configuration. The log files locally generated by each component are also affected. The components configuration file remain unchanged.
+  </li><li> Max size. Log data size as defined in <code>log_options</code> of its configuration file.
+</li></ul>
+
+<p>Of course, you can keep default configuration and simply click on Update.
+</p>
+
+
+<p>The <img src="img/lightning_red.webp" alt="img/lightning_red"> icon means the client is not connected whereas
+<img src="img/lightning.webp" alt="img/lightning"> means the client is connecting and
+<img src="img/lightning_green.webp" alt="img/lightning_green"> means the client is connected.
+</p>
+<p>When connected, a new tab will appear in main tab panel and provide you advanced features.
+</p>
+
+<span id="URL"></span><h3 class="section">5.3 URL</h3>
+
+<p>You can retrieve a log from any URL with this client.<br>
+Click on <code>URL</code> button and enter parameters.
+</p>
+
+<p>The <img src="img/lightning_red.webp" alt="img/lightning_red"> icon means the log file was not loaded whereas
+<img src="img/lightning_green.webp" alt="img/lightning_green"> means it has been successfully parsed.
+</p>
+
+<span id="Client-action"></span><span id="Client-action-1"></span><h3 class="section">5.4 Client action</h3>
+
+<p>Here are the action you can perform on a client
+</p>
+<ul>
+<li> <img src="img/config.webp" alt="img/config"> to open configuration window.
+</li><li> <img src="img/off.webp" alt="img/off"> <img src="img/ok.webp" alt="img/ok"> to enable or disable a client.
+(You can also double click on the client line to toggle state).
+</li><li> <img src="img/refresh.webp" alt="img/refresh"> to force WebSocket client reconnection.
+</li><li> <img src="img/play.webp" alt="img/play"> <img src="img/pause.webp" alt="img/pause"> to start or stop real time log update on WebSocket client.
+</li><li> <img src="img/comp.webp" alt="img/comp"> to display resource block allocation (Physical layer logs are required).
+</li><li> <img src="img/cut.webp" alt="img/cut"> to clear logs on WebSocket client.
+</li><li> <img src="img/delete.webp" alt="img/delete"> to remove client.
+</li></ul>
+
+
+<span id="Server-store"></span><h3 class="section">5.5 Server store</h3>
+
+<p>You can store your log files on the Web Server to access it through the interface.<br>
+You need to put your log files in <code>store</code> directory on the server.<br>
+NB: Subdirectories are allowed.<br>
+</p>
+<p>Then expand the store node in client panel, and you&rsquo;ll have access to all the files.<br>
+Select them and click on enable button (or double click) to display logs.
+</p>
+<p>Note that your HTTP server requires php support.
+</p>
+
+<span id="Configure-your-clients"></span><h3 class="section">5.6 Configure your clients</h3>
+
+<p>You can change the configuration of URL and WebSocket clients.<br>
+Select client line click on configuration button.<br>
+Update config as wanted and click on Update button.
+</p>
+
+<span id="Log-display"></span><h2 class="chapter">6 Log display</h2>
+
+<span id="Introduction-1"></span><h3 class="section">6.1 Introduction</h3>
+
+<p>When a client is enabled, logs appear on log panel.<br>
+You can enable multiple client together to mix logs. This may be useful to mix MME,
+eNB, IMS and/or UE logs.
+</p>
+
+<img src="img/gui_ltewww_logs.webp" alt="img/gui_ltewww_logs">
+
+
+<p>Each line represent a log.
+</p>
+<p>Columns are:
+</p>
+<ul>
+<li> Time. Log time (<code>-</code> means same as previous log).
+
+</li><li> Diff. Time difference with previous log
+
+</li><li> RAN, CN, IMS, UE. One of this column is filled with the layer name and provides origin of the log.<br>
+  The <img src="img/left.webp" alt="img/left"> and <img src="img/right.webp" alt="img/right"> icons represent,
+  if present the log direction (Uplink or Downlink).
+
+</li><li> ID. RNTI for PHY, MAC, RRC and RLC layers.
+
+</li><li> Info. More information depending on layer.
+
+</li><li> IMSI. Optional column displayed when IMSI based filtering is possible.
+
+</li><li> IMEI. Optional column displayed when IMEI based filtering is possible.
+
+</li><li> Message. Log text message.<br>
+  If the log has detailed informations, i.e. <code>max_size</code> has been set for its layer,
+  a <img src="img/info.webp" alt="img/info"> icon will be displayed.<br>
+  When clicking on the line, details will appear on right panel.
+
+</li></ul>
+
+
+
+<span id="Navigating"></span><h3 class="section">6.2 Navigating</h3>
+
+<p>When a log line is selected, use <img src="img/left.webp" alt="img/left"> and
+<img src="img/right.webp" alt="img/right"> buttons to highlight previous or next log of
+same layer:
+</p>
+<img src="img/gui_ltewww_nav.webp" alt="img/gui_ltewww_nav">
+
+
+<p>Fill search field to search in messages, ID, info and details.
+Use <img src="img/left.webp" alt="img/left"> and <img src="img/right.webp" alt="img/right"> buttons to highlight
+previous or next match:
+</p>
+<img src="img/gui_ltewww_search.webp" alt="img/gui_ltewww_search">
+
+
+<span id="Filtering"></span><h3 class="section">6.3 Filtering</h3>
+
+<p>TBD
+</p>
+
+<span id="Display-physical-layer-statistics"></span><h3 class="section">6.4 Display physical layer statistics</h3>
+
+<p>If your logs have physical layer included, you can display statistics.<br>
+Click on Analytics button to open window.
+</p>
+<img src="img/gui_ltewww_analytics.webp" alt="img/gui_ltewww_analytics">
+
+<p>On left, you will have the list of radio connections.<br>
+You can select one or several by maintaining shift key.
+</p>
+<p>It will display statistics in charts.<br>
+Average time parameter allow smoothing curves.
+</p>
+
+<span id="Display-resource-block-allocation"></span><h3 class="section">6.5 Display resource block allocation</h3>
+
+
+<p>If your logs have physical layer included, you can display ressource block allocation by clicking <img src="img/comp.webp" alt="img/comp"> button: <br>
+</p>
+<img src="img/gui_ltewww_rb.webp" alt="img/gui_ltewww_rb">
+
+<p>Use mouse wheel to scale.<br>
+Drag and drop to move inside allocations.<br>
+Hashed block are not acknowledged packet.<br>
+You can select allocated blocks, this will also select associated log in log panel.
+</p>
+<span id="Display-constellation-and-channel-response-time"></span><h3 class="section">6.6 Display constellation and channel response time</h3>
+
+
+<p>If your logs have physical layer included with signal level activated (phy.signal=1), you can display the QAM constellation and the channel response time.<br>
+You should take a look at PHY layer logs. When a yellow star is diplayed, click on it and a bottom panel should appear.
+</p>
+<img src="img/gui_ltewww_const.webp" alt="img/gui_ltewww_const">
+
+<span id="Miscellaneous"></span><h3 class="section">6.7 Miscellaneous</h3>
+
+<span id="Time-origin"></span><h4 class="subsection">6.7.1 Time origin</h4>
+
+<p>This field allow logs time to be relative to it.<br>
+You can set it manually or by right clicking on a log line and selecting <code>Set time origin</code>
+</p>
+<span id="Pause-log-update"></span><h4 class="subsection">6.7.2 Pause log update</h4>
+
+<p>You can click on <img src="img/pause.webp" alt="img/pause"> to pause log update.<br>
+This may be useful when a WebSocket client is constantly adding logs.
+</p>
+
+<span id="Change-history"></span><h2 class="chapter">7 Change history</h2>
+
+
+<span id="Version-2025_002d03_002d14"></span><h3 class="section">7.1 Version 2025-03-14</h3>
+
+<ul>
+<li> Added log text filter
+</li></ul>
+
+<span id="Version-2024_002d12_002d13"></span><h3 class="section">7.2 Version 2024-12-13</h3>
+
+<ul>
+<li> Added dataset export for graphs
+</li><li> Added graph axis manual configuration
+</li><li> Added UE selection filter to eNB server tab
+</li><li> Added IPv6 support for UE scenario IP simulations
+</li><li> Added reconnect all server button
+</li><li> Added attach PDN type to UE scenario
+</li></ul>
+
+<span id="Version-2024_002d09_002d13"></span><h3 class="section">7.3 Version 2024-09-13</h3>
+
+<ul>
+<li> Added power on and power off button for UE tab
+</li><li> Added option to remove all UEs before launching UE scenario
+</li><li> Added cell merging for RB diagram
+</li></ul>
+
+<span id="Version-2024_002d06_002d14"></span><h3 class="section">7.4 Version 2024-06-14</h3>
+
+<ul>
+<li> Added reference signal power handling in enb RF config window
+</li><li> Added ue-scenario-player.js to play GUI UE scenario from command line
+</li></ul>
+
+<span id="Version-2024_002d03_002d15"></span><h3 class="section">7.5 Version 2024-03-15</h3>
+
+<ul>
+<li> Added UE multi scenario management
+</li><li> Added <code>NAS type</code> for UE scenario
+</li></ul>
+
+<span id="Version-2023_002d12_002d15"></span><h3 class="section">7.6 Version 2023-12-15</h3>
+
+<ul>
+<li> Added SSB in resource block diagram
+</li><li> Added support of 3 digits MNC in UE scenario
+</li></ul>
+
+<span id="Version-2023_002d09_002d08"></span><h3 class="section">7.7 Version 2023-09-08</h3>
+
+<ul>
+<li> Added multi rat configuration in UE scenario
+</li><li> Added an ASN.1 editor to be used for the lteenb program configuration
+</li></ul>
+
+<span id="Version-2023_002d06_002d10"></span><h3 class="section">7.8 Version 2023-06-10</h3>
+
+<ul>
+<li> Added more channel simulations to UE scenario
+</li><li> Added support of mathematical formula for external application args parameter in UE scenario
+</li><li> Set keep config as default for new WebSocket servers
+</li><li> Added log config flags configuration in WebSocket server configuration window
+</li><li> Added S72 layer support
+</li></ul>
+
+<span id="Version-2023_002d03_002d17"></span><h3 class="section">7.9 Version 2023-03-17</h3>
+
+<ul>
+<li> Added UE tracking upon MME/eNB logs, allowing IMSI/IMEI filter in eNB
+</li><li> Added graph navigation:<br>
+  <ul>
+<li> Press <code>ctrl</code> then maintain <code>left click</code> to select x range
+  </li><li> Press <code>ctrl</code> + <code>shift</code> then maintain <code>left click</code> to select x and y ranges
+  </li><li> Press <code>ctrl</code> + <code>left click</code> to reset x and y ranges
+  </li><li> Maintain <code>left click</code> to move selected ranges
+  </li><li> Use <code>mouse wheel</code> to zoom in/zoom out
+  </li></ul>
+</li></ul>
+
+
+<span id="Version-2022_002d06_002d17"></span><h3 class="section">7.10 Version 2022-06-17</h3>
+
+<ul>
+<li> Added real time bler graph for eNB
+</li><li> Added instant values in analytics graph
+</li><li> Added filename selection for log export
+</li><li> Added log markers in exported logs
+</li><li> Added PDCCH detection for PUSCH logs
+</li><li> Caps below 1 are now allowed in UE scenarii
+</li></ul>
+
+<span id="Version-2022_002d03_002d18"></span><h3 class="section">7.11 Version 2022-03-18</h3>
+
+<ul>
+<li> WebSocket servers can be configured to keep configuration instead of overriding it at connection establishment
+</li><li> In UE scenario, number of connections per second can be set below 1
+</li></ul>
+
+<span id="Version-2021_002d12_002d17"></span><h3 class="section">7.12 Version 2021-12-17</h3>
+
+<ul>
+<li> UE scenario can now be exported/imported to store and share them accross different machines
+</li></ul>
+
+
+<span id="License"></span><h2 class="chapter">8 License</h2>
+
+<p><code>ltewww</code> is copyright (C) 2012-2025 Amarisoft. Its redistribution
+without authorization is prohibited.
+</p>
+<p><code>ltewww</code> is available without any express or implied warranty. In
+no event will Amarisoft be held liable for any damages arising from
+the use of this software.
+</p>
+<p>For more information on licensing, please refer to <code>license.pdf</code> file.
+</p>
+
+<hr>
+
+
+
+</body>
+</html>
