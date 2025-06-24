@@ -1,0 +1,815 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.6, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>PCI Express CPRI Board</title>
+
+<meta name="description" content="PCI Express CPRI Board">
+<meta name="keywords" content="PCI Express CPRI Board">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+
+th {
+    border: 1px solid black;
+    background-color: #c0f585;
+    font-size: 14px;
+    padding: 5px;
+}
+
+td {
+    border: 1px solid black;
+    padding: 2px 4px;
+}
+
+p>img {
+    display: initial;
+}
+
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">PCI Express CPRI Board</h1>
+
+<span id="SEC_Contents"></span>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+<ul class="no-bullet">
+<li><a id="toc-Features" href="#Features">1 Features</a></li>
+<li><a id="toc-Installation-with-the-Amarisoft-software" href="#Installation-with-the-Amarisoft-software">2 Installation with the Amarisoft software</a>
+<ul class="no-bullet">
+  <li><a id="toc-Introduction" href="#Introduction">2.1 Introduction</a></li>
+  <li><a id="toc-Automatic-Installation" href="#Automatic-Installation">2.2 Automatic Installation</a></li>
+  <li><a id="toc-Manual-Installation-1" href="#Manual-Installation-1">2.3 Manual Installation</a></li>
+  <li><a id="toc-Driver-initialization-1" href="#Driver-initialization-1">2.4 Driver initialization</a></li>
+  <li><a id="toc-Firmware-upgrade-1" href="#Firmware-upgrade-1">2.5 Firmware upgrade</a></li>
+  <li><a id="toc-Multiple-card-installation" href="#Multiple-card-installation">2.6 Multiple card installation</a></li>
+</ul></li>
+<li><a id="toc-TRX-driver-configuration-options" href="#TRX-driver-configuration-options">3 TRX driver configuration options</a>
+<ul class="no-bullet">
+  <li><a id="toc-Single-card-configuration" href="#Single-card-configuration">3.1 Single card configuration</a></li>
+  <li><a id="toc-Multiple-card-configuration-1" href="#Multiple-card-configuration-1">3.2 Multiple card configuration</a></li>
+</ul></li>
+<li><a id="toc-Time" href="#Time">4 Time</a>
+<ul class="no-bullet">
+  <li><a id="toc-Delay-management-1" href="#Delay-management-1">4.1 Delay management</a></li>
+  <li><a id="toc-GPS-usage" href="#GPS-usage">4.2 GPS usage</a></li>
+  <li><a id="toc-Oscillator-frequency-fine-tuning" href="#Oscillator-frequency-fine-tuning">4.3 Oscillator frequency fine tuning</a></li>
+</ul></li>
+<li><a id="toc-CPRI-in-practice" href="#CPRI-in-practice">5 CPRI in practice</a></li>
+<li><a id="toc-Miscellaneous-utilities" href="#Miscellaneous-utilities">6 Miscellaneous utilities</a>
+<ul class="no-bullet">
+  <li><a id="toc-sdr_005futil" href="#sdr_005futil">6.1 sdr_util</a></li>
+</ul></li>
+<li><a id="toc-C-API" href="#C-API">7 C API</a></li>
+<li><a id="toc-Physical-specifications" href="#Physical-specifications">8 Physical specifications</a>
+<ul class="no-bullet">
+  <li><a id="toc-Summary" href="#Summary">8.1 Summary</a></li>
+  <li><a id="toc-Connectors" href="#Connectors">8.2 Connectors</a>
+  <ul class="no-bullet">
+    <li><a id="toc-PPS_002fClock-connectors" href="#PPS_002fClock-connectors">8.2.1 PPS/Clock connectors</a></li>
+  </ul></li>
+</ul></li>
+<li><a id="toc-Remote-API" href="#Remote-API">9 Remote API</a>
+<ul class="no-bullet">
+  <li><a id="toc-clock_005ftune" href="#clock_005ftune">9.1 clock_tune</a></li>
+  <li><a id="toc-cpri_005frx_005fdelay-1" href="#cpri_005frx_005fdelay-1">9.2 cpri_rx_delay</a></li>
+  <li><a id="toc-cpri_005ftx_005fdelay-1" href="#cpri_005ftx_005fdelay-1">9.3 cpri_tx_delay</a></li>
+</ul></li>
+<li><a id="toc-Change-history" href="#Change-history">10 Change history</a>
+<ul class="no-bullet">
+  <li><a id="toc-Version-2025_002d06_002d13" href="#Version-2025_002d06_002d13">10.1 Version 2025-06-13</a></li>
+  <li><a id="toc-Version-2024_002d09_002d13" href="#Version-2024_002d09_002d13">10.2 Version 2024-09-13</a></li>
+  <li><a id="toc-Version-2024_002d06_002d14" href="#Version-2024_002d06_002d14">10.3 Version 2024-06-14</a></li>
+  <li><a id="toc-Version-2023_002d09_002d08" href="#Version-2023_002d09_002d08">10.4 Version 2023-09-08</a></li>
+</ul></li>
+
+</ul>
+</div>
+
+
+<span id="Features"></span><h2 class="chapter">1 Features</h2>
+
+<ul>
+<li> CPRI line bit rate option 3,4,5 and 7 (bandwidth are 4, 5, 8 and 16 multiple of 614.4 Mbps)
+</li><li> Suitable for up to four 2T2R (or two 4T4R) 20 MHz LTE cells
+</li><li> Support for one 4T4R 100MHz NR(5G) cell with optionnal proprietary IQ compression
+</li><li> Support input sample rate of 3.84, 7.68, 15.36, 23.04, 30.72, or 122.88 Msp/s
+</li><li> 15 bits sample width
+</li><li> Fast C&amp;M support via Ethernet TUN interface
+</li><li> Easy-to-add vendor specific information in CPRI control word
+</li><li> Full support of mapping method 1 (contiguous)
+</li><li> Support of mapping method 3 (interleaved) for a single cell only
+</li></ul>
+
+<br>
+<br>
+
+<p>Some hardware constraints apply:
+</p><ul>
+<li> The two top SFP connector (port 0 and port 1) can support all line bit rates.
+</li><li> The two bottom ports (port 2 and port 3) are limited to line rate 5 (mult 8)
+</li><li> All SFP ports must use the same line bit rate
+</li><li> Total combined bandwidth cannot exceed 10Gb/s
+</li></ul>
+
+<p>Possible combinations examples are:
+</p><ul>
+<li> line rate 7 (mult 16) on port 0 for 4T4R 100MHz NR with compression
+</li><li> line rate 5 (mult 8) on ports 0 and 1 for 2x 4T4R 20MHz LTE
+</li><li> line rate 3 (mult 4) on ports 0, 1, 2 and 3
+</li></ul>
+
+<span id="Installation-with-the-Amarisoft-software"></span><h2 class="chapter">2 Installation with the Amarisoft software</h2>
+
+<span id="Introduction"></span><h3 class="section">2.1 Introduction</h3>
+
+<p>Amarisoft PCIe CPRI board uses the same driver as the Amarisoft PCIe SDR board. So you don&rsquo;t need to install anything if you already have a setup running with the SDR boards.
+Note that you can have SDR and CPRI boards plugged in the same PC. Board type is recognized automatically by the driver.
+</p>
+<p>If you have bought the OTS (Off-The-Shelve) package, then you donât need to install anything. Everything has already been installed on your PC. Otherwise, please follow through the steps below.
+</p>
+<p>Decompress the <samp>trx_sdr</samp> archive into a convenient directory specified by <samp>&lt;trx_path&gt;</samp>.
+</p>
+
+<div class="example">
+<pre class="example">tar -xzf trx_sdr-linux-YYYY-MM-DD.tar.gz -C &lt;trx_path&gt;
+</pre></div>
+
+<p>You have two ways to install the TRX driver for the PCIe card: 
+</p><ul>
+<li> automatic
+</li><li> manual
+</li></ul>
+
+<p>For both cases, the installation requires some specific packages to
+compile the kernel module. To do this, you need to be root.
+In Fedora and Cent OS, you need to install <em>kernel-devel</em>, <em>make</em>, <em>gcc</em> and <em>elfutils-libelf-devel</em>
+packages by running the following command:
+</p>
+<div class="example">
+<pre class="example">dnf install kernel-devel-$(uname -r) make gcc elfutils-libelf-devel
+</pre></div>
+
+<p>For Ubuntu, use the following command:
+</p><div class="example">
+<pre class="example">apt-get install $(uname -a | awk '{print $3}') build-essential
+</pre></div>
+
+<p>Note that you&rsquo;ll need equivalent packages for other Linux distributions if you do not use Fedora, Ubuntu or Cent OS.
+</p>
+<p>Once you have finished the installation, you need to initialize (See <a href="#Driver-initialization">Driver initialization</a>) and upgrade your driver (See <a href="#Firmware-upgrade">Firmware upgrade</a>). Please make sure to initialize the driver after each system boot if you have not activates an automatic lte service.
+</p>
+<span id="Automatic-Installation"></span><h3 class="section">2.2 Automatic Installation</h3>
+
+<p>Automatic installation is only available on Fedora, Ubuntu and CentOS distributions. Use
+manual install for other distributions. To start your automatic install, use the following command where <samp>&lt;path&gt;</samp> is the path to the directory where you have already installed your LTE component (eNB or UE) and <samp>type</samp> should be set to <samp>enb</samp> or <samp>ue</samp> accordingly.
+</p>
+<div class="example">
+<pre class="example">./install &lt;path&gt; &lt;type&gt;
+</pre></div>
+
+<p>Notes:
+</p><ul>
+<li> the script would install some packages, so make sure you have root privileges when you run the script 
+</li><li> this install creates a symlink for the TRX driver so please do not remove
+this directory afterwards.
+</li></ul>
+
+<span id="Manual-Installation"></span><span id="Manual-Installation-1"></span><h3 class="section">2.3 Manual Installation</h3>
+
+<p>To manually install the driver, let&rsquo;s note <samp>&lt;path&gt;</samp> the directory where
+Amarisoft eNB or UE software is installed. Then:
+</p>
+<ol>
+<li> Compile kernel driver:<br>
+Go to the <samp>kernel/</samp> directory under <samp>&lt;trx_path&gt;</samp> and start compilation:
+<div class="example">
+<pre class="example">cd kernel
+make
+</pre></div>
+
+</li><li> Place driver:<br>
+Just copy the compiled driver into <samp>&lt;path&gt;</samp> directory
+<div class="example">
+<pre class="example">cd ..
+cp trx_sdr.so &lt;path&gt;
+cp libsdr.so &lt;path&gt;
+cp libc_wrapper_sdr.so &lt;path&gt;
+</pre></div>
+
+</li><li> Config files:<br>
+Copy RF driver config file. Note that there are 2 separate config directories for eNB and UE called <samp>config.enb</samp> and <samp>config.ue</samp> under your <samp>&lt;trx_path&gt;</samp>. As a result, the <samp>&lt;config_dir&gt;</samp> should be set to <samp>config.enb</samp> or <samp>config.ue</samp> accordingly.
+<div class="example">
+<pre class="example">cp -r &lt;config_dir&gt; &lt;path&gt;/config/sdr
+</pre></div>
+<p>Select frontend:
+</p><div class="example">
+<pre class="example">&lt;path&gt;/config/rf_select.sh sdr
+</pre></div>
+
+</li></ol>
+
+<span id="Driver-initialization"></span><span id="Driver-initialization-1"></span><h3 class="section">2.4 Driver initialization</h3>
+
+<p>Each time you boot your system, you need to perform this
+initialization.  Note that if you are using OTS install, this step is
+already done by the lte service.
+</p><div class="example">
+<pre class="example">cd kernel
+./init.sh
+</pre></div>
+
+<span id="Firmware-upgrade"></span><span id="Firmware-upgrade-1"></span><h3 class="section">2.5 Firmware upgrade</h3>
+
+<p>Perform the following command to upgrade your PCIe card:
+</p><div class="example">
+<pre class="example">./sdr_util upgrade
+</pre></div>
+
+<p>Notes:
+</p><ul>
+<li> If you have several PCIe cards installed, this will upgrade all cards.
+</li><li> If the firmware is already up to date, this command will end directly.
+</li><li> When the upgrade is over, you need your system to be powered off
+for the changes to take effect (not only reset, real power off).
+</li></ul>
+
+<span id="Multiple-card-installation"></span><h3 class="section">2.6 Multiple card installation</h3>
+
+<p>Several CPRI boards can be installed on a same PC and functions independently
+</p>
+<p>When you install several CPRI cards, the mapping between the PCI
+connectors and the Linux devices is not predictable (but it shouldn&rsquo;t
+change after each boot). To identify the order please do the
+following:
+</p><div class="example">
+<pre class="example">./sdr_util -c 0 led 1
+</pre></div>
+
+<p>Then check inside PC on each board, one of them should have a led blinking.
+This is card 0 (<samp>/dev/sdr0</samp>).
+</p>
+<p>Switch off the led:
+</p><div class="example">
+<pre class="example">./sdr_util -c 0 led 0
+</pre></div>
+
+<p>You can do the same for other cards:
+</p><div class="example">
+<pre class="example">./sdr_util -c &lt;n&gt; led 1
+</pre></div>
+
+<p>Where <code>&lt;n&gt;</code> is the index of the card.
+</p>
+
+<span id="TRX-driver-configuration-options"></span><h2 class="chapter">3 TRX driver configuration options</h2>
+
+
+<span id="Single-card-configuration"></span><h3 class="section">3.1 Single card configuration</h3>
+
+<p>The following properties are available:
+</p>
+<!-- prop:rf_driver -->
+
+<dl compact="compact">
+<dt><code>name</code></dt>
+<dd><p>String. Set the driver to use, always set &quot;sdr&quot; to use Amarisoft driver.
+</p>
+</dd>
+<dt><code>args</code></dt>
+<dd><p>String. Set the system device names for the boards. Example:
+</p><div class="example">
+<pre class="example">args: &quot;dev0=/dev/sdr0&quot;
+args: &quot;dev0=/dev/sdr0,dev1=/dev/sdr2&quot;
+</pre></div>
+
+
+
+
+
+</dd>
+<dt><code>sync</code></dt>
+<dd><p>Optional enumeration: none, gps, external, cpri (default =
+none). Set the time synchronization source. <code>none</code>
+uses the internal PPS generated from the
+clock. <code>gps</code> uses the GPS synchronization when a 
+GPS antenna is connected to the GPS port.
+<code>external</code> uses the PPS from the CLK IN connector (CN7 on
+<a href="#photo1">Figure 8.1</a>).
+<code>cpri</code> synchronizes itself with the CPRI frame received
+in the SFP port, to be used when the board behaves in &rsquo;slave&rsquo; or RE mode.
+</p>
+<p>When several cards are selected (with the <code>args</code> property),
+<code>sync</code> only sets the time synchronization source of the first
+card. The other cards are implicitly set to <code>external</code>
+synchronization, assuming the previous card is used as source.
+</p>
+
+</dd>
+<dt><code>clock</code></dt>
+<dd><p>Optional enumeration: internal, external (default = internal).  Set
+the clock source. <code>internal</code> uses the internal clock (VCTCXO).
+If an external PPS sync source is used, the internal clock frequency is
+adjusted by the PPS signal. <code>external</code> uses the clock from the CLK IN
+connector (CN7 on <a href="#photo1">Figure 8.1</a>).
+</p>
+</dd>
+<dt><code>cpri_mult</code></dt>
+<dd><p>Integer. Select the CPRI line bit rate in terms of multiple of option 1 (614.4 Mbps).
+E.g set 4 for option 3, 8 for option 5 and 16 for option 7.<br>
+Use comma separated list for multiple card configuration (<a href="#Multiple-card-configuration">Multiple card configuration</a>).
+<code>cpri_mult</code> and <code>cpri_option</code> are mutually exclusive.<br>
+</p>
+</dd>
+<dt><code>cpri_option</code></dt>
+<dd><p>String or integer. Select the CPRI line bit rate based on CPRI option.<br>
+Use comma separated list for multiple card configuration (<a href="#Multiple-card-configuration">Multiple card configuration</a>).
+<code>cpri_mult</code> and <code>cpri_option</code> are mutually exclusive.<br>
+</p>
+</dd>
+<dt><code>cpri_mapping</code></dt>
+<dd><p>Optional enumeration: standard, hw, spread (default = standard)
+Selects the mapping method. (Sample mode, 15 bits per I or Q).<br>
+<code>standard</code> is mapping method 1 (all AxC are contiguous).
+<code>hw</code> is method 1 with offloads onto the board hardware.
+<code>spread</code> is mapping method 3 (AxC are interleaved). Note that spread mapping 
+is only partially supported.<br>
+Use comma separated list for multiple card configuration (<a href="#Multiple-card-configuration">Multiple card configuration</a>).
+</p>
+</dd>
+<dt><code>fast_cm_pointer</code></dt>
+<dd><p>Optional integer (default = 54). Range 20-63. Value of the &rsquo;p&rsquo; pointer (control word #194)
+defining the start subchannel of the fast C&amp;M channel which will span subchannels p to 63.<br>
+Use comma separated list for multiple card configuration (<a href="#Multiple-card-configuration">Multiple card configuration</a>).
+</p>
+</dd>
+<dt><code>ifname</code></dt>
+<dd><p>String. Interface name of the TUN interface connected to the fast C&amp;M channel.<br>
+Use comma separated list for multiple card configuration (<a href="#Multiple-card-configuration">Multiple card configuration</a>).
+</p>
+</dd>
+<dt><code>vss_data</code></dt>
+<dd><p>Optional string to configure vendor specific data in the CPRI control word
+Format is string of pipe | separated items of the form X:data where X is the control word index X = Ns + 64*Xs and data is a hex string of length equals to the CPRI line multiplier.
+The first byte in the string corresponds to byte 0 in the CPRI frame, the second byte to byte 1, etc.
+If data is smaller than the CPRI multiplier, it will be right-padded with 0.
+Example for a CPRI multiplier of 16 (option 7, 9830.4 Mbps) to write a full data at index 16 and a single byte at index 80 :
+<code>vss_data : &quot;16:0123456789ABCDEF0123456789ABCDEF|80:FF&quot;</code> .
+Note that any vendor specific data overlapping with the fast C&amp;M channel will be overwritten by the Ethernet data.<br>
+Use comma separated list for multiple card configuration (<a href="#Multiple-card-configuration">Multiple card configuration</a>).
+</p>
+<span id="cpri_005frx_005fdelay"></span></dd>
+<dt><code>cpri_rx_delay</code></dt>
+<dd><p>Optional floating point value in microseconds (default 0).<br>
+Delay between TX and RX position in CPRI frame. This should be set to the value of (T2a + T3a - Toffset) provided by the RRH specification.<br>
+Check <a href="#Delay-management">Delay management</a> for more details.<br>
+Use comma separated list for multiple card configuration (<a href="#Multiple-card-configuration">Multiple card configuration</a>).
+</p>
+<span id="cpri_005ftx_005fdelay"></span></dd>
+<dt><code>cpri_tx_delay</code></dt>
+<dd><p>Optional floating point value in microseconds (default 0).<br>
+Advance Start of Frame relative to PPS to compensate for delays in transmit line and RRH. This should be set to T12 + T2a.<br>
+Check <a href="#Delay-management">Delay management</a> for more details.<br>
+Use comma separated list for multiple card configuration (<a href="#Multiple-card-configuration">Multiple card configuration</a>).
+</p>
+</dd>
+<dt><code>cpri_tx_dbm</code></dt>
+<dd><p>Optional floating point value in dBm (default 0).
+Needed by ENB/GNB to have a notion of actual output power.
+Computed from maximum power output of the RRH for a 0dBFS input signal (full scale).
+You need to take into account the loss in RF cables and efficiency of antennas.
+Exemple: RRH spec is 5Watt for -14dBFS input, so: +37dBm for -14dBFS: tx_gain = +51dB gain.
+In this case, parameter <code>cpri_tx_dbm</code> could be set to 51.0, but actual value for best performance was 42.0.<br>
+Use comma separated list for multiple card configuration (<a href="#Multiple-card-configuration">Multiple card configuration</a>).
+</p>
+</dd>
+<dt><code>cpri_rx_dbm</code></dt>
+<dd><p>Optional floating point value in dBm (default 0).
+Needed by ENB/GNB to have a notion of actual received power.
+Computed from analog input power of the RRH for a 0dBFS digital level (full scale).
+You need to take into account the loss in RF cables and efficiency of antennas.
+Exemple: RRH spec is -40dBm for 0dBFS input, so:  rx_gain = +40dB gain.
+In this case, parameter <code>cpri_rx_dbm</code> could be set to 40.0, but actual value for best performance maybe slightly lower.<br>
+Use comma separated list for multiple card configuration (<a href="#Multiple-card-configuration">Multiple card configuration</a>).
+</p>
+</dd>
+<dt><code>tx_subch_dump_file</code></dt>
+<dd><p>Optional string. If present, the control words of the sent CPRI hyperframes are dumped to the file specified
+by the parameter, in binary format.
+The control word of each hyperframe consists in 256 words of <code>cpri_mult</code> bytes. The words of the control channel
+are dumped by increasing number of subchannels, i.e with the index in the following order 0, 64, 128, 192, 1, 65, ...
+To spare CPU resources, only one every 16 hyperframes is dumped to the file.
+The file begins with a four bytes header : 0x43 0x50 0x90 &lt;<code>cpri_mult</code>&gt;.
+Due to the rapidly increasing file size, it is strongly recommended to use this parameter
+only for a short duration and for debug purposes.<br>
+Use comma separated list for multiple card configuration (<a href="#Multiple-card-configuration">Multiple card configuration</a>).
+</p>
+</dd>
+<dt><code>rx_subch_dump_file</code></dt>
+<dd><p>Optional string. If present, the control words of the received CPRI hyperframes are dumped to the file
+specified by the parameter. The file has the same structure than <code>tx_subch_dump_file</code><br>
+Use comma separated list for multiple card configuration (<a href="#Multiple-card-configuration">Multiple card configuration</a>).
+</p>
+</dd>
+<dt><code>eth_preamble_size</code></dt>
+<dd><p>Optional integer (default 7). Number of bytes of the Ethernet preamble for Fast C&amp;M channel.
+Minimum size is 2 (preamble is then 0x55 0xd5). Maximum size is 7 (0x55 0x55 0x55 0x55 0x55 0x55 0xd5).<br>
+Use comma separated list for multiple card configuration (<a href="#Multiple-card-configuration">Multiple card configuration</a>).
+</p>
+</dd>
+<dt><code>cpri_hook</code></dt>
+<dd><p>Optional string. If set defines the CPRI hook shared library to use (cf api/cpri_hook.c for example).<br>
+Use comma separated list for multiple card configuration (<a href="#Multiple-card-configuration">Multiple card configuration</a>).
+</p>
+</dd>
+<dt><code>cpri_hook_data</code></dt>
+<dd><p>Optional string. If set, will be passed to CPRI hooks as user data.<br>
+Use comma separated list for multiple card configuration (<a href="#Multiple-card-configuration">Multiple card configuration</a>).
+</p>
+</dd>
+<dt><code>cpri_debug</code></dt>
+<dd><p>Optional integer (default = 0). It positive, debug information will be diplayed in terminal
+</p>
+</dd>
+<dt><code>cpri_sample_offset</code></dt>
+<dd><p>Optional string. List of integers separated by <code>:</code>. Each integer defines the position in
+bits of channel IQ samples inside basic frames.
+</p>
+<span id="rx_005fchan_005fmapping"></span></dd>
+<dt><code>rx_chan_mapping</code></dt>
+<dd><p>Optional string. By default, if radio frontend has more RX channel available than configured (Ex: more physical RX connctor on SDR or more channel in CPRI hyperframes), drvers uses the first channels of the radio frontend.<br>
+This parameter allows to select the RX channels of the radio frontend to use.<br>
+This parameter is a list of number (Must have as many number as RF port configuration) separated by colons. Each number represents the RX channel of the radio frontend to use.
+</p>
+
+</dd>
+</dl>
+
+
+<span id="Multiple-card-configuration"></span><span id="Multiple-card-configuration-1"></span><h3 class="section">3.2 Multiple card configuration</h3>
+
+<p>All single card configuration parameters apply to multiple card mode.<br>
+To differentiate configuration for each card, the syntax of some parameter will change
+to a list of value separated by commas (<code>,</code>).*
+The first value will apply to the first board defined in <code>args</code> argument, ...
+</p>
+
+<p>Example:
+</p><pre class="verbatim">cpri_mult: &quot;4,16&quot;
+</pre>
+<p>Will mean dev0 will use CPRI speed 4 and dev1 will use CPRI speed 16
+</p>
+<p>This syntax applies to the following parameters:
+</p><ul>
+<li> cpri_mult
+</li><li> cpri_option
+</li><li> cpri_mapping
+</li><li> fast_cm_pointer
+</li><li> cpri_sample_offset
+</li><li> vss_data
+</li><li> cpri_debug
+</li><li> cpri_tx_delay
+</li><li> cpri_rx_delay
+</li><li> cpri_tx_dbm
+</li><li> cpri_rx_dbm
+</li><li> tx_subch_dump_file
+</li><li> rx_subch_dump_file
+</li><li> eth_preamble_size
+</li><li> ifname
+</li><li> cpri_hook
+</li><li> cpri_hook_data
+</li><li> rx_chan_mapping
+</li></ul>
+
+
+<span id="Time"></span><h2 class="chapter">4 Time</h2>
+
+<span id="Delay-management"></span><span id="Delay-management-1"></span><h3 class="section">4.1 Delay management</h3>
+
+<p>To configure delays and adjust propagation delays to that TX signal is aligned to PPS and RX is aligned to TX,
+you need to setup <a href="#cpri_005ftx_005fdelay">cpri_tx_delay</a> and <a href="#cpri_005frx_005fdelay">cpri_rx_delay</a>.
+</p>
+<p><code>cpri_tx_delay</code> is used to align TX signal to PPS.<br>
+The CPRI driver uses this value to start sending of hyperframes before its own PPS so that the associated
+signal reaches antenna at the correct time.<br>
+This delay should be set to T12 + T2a
+</p>
+<p><code>cpri_rx_delay</code> is used to align TX and RX signal and ensure synchronization for TDD.<br>
+</p>
+<p>The CPRI driver use this value to apply an offset to the received signal inside the hyperframes
+to compensate propagation delay and align RX to TX.
+When the CPRI driver receives an hyperframe, it uses its HFN/BFN to compute the timestamp of the signal
+and removes the cpri_rx_delay.<br>
+This delay should be set to T2a + T3a - Toffset
+</p>
+
+<p>Example:<br>
+</p><pre class="verbatim">The BBU generates the signal to t=0 (Ex: start of a frame).
+The signal is put in HFR:0.0 (HFN=0, BFN=0) and is sent to RRU at t=-(T12 + T2a)
+
+HFR:0.0 reaches R2 at t=-T2a
+HFR:0.0 reaches antenna at t=0 as expected
+
+The RRU generates HFR:0.0 at t=-T2a + Toffset as it aligns on received
+HFR:0.0 at t=-T2a.
+The signal put in HFR:0.0 is the one received -T3a earlier at antenna side.
+Which means that HFR:0.0 sent by RRU is filled with signal received at
+antenna side at t=-T2a + Toffset - T3a.
+</pre>
+
+<span id="GPS-usage"></span><h3 class="section">4.2 GPS usage</h3>
+
+<p>You can check the GPS operation when the eNodeB/UE is stopped with
+</p><div class="example">
+<pre class="example">./sdr_util gps_state
+</pre></div>
+<p>The GPS takes a few minutes to lock if the GPS antenna is
+connected. Any active GPS antenna accepting a 3.3V DC supply can be
+used, for example: <a href="http://www.mouser.fr/Search/ProductDetail.aspx?R=ANT-GPS-SH-SMAvirtualkey59000000virtualkey712-ANT-GPS-SH-SMA">http://www.mouser.fr/Search/ProductDetail.aspx?R=ANT-GPS-SH-SMAvirtualkey59000000virtualkey712-ANT-GPS-SH-SMA</a><br>
+</p>
+<p>To ensure the PLL is correctly locked when launching the lte software,
+it is recommended to set the synchro to GPS beforehand with the command
+</p><div class="example">
+<pre class="example">./sdr_util sync_gps
+</pre></div>
+
+<span id="Oscillator-frequency-fine-tuning"></span><h3 class="section">4.3 Oscillator frequency fine tuning</h3>
+
+<p>If you don&rsquo;t have a GPS, it is still possible to manually fine tune
+the VCTCXO (Voltage Controlled, Temperature Controlled Crystal
+Oscillator) frequency provided you have a way to know the offset:
+</p>
+<div class="example">
+<pre class="example">./sdr_util clock_tune <var>n</var>
+</pre></div>
+
+<p>where <var>n</var> is the offset in PPM (parts-per-million) from the
+nominal TCXO frequency. Note: the PPM offset <var>n</var> to voltage law is
+only approximative, so you should adjust it by successive
+approximation.
+</p>
+
+<span id="CPRI-in-practice"></span><h2 class="chapter">5 CPRI in practice</h2>
+
+
+<p>We recommend to take a look at <a href="https://tech-academy.amarisoft.com/CPRI_RRH.html">this tutorial</a> to learn more about CPRI.
+</p>
+<p>We also recommend to set <code>cpri_debug</code> to 1 in your configuration file. It will give you usefull information about cpri mapping.<br>
+Ex:
+</p><pre class="verbatim">### CPRI initialization ###
+  Speed:            x4
+  Channels:         2
+  Bits per samples: 30
+  Hardware mapping: on
+  Ethernet:
+    Speed:          10
+    Buffer size:    131072
+    Preamble size:  7
+  RF port 0:
+    Channels:       2
+    Offset bits:    360 420
+    Samples/chan:   2 (120 bits)
+    Use HW mapping
+  Mapping:
+    Channel 0.0:  360 =&gt;  420
+    Channel 0.1:  420 =&gt;  480
+    120/480 bites used
+</pre>
+
+<span id="Miscellaneous-utilities"></span><h2 class="chapter">6 Miscellaneous utilities</h2>
+
+<span id="sdr_005futil"></span><h3 class="section">6.1 sdr_util</h3>
+
+<div class="example">
+<pre class="example">usage: sdr_util [options] cmd [args...]
+
+Options:
+-h                         help
+-c device_num              select the device (default = all)
+
+Available commands:
+version                    dump the FPGA version
+sync_state                 dump the synchro and clock state
+gps_state                  dump the GPS state
+sync_gps                   select GPS as sync source, wait for stable state
+gps_cal [-s]               uses the GPS sync to tune VCXO, optionnaly stores the value in flash
+temp                       dump the temperature of the board components
+led [0|1]                  enable/disable led blinking
+clock_tune n               tune TCXO frequency offset to n ppm
+upgrade [options]          upgrade the FPGA firmware
+  upgrade options are:
+  -force                   force upgrade even if identical or 
+                           previous version
+</pre></div>
+
+<span id="C-API"></span><h2 class="chapter">7 C API</h2>
+
+<p>The PCIe CPRI board can be used in other projects with its C API. The C
+API allows to send and receive I/Q samples and to change the various
+parameters (frequency, sample rate, bandwidth, gains, ...). The
+Amarisoft TRX driver, <code>sdr_play</code> and <code>sdr_spectrum</code> are
+built using this API.
+</p>
+<p>The C API is described in <samp>libsdr.h</samp>. The corresponding Linux
+x86_64 dynamic library is <samp>libsdr.so</samp>.
+</p>
+<p>Amarisoft does not provide any support for this API and can modify it
+without notice.
+</p>
+
+
+<span id="Physical-specifications"></span><h2 class="chapter">8 Physical specifications</h2>
+
+<span id="Summary"></span><h3 class="section">8.1 Summary</h3>
+
+<ul>
+<li> 4 SFP ports to connect REs through optical or Ethernet cabling. (See Features for contraints).
+</li><li> 1 SMA female (GPS antenna with 3.3V DC power supply)
+</li><li> 2 SATA connectors to share Clock and Sync signals between CPRI boards (CN6, CN7)
+</li><li> A yellow led on the top edge of the board for identification
+</li><li> PCIe 4x lanes gen 2.
+</li><li> Uses single 12V power supply from PCI connector (with 2A Fuse)
+</li><li> Frequency Accuracy: 2 ppm
+</li><li> Full size (L x W x H): 128mm x 180mm x 20mm
+</li><li> Weight: 0.200 kg
+</li></ul>
+
+<span id="Connectors"></span><h3 class="section">8.2 Connectors</h3>
+
+<p>The following figure depicts the location and functionality of each connector in the PCIe board.
+</p><div class="float"><span id="photo1"></span>
+<img src="img/cpri.webp" alt="img/cpri">
+<div class="float-caption"><p><strong>Figure 8.1
+</strong></p></div></div>
+<span id="PPS_002fClock-connectors"></span><h4 class="subsection">8.2.1 PPS/Clock connectors</h4>
+
+<p>Clock sync connectors
+</p><dl compact="compact">
+<dt><code>CN7</code></dt>
+<dd><p>CLK_IN Input to sync this board as slave.
+</p></dd>
+<dt><code>CN6</code></dt>
+<dd><p>CLK_OUT Output to use this board as master for other CPRI board
+</p></dd>
+</dl>
+<br>
+<p>On each SATA connector:
+</p><dl compact="compact">
+<dt><code>pin 1,4,7</code></dt>
+<dd><p>GND
+</p></dd>
+<dt><code>pin 2,3</code></dt>
+<dd><p>AC coupled LVDS 122.88MHz clock
+</p></dd>
+<dt><code>pin 5,6</code></dt>
+<dd><p>DC coupled CMOS (3V3) Pulse per Second signal 6=positive side
+</p></dd>
+</dl>
+
+<span id="Remote-API"></span><h2 class="chapter">9 Remote API</h2>
+
+<p>SDR driver implements the <code>trx</code> remote API.
+</p>
+<p>Message definition:
+</p>
+<!-- prop:trx -->
+
+<dl compact="compact">
+<dt><code>command</code></dt>
+<dd><p>Optional string. Can be:
+    </p><ul>
+<li> clock_tune
+    </li><li> cpri_rx_delay
+    </li><li> cpri_tx_delay
+    </li></ul>
+</dd>
+</dl>
+
+<p>Exemple:
+</p><pre class="verbatim">{
+    &quot;message&quot;: &quot;trx&quot;,
+    &quot;command&quot;: &quot;clock_tune&quot;
+}
+</pre>
+<p>Here are the additional request and response field depending on <code>command</code> value:
+</p>
+<span id="clock_005ftune"></span><h3 class="section">9.1 clock_tune</h3>
+
+<p>Request fields:
+</p><dl compact="compact">
+<dt><code>offset</code></dt>
+<dd><p>Optional number. If <code>command</code> is <code>clock_tune</code>, defines the clock drift to set in ppm.
+</p></dd>
+</dl>
+
+
+
+<span id="cpri_005frx_005fdelay-1"></span><h3 class="section">9.2 cpri_rx_delay</h3>
+
+<!-- prop:trx -->
+
+<p>Request fields:
+</p><dl compact="compact">
+<dt><code>rf_port</code></dt>
+<dd><p>Integer. Defines RF port to set and/or get.
+  </p></dd>
+<dt><code>cpri_rx_delay</code></dt>
+<dd><p>Optional number. Update <a href="#cpri_005frx_005fdelay">cpri_rx_delay</a> in microseconds.
+</p></dd>
+</dl>
+
+<p>Response fields:
+</p><dl compact="compact">
+<dt><code>cpri_rx_delay</code></dt>
+<dd><p>Current <a href="#cpri_005frx_005fdelay">cpri_rx_delay</a> in microseconds
+</p></dd>
+</dl>
+
+
+<span id="cpri_005ftx_005fdelay-1"></span><h3 class="section">9.3 cpri_tx_delay</h3>
+
+<!-- prop:trx -->
+
+<p>Request fields:
+</p><dl compact="compact">
+<dt><code>rf_port</code></dt>
+<dd><p>Integer. Defines RF port to set and/or get.
+  </p></dd>
+<dt><code>cpri_tx_delay</code></dt>
+<dd><p>Optional number. Update <a href="#cpri_005ftx_005fdelay">cpri_tx_delay</a> in microseconds
+</p></dd>
+</dl>
+
+<p>Response fields:
+</p><dl compact="compact">
+<dt><code>cpri_tx_delay</code></dt>
+<dd><p>Current <a href="#cpri_005ftx_005fdelay">cpri_tx_delay</a> in microseconds.
+  Note that the delay with PPS won&rsquo;t be affected. This will only affect the IQ signal inside CPRI frames.
+</p></dd>
+</dl>
+
+
+
+<span id="Change-history"></span><h2 class="chapter">10 Change history</h2>
+
+
+<span id="Version-2025_002d06_002d13"></span><h3 class="section">10.1 Version 2025-06-13</h3>
+
+<ul>
+<li> Added <code>rx_chan_mapping</code> configuration parameter
+</li></ul>
+
+<span id="Version-2024_002d09_002d13"></span><h3 class="section">10.2 Version 2024-09-13</h3>
+
+<ul>
+<li> Added <code>cpri_rx_dbm</code> parameter
+</li></ul>
+
+<span id="Version-2024_002d06_002d14"></span><h3 class="section">10.3 Version 2024-06-14</h3>
+
+<ul>
+<li> Added remote API support
+</li></ul>
+
+<span id="Version-2023_002d09_002d08"></span><h3 class="section">10.4 Version 2023-09-08</h3>
+
+<ul>
+<li> Added NUMA support
+</li></ul>
+
+
+<hr>
+
+
+
+</body>
+</html>

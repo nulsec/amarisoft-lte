@@ -1,0 +1,425 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.6, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Amarisoft Off The Shelf service</title>
+
+<meta name="description" content="Amarisoft Off The Shelf service">
+<meta name="keywords" content="Amarisoft Off The Shelf service">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+
+th {
+    border: 1px solid black;
+    background-color: #c0f585;
+    font-size: 14px;
+    padding: 5px;
+}
+
+td {
+    border: 1px solid black;
+    padding: 2px 4px;
+}
+
+p>img {
+    display: initial;
+}
+
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">Amarisoft Off The Shelf service</h1>
+
+<span id="SEC_Contents"></span>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+<ul class="no-bullet">
+<li><a id="toc-Introduction" href="#Introduction">1 Introduction</a>
+<ul class="no-bullet">
+  <li><a id="toc-General-description_002e" href="#General-description_002e">1.1 General description.</a></li>
+  <li><a id="toc-Installation" href="#Installation">1.2 Installation</a></li>
+</ul></li>
+<li><a id="toc-Using-service" href="#Using-service">2 Using service</a>
+<ul class="no-bullet">
+  <li><a id="toc-Service-management" href="#Service-management">2.1 Service management</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Status" href="#Status">2.1.1 Status</a></li>
+    <li><a id="toc-Stop" href="#Stop">2.1.2 Stop</a></li>
+    <li><a id="toc-Start" href="#Start">2.1.3 Start</a></li>
+    <li><a id="toc-Disable" href="#Disable">2.1.4 Disable</a></li>
+    <li><a id="toc-Enable" href="#Enable">2.1.5 Enable</a></li>
+  </ul></li>
+  <li><a id="toc-Access-to-software-monitors" href="#Access-to-software-monitors">2.2 Access to software monitors</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Select-component" href="#Select-component">2.2.1 Select component</a></li>
+    <li><a id="toc-Exit-screen" href="#Exit-screen">2.2.2 Exit screen</a></li>
+  </ul></li>
+</ul></li>
+<li><a id="toc-Configuration" href="#Configuration">3 Configuration</a>
+<ul class="no-bullet">
+  <li><a id="toc-File" href="#File">3.1 File</a></li>
+</ul></li>
+<li><a id="toc-Parameters" href="#Parameters">4 Parameters</a></li>
+<li><a id="toc-Miscellaneous" href="#Miscellaneous">5 Miscellaneous</a>
+<ul class="no-bullet">
+  <li><a id="toc-Logs" href="#Logs">5.1 Logs</a></li>
+  <li><a id="toc-Contact" href="#Contact">5.2 Contact</a></li>
+</ul></li>
+<li><a id="toc-Additional-Information" href="#Additional-Information">6 Additional Information</a></li>
+
+</ul>
+</div>
+
+
+<span id="Introduction"></span><h2 class="chapter">1 Introduction</h2>
+<span id="General-description_002e"></span><h3 class="section">1.1 General description.</h3>
+
+<p>This document describes how to configure and use Amarisoft OTS service.<br>
+OTS service is a systemd or init.d Linux service allowing to start/stop and manage automatically Amarisoft software components.
+</p>
+<span id="Installation"></span><h3 class="section">1.2 Installation</h3>
+
+<p>You need to use the <code>install.sh</code> provided in your Amarisoft software release tarball
+and answer yes to its installation during the process:
+</p>
+<pre class="verbatim">1) Configuration
+  You can exit install script during this step, nothing will be changed
+  until next step
+  * Do you want to install LTE automatic service ?
+    Package screen may be installed. [Yn] y
+</pre>
+<p>Enabling it means enabling Linux service by default:
+</p><pre class="verbatim">      - Do you want to enable LTE automatic service ? [yN] n
+</pre>
+
+<span id="Using-service"></span><h2 class="chapter">2 Using service</h2>
+
+<span id="Service-management"></span><h3 class="section">2.1 Service management</h3>
+
+<span id="Status"></span><h4 class="subsection">2.1.1 Status</h4>
+<p>You can check the LTE service status this way:
+</p><div class="example">
+<pre class="example">service lte status
+</pre></div>
+<p>The command will return &quot;<code>active (running)</code>&quot; status if service is running 
+</p>
+<span id="Stop"></span><h4 class="subsection">2.1.2 Stop</h4>
+<p>You can stop all LTE components this way:
+</p><div class="example">
+<pre class="example">service lte stop
+</pre></div>
+
+<span id="Start"></span><h4 class="subsection">2.1.3 Start</h4>
+
+<p>You can start them again this way:
+</p><div class="example">
+<pre class="example">service lte start
+</pre></div>
+
+<span id="Disable"></span><h4 class="subsection">2.1.4 Disable</h4>
+
+<p>You may also prevent them to start at boot time:
+</p><div class="example">
+<pre class="example">systemctl disable lte
+</pre></div>
+
+<br><p>NB: lte service remains enable until next reboot
+<br>NB2: this command is not available on Ubuntu version &lt;= 14
+</p>
+
+<span id="Enable"></span><h4 class="subsection">2.1.5 Enable</h4>
+
+<p>You may enable service at boot time this way:
+</p><div class="example">
+<pre class="example">systemctl enable lte
+</pre></div>
+
+<br><p>NB: lte service remains disable until next reboot
+<br>NB2: this command is not available on Ubuntu version &lt;= 14
+</p>
+
+
+<span id="Access-to-software-monitors"></span><h3 class="section">2.2 Access to software monitors</h3>
+<p>Once you are logged on your callbox, you can access software components (eNB, MME, IMS or MBMSGW) using screen command:
+</p>
+<div class="example">
+<pre class="example">screen -x lte
+</pre></div>
+
+<p>This will connect you to different component monitor.<br>
+</p><div align="center"><img src="img/screen.webp" alt="img/screen">
+</div>
+<p>Next sections show you basic methods. For more information please refer to <code>screen</code>
+documentation (<a href="https://www.gnu.org/software/screen/manual/screen.html">https://www.gnu.org/software/screen/manual/screen.html</a>).
+</p>
+<span id="Select-component"></span><h4 class="subsection">2.2.1 Select component</h4>
+
+<p>Each component monitor is inside a window. You can switch from a window to another with the command:
+</p>
+<div class="example">
+<pre class="example">ctrl+a &lt;window index&gt;
+</pre></div>
+
+<p>Where window index is:
+</p><ul>
+<li> 0 MME
+</li><li> 1 eNB
+</li><li> 2 MBMSGW
+</li><li> 3 IMS
+</li></ul>
+<table class="cartouche" border="1"><tr><td>
+<p>Note: press simultaneously <code>CTRL</code> key and <code>a</code> key, release them, then press number key.
+</p></td></tr></table>
+<p>You can also switch to next window:
+</p>
+<div class="example">
+<pre class="example">ctrl+a &lt;space&gt;
+</pre></div>
+
+<p>Each component screen offers a list of commands that can be used either to get status or trigger action.
+Each of them are documented in the component documentations (example lteenb.pdf) or inline with the &quot;help&quot; command 
+</p>
+<div align="center"><img src="img/help.webp" alt="img/help">
+</div>
+<span id="Exit-screen"></span><h4 class="subsection">2.2.2 Exit screen</h4>
+
+<div class="example">
+<pre class="example">ctrl+a d
+</pre></div>
+
+
+
+<span id="Configuration"></span><h2 class="chapter">3 Configuration</h2>
+
+<span id="File"></span><h3 class="section">3.1 File</h3>
+<p>The LTE automatic service uses <code>/root/ots/config/ots.cfg</code> for its configuration.<br>
+The format is shell.<br>
+</p>
+<p>The default configuration file is generated during installation.<br>
+To use your own configuration we recommend to create a new file and change <code>/root/ots/config/ots.cfg</code>
+symbolic link to point to your file.<br>
+Else, your changes will be overriden at next software install/upgrade.<br>
+</p>
+<p>Example:<br>
+Create a my-ots.cfg file and put the following inside:
+</p><pre class="verbatim"># Include default configuration
+source ots.default.cfg
+
+# Add your custom config
+MME_CONFIG_FILE=/root/mme/config/my-mme.cfg
+</pre>
+<p>Then:
+</p><pre class="verbatim">cd /root/ots/config
+rm -f ots.cfg
+ln -s my-ots.cfg ots.cfg
+</pre>
+
+
+
+<span id="Parameters"></span><h2 class="chapter">4 Parameters</h2>
+
+<p>The configuration variables are:
+</p>
+<!-- prop: -->
+
+<dl compact="compact">
+<dt><code>ERROR_DELAY</code></dt>
+<dd><p>Time in seconds before restarting any software component badly stopped.
+</p>
+</dd>
+<dt><code>LOG_FILE</code></dt>
+<dd><p>Log file of the lte service.
+</p>
+</dd>
+<dt><code>LOG_FILE_SIZE</code></dt>
+<dd><p>Automatic service log file size for rotation (K, M, G units accepted).
+</p>
+</dd>
+<dt><code>LOG_PATH</code></dt>
+<dd><p>Path where to store rotated log.
+</p>
+</dd>
+<dt><code>LOG_SIZE</code></dt>
+<dd><p>Components log file size threshold for rotation (K, M, G units accepted).
+  If log file size exceed this value, file will be rotated to <code>LOG_PATH</code>
+  if set or to same directory.
+</p>
+</dd>
+<dt><code>LOG_COUNT</code></dt>
+<dd><p>Components log file count threshold for rotation (K, M, G units accepted).
+  If number of dumped logs in file size exceed this value, file will be rotated to <code>LOG_PATH</code>
+  if set or to same directory.
+</p>
+</dd>
+<dt><code>LOG_PERSISTENT_SIZE</code></dt>
+<dd><p>Maximum amount of logs stored in <code>LOG_PATH</code>.
+  When directory reaches this threshold, oldest log file will be deleted.
+</p>
+</dd>
+<dt><code>LOG_PERSISTENT_COUNT</code></dt>
+<dd><p>Maximum number of log files stored in <code>LOG_PATH</code>.
+  When directory reaches this threshold, oldest log file will be deleted.
+</p>
+</dd>
+<dt><code>LOG_POLL_DELAY</code></dt>
+<dd><p>Time in seconds between two checks for cleaning <code>LOG_PATH</code>.
+</p>
+</dd>
+<dt><code>LOG_GZIP</code></dt>
+<dd><p>Set it to 1 to compress log file when rotated.
+</p>
+</dd>
+<dt><code>LOG_BACKUP_ON_STOP</code></dt>
+<dd><p>Set it to n to avoid log backup (to LOG_PATH) on component stop.
+</p>
+</dd>
+<dt><code>COMPONENTS</code></dt>
+<dd><p>List of component IDs to start.
+</p></dd>
+</dl>
+
+<p>Each component can be configured with the following variables where
+<code>&lt;COMP&gt;</code> is the <code>ID</code> of the component and must be unique.<br>
+</p>
+<!-- prop: -->
+
+<dl compact="compact">
+<dt><code>&lt;COMP&gt;_PATH</code></dt>
+<dd><p>Path of the component binary. If not found or not set, component won&rsquo;t be started.
+</p>
+</dd>
+<dt><code>&lt;COMP&gt;_CONFIG_FILE</code></dt>
+<dd><p>Config file to use for this component. Relative to <code>XXX_PATH</code>.
+</p>
+</dd>
+<dt><code>&lt;COMP&gt;_TITLE</code></dt>
+<dd><p>Title to display in <code>screen</code> component. <code>ID</code> by default.
+</p>
+</dd>
+<dt><code>&lt;COMP&gt;_INIT</code></dt>
+<dd><p><code>lte_init.sh</code> command line parameter for component.
+</p>
+</dd>
+<dt><code>&lt;COMP&gt;_AUTOSTART</code></dt>
+<dd><p>If set to 1 or not defined, component will be started automatically by service, else, you need to start it manually.
+</p>
+</dd>
+<dt><code>&lt;COMP&gt;_TYPE</code></dt>
+<dd><p>Component flavour. Can be <code>MME</code>, <code>ENB</code>, <code>IMS</code>, <code>MBMSGW</code>, <code>LICENSE</code>...
+</p>
+</dd>
+<dt><code>&lt;COMP&gt;_WIN</code></dt>
+<dd><p>Component window index inside screen session.
+</p>
+</dd>
+<dt><code>&lt;COMP&gt;_CONFIG_FILE</code></dt>
+<dd><p>Component configuration file
+</p>
+</dd>
+<dt><code>&lt;COMP&gt;_OUTPUT_FILE</code></dt>
+<dd><p>If set, defineds a filename where to dump both <code>stdout</code> and <code>stderr</code> of the
+  component process.<br>
+  If not set, only <code>stderr</code> will be dumped to <code>/tmp/.stderr.&lt;COMP&gt;</code>
+</p>
+</dd>
+<dt><code>&lt;COMP&gt;_SCRIPT</code></dt>
+<dd><p>If set, defines a shell script that will be executed on each component state change.<br>
+  Arguments are &lt;COMP&gt; &lt;STATE&gt; [&lt;ERROR&gt;] where state can be:
+  </p><ul>
+<li> starting: before executing component binary
+  </li><li> started: after component binary has started
+  </li><li> error: when any error occurred (In this case the third argument will be filed with error message)
+  </li><li> stop: after successful component stop
+  </li></ul>
+<p>This can be used to perform any action before component start by using the state starting.<br>
+  Note that the script is executed synchronously and may delay or block component startup.
+</p>
+</dd>
+</dl>
+
+<p>IDs generated by installation process are the same as type.
+</p>
+<p>Those variables are used by <code>ltestart.sh</code> script.
+</p>
+<p>For instance, if you want to setup two <code>MME</code> instance, use the following:
+</p><pre class="verbatim">MME_PATH=/root/mme
+MME_TYPE=MME
+...
+
+MME2_PATH=/root/mme
+MME2_TYPE=MME
+...
+
+COMPONENTS+=&quot; MME MME1&quot;
+</pre>
+
+
+<span id="Miscellaneous"></span><h2 class="chapter">5 Miscellaneous</h2>
+
+<span id="Logs"></span><h3 class="section">5.1 Logs</h3>
+
+<p>Logs will be backed up in <code>/var/log/lte</code> directory.
+</p>
+<p>The <code>/tmp/lte.log</code> file is log for service.
+</p>
+
+
+<span id="Contact"></span><h3 class="section">5.2 Contact</h3>
+
+<ul>
+<li> Our Extranet site is located at <code>extranet.amarisoft.com</code>. This site would give you access to our documentation and new releases.
+</li><li> For all technical issues, you can create a ticket describing your problem on our support site at <code>support.amarisoft.com</code>. Please note that you need to have an active account in our Extranet in order to be able to login to our support site. Your credentials are the same as the ones you use to access Extranet.
+</li><li> our FTP server is located at <code>ftp.amarisoft.com</code>. This server should be used to exchange big logs. Your credentials are the same as the ones you use to access Extranet. Please note that you need to use an FTP client supporting SSL such as Filezilla. 
+</li><li> For any request concerning license delivery or addition of new accounts, please send an email to <code>delivery@amarisoft.com</code>.
+
+</li></ul>
+
+
+<span id="Additional-Information"></span><h2 class="chapter">6 Additional Information</h2>
+
+<p>This document is copyright (C) 2012-2025 Amarisoft. Its redistribution
+without authorization is prohibited.
+</p>
+<p>This document is available without any express or implied warranty and is subject to change without notice. In
+no event will Amarisoft be held liable for any damages arising from the use of this document.
+</p>
+<p>For any technical issue, please raise a ticket from our support site at <a href="https://support.amarisoft.com/">https://support.amarisoft.com/</a>.
+<br>
+To learn more about our technology and solutions, e-mail us at <a href="mailto:customer@amarisoft.com">customer@amarisoft.com</a> or visit <a href="https://www.amarisoft.com">https://www.amarisoft.com</a>.
+</p>
+
+<hr>
+
+
+
+</body>
+</html>

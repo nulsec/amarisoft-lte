@@ -1,0 +1,876 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.6, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Software Binary Install Guide</title>
+
+<meta name="description" content="Software Binary Install Guide">
+<meta name="keywords" content="Software Binary Install Guide">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+
+th {
+    border: 1px solid black;
+    background-color: #c0f585;
+    font-size: 14px;
+    padding: 5px;
+}
+
+td {
+    border: 1px solid black;
+    padding: 2px 4px;
+}
+
+p>img {
+    display: initial;
+}
+
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">Software Binary Install Guide</h1>
+
+
+
+<span id="SEC_Contents"></span>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+<ul class="no-bullet">
+<li><a id="toc-Introduction" href="#Introduction">1 Introduction</a>
+<ul class="no-bullet">
+  <li><a id="toc-Background" href="#Background">1.1 Background</a></li>
+</ul></li>
+<li><a id="toc-Install-Guide" href="#Install-Guide">2 Install Guide</a>
+<ul class="no-bullet">
+  <li><a id="toc-Requirements" href="#Requirements">2.1 Requirements</a></li>
+  <li><a id="toc-Computer-Setup" href="#Computer-Setup">2.2 Computer Setup</a></li>
+  <li><a id="toc-Hardware-Prerequisites" href="#Hardware-Prerequisites">2.3 Hardware Prerequisites</a>
+  <ul class="no-bullet">
+    <li><a id="toc-PCIe-SDR50-cards_003a" href="#PCIe-SDR50-cards_003a">2.3.1 PCIe SDR50 cards:</a></li>
+    <li><a id="toc-PCIe-SDR100-cards_003a" href="#PCIe-SDR100-cards_003a">2.3.2 PCIe SDR100 cards:</a></li>
+    <li><a id="toc-PCIe-CPRI-Card" href="#PCIe-CPRI-Card">2.3.3 PCIe CPRI Card</a></li>
+  </ul></li>
+  <li><a id="toc-Installation-Steps-1" href="#Installation-Steps-1">2.4 Installation Steps</a></li>
+  <li><a id="toc-How-to-retrieve-a-fixed-license-key" href="#How-to-retrieve-a-fixed-license-key">2.5 How to retrieve a fixed license key</a>
+  <ul class="no-bullet">
+    <li><a id="toc-AMARI-LTE-NW-and-AMARI-NW-Series" href="#AMARI-LTE-NW-and-AMARI-NW-Series">2.5.1 AMARI LTE NW and AMARI NW Series</a></li>
+    <li><a id="toc-AMARI-LTE-UE-and-AMARI-UE-Series" href="#AMARI-LTE-UE-and-AMARI-UE-Series">2.5.2 AMARI LTE UE and AMARI UE Series</a></li>
+    <li><a id="toc-Fixed-License-Files-generation-and-install" href="#Fixed-License-Files-generation-and-install">2.5.3 Fixed License Files generation and install</a></li>
+  </ul></li>
+  <li><a id="toc-How-to-use-the-floating-licenses" href="#How-to-use-the-floating-licenses">2.6 How to use the floating licenses</a>
+  <ul class="no-bullet">
+    <li><a id="toc-License-server-installation" href="#License-server-installation">2.6.1 License server installation</a></li>
+    <li><a id="toc-Connecting-a-component-to-license-server" href="#Connecting-a-component-to-license-server">2.6.2 Connecting a component to license server</a></li>
+  </ul></li>
+  <li><a id="toc-Getting-license-from-a-USB-dongle" href="#Getting-license-from-a-USB-dongle">2.7 Getting license from a USB dongle</a></li>
+  <li><a id="toc-RF-driver-configuration-for-multiple-SDR-card-setup" href="#RF-driver-configuration-for-multiple-SDR-card-setup">2.8 RF driver configuration for multiple SDR card setup</a></li>
+</ul></li>
+<li><a id="toc-Initial-Test-and-Setup" href="#Initial-Test-and-Setup">3 Initial Test and Setup</a>
+<ul class="no-bullet">
+  <li><a id="toc-Automatic-service-configuration" href="#Automatic-service-configuration">3.1 Automatic service configuration</a></li>
+  <li><a id="toc-AMARI-LTE-NW-and-AMARI-NW-Series-1" href="#AMARI-LTE-NW-and-AMARI-NW-Series-1">3.2 AMARI LTE NW and AMARI NW Series</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Select-component" href="#Select-component">3.2.1 Select component</a></li>
+    <li><a id="toc-Exit-screen" href="#Exit-screen">3.2.2 Exit screen</a></li>
+  </ul></li>
+  <li><a id="toc-AMARI-LTE-UE-and-AMARI-UE-Series-1" href="#AMARI-LTE-UE-and-AMARI-UE-Series-1">3.3 AMARI LTE UE and AMARI UE Series</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Access-UE-Simulator" href="#Access-UE-Simulator">3.3.1 Access UE Simulator</a></li>
+    <li><a id="toc-Exit-screen-1" href="#Exit-screen-1">3.3.2 Exit screen</a></li>
+  </ul></li>
+  <li><a id="toc-How-To-Manage-Your-LTE-Automatic-Service" href="#How-To-Manage-Your-LTE-Automatic-Service">3.4 How To Manage Your LTE Automatic Service</a>
+  <ul class="no-bullet">
+    <li><a id="toc-Status" href="#Status">3.4.1 Status</a></li>
+    <li><a id="toc-Stop" href="#Stop">3.4.2 Stop</a></li>
+    <li><a id="toc-Start" href="#Start">3.4.3 Start</a></li>
+    <li><a id="toc-Disable" href="#Disable">3.4.4 Disable</a></li>
+    <li><a id="toc-Enable" href="#Enable">3.4.5 Enable</a></li>
+  </ul></li>
+  <li><a id="toc-How-To-Change-Software-Configuration" href="#How-To-Change-Software-Configuration">3.5 How To Change Software Configuration</a>
+  <ul class="no-bullet">
+    <li><a id="toc-AMARI-LTE-NW-and-AMARI-NW-Series-2" href="#AMARI-LTE-NW-and-AMARI-NW-Series-2">3.5.1 AMARI LTE NW and AMARI NW Series</a></li>
+    <li><a id="toc-AMARI-LTE-UE-and-AMARI-UE-Series-2" href="#AMARI-LTE-UE-and-AMARI-UE-Series-2">3.5.2 AMARI LTE UE and AMARI UE Series</a></li>
+  </ul></li>
+  <li><a id="toc-How-To-Change-Software-Versions" href="#How-To-Change-Software-Versions">3.6 How To Change Software Versions</a></li>
+</ul></li>
+<li><a id="toc-Logging" href="#Logging">4 Logging</a></li>
+<li><a id="toc-Troubleshooting" href="#Troubleshooting">5 Troubleshooting</a>
+<ul class="no-bullet">
+  <li><a id="toc-Contact" href="#Contact">5.1 Contact</a></li>
+</ul></li>
+<li><a id="toc-Additional-Information" href="#Additional-Information">6 Additional Information</a></li>
+
+</ul>
+</div>
+
+
+<span id="Introduction"></span><h2 class="chapter">1 Introduction</h2>
+<p>This document describes how to install and use your AMARI LTE NW and AMARI NW Series as well as AMARI LTE UE and AMARI UE Series software binary licenses.
+It explains basic install procedure and where to find software. For advanced use, please refer to software documentations.
+</p>
+<span id="Background"></span><h3 class="section">1.1 Background</h3>
+<p>The AMARI LTE NW and AMARI NW Series products include the following components:<br>
+</p>
+<ul>
+<li> <code>lteenb</code>: This component is a LTE base station or a LTE/NR base station depending on your license type.
+</li><li> <code>ltemme</code>: This component is an EPC or an EPC/5GC core network depending on your license type.
+</li><li> <code>lteims</code>: This component is an IMS test server.
+</li><li> <code>ltembmsgw</code>: This component is a LTE MBMS Gateway.
+</li><li> <code>trx_&lt;name&gt;</code>: This component is your radio frontend driver where &lt;name&gt; represents your radio frontend type. Examples are <code>trx_sdr</code> for PCIe SDR card and <code>trx_uhd</code> for USRP SDR cards. 
+</li><li> <code>www</code>: this component is in charge of web interface to Amarisoft LTE software. It allows you to control the software and visualize logs.
+</li></ul>
+
+<p>The AMARI LTE UE and AMARI UE Series products include the following components:<br>
+</p><ul>
+<li> <code>lteue</code>: This component is a LTE or LTE/NR UE simulator depending on your license type. It simulates one or more UEs by communicating through a RF system with a base station and core network. 
+</li><li> <code>trx_&lt;name&gt;</code>: This component is your radio frontend driver where &lt;name&gt; represents your radio frontend type. Examples are <code>trx_sdr</code> for PCIe SDR card and <code>trx_uhd</code> for USRP SDR cards. 
+</li><li> <code>www</code>: this component is in charge of web interface to Amarisoft LTE/NR software. It allows you to control the software and visualize logs. 
+</li></ul>
+
+<p>Note that each component has a <var>doc</var> directory where you can find its documentation. Alternatively, all documentations are available for download in our Extranet.
+</p>
+<span id="Install-Guide"></span><h2 class="chapter">2 Install Guide</h2>
+
+<span id="Requirements"></span><h3 class="section">2.1 Requirements</h3>
+
+<p>Before proceeding, make sure that you have:
+</p><ul>
+<li> A fast PC. For best performances, an Intel Core i9 CPU with 18 cores and AVX2 support running at a clock of 4 GHz is recommended for a 5G setup. 
+</li><li> Appropriate hardware interface(s) to connect your Radio frontend, i.e: 
+<ul class="no-bullet">
+<li>- PCIe port: (1x gen 2 per <code>PCIe SDR50 card</code>)
+</li><li>- PCIe port: (8x gen 2 per <code>PCIe SDR100 card</code>)
+</li><li>- PCIe port: (4x gen 2 per <code>PCIe CPRI card</code>)
+</li><li>- One Gigabit Ethernet port per <code>USRP device</code> such as N2x0 
+</li><li>- One USB 3.0 port per <code>USRP device</code> such as B2x0
+</li><li>- One 10 Gigabit Ethernet port per <code>USRP device</code> such as X3x0
+
+</li></ul>
+</li><li> Root privileges to be able to install and run the software.
+
+</li><li> A 64 bit Linux distribution. Fedora 39 is the officially supported distribution.<br>
+The following distributions are known as compatible:
+<ul>
+<li> Fedora 22 to 39
+</li><li> Cent OS 7
+</li><li> Ubuntu 14 to 22
+</li></ul>
+
+<p>Your system requires at least GLIBC 2.17.
+</p>
+
+</li><li> Internet access as new packages might be required to get installed on your PC.
+</li></ul>
+
+<span id="Computer-Setup"></span><h3 class="section">2.2 Computer Setup</h3>
+<table class="cartouche" border="1"><tr><td>
+<p>We strongly advise to restrict the usage of computer for running Amarisoft Software only. Installing or running any other program like graphical user interface can impact real performance of the device.
+</p></td></tr></table>
+<p>Amarisoft provides a Fedora recovery image. This image can be used to setup your custom server with Fedora OS. You can find the details in tech academy at <a href="https://tech-academy.amarisoft.com/Install_RecoveryUSB.html">https://tech-academy.amarisoft.com/Install_RecoveryUSB.html</a>. <br>
+</p>
+<p>The step by step manual install for Fedora is detailed in the follwoing. For other Linux distributions, you should find the the same packages to install.
+</p><ul>
+<li> Install your OS ISO image on the server. 
+</li><li> Install and launch openssh
+<ul class="no-bullet">
+<li>- <code>dnf -y install openssh</code>
+</li><li>- <code>systemctl enable sshd</code>
+</li><li>- <code>nano /etc/ssh/sshd_config (Set PermitRootLogin yes)</code>
+</li><li>- <code>service sshd start</code>
+</li><li>- <code>service sshd status</code>
+</li></ul>
+</li><li> Disable firewall
+<ul class="no-bullet">
+<li>- <code>systemctl disable firewalld</code>
+</li><li>- <code>service firewalld stop</code>
+</li></ul>
+</li><li> Disable SELinux
+<ul class="no-bullet">
+<li>- <code>perl -p -i -e &quot;s/enforcing/disabled/&quot; /etc/selinux/config</code>
+</li><li>- or edit the file /etc/selinux/config and edit the line Selinux to SElinux = disabled
+</li></ul>
+</li><li> Disable graphical GUI
+<ul class="no-bullet">
+<li>- <code>systemctl enable multi-user.target --force</code>
+</li><li>- <code>systemctl set-default multi-user.target</code>
+</li></ul>
+</li><li> Install the following packages
+<ul class="no-bullet">
+<li>- <code>dnf -y install wget screen iperf wireshark lm_sensors make gcc lksctp-tools.x86_64 kernel-devel.x86_64 htop tcpdump perl php php-json</code>
+</li></ul>
+</li><li> Verify that SCTP kernel module is running
+<ul class="no-bullet">
+<li>- <code>checksctp</code>
+</li><li>- if it reports that the protocol is not supported
+</li><li>- check if you have a /etc/modprobe.d/sctp-blacklist.conf file
+</li><li>- edit it to comment the &rsquo;blacklist sctp&rsquo; line
+</li><li>- reboot
+</li></ul>
+</li><li> Verify that httpd is running
+<ul class="no-bullet">
+<li>- <code>service httpd status</code>
+</li><li>- if it is not enabled, type
+</li><li>- <code>systemctl enable httpd</code>
+</li><li>- <code>service httpd start</code>
+</li></ul>
+</li><li> For SW package installation follow the instructions on section See <a href="#Installation-Steps">Installation Steps</a> for more details.
+</li></ul>
+
+<span id="Hardware-Prerequisites"></span><h3 class="section">2.3 Hardware Prerequisites</h3>
+
+<p>Before starting the software installation of your Amarisoft setup, all Radio frontends have to be connected to your PC. 
+</p>
+<p>If your setup is composed of multiple Amarisoft PCIe cards, you need to plug the provided USB or SATA cables between each card in order to synchronize them in time and frequency as described hereunder. 
+</p>
+<span id="PCIe-SDR50-cards_003a"></span><h4 class="subsection">2.3.1 PCIe SDR50 cards:</h4>
+
+<ul>
+<li> Connect internal OUT connector of the first card to IN connector 
+of the second card.
+</li><li> Then do the same with OUT of second card and IN of third one, etc...
+</li><li> Once the SDR cards are connected, you may  have to configure manually the RF driver, see RF configuration section for more details ((See <a href="#RF-Configuration">RF Configuration</a>) 
+</li></ul>
+
+<div align="center"><img src="img/sdr-connect.webp" alt="img/sdr-connect">
+</div>
+<span id="PCIe-SDR100-cards_003a"></span><h4 class="subsection">2.3.2 PCIe SDR100 cards:</h4>
+
+<ul>
+<li> The <code>PCIe SDR100 cards</code> have 3 CLKOUT connectors to simply synchronize up to 4 boards while limiting delays caused by chaining
+</li><li> Select a <code>PCIe SDR100 cards</code> as Master and connect one of the 3 SATA CLKOUT connector to the CLKIN connector of a Slave card
+</li><li> If you have more than 4 <code>PCIe SDR100 cards</code> to connect, use the CLKOUT connectors of one Slave card
+</li><li> Once the SDR cards are connected, you may have to configure manually the RF driver, see RF configuration section for more details ((See <a href="#RF-Configuration">RF Configuration</a>) 
+</li></ul>
+
+<div align="center"><img src="img/sdr100-connect.webp" alt="img/sdr100-connect">
+</div>
+<span id="PCIe-CPRI-Card"></span><h4 class="subsection">2.3.3 PCIe CPRI Card</h4>
+
+<ul>
+<li> Insert the CPRI cards into PCIe slots of the server. The PCIe slot should be at least Gen2 x4. One CPRI card is needed per NR cell 100 MHz 4x4. For a NSA setup, 2 CPRI cards are required and they should be synchronized. The synchronization is done by a SATA cable connected to the SYNC OUT connector of the master card at one side and to the SYNC IN connector of the slave card at the other side, as depicted in the following image. <br>
+<div align="center"><img src="img/cpri_sync.webp" alt="img/cpri_sync">
+</div>
+
+</li><li> Each CPRI card is identified by a Linux device. When you install several CPRI cards, the mapping between the PCIe cards and the Linux devices is not predictable and you may have to configure manually the RF driver, see RF configuration section for more details ((See <a href="#RF-Configuration">RF Configuration</a>). 
+
+</li><li> Amarisoft PCIe CPRI board uses the same driver as the Amarisoft PCIe SDR board. So during the install phase, you should choose <code>sdr</code> as your RF board. Board type is recognized automatically by the driver.  <br>
+</li></ul>
+
+<span id="Installation-Steps-1"></span><h3 class="section">2.4 Installation Steps</h3>
+<span id="Installation-Steps"></span><p>To automatically install the software binary package on your PC, you need to follow these steps. Depending on your RF board, you will find a TRX driver in your package. The installation process will also update eNodeB configuration to use the corresponding TRX driver. 
+</p><ul>
+<li> Download your release from Amarisoft Extranet at <code>https://extranet.amarisoft.com/</code>
+<br>The downloaded file would be a tarball file: <var>amarisoft.YYYY-MM-DD.tar.gz</var> where YYYY-MM-DD is the release date. 
+</li><li> Put this file on the PC at any place using the method you want (scp, http, USB key...) and extract it:
+<div class="example">
+<pre class="example">tar xzf amarisoft.YYYY-MM-DD.tar.gz
+</pre></div>
+<p>This would create a directory called YYYY-MM-DD.
+</p></li><li> As <code>root</code>, Go to the directory YYYY-MM-DD and execute the provided script <em>install.sh</em> as follows:
+<div class="example">
+<pre class="example">./install.sh &lt;path&gt; --default
+</pre></div>
+<ul class="no-bullet">
+<li>- By default if no <code>&lt;path&gt;</code> is specified, components are installed in <code>/root</code>, you can choose other directories by specifying a new destnation in <code>&lt;path&gt;</code>. Please note that <code>www</code> component will always be located under <code>/var/www/html</code> in Fedora or <code>/var/www</code> in Ubuntu.
+</li><li>- The <code>--default</code> option forces answer to default for all questions asked during install phase. The default answers for <code>AMARI LTE NW and AMARI NW Series</code> are depicted below:
+<div align="center"><img src="img/install_steps_default_lte100.webp" alt="img/install_steps_default_lte100">
+</div><p>The default answers for <code>AMARI LTE UE and AMARI UE Series</code> are depicted below:
+</p><div align="center"><img src="img/install_steps_default_lteue100.webp" alt="img/install_steps_default_lteue100">
+</div></li></ul>
+<p>Take a look at messages at the end of install phase, you may be requested to power on/off your PC. This would be the case if there is, for example, an FPGA upgrade of your PCIe SDR card. <br>
+If you would like to have a custom install, you can run the script without <code>--default</code> option and answer each question separately. For <code>AMARI LTE NW and AMARI NW Series</code> product, this would typically be the case if you do not want to enable automatic LTE service or if you would like to install eNB and MME components on different PCs.
+</p></li></ul>
+
+
+<br>
+<br>
+<br>
+<p>Once the installation phase is completed, you will need license files to use your system.
+Depending on the purchased license type, there are different ways to activate your system:  
+</p><ul>
+<li> <strong>Fixed license :</strong> Each license delivered is dedicated to one specific PC. There is no possibility to share the keys or move to another setup. The installation procedure is described in chapter 2.5.
+</li><li> <strong>Floating license with license server:</strong> The second method consists in using a floating license provided by a license server. This mechanism is relevant when you want to timeshare the license between different hardware or users or when the system is running on virtual machines. The installation procedure is described in chapter 2.6.
+</li><li> <strong>Floating license in USB dongle:</strong> The third mechanism consists in using a floating license embedded in a USB dongle . It&rsquo;s also relevant for time sharing but less convenient than a floating license running on a server when it comes to the mobility. The installation procedure is described in chapter 2.7.
+</li></ul>
+<br>
+<br>
+
+<span id="How-to-retrieve-a-fixed-license-key"></span><h3 class="section">2.5 How to retrieve a fixed license key</h3>
+<span id="AMARI-LTE-NW-and-AMARI-NW-Series"></span><h4 class="subsection">2.5.1 AMARI LTE NW and AMARI NW Series</h4>
+
+<p>First thing is to start the software. If you have answered <code>yes</code> to the question <code>Do you want to enable LTE automatic service?</code>, then the software has already been started. In this case, you need to access LTE service screen to get your hexadecimal code. You can use the following command for this purpose:
+</p><div class="example">
+<pre class="example">screen -x lte
+</pre></div>
+
+<p>This will connect you to different component monitors. You should see a message stating that the license key is not present and printing a 16 digits hexadecimal code.
+</p>
+<p>If you have not started LTE automatic service, then you need to start the software manually. The software package is located by default in <code>/root</code> unless you have specified another <code>path</code> when running <code>install.sh</code> script.
+Below is the procedure to start all software components one by one assuming default path is used during the install:
+</p>
+<div class="example">
+<pre class="example">cd /root/mme
+./ltemme config/mme.cfg
+cd ../ims
+./lteims config/ims.cfg
+cd ../mbms
+./ltembms 
+cd ../enb
+./lteenb config/enb.cfg
+</pre></div>
+
+<p>Once the software is started, you will see the same hexadecimal code printed by each software component.
+Please communicate to <code>delivery@amarisoft.com</code> the code to generate the license files 
+</p>
+<table class="cartouche" border="1"><tr><td>
+<p>NOTE : The fixed license keys are deeply linked to Hardware where the hexadecimal code has been generated.
+It&rsquo;s by consequence not possible to move the license key on a new hardware or replace pieces such as the Network Interface Controller.
+If you expect to replace your hardware, we recommend to use a floating license (see below), which is Hardware agnostic. 
+<br>Please contact <code>delivery@amarisoft.com</code> before keys are generated if you want to change your license type
+</p></td></tr></table>
+
+<span id="AMARI-LTE-UE-and-AMARI-UE-Series"></span><h4 class="subsection">2.5.2 AMARI LTE UE and AMARI UE Series</h4>
+<p>If you have answered <code>yes</code> to the question <code>Do you want to enable LTE automatic service?</code>, then the UE simulator has already been started. In this case, you need to access LTE service screen to get the code. You can use the following command for this purpose:
+</p><div class="example">
+<pre class="example">screen -x lte
+</pre></div>
+
+<p>This will connect you to the UE simulator monitor. You should see a message stating that the license key is not present and printing a 16 digits hexadecimal code.
+</p>
+<p>If you have not started LTE automatic service, then you need to start the software manually. The UE simulator software is located by default in <code>/root</code> unless you have specified another <code>path</code> when running <code>install.sh</code> script. You can start it manually with following commands assuming default path is used during the install:
+</p>
+<div class="example">
+<pre class="example">cd /root/ue
+./lteue config/ue.cfg
+</pre></div>
+
+<p>Once the software started, you will see the hexadecimal code printed in the screen.
+</p>
+<span id="Fixed-License-Files-generation-and-install"></span><h4 class="subsection">2.5.3 Fixed License Files generation and install</h4>
+
+<p>Next steps are:
+</p><ul>
+<li> Send this hexadecimal code by email to <code>delivery@amarisoft.com</code>. License key files will be generated in Amarisoft Extranet. You will get an email when they are available for download.
+</li><li> Downloaded your license key files from our Extranet. You need to have an active account to connect to our Extranet. If you do not have one, send an email to <code>delivery@amarisoft.com</code> to request one.
+</li><li> Create a directory called <samp>.amarisoft</samp> under <code>${HOME}</code> where <code>${HOME}</code> is the home directory of the <code>root</code> user. (exemple /root/.amarisoft ) 
+</li><li> Copy the license files inside <samp>.amarisoft</samp> directory.
+</li></ul>
+
+<p>Once the license key files are installed, you need to restart the system.
+</p>
+<span id="How-to-use-the-floating-licenses"></span><h3 class="section">2.6 How to use the floating licenses</h3>
+<span id="License-server-installation"></span><h4 class="subsection">2.6.1 License server installation</h4>
+
+<p>First thing to do for using one or several floating licenses is to install a license server. This server can be run on one Amarisoft setup or on a dedicated PC. 
+</p><br>
+<br><p>If you use a dedicated PC , there is no Hardware requirement. <br>Just make sure that this PC can be reachable from other PCs running eNodeB or EPC and that you have : 
+</p><ul>
+<li> Root privileges.
+
+</li><li> A 64 bit Linux distribution. Fedora 39 is the officially supported distribution.<br>
+The following distributions are known as compatible:
+<ul>
+<li> Fedora 22 to 39
+</li><li> Cent OS 7
+</li><li> Ubuntu 14 to 22
+</li></ul>
+
+<p>Your system requires at least GLIBC 2.17.
+</p>
+
+</li></ul>
+
+<br>
+<br><p>To configure your <strong>license server</strong> PC :
+</p><ul>
+<li> Plug the USB dongle provided by Amarisoft in your PC. The dongle has to be mounted on your system.
+</li><li> Download from Amarisoft extranet the floating licenses for all components and copy them on your PC under $HOME/.amarisoft/floating/ directory (as instance  /root/.amarisoft/floating/) 
+</li><li> Copy the ltelicense-linux-YYYY-MM-DD.tar.gz from your release tarball on your PC 
+</li><li> Untar it with &quot;tar xzf ltelicense-linux.YYYY-MM-DD.tar.gz&quot; command. This would create a directory called YYYY-MM-DD.
+</li><li> Go to the directory YYYY-MM-DD and execute the following command with ROOT priviledges. The LTELICENSE can be run directly from the directory it has been unpacked. 
+<div class="example">
+<pre class="example">./ltelicense_server config/license.cfg 
+</pre></div>
+
+</li></ul>
+
+<span id="Connecting-a-component-to-license-server"></span><h4 class="subsection">2.6.2 Connecting a component to license server</h4>
+
+<p>Once the license server is up and running, you can now configure the Amarisoft components (i.e eNB, MME etc.. ) so they can connect to the server and retrieve the floating license.
+</p>
+<ul>
+<li> On your PC (where the component is running), create a directory called <samp>.amarisoft</samp> under <code>${HOME}</code> where <code>${HOME}</code> is the home directory of the <code>root</code> user. (example /root/.amarisoft ) 
+</li><li> Under this directory, create a license_server.cfg file and add the license server parameters :
+
+<p>Example : 
+</p>
+<div class="example">
+<pre class="example">{
+    license_server: {
+        server_addr: &quot;192.168.1.1&quot;
+    }
+}
+</pre></div>
+
+</li><li> Then change the server_addr value with the IP address of your license server . 
+</li></ul>
+
+
+<span id="Getting-license-from-a-USB-dongle"></span><h3 class="section">2.7 Getting license from a USB dongle</h3>
+
+<p>When using a floating license in USB dongle, the only thing to do is to plug the USB key provided by Amarisoft on your PC and verify that it is mounted. 
+</p>
+<br><p>If the USB is not mounted automatically, you can do it manually by following the steps below:  
+</p>
+<ol>
+<li> Detect the USB hard disk drive 
+<div class="example">
+<pre class="example">As root , type &quot;fdisk -l&quot; once the USB dongle is plugged 
+</pre></div>
+
+<p>You should see a new Device enumerated with name &quot;/dev/sdxx&quot; 
+</p><div class="example">
+<pre class="example">example:  <code> /dev/<b>sdb1</b>  *       56 15974399 15974344  7.6G  b W95 FAT32 </code>
+</pre></div>
+</li><li> Create a mount point with command:   <code>mkdir &lt;dir_name&gt; </code>
+<div class="example">
+<pre class="example">example:   &quot;mkdir /media/usb-drive&quot;
+</pre></div>
+</li><li> Mount USB drive with command: <code>mount &lt;source=device_name&gt; &lt;directory&gt;</code>
+<div class="example">
+<pre class="example">example:   &quot;mount /dev/sdb1 /media/usb-drive&quot;  
+</pre></div>
+
+</li></ol>
+<p>The USB dongle should now be detected and amarisoft components should be able to get the license keys from the dongle
+</p>
+
+<span id="RF-Configuration"></span><span id="RF-driver-configuration-for-multiple-SDR-card-setup"></span><h3 class="section">2.8 RF driver configuration for multiple SDR card setup</h3>
+
+<p>If your setup is composed of one Amarisoft PCIe card only or if you use different Radio frontend models you can skip this section. 
+<br>Otherwise, please read it as you may have to configure the SDR configuration manually.
+<br>
+<br>
+Each <code>PCIe SDR50 card</code> has a unique device number assigned when the kernel driver is started.
+Each <code>PCIe SDR100 card</code> creates 2 sdr devices: the master (TX/RX1 and TX/RX2) is assigned an even number and the slave (TX/TX3 and TX/RX4) is assigned the following odd device number: sdr0 and sdr1 for example.<br>
+Each <code>PCIe CPRI card</code> has a unique device number assigned when the kernel driver is started.
+</p>
+<br><p>When your setup is composed of several PCIe cards, the mapping between the PCIe connectors and the Linux
+devices is not predictable (but it should not change after each boot).
+</p>
+<br><p>Ideally, the mapping should follow the PCIe slot position and should result in : 
+</p><div class="example">
+<pre class="example">PCIe slot#0=&gt;dev/sdr0
+PCIe slot#1=&gt;dev/sdr1 
+PCIe slot#2=&gt;dev/sdr2
+etc ..  
+</pre></div>
+
+<div align="center"><img src="img/sdr-mapping.webp" alt="img/sdr-mapping">
+</div>
+<br><p>Unfortunately, this is not always the case. As a consequence, the first time you boot your system, you have to identify the position of the SDR cards by following the steps below and force the &quot;sdr mapping&quot; in order to align the linux device names and their physical positions.
+</p>
+<br><p>To do so: 
+</p><ol>
+<li> Stop LTE service with &quot;service lte stop&quot; command
+</li><li> Under /root/trx_sdr folder, run &quot;./sdr_util -c 0 led 1&quot; command to identify the SDR card#0 (/dev/sdr0)
+<br>This command will turn ON the led on the SDR card#0 
+</li><li> Once identified, turn off the led with the &quot;./sdr_util -c 0 led 0&quot; command.
+</li><li> Repeat steps 2 and 3 for each card:  &quot;/sdr_util -c &lt;n&gt; led 1&quot; where &lt;n&gt; is the index of the card.
+
+<p>Once you have identified all SDR card positions, you may have something similar to this (where SDR names are misaligned with their positions)  
+</p><div align="center"><img src="img/sdr-mapping2.webp" alt="img/sdr-mapping2">
+</div>
+<p>In that case, you need to force the sdr mapping by following the steps below : 
+</p></li><li> As root, create the file /etc/sdr-mapping
+</li><li> Edit the file and fill it with the sdr mapping identified thanks to the steps above 
+<br> In this example, the file shoud be filled this way: 
+<br> 0 4 3 2 1 
+   
+
+</li><li> Reload the RF driver by doing a power cycle of the box (a soft reboot is not enough) 
+</li></ol>
+
+
+<p>After the power cycle, you can verify that SDR mapping is OK now by repeating the steps 1,2,3,4.  
+</p>
+<table class="cartouche" border="1"><tr><td>
+<p>Note: This procedure must be run each time a SDR card is added or remove
+</p></td></tr></table>
+<p>For more details , please refer to trx_sdr.pdf documentation  
+</p>
+
+
+<span id="Initial-Test-and-Setup"></span><h2 class="chapter">3 Initial Test and Setup</h2>
+
+<span id="Automatic-service-configuration"></span><h3 class="section">3.1 Automatic service configuration</h3>
+<p>This section only applies to product with automatic LTE service.
+The LTE automatic service uses <code>/root/ots/config/ots.cfg</code> for its configuration.<br>
+The format is shell.<br>
+</p>
+<p>The default configuration file is generated during installation.<br>
+To use your own configuration we recommend to create a new file and change <code>/root/ots/config/ots.cfg</code>
+symbolic link to point to your file.<br>
+Else, your changes will be overriden at next software install/upgrade.<br>
+</p>
+<p>Example:<br>
+Create a my-ots.cfg file and put the following inside:
+</p><pre class="verbatim"># Include default configuration
+source ots.default.cfg
+
+# Add your custom config
+MME_CONFIG_FILE=/root/mme/config/my-mme.cfg
+</pre>
+<p>Then:
+</p><pre class="verbatim">cd /root/ots/config
+rm -f ots.cfg
+ln -s my-ots.cfg ots.cfg
+</pre>
+
+
+<span id="AMARI-LTE-NW-and-AMARI-NW-Series-1"></span><h3 class="section">3.2 AMARI LTE NW and AMARI NW Series</h3>
+<p>This section only applies to AMARI LTE NW and AMARI NW Series products with automatic LTE service. 
+Once you are logged on your callbox, you can access software components (eNB, MME, IMS or MBMSGW) using screen command:
+</p>
+<div class="example">
+<pre class="example">screen -x lte
+</pre></div>
+
+<p>This will connect you to different component monitor.<br>
+</p><div align="center"><img src="img/screen.webp" alt="img/screen">
+</div>
+<p>Next sections show you basic methods. For more information please refer to <code>screen</code>
+documentation (<a href="https://www.gnu.org/software/screen/manual/screen.html">https://www.gnu.org/software/screen/manual/screen.html</a>).
+</p>
+<span id="Select-component"></span><h4 class="subsection">3.2.1 Select component</h4>
+
+<p>Each component monitor is inside a window. You can switch from a window to another with the command:
+</p>
+<div class="example">
+<pre class="example">ctrl+a &lt;window index&gt;
+</pre></div>
+
+<p>Where window index is:
+</p><ul>
+<li> 0 MME
+</li><li> 1 eNB
+</li><li> 2 MBMSGW
+</li><li> 3 IMS
+</li></ul>
+<table class="cartouche" border="1"><tr><td>
+<p>Note: press simultaneously <code>CTRL</code> key and <code>a</code> key, release them, then press number key.
+</p></td></tr></table>
+<p>You can also switch to next window:
+</p>
+<div class="example">
+<pre class="example">ctrl+a &lt;space&gt;
+</pre></div>
+
+<p>Each component screen offers a list of commands that can be used either to get status or trigger action.
+Each of them are documented in the component documentations (example lteenb.pdf) or inline with the &quot;help&quot; command 
+</p>
+<div align="center"><img src="img/help.webp" alt="img/help">
+</div>
+<span id="Exit-screen"></span><h4 class="subsection">3.2.2 Exit screen</h4>
+
+<div class="example">
+<pre class="example">ctrl+a d
+</pre></div>
+
+
+<span id="AMARI-LTE-UE-and-AMARI-UE-Series-1"></span><h3 class="section">3.3 AMARI LTE UE and AMARI UE Series</h3>
+<p>This section only applies to AMARI LTE UE and AMARI UE Series products with automatic LTE service. 
+</p><span id="Access-UE-Simulator"></span><h4 class="subsection">3.3.1 Access UE Simulator</h4>
+<p>Once you are logged in PC, you can access UE simultor using screen command:
+</p>
+<div class="example">
+<pre class="example">screen -x lte
+</pre></div>
+
+<p>This will connect you to UE simulator monitor.<br>
+</p>
+<p>For more information please refer to <code>screen</code> documentation (<a href="https://www.gnu.org/software/screen/manual/screen.html">https://www.gnu.org/software/screen/manual/screen.html</a>).
+</p>
+<span id="Exit-screen-1"></span><h4 class="subsection">3.3.2 Exit screen</h4>
+
+<div class="example">
+<pre class="example">ctrl+a d
+</pre></div>
+
+
+<span id="How-To-Manage-Your-LTE-Automatic-Service"></span><h3 class="section">3.4 How To Manage Your LTE Automatic Service</h3>
+<p>This section applies to automatic LTE service for both AMARI LTE NW and AMARI NW Series and AMARI LTE UE and AMARI UE Series.
+</p>
+<span id="Status"></span><h4 class="subsection">3.4.1 Status</h4>
+<p>You can check the LTE service status this way:
+</p><div class="example">
+<pre class="example">service lte status
+</pre></div>
+<p>The command will return &quot;<code>active (running)</code>&quot; status if service is running 
+</p>
+<span id="Stop"></span><h4 class="subsection">3.4.2 Stop</h4>
+<p>You can stop all LTE components this way:
+</p><div class="example">
+<pre class="example">service lte stop
+</pre></div>
+
+<span id="Start"></span><h4 class="subsection">3.4.3 Start</h4>
+
+<p>You can start them again this way:
+</p><div class="example">
+<pre class="example">service lte start
+</pre></div>
+
+<span id="Disable"></span><h4 class="subsection">3.4.4 Disable</h4>
+
+<p>You may also prevent them to start at boot time:
+</p><div class="example">
+<pre class="example">systemctl disable lte
+</pre></div>
+
+<br><p>NB: lte service remains enable until next reboot
+<br>NB2: this command is not available on Ubuntu version &lt;= 14
+</p>
+
+<span id="Enable"></span><h4 class="subsection">3.4.5 Enable</h4>
+
+<p>You may enable service at boot time this way:
+</p><div class="example">
+<pre class="example">systemctl enable lte
+</pre></div>
+
+<br><p>NB: lte service remains disable until next reboot
+<br>NB2: this command is not available on Ubuntu version &lt;= 14
+</p>
+
+
+<span id="How-To-Change-Software-Configuration"></span><h3 class="section">3.5 How To Change Software Configuration</h3>
+<span id="AMARI-LTE-NW-and-AMARI-NW-Series-2"></span><h4 class="subsection">3.5.1 AMARI LTE NW and AMARI NW Series</h4>
+<p>This section only applies to AMARI LTE NW and AMARI NW Series with automatic LTE service.
+</p>
+<p>The LTE automatic service starts each component with the following config files:
+</p><ul>
+<li> eNB <code>/root/enb/config/enb.cfg</code>
+</li><li> MME <code>/root/mme/config/mme.cfg</code>
+</li><li> IMS <code>/root/mme/config/ims.cfg</code>
+</li><li> MBMSGW <code>/root/mbms/config/mbmsgw.cfg</code>
+</li></ul>
+
+<p>Please note that these files are symbolic links to real configuration files as depicted below for <code>enb.cfg</code>.
+</p><div align="center"><img src="img/symb_link_config.webp" alt="img/symb_link_config">
+</div>
+<p>In order to change the configuration, you have two options:
+</p><ul>
+<li> Editing the above files to change the configuration directly.
+</li><li> Changing the symbolic link to point to another configuration file. Following example shows the commands to change the default config to a carrier aggregation configuration on eNodeB side.
+<div class="example">
+<pre class="example">cd /root/enb/config
+rm enb.cfg
+ln -s enb-2cc.cfg enb.cfg
+</pre></div>
+</li></ul>
+
+<p>Once you have changed your config, you need to restart the LTE service using the following command:
+</p>
+<div class="example">
+<pre class="example">service lte restart
+</pre></div>
+
+<p>NB: you may use screen to check that all components are correctly started.
+</p>
+<p>For more details on config files, please refer to each component documentation.<br>
+</p>
+<span id="AMARI-LTE-UE-and-AMARI-UE-Series-2"></span><h4 class="subsection">3.5.2 AMARI LTE UE and AMARI UE Series</h4>
+<p>This section only applies to AMARI LTE UE and AMARI UE Series with automatic LTE service.
+</p>
+<p>The LTE automatic service starts UE Simulator with the following config:
+</p>
+<ul>
+<li> UE <code>/root/ue/config/ue.cfg</code>
+</li></ul>
+
+<p>In order to change the configuration, you have to:
+</p><ul>
+<li> Edit the <code>ue.cfg</code> file to change the configuration.
+</li><li> restart the LTE service by typing <code>service lte restart</code>
+</li></ul>
+<p>For more details on config files, please refer to UE Simulator documentation.<br>
+</p>
+<span id="How-To-Change-Software-Versions"></span><h3 class="section">3.6 How To Change Software Versions</h3>
+
+<p>All software components are installed in <code>/root</code> directory by default. You may find different versions of each component within the <code>/root</code> directory.
+</p>
+<p>The systems uses symlinks (mme, enb, mbms, ue) that points to a version of each component as depicted below. <br>
+</p><div align="center"><img src="img/symb_link_version.webp" alt="img/symb_link_version">
+</div><p>You can change those links if you need to change software version to use.
+</p>
+
+<span id="Logging"></span><h2 class="chapter">4 Logging</h2>
+<p>Components put their current logs in <code>/tmp</code> directory. However, you can also have access to a Web tool on the following URL that helps you visualize the logs as well as some useful stats for real time analysis. 
+</p>
+<p>To get access to this log , open a web browser (Chrome or Firefox) on you remote PC and connect to http://&lt;my IP&gt;/lte/    ,where <code>my IP</code> is the IP address of your PC where the Amarisoft software is running.
+</p>
+<p>This will open a web page composed of three panels. 
+</p>
+<img src="img/gui_ltewww_def.webp" alt="img/gui_ltewww_def">
+
+<p>To display log and/or interact with Amarisoft software, you need to add a client (click <code>Add server</code> button as shown in picture below) 
+The list of your client is displayed on left panel of the interface. 
+</p>
+<img src="img/gui_ltewww_server.webp" alt="img/gui_ltewww_server">
+
+<p>Enter name you want to appear on client panel, set the IP address of your component PC and the port of your software component. 
+</p>
+<br><p>*Note : each software component uses a specific port. To know this value, look at <em>com_addr</em> value in its configuration file (example ims.cfg). 
+</p>
+<p>Format is : <em>com_addr: &quot;&lt;IP Address&gt;:&lt;Port Number&gt;&quot;</em>
+<br>Where &lt;IP Address&gt; is the IP address of the WebSocket server remote API and &lt;port Number&gt; the port on which it listens. The WebSocket server for remote API will be enabled and bound to this address and port number.
+</p>
+<p>The default values used in configuration files are:
+</p><div class="example">
+<pre class="example">in /root/mme/config/ims.cfg , com_addr: &quot;[::]:9003&quot;
+in /root/mme/config/mme.cfg , com_addr: &quot;[::]:9000&quot;
+in /root/enb/config/com_addr , com_addr: &quot;[::]:9001&quot;
+</pre></div>
+
+<br><p> Port 9003 is used for IMS , 9000 for MME and 9001 for eNB.
+</p>
+<br><p>Note: [::] will make remote API reachable from any network interface. 
+</p>
+<br>
+<br>
+<p>After clicking on <code>Create</code> button, the client will try to connect.
+If connection is successful, the configuration window will appear so that you configure logs:
+</p>
+<img src="img/gui_ltewww_server2.webp" alt="img/gui_ltewww_server2"> 
+
+<p>For each layer you can define a level of trace, from <code>None</code> to <code>Debug</code> (which gives the highest verbosity for the layer) 
+:
+</p><ul>
+<li> Filter. This is the level of log that will be downloaded to the GUI.
+  </li><li> Level. This is the level of log on the component, as defined in <code>log_options</code>
+  of its configuration file) and will override its configuration.<br>
+  As a result, each time the client connects to the component, it will apply the configuration,
+  overriding its current config.
+  </li><li> Max size. Log data size as defined in <code>log_options</code> of its configuration file.
+</li></ul>
+
+<p>Of course, you can keep default configuration and simply click on Update.
+</p>
+<p>The <img src="img/lightning_red.webp" alt="img/lightning_red"> icon means the client is not connected whereas
+<img src="img/lightning.webp" alt="img/lightning"> means the client is connecting and
+<img src="img/lightning_green.webp" alt="img/lightning_green"> means the client is connected.
+</p>
+<p>When connected, a new tab will appear in main tab panel and provide you advanced features.
+</p><br>
+<p>NOTE : If the client fails to connect and start logging , please check that HTTPD service ing on your component PC 
+</p><div class="example">
+<pre class="example">service httpd status
+</pre></div>
+<br>
+<p>For more details, please refer to <code>ltewww</code> documentation
+</p>
+<span id="Troubleshooting"></span><h2 class="chapter">5 Troubleshooting</h2>
+<p>Below are some of the most common issues encountered during install phase with recommended actions to address each issue.
+</p><table>
+<thead><tr><th width="40%">Issue</th><th width="60%">Cause/Correction</th></tr></thead>
+<tr><td width="40%"><code>Could not load ./trx_uhd.so' (Operation not supported)</code></td><td width="60%">Fedora 23 and Ubuntu 16 are using C++11 ABI and thus UHD driver is not compatible.
+If you are in this case, please edit your RF config file and update name of RF driver part from <code>uhd</code>
+to <code>uhd_cxx11</code>.</td></tr>
+<tr><td width="40%"><code>trx_lms7002m.cpp:30:28: fatal error: lime/LimeSuite.h: No such file or directory</code> <br></td><td width="60%">You need to first install LMS Suite available in URL <code>https://wiki.myriadrf.org/Lime_Suite</code>.</td></tr>
+<tr><td width="40%"><code>TRX discontinuity too wide</code> seen after running eNodeB</td><td width="60%">The most likely explanation is that not enough CPU time is available. Below is a check list:
+<ul>
+<li> Run <code>lte_init.sh</code> script available under <code>enb</code> and <code>ue</code> directories.
+</li><li> Run the Linux <code>top - H</code> command to check if there is not any process taking the CPU. 
+</li><li> Remove unnecessary drivers and peripherals such as WiFi dongle.
+</li><li> If you use a HDMI monitor, remove it and access the system remotely by SSH for instance.
+</li><li> Ensure that your CPU is fast enough. It should be at least a Intel 4 Core i7 with a clock running at 3.6 GHz.
+</li><li> Remove unused daemons or cron jobs.
+</li></ul></td></tr>
+<tr><td width="40%">PC crashes or freezes during install phase or few seconds after running the SW</td><td width="60%">If you use PCIe card, below is a list to check:
+<ul>
+<li> Make sure your PCIe card is correctly inserted in the slot. Sometimes a loose card could lead to PC freeze or software crash.
+</li><li> Change the slot of your PCIe card in case there is an issue with this particular slot.
+</li><li> Check the version of your PCIe bus. You need a PCIe bus 1x generation 2. You can check it by typing the Linux commend <code>lspci --vv</code> and looking at a line with <code>LnkCtl2: Target Link Speed</code>. The generation of your PCIe bus could be identified by its speed: Data Transfer Rate: PCIe 3.0 = 8.0GT/s, PCIe 2.0= 5.0GT/s, PCIe 1.1 = 2.5GT/s.
+</li></ul></td></tr>
+<tr><td width="40%">Install script returns the following error message when using PCIe SDR card: <br>
+<code>insmod: ERROR: could not insert module sdr.ko: Invalid module format</code>.</td><td width="60%">This error means that the driver module is not compatible with the kernel version of your PC. You should rebuild and reload the driver as below. Make sure you reboot the system.
+<div class="example">
+<pre class="example">cd /root/trx_sdr/kernel
+make clean
+make
+./init.sh
+</pre></div></td></tr>
+<tr><td width="40%">Install script returns the following error message when using PCIe SDR card: <br>
+<code>nsmod: ERROR: could not insert module sdr.ko: Required key not available</code>.<br></td><td width="60%">This error comes from the Linux kernel because you are trying to load an unsigned SDR driver. It means that secure boot is activated. You should go to the BIOS settings and deactivate it.
+<br></td></tr>
+<tr><td width="40%">license error when running Amarisoft software components: <br>
+<code>license /root/.amarisoft/ltexxx.key error 0xd</code>. <br></td><td width="60%">This error is because the key file does not correspond to the software component which is being run. Typically, you will see this error when running ltemme software with lteenb.key as an example.</td></tr>
+<tr><td width="40%">license error when running Amarisoft software components: <br>
+<code>SSL error when loading license /root/.amarisoft/ltexxx.key</code>. <br></td><td width="60%">This error could be casued either due to firewall or due to bad SSL libraries. In order to fix it:
+<ul>
+<li> Please deactivate firewall by typing <code>service firewalld stop</code>. 
+</li><li> Always use the provided script <code>install.sh</code> that copies the right SSL libraries. Avoid manual copying and installing of the software directories. 
+</li></ul></td></tr>
+</table>
+
+
+<span id="Contact"></span><h3 class="section">5.1 Contact</h3>
+<ul>
+<li> Our Extranet site is located at <code>extranet.amarisoft.com</code>. This site would give you access to our documentation and new releases.
+</li><li> For all technical issues, you can create a ticket describing your problem on our support site at <code>support.amarisoft.com</code>. Please note that you need to have an active account in our Extranet in order to be able to login to our support site. Your credentials are the same as the ones you use to access Extranet.
+</li><li> our FTP server is located at <code>ftp.amarisoft.com</code>. This server should be used to exchange big logs. Your credentials are the same as the ones you use to access Extranet. Please note that you need to use an FTP client supporting SSL such as Filezilla. 
+</li><li> For any request concerning license delivery or addition of new accounts, please send an email to <code>delivery@amarisoft.com</code>.
+
+</li></ul>
+
+
+<span id="Additional-Information"></span><h2 class="chapter">6 Additional Information</h2>
+
+<p>This document is copyright (C) 2012-2025 Amarisoft. Its redistribution
+without authorization is prohibited.
+</p>
+<p>This document is available without any express or implied warranty and is subject to change without notice. In
+no event will Amarisoft be held liable for any damages arising from the use of this document.
+</p>
+<p>For any technical issue, please raise a ticket from our support site at <a href="https://support.amarisoft.com/">https://support.amarisoft.com/</a>.
+<br>
+To learn more about our technology and solutions, e-mail us at <a href="mailto:customer@amarisoft.com">customer@amarisoft.com</a> or visit <a href="https://www.amarisoft.com">https://www.amarisoft.com</a>.
+</p>
+
+
+<hr>
+
+
+
+</body>
+</html>
