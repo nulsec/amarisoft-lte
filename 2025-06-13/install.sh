@@ -1707,7 +1707,7 @@ if [ -d "licenses" ] ; then
     declare -A DONGLE_PATH
     LICENSE_DUP=()
     LICENSE_PATH="${USERDIR}/.amarisoft/"
-    CUSTOMER_KEY="c7b2ee871d7d4772647de1c24211991b"
+    CUSTOMER_KEY="bf1edace08cd59d183b2618d7b2fbf51"
     PAT_LUID="license_uid=\K[\d_]+"
     PAT_ID="([\da-f]{2}-){7}[\da-f]{2}"
 
