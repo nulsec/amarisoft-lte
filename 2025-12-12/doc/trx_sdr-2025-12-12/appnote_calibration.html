@@ -1,0 +1,236 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 6.6, http://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>PCIe SDR Card Calibration</title>
+
+<meta name="description" content="PCIe SDR Card Calibration">
+<meta name="keywords" content="PCIe SDR Card Calibration">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+
+th {
+    border: 1px solid black;
+    background-color: #c0f585;
+    font-size: 14px;
+    padding: 5px;
+}
+
+td {
+    border: 1px solid black;
+    padding: 2px 4px;
+}
+
+p>img {
+    display: initial;
+}
+
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">PCIe SDR Card Calibration</h1>
+
+<span id="SEC_Contents"></span>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+<ul class="no-bullet">
+<li><a id="toc-Introduction" href="#Introduction">1 Introduction</a></li>
+<li><a id="toc-Frequency-Calibration" href="#Frequency-Calibration">2 Frequency Calibration</a>
+<ul class="no-bullet">
+  <li><a id="toc-Frequency-Error-Measurement" href="#Frequency-Error-Measurement">2.1 Frequency Error Measurement</a></li>
+  <li><a id="toc-Frequency-Calibration-Methodology" href="#Frequency-Calibration-Methodology">2.2 Frequency Calibration Methodology</a></li>
+  <li><a id="toc-Frequency-Calibration-with-GPS" href="#Frequency-Calibration-with-GPS">2.3 Frequency Calibration with GPS</a></li>
+</ul></li>
+<li><a id="toc-DL-Power-Calibration" href="#DL-Power-Calibration">3 DL Power Calibration</a>
+<ul class="no-bullet">
+  <li><a id="toc-DL-Power-Measurement" href="#DL-Power-Measurement">3.1 DL Power Measurement</a></li>
+  <li><a id="toc-DL-Power-Calibration-Methodology" href="#DL-Power-Calibration-Methodology">3.2 DL Power Calibration Methodology</a></li>
+</ul></li>
+<li><a id="toc-UL-Power-Calibration" href="#UL-Power-Calibration">4 UL Power Calibration</a></li>
+<li><a id="toc-Additional-Information" href="#Additional-Information">5 Additional Information</a></li>
+
+</ul>
+</div>
+
+
+
+<span id="Introduction"></span><h2 class="chapter">1 Introduction</h2>
+
+<p>This application note explains how to calibrate Amarisoft PCIe SDR card.  
+</p>
+<span id="Frequency-Calibration"></span><h2 class="chapter">2 Frequency Calibration</h2>
+
+<p>Amarisoft PCIe card has a maximum frequency error less than 2 ppm. The following figure depicts the measured frequency error on a sample of 5 cards. 
+<br>
+</p><div align="center"><img src="img/freq_error_no_calib.webp" alt="img/freq_error_no_calib">
+</div>
+<span id="Frequency-Error-Measurement"></span><h3 class="section">2.1 Frequency Error Measurement</h3>
+
+<p>Start <code>lteenb</code> with a 10 MHz SISO FDD cell and <code>dl_earfcn</code> corresponding to <code>Fset</code> MHz. Connect the TX1 SDR connector to an analyzer. Set the <code>Fset</code> as central frequency of the signal analyzer. Read <code>Fmeasured</code> or <code>Fmeasured-Fset</code> from the signal analyzer, then compute:
+<br>
+</p><div class="example">
+<pre class="example">Ferror = 10^-6 * (Fmeasured - Fset)/Fset
+</pre></div>
+<br>
+<p>In general
+<br>
+</p><div class="example">
+<pre class="example">|Ferror|&lt; 2 ppm
+</pre></div>
+<br>
+<p>This error does not depend on the bandwidth or the frequency. It only depends on the SDR HW.
+</p>
+<span id="Frequency-Calibration-Methodology"></span><h3 class="section">2.2 Frequency Calibration Methodology</h3>
+
+<p>This error can be corrected by using the following command
+<br>
+</p><div class="example">
+<pre class="example">/root/trx_sdr/sdr_util clock_tune -&lt;Ferror in ppm&gt;
+</pre></div>
+<br>
+<p>As an example, if <code>Ferror = 1.6 ppm</code> then the command to use is 
+<br>
+</p><div class="example">
+<pre class="example">/root/trx_sdr/sdr_util clock_tune -1.6
+</pre></div>
+<br>
+<p>if <code>Ferror = -1 ppm</code> then the command to use is 
+<br>
+</p><div class="example">
+<pre class="example">/root/trx_sdr/sdr_util clock_tune 1
+</pre></div>
+<br>
+<p>Note that the setting is power cycle persistent. In case you have many SDRs connected to the PC, use the option <code>-c device_num</code> to select the device (default = all)
+</p>
+<p>After calibration, you can expect <code>Ferror &lt; 0.1 ppm</code>. The following figure shows the frequency error on a calibrated and non calibrated PCIe SDR cards.
+</p><div align="center"><img src="img/freq_error_calib.webp" alt="img/freq_error_calib">
+</div>
+<span id="Frequency-Calibration-with-GPS"></span><h3 class="section">2.3 Frequency Calibration with GPS</h3>
+
+<p>Since test release version 2019-10-31, frequency calibration can be performed via GPS signal. To calibrate a SDR card, stop the lte service 
+<br>
+</p><div class="example">
+<pre class="example">service lte stop
+</pre></div>
+<br>
+<p>connect a GPS antenna to the âGPSâ SMA connector of the SDR card. 
+Any active GPS antenna accepting a 3.3V DC supply can be used, for example:
+<br>
+<br>
+<a href="http://www.mouser.fr/Search/ProductDetail.aspx?R=ANT-GPS-SH-SMAvirtualkey59000000virtualkey712-ANT-GPS-SH-SMA">http://www.mouser.fr/Search/ProductDetail.aspx?R=ANT-GPS-SH-SMAvirtualkey59000000virtualkey712-ANT-GPS-SH-SMA</a>
+<br>
+You can check the GPS state with
+<br>
+</p><div class="example">
+<pre class="example">./sdr_util gps_state
+</pre></div>
+<br>
+<p>The GPS might takes a few minutes to lock.
+<br>
+<br>
+Under /root/trx_sdr/ folder execute
+<br>
+</p><div class="example">
+<pre class="example">./sdr_util -c &lt;n&gt; gps_cal &lt;t&gt; -s 
+</pre></div>
+<br>
+<p>where:
+<br>
+</p><div class="example">
+<pre class="example">&lt;n&gt; sdr device number
+&lt;t&gt; GPS clock acquisition time in seconds, 30 seconds is a good value
+-s option to store the resulting ppm correction to a flash memory on the card
+</pre></div>
+<br>
+<p>If you use an Amarisoft product where the master sdr0 provides the clock to the other slave cards, you only need to calibrate the master card
+<br>
+</p><div class="example">
+<pre class="example">./sdr_util -c 0 gps_cal 30 -s 
+</pre></div>
+
+
+<span id="DL-Power-Calibration"></span><h2 class="chapter">3 DL Power Calibration</h2>
+
+<p>The channel power is the integrated power over the cell bandwidth.
+The downlink power of the Amarisoft PCIe SDR card depends on the frequency and varies roughly between +5 dBm and -10 dBm for f &lt; 3500 MHz, and can go down to -25 dBm for higher frequencies as can be viewed in the following figure.
+</p>
+<div align="center"><img src="img/dl_power_no_calib.webp" alt="img/dl_power_no_calib">
+</div>
+<span id="DL-Power-Measurement"></span><h3 class="section">3.1 DL Power Measurement</h3>
+
+<p>You can measure the channel power for each frequency using the attached eNodeB config and measuring with a power meter the integrated power over the bandwidth.
+You can do this for each unit you want to calibrate and keep the value in a table (Channel power for 20 MHz versus Frequency).
+</p>
+<div class="example">
+<pre class="example">
+
+for f = fmin;f&lt;fmax;f=fdeta
+    Set the frequency in the config file to f, and run enb (dl_freq_min parameter in the attached config )
+    Set the frequency and bandwidth in the power meter
+    Capture the channel power from the power meter  
+end for
+</pre></div>
+
+<p>Note that the measurement shall be taken with a BW = 20 MHz and tx_gain=90.
+Note 2 any path loss shall be added to the value read from the power meter.
+Note 3 The more <code>fdelta</code> is small the more accurate will be the interpolation.
+</p>
+<span id="DL-Power-Calibration-Methodology"></span><h3 class="section">3.2 DL Power Calibration Methodology</h3>
+<p>To achieve a certain channel power, you know the value for <code>tx_gain = 90</code> from the calibration array (or interpolation of the values), then you can select the right <code>tx_gain</code> to achieve you target channel gain.
+To achieve a certain RSRP, you have to convert the RSRP value to channel power using the target bw value, then you use the method for channel power.
+</p>
+<span id="UL-Power-Calibration"></span><h2 class="chapter">4 UL Power Calibration</h2>
+
+<p>In order to calibrate the UL power of the card, you can split the uplink signal to both eNodeB and power meter. Make sure you add a 3 dB attenuation in the dl path as well to have the same path loss in both directions. Then you can compare the power reported by the eNodeB, with the one reported by the power meter.
+</p>
+<p>The initial value of the <code>rx_gain</code> set in the configuration file is taken into account when the eNodeB computes the uplink power. But if you change the value during the execution using the <code>rx_gain</code> command line interface, then you have to apply the <code>rx_gain</code> delta between the new value and the one in the configuration file by yourself. We recommend not to change the <code>rx_gain</code> value dynamically.
+</p>
+<span id="Additional-Information"></span><h2 class="chapter">5 Additional Information</h2>
+
+<p>This document is copyright (C) 2012-2025 Amarisoft. Its redistribution
+without authorization is prohibited.
+</p>
+<p>This document is available without any express or implied warranty and is subject to change without notice. In
+no event will Amarisoft be held liable for any damages arising from the use of this document.
+</p>
+<p>For any technical issue, please raise a ticket from our support site at <a href="https://support.amarisoft.com/">https://support.amarisoft.com/</a>.
+<br>
+To learn more about our technology and solutions, e-mail us at <a href="mailto:customer@amarisoft.com">customer@amarisoft.com</a> or visit <a href="https://www.amarisoft.com">https://www.amarisoft.com</a>.
+</p>
+
+
+<hr>
+
+
+
+</body>
+</html>
