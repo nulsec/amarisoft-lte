@@ -35,6 +35,29 @@ Verify that httpd is running
 For SW package installation follow the instructions on section See Installation Steps for more details.
 
 
+
+The highlights for this release are:
+Core network
+- 5G MBS Nmbsmf interface
+- GUTI change during EPS tracking area update procedure
+- ePDG IMEI based emergency call
+- IMS auth-int QoP
+- multiple improvements to IMS callflow modifiers
+RAN
+- conditional handover using A3, A4, A5, D1 and T1 events forNR
+- R18 uplink TX switching for NR
+- multiple MAC timing advance groups in NR
+- NTN-TDLA/B/D/C channels
+- new optional DL multi layer link adapatation algorithm for LTE
+- float16 for TRX driver
+UE simulator
+- logicalChannelSR-Mask, logicalChannelSR-Prohibit and logicalChannelSR-DelayTimer
+- D1 measurement for NR
+- conditional handover using A3, A4, A5, D1 and T1 events for NR
+- NTN-TDLA/B/D/C channels
+- TCP IP simulation
+- float16 for TRX driver
+- 
 # amarisoft-lte
 last file 2025-12-12
 
