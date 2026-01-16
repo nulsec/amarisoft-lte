@@ -143,15 +143,15 @@ Full documentation available in the `/doc` folder:
 
 ### ⚙️ Minimum Components Required
 
-Untuk menjalankan sistem Amarisoft, Anda membutuhkan **minimal 3 komponen**:
+To run the Amarisoft system, you need **at least 3 components**:
 
 | No | Component | Description |
 |----|-----------|-------------|
 | 1️⃣ | **MME** | Mobility Management Entity - Core network |
-| 2️⃣ | **eNB** | Base Station (LTE eNodeB atau 5G gNodeB) |
+| 2️⃣ | **eNB** | Base Station (LTE eNodeB or 5G gNodeB) |
 | 3️⃣ | **UE** | User Equipment Simulator |
 
-> ⚠️ **Tanpa ketiga komponen ini, sistem tidak akan berfungsi dengan benar**
+> ⚠️ **Without these three components, the system will not function properly**
 
 ---
 
