@@ -3,18 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amarisoft LTE Documentation</title>
+    <title>Amarisoft LTE/5G Solutions - Professional Network Infrastructure</title>
+    <meta name="description" content="Professional LTE/5G Network Software Solutions. Complete infrastructure for eNodeB, gNodeB, MME, IMS, and UE Simulator.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #2563eb;
-            --primary-dark: #1d4ed8;
-            --secondary-color: #0f172a;
-            --accent-color: #06b6d4;
-            --bg-color: #f8fafc;
-            --card-bg: #ffffff;
-            --text-color: #334155;
-            --text-light: #64748b;
-            --border-color: #e2e8f0;
+            --primary: #0066FF;
+            --primary-dark: #0052CC;
+            --primary-light: #E6F0FF;
+            --secondary: #0A1628;
+            --accent: #00D4AA;
+            --accent-orange: #FF6B35;
+            --bg: #F7F9FC;
+            --bg-dark: #0A1628;
+            --card: #FFFFFF;
+            --text: #1A2B3C;
+            --text-light: #5A6B7C;
+            --text-muted: #8A9BAC;
+            --border: #E1E8F0;
+            --gradient-1: linear-gradient(135deg, #0066FF 0%, #00D4AA 100%);
+            --gradient-2: linear-gradient(135deg, #0A1628 0%, #1A3A5C 100%);
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
         }
 
         * {
@@ -23,368 +37,1446 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            background: var(--bg-color);
-            color: var(--text-color);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        .header {
-            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
-            color: white;
-            padding: 3rem 2rem;
-            text-align: center;
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            transition: all 0.3s ease;
         }
 
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            font-weight: 700;
+        .navbar.scrolled {
+            box-shadow: var(--shadow-md);
         }
 
-        .header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-
-        .container {
-            max-width: 1200px;
+        .nav-container {
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .section-title {
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
             font-size: 1.5rem;
-            color: var(--secondary-color);
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 3px solid var(--primary-color);
-            display: inline-block;
+            color: var(--secondary);
+            text-decoration: none;
         }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 3rem;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 1.5rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
-            transition: transform 0.2s, box-shadow 0.2s;
-            border: 1px solid var(--border-color);
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-
-        .card-icon {
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-1);
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-cta {
+            background: var(--gradient-1);
+            color: white !important;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 102, 255, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--gradient-2);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 8rem 2rem 6rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            color: white;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(0, 212, 170, 0.15);
+            border: 1px solid rgba(0, 212, 170, 0.3);
+            color: var(--accent);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #FFFFFF 0%, #B8C5D6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero h1 span {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        .hero-description {
+            font-size: 1.25rem;
+            color: #B8C5D6;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient-1);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 102, 255, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 102, 255, 0.5);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.15);
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: left;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: white;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #8A9BAC;
+            margin-top: 0.25rem;
+        }
+
+        .hero-visual {
+            position: relative;
+        }
+
+        .hero-card {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            color: white;
+        }
+
+        .hero-card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .hero-card-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 1.5rem;
         }
 
-        .card h3 {
-            font-size: 1.2rem;
-            color: var(--secondary-color);
+        .hero-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .hero-card p {
+            font-size: 0.875rem;
+            color: #8A9BAC;
+        }
+
+        .component-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .component-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 1rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            transition: all 0.2s;
+        }
+
+        .component-item:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateX(5px);
+        }
+
+        .component-icon {
+            width: 36px;
+            height: 36px;
+            background: rgba(0, 212, 170, 0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .component-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .component-desc {
+            font-size: 0.8rem;
+            color: #8A9BAC;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Sections */
+        section {
+            padding: 6rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-label {
+            display: inline-block;
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .section-description {
+            font-size: 1.1rem;
+            color: var(--text-light);
+        }
+
+        /* Features Section */
+        #features {
+            background: white;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--bg);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .feature-card:hover {
+            background: white;
+            border-color: var(--border);
+            box-shadow: var(--shadow-xl);
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-1);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Components Section */
+        #components {
+            background: var(--bg);
+        }
+
+        .components-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .component-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .component-card:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-3px);
+        }
+
+        .component-card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .component-card-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--primary-light);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .component-card-badge {
+            background: var(--accent);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        .component-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--secondary);
             margin-bottom: 0.5rem;
         }
 
-        .card p {
+        .component-card p {
             color: var(--text-light);
             font-size: 0.9rem;
             margin-bottom: 1rem;
         }
 
-        .card-links {
+        .component-links {
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
         }
 
-        .card-links a {
-            color: var(--primary-color);
+        .component-links a {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
             text-decoration: none;
-            font-size: 0.9rem;
-            padding: 0.4rem 0;
-            border-bottom: 1px solid var(--border-color);
-            transition: color 0.2s, padding-left 0.2s;
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 0.5rem;
+            margin: -0.5rem;
+            border-radius: 6px;
+            transition: all 0.2s;
         }
 
-        .card-links a:last-child {
-            border-bottom: none;
+        .component-links a:hover {
+            background: var(--primary-light);
+            padding-left: 1rem;
         }
 
-        .card-links a:hover {
-            color: var(--primary-dark);
-            padding-left: 0.5rem;
-        }
-
-        .card-links a::before {
-            content: "→ ";
+        .component-links a::before {
+            content: '→';
             opacity: 0.5;
         }
 
-        .version-badge {
-            display: inline-block;
-            background: var(--accent-color);
+        /* Pricing Section */
+        #pricing {
+            background: var(--gradient-2);
             color: white;
-            font-size: 0.75rem;
-            padding: 0.2rem 0.6rem;
-            border-radius: 20px;
-            margin-left: 0.5rem;
-            vertical-align: middle;
         }
 
-        .config-section {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 2rem;
-            margin-bottom: 3rem;
-            border: 1px solid var(--border-color);
+        #pricing .section-label {
+            background: rgba(0, 212, 170, 0.2);
+            color: var(--accent);
         }
 
-        .config-list {
+        #pricing .section-title {
+            color: white;
+        }
+
+        #pricing .section-description {
+            color: #B8C5D6;
+        }
+
+        .pricing-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1rem;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            background: rgba(255,255,255,0.08);
+            transform: translateY(-5px);
+        }
+
+        .pricing-card.featured {
+            border-color: var(--accent);
+            background: rgba(0, 212, 170, 0.1);
+        }
+
+        .pricing-card.featured::before {
+            content: 'BEST VALUE';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            color: var(--secondary);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+        }
+
+        .pricing-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-duration {
+            color: #8A9BAC;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .pricing-price {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-price span {
+            font-size: 1.25rem;
+            font-weight: 400;
+            color: #8A9BAC;
+        }
+
+        .pricing-note {
+            font-size: 0.85rem;
+            color: #8A9BAC;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features {
             list-style: none;
+            margin-bottom: 2rem;
         }
 
-        .config-list li a {
-            display: block;
-            padding: 0.8rem 1rem;
-            background: var(--bg-color);
-            border-radius: 8px;
-            color: var(--text-color);
+        .pricing-features li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.95rem;
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .pricing-btn {
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* License Section */
+        #licenses {
+            background: white;
+        }
+
+        .license-categories {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .license-category {
+            background: var(--bg);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .license-category h4 {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .license-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .license-tag {
+            background: white;
+            border: 1px solid var(--border);
+            padding: 0.4rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            color: var(--text-light);
+            transition: all 0.2s;
+        }
+
+        .license-tag:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Requirements Section */
+        #requirements {
+            background: var(--bg);
+        }
+
+        .requirements-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .requirement-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .requirement-card:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .requirement-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.25rem;
+            font-size: 1.75rem;
+        }
+
+        .requirement-card h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .requirement-card p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Documentation Section */
+        #documentation {
+            background: white;
+        }
+
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .doc-card {
+            background: var(--bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .doc-card:hover {
+            background: white;
+            border-color: var(--primary);
+            box-shadow: var(--shadow-md);
+        }
+
+        .doc-card h4 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .doc-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .doc-links a {
+            color: var(--text-light);
             text-decoration: none;
-            transition: background 0.2s, transform 0.2s;
+            font-size: 0.85rem;
+            padding: 0.4rem 0;
+            border-bottom: 1px solid var(--border);
+            transition: all 0.2s;
         }
 
-        .config-list li a:hover {
-            background: var(--primary-color);
+        .doc-links a:last-child {
+            border-bottom: none;
+        }
+
+        .doc-links a:hover {
+            color: var(--primary);
+            padding-left: 0.5rem;
+        }
+
+        /* Contact Section */
+        #contact {
+            background: var(--secondary);
             color: white;
+            text-align: center;
+            padding: 5rem 2rem;
+        }
+
+        #contact h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        #contact p {
+            color: #B8C5D6;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-email {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .contact-email:hover {
+            background: rgba(255,255,255,0.15);
             transform: scale(1.02);
         }
 
-        .config-list li a code {
-            font-family: 'SF Mono', Monaco, 'Courier New', monospace;
-            font-size: 0.9rem;
-        }
-
+        /* Footer */
         .footer {
+            background: var(--bg-dark);
+            color: #8A9BAC;
+            padding: 3rem 2rem;
             text-align: center;
-            padding: 2rem;
-            color: var(--text-light);
             font-size: 0.9rem;
-            border-top: 1px solid var(--border-color);
         }
 
         .footer a {
-            color: var(--primary-color);
+            color: var(--accent);
             text-decoration: none;
         }
 
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 1.8rem;
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
             }
-            
-            .container {
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-stats {
+                justify-content: center;
+            }
+
+            .hero-visual {
+                display: none;
+            }
+
+            .features-grid,
+            .components-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .requirements-grid,
+            .docs-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .license-categories {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
                 padding: 1rem;
             }
 
-            .grid {
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 6rem 1rem 4rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-description {
+                font-size: 1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .hero-stats {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+
+            .stat-number {
+                font-size: 1.75rem;
+            }
+
+            .section-title {
+                font-size: 1.75rem;
+            }
+
+            .features-grid,
+            .components-grid,
+            .pricing-grid,
+            .requirements-grid,
+            .docs-grid {
                 grid-template-columns: 1fr;
             }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            section {
+                padding: 4rem 0;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate {
+            animation: fadeInUp 0.6s ease forwards;
         }
     </style>
 </head>
 <body>
-    <header class="header">
-        <h1>📡 Amarisoft LTE Documentation</h1>
-        <p>Complete documentation for Amarisoft LTE/5G software suite</p>
-    </header>
-
-    <main class="container">
-        <!-- Core Components -->
-        <h2 class="section-title">Core Components</h2>
-        <div class="grid">
-            <!-- LTE eNB -->
-            <div class="card">
-                <div class="card-icon">📶</div>
-                <h3>LTE eNodeB <span class="version-badge">2025-12-12</span></h3>
-                <p>LTE/NR base station software for eNodeB and gNodeB</p>
-                <div class="card-links">
-                    <a href="doc/lteenb/lteenb.html">Main Documentation</a>
-                    <a href="doc/lteenb/appnote_throughput.html">Throughput App Note</a>
-                    <a href="doc/lteenb/appnote_handover.html">Handover App Note</a>
-                    <a href="doc/lteenb/appnote_cpu.html">CPU Optimization</a>
-                    <a href="doc/lteenb/appnote_arm.html">ARM Platform</a>
-                    <a href="doc/lteenb/appnote_fr2.html">FR2 (mmWave)</a>
-                </div>
-            </div>
-
-            <!-- LTE MME -->
-            <div class="card">
-                <div class="card-icon">🌐</div>
-                <h3>LTE MME <span class="version-badge">2025-12-12</span></h3>
-                <p>Evolved Packet Core with MME, SGW, and PGW functions</p>
-                <div class="card-links">
-                    <a href="doc/ltemme/ltemme.html">Main Documentation</a>
-                    <a href="doc/ltemme/lteims.html">IMS Documentation</a>
-                    <a href="doc/ltemme/appnote_ims.html">IMS App Note</a>
-                    <a href="doc/ltemme/appnote_esim.html">eSIM App Note</a>
-                    <a href="doc/ltemme/appnote_throughput.html">Throughput App Note</a>
-                </div>
-            </div>
-
-            <!-- LTE UE -->
-            <div class="card">
-                <div class="card-icon">📱</div>
-                <h3>LTE UE Simulator <span class="version-badge">2025-12-12</span></h3>
-                <p>Software UE simulator for testing and development</p>
-                <div class="card-links">
-                    <a href="2025-12-12/doc/lteue-2025-12-12/lteue.html">Main Documentation</a>
-                    <a href="2025-12-12/doc/lteue-2025-12-12/appnote_uesim_fr2.html">FR2 UE Simulator</a>
-                </div>
-            </div>
-
-            <!-- TRX SDR -->
-            <div class="card">
-                <div class="card-icon">📻</div>
-                <h3>TRX SDR <span class="version-badge">2025-12-12</span></h3>
-                <p>Software Defined Radio driver and configuration</p>
-                <div class="card-links">
-                    <a href="doc/trx_sdr/trx_sdr.html">Main Documentation</a>
-                    <a href="doc/trx_sdr/trx_sdr100.html">SDR100 Documentation</a>
-                    <a href="doc/trx_sdr/trx_cpri.html">CPRI Documentation</a>
-                    <a href="doc/trx_sdr/appnote_calibration.html">Calibration App Note</a>
-                </div>
-            </div>
-
-            <!-- LTE Web Interface -->
-            <div class="card">
-                <div class="card-icon">🖥️</div>
-                <h3>Web Interface <span class="version-badge">2025-12-12</span></h3>
-                <p>Web-based management and monitoring interface</p>
-                <div class="card-links">
-                    <a href="doc/ltewww/ltewww.html">Main Documentation</a>
-                </div>
-            </div>
-
-            <!-- MBMS Gateway -->
-            <div class="card">
-                <div class="card-icon">📺</div>
-                <h3>MBMS Gateway <span class="version-badge">2025-12-12</span></h3>
-                <p>Multimedia Broadcast Multicast Service gateway</p>
-                <div class="card-links">
-                    <a href="doc/ltembmsgw/ltembmsgw.html">Main Documentation</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Callbox User Guides -->
-        <h2 class="section-title">Callbox User Guides</h2>
-        <div class="grid">
-            <div class="card">
-                <div class="card-icon">📦</div>
-                <h3>Callbox Series</h3>
-                <p>Complete user guides for all Callbox models</p>
-                <div class="card-links">
-                    <a href="2025-12-12/doc/lteots-2025-12-12/userguide_callbox_mini.html">Callbox Mini</a>
-                    <a href="2025-12-12/doc/lteots-2025-12-12/userguide_callbox_classic.html">Callbox Classic</a>
-                    <a href="2025-12-12/doc/lteots-2025-12-12/userguide_callbox_pro.html">Callbox Pro</a>
-                    <a href="2025-12-12/doc/lteots-2025-12-12/userguide_callbox_advanced.html">Callbox Advanced</a>
-                    <a href="2025-12-12/doc/lteots-2025-12-12/userguide_callbox_extreme.html">Callbox Extreme</a>
-                    <a href="2025-12-12/doc/lteots-2025-12-12/userguide_callbox_ultimate.html">Callbox Ultimate</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-icon">🔧</div>
-                <h3>UE SIMBox</h3>
-                <p>User Equipment SIMBox documentation</p>
-                <div class="card-links">
-                    <a href="2025-12-12/doc/lteots-2025-12-12/userguide_ue_simbox.html">UE SIMBox Guide</a>
-                    <a href="2025-12-12/doc/lteots-2025-12-12/userguide_ue_simbox_e.html">UE SIMBox E Guide</a>
-                    <a href="2025-12-12/doc/lteots-2025-12-12/userguide_ue_simbox_mbs.html">UE SIMBox MBS Guide</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-icon">🧪</div>
-                <h3>OTS & N3IWF</h3>
-                <p>Over-The-Air Test System and N3IWF</p>
-                <div class="card-links">
-                    <a href="2025-12-12/doc/lteots-2025-12-12/lteots.html">LTE OTS Documentation</a>
-                    <a href="2025-12-12/doc/lten3iwf-2025-12-12/lten3iwf.html">N3IWF Documentation</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Configuration Files -->
-        <section class="config-section">
-            <h2 class="section-title">Configuration Examples</h2>
-            <ul class="config-list">
-                <li><a href="conf/enb.cfg"><code>enb.cfg</code> - eNodeB Configuration</a></li>
-                <li><a href="conf/mme.cfg"><code>mme.cfg</code> - MME Configuration</a></li>
-                <li><a href="conf/ue_db-ims.cfg"><code>ue_db-ims.cfg</code> - UE Database (IMS)</a></li>
-                <li><a href="ltemme-linux/ltemme-linux-2024-12-13/config/mme.cfg"><code>mme.cfg</code> - MME (Linux)</a></li>
-                <li><a href="ltemme-linux/ltemme-linux-2024-12-13/config/ims.cfg"><code>ims.cfg</code> - IMS Configuration</a></li>
-                <li><a href="ltemme-linux/ltemme-linux-2024-12-13/config/mme-ims.cfg"><code>mme-ims.cfg</code> - MME-IMS Config</a></li>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">📡</div>
+                <span>Amarisoft LTE</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#components">Components</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#licenses">Licenses</a></li>
+                <li><a href="#documentation">Docs</a></li>
+                <li><a href="#contact" class="nav-cta">Get License</a></li>
             </ul>
-        </section>
+        </div>
+    </nav>
 
-        <!-- Additional Resources -->
-        <h2 class="section-title">Additional Resources</h2>
-        <div class="grid">
-            <div class="card">
-                <div class="card-icon">📖</div>
-                <h3>Install Guide</h3>
-                <p>Installation and setup instructions</p>
-                <div class="card-links">
-                    <a href="2025-12-12/doc/installguide.html">Installation Guide</a>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    Version 2025-12-12 • Latest Release
+                </div>
+                <h1>Professional <span>LTE/5G</span> Network Software Solution</h1>
+                <p class="hero-description">
+                    Deploy complete LTE/5G network infrastructure with enterprise-grade software. 
+                    Perfect for research, development, testing, and private network deployment.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">
+                        Get License →
+                    </a>
+                    <a href="#documentation" class="btn btn-secondary">
+                        View Documentation
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">4G/5G</div>
+                        <div class="stat-label">Full Support</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">1000+</div>
+                        <div class="stat-label">UE Capacity</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Support</div>
+                    </div>
                 </div>
             </div>
-
-            <div class="card">
-                <div class="card-icon">📝</div>
-                <h3>Release Notes</h3>
-                <p>Latest changes and updates</p>
-                <div class="card-links">
-                    <a href="ltemme-linux/ltemme-linux-2024-12-13/ReleaseNotes-ltemme.txt">MME Release Notes</a>
-                    <a href="ltemme-linux/ltemme-linux-2024-12-13/ReleaseNotes-lteims.txt">IMS Release Notes</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-icon">⚙️</div>
-                <h3>TRX Advanced</h3>
-                <p>Advanced transceiver documentation</p>
-                <div class="card-links">
-                    <a href="2025-12-12/doc/trx_sdr-2025-12-12/trx_cpri40.html">CPRI 40 Documentation</a>
-                    <a href="2025-12-12/doc/trx_uhd-2025-12-12/trx_uhd.html">TRX UHD Documentation</a>
+            <div class="hero-visual">
+                <div class="hero-card">
+                    <div class="hero-card-header">
+                        <div class="hero-card-icon">🏗️</div>
+                        <div>
+                            <h3>Core Components</h3>
+                            <p>Minimum 3 components required</p>
+                        </div>
+                    </div>
+                    <div class="component-list">
+                        <div class="component-item">
+                            <div class="component-icon">🌐</div>
+                            <div>
+                                <div class="component-name">MME (Core Network)</div>
+                                <div class="component-desc">Mobility Management Entity</div>
+                            </div>
+                        </div>
+                        <div class="component-item">
+                            <div class="component-icon">📶</div>
+                            <div>
+                                <div class="component-name">eNB/gNB (Base Station)</div>
+                                <div class="component-desc">LTE eNodeB or 5G gNodeB</div>
+                            </div>
+                        </div>
+                        <div class="component-item">
+                            <div class="component-icon">📱</div>
+                            <div>
+                                <div class="component-name">UE Simulator</div>
+                                <div class="component-desc">User Equipment Testing</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </main>
+    </section>
 
+    <!-- Features Section -->
+    <section id="features">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Why Choose Us</span>
+                <h2 class="section-title">Enterprise-Grade Features</h2>
+                <p class="section-description">
+                    Comprehensive LTE/5G software suite with industry-leading capabilities
+                </p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Full LTE/5G Support</h3>
+                    <p>Complete standalone and non-standalone mode support for both 4G LTE and 5G NR networks with seamless interworking.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Multi-Cell & Multi-UE</h3>
+                    <p>Scale from single cell to multi-cell deployments with support for up to 1000+ simultaneous UE connections.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📞</div>
+                    <h3>IMS/VoLTE Support</h3>
+                    <p>Built-in IP Multimedia Subsystem for voice over LTE, video calls, and rich communication services.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🖥️</div>
+                    <h3>Web-Based Interface</h3>
+                    <p>Intuitive web interface for real-time monitoring, configuration, and network management.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📻</div>
+                    <h3>SDR Compatible</h3>
+                    <p>Software Defined Radio support for flexible hardware configurations and cost-effective deployments.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📚</div>
+                    <h3>Comprehensive API</h3>
+                    <p>Well-documented APIs for integration, automation, and custom application development.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Components Section -->
+    <section id="components">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Software Suite</span>
+                <h2 class="section-title">Core Components</h2>
+                <p class="section-description">
+                    Complete set of software components for building your LTE/5G network
+                </p>
+            </div>
+            <div class="components-grid">
+                <div class="component-card">
+                    <div class="component-card-header">
+                        <div class="component-card-icon">📶</div>
+                        <span class="component-card-badge">v2025-12-12</span>
+                    </div>
+                    <h3>LTE eNodeB / 5G gNodeB</h3>
+                    <p>Base station software for LTE and NR radio access</p>
+                    <div class="component-links">
+                        <a href="doc/lteenb/lteenb.html">Documentation</a>
+                        <a href="doc/lteenb/appnote_throughput.html">Throughput Guide</a>
+                        <a href="doc/lteenb/appnote_handover.html">Handover Guide</a>
+                    </div>
+                </div>
+                <div class="component-card">
+                    <div class="component-card-header">
+                        <div class="component-card-icon">🌐</div>
+                        <span class="component-card-badge">v2025-12-12</span>
+                    </div>
+                    <h3>LTE MME (Core Network)</h3>
+                    <p>Evolved Packet Core with MME, SGW, and PGW</p>
+                    <div class="component-links">
+                        <a href="doc/ltemme/ltemme.html">Documentation</a>
+                        <a href="doc/ltemme/lteims.html">IMS Guide</a>
+                        <a href="doc/ltemme/appnote_esim.html">eSIM Guide</a>
+                    </div>
+                </div>
+                <div class="component-card">
+                    <div class="component-card-header">
+                        <div class="component-card-icon">📱</div>
+                        <span class="component-card-badge">v2025-12-12</span>
+                    </div>
+                    <h3>UE Simulator</h3>
+                    <p>Software-based user equipment for testing</p>
+                    <div class="component-links">
+                        <a href="2025-12-12/doc/lteue-2025-12-12/lteue.html">Documentation</a>
+                        <a href="2025-12-12/doc/lteue-2025-12-12/appnote_uesim_fr2.html">FR2 Guide</a>
+                    </div>
+                </div>
+                <div class="component-card">
+                    <div class="component-card-header">
+                        <div class="component-card-icon">📻</div>
+                        <span class="component-card-badge">v2025-12-12</span>
+                    </div>
+                    <h3>TRX SDR Driver</h3>
+                    <p>Software Defined Radio transceiver driver</p>
+                    <div class="component-links">
+                        <a href="doc/trx_sdr/trx_sdr.html">Documentation</a>
+                        <a href="doc/trx_sdr/trx_sdr100.html">SDR100 Guide</a>
+                        <a href="doc/trx_sdr/appnote_calibration.html">Calibration</a>
+                    </div>
+                </div>
+                <div class="component-card">
+                    <div class="component-card-header">
+                        <div class="component-card-icon">🖥️</div>
+                        <span class="component-card-badge">v2025-12-12</span>
+                    </div>
+                    <h3>Web Interface</h3>
+                    <p>Web-based monitoring and management</p>
+                    <div class="component-links">
+                        <a href="doc/ltewww/ltewww.html">Documentation</a>
+                    </div>
+                </div>
+                <div class="component-card">
+                    <div class="component-card-header">
+                        <div class="component-card-icon">📺</div>
+                        <span class="component-card-badge">v2025-12-12</span>
+                    </div>
+                    <h3>MBMS Gateway</h3>
+                    <p>Multimedia Broadcast Multicast Service</p>
+                    <div class="component-links">
+                        <a href="doc/ltembmsgw/ltembmsgw.html">Documentation</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Flexible Pricing</span>
+                <h2 class="section-title">Choose Your Plan</h2>
+                <p class="section-description">
+                    Affordable licensing options for every need
+                </p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-name">Standard Plan</div>
+                    <div class="pricing-duration">1 Month License</div>
+                    <div class="pricing-price">$300 <span>USD</span></div>
+                    <div class="pricing-note">Perfect for short-term projects</div>
+                    <ul class="pricing-features">
+                        <li>Full software access</li>
+                        <li>All core components</li>
+                        <li>Documentation access</li>
+                        <li>Email support</li>
+                        <li>Monthly updates</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-secondary pricing-btn">Get Started</a>
+                </div>
+                <div class="pricing-card featured">
+                    <div class="pricing-name">Professional Plan</div>
+                    <div class="pricing-duration">1 Year License (3 Licenses)</div>
+                    <div class="pricing-price">$3,000 <span>USD</span></div>
+                    <div class="pricing-note">Best value for teams & enterprises</div>
+                    <ul class="pricing-features">
+                        <li>Everything in Standard</li>
+                        <li>3 concurrent licenses</li>
+                        <li>Priority support</li>
+                        <li>All updates included</li>
+                        <li>Extended documentation</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary pricing-btn">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- License Types Section -->
+    <section id="licenses">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">License Options</span>
+                <h2 class="section-title">Available License Types</h2>
+                <p class="section-description">
+                    Wide range of licenses to match your specific requirements
+                </p>
+            </div>
+            <div class="license-categories">
+                <div class="license-category">
+                    <h4>📶 RAN Licenses (Radio Access Network)</h4>
+                    <div class="license-list">
+                        <span class="license-tag">AMARI LTE NW 600 RAN</span>
+                        <span class="license-tag">AMARI LTE NW 1200 RAN</span>
+                        <span class="license-tag">AMARI NW 2000 RAN</span>
+                        <span class="license-tag">AMARI NW 4000 RAN</span>
+                        <span class="license-tag">AMARI NW 8000 RAN</span>
+                        <span class="license-tag">AMARI NW 12000 RAN</span>
+                    </div>
+                </div>
+                <div class="license-category">
+                    <h4>📱 UE Licenses (User Equipment)</h4>
+                    <div class="license-list">
+                        <span class="license-tag">AMARI UE 001</span>
+                        <span class="license-tag">AMARI UE 064</span>
+                        <span class="license-tag">AMARI UE 128</span>
+                        <span class="license-tag">AMARI UE 256</span>
+                        <span class="license-tag">AMARI UE 1000</span>
+                        <span class="license-tag">AMARI LTE UE 020</span>
+                    </div>
+                </div>
+                <div class="license-category">
+                    <h4>🌐 Core Network Licenses</h4>
+                    <div class="license-list">
+                        <span class="license-tag">AMARI 4G CORE TM</span>
+                        <span class="license-tag">AMARI 4G 5G CORE TM</span>
+                        <span class="license-tag">AMARI 4G CORE VM</span>
+                        <span class="license-tag">AMARI 4G 5G CORE VM</span>
+                        <span class="license-tag">AMARI 4G CORE D</span>
+                        <span class="license-tag">AMARI 4G 5G CORE D</span>
+                    </div>
+                </div>
+                <div class="license-category">
+                    <h4>🛰️ FR2 & NTN Licenses (mmWave & Satellite)</h4>
+                    <div class="license-list">
+                        <span class="license-tag">AMARI NW 2000 RAN FR2</span>
+                        <span class="license-tag">AMARI NW 4000 RAN FR2</span>
+                        <span class="license-tag">AMARI NW 200 RAN NTN</span>
+                        <span class="license-tag">AMARI NW 600 RAN NTN</span>
+                        <span class="license-tag">AMARI UE 064 FR2</span>
+                        <span class="license-tag">AMARI UE 064 NTN</span>
+                    </div>
+                </div>
+                <div class="license-category">
+                    <h4>📡 Small Cell & Base Station</h4>
+                    <div class="license-list">
+                        <span class="license-tag">AMARI LTE Small Cell</span>
+                        <span class="license-tag">AMARI NR Small Cell</span>
+                        <span class="license-tag">AMARI LTE One Sector</span>
+                        <span class="license-tag">AMARI NR One Sector</span>
+                        <span class="license-tag">eNB-200</span>
+                        <span class="license-tag">gNB-BS-SC-2000</span>
+                    </div>
+                </div>
+                <div class="license-category">
+                    <h4>☁️ vRAN & Special Licenses</h4>
+                    <div class="license-list">
+                        <span class="license-tag">AMARI vRAN</span>
+                        <span class="license-tag">AMARI LTE vRAN</span>
+                        <span class="license-tag">AMARI vRAN FR2</span>
+                        <span class="license-tag">AMARI IMS</span>
+                        <span class="license-tag">AMARI N3IWF TM</span>
+                        <span class="license-tag">AMARI NM</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- System Requirements Section -->
+    <section id="requirements">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">System Requirements</span>
+                <h2 class="section-title">Hardware Specifications</h2>
+                <p class="section-description">
+                    Minimum requirements for optimal performance
+                </p>
+            </div>
+            <div class="requirements-grid">
+                <div class="requirement-card">
+                    <div class="requirement-icon">💻</div>
+                    <h4>Operating System</h4>
+                    <p>Fedora / CentOS / Ubuntu Linux</p>
+                </div>
+                <div class="requirement-card">
+                    <div class="requirement-icon">⚡</div>
+                    <h4>Processor</h4>
+                    <p>x86_64 with AVX2 support</p>
+                </div>
+                <div class="requirement-card">
+                    <div class="requirement-icon">🧠</div>
+                    <h4>Memory</h4>
+                    <p>8GB Min (16GB Recommended)</p>
+                </div>
+                <div class="requirement-card">
+                    <div class="requirement-icon">🌐</div>
+                    <h4>Network</h4>
+                    <p>Gigabit Ethernet</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Documentation Section -->
+    <section id="documentation">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Resources</span>
+                <h2 class="section-title">Documentation & Guides</h2>
+                <p class="section-description">
+                    Comprehensive documentation for all components
+                </p>
+            </div>
+            <div class="docs-grid">
+                <div class="doc-card">
+                    <h4>📦 Callbox Series</h4>
+                    <div class="doc-links">
+                        <a href="2025-12-12/doc/lteots-2025-12-12/userguide_callbox_mini.html">Callbox Mini</a>
+                        <a href="2025-12-12/doc/lteots-2025-12-12/userguide_callbox_classic.html">Callbox Classic</a>
+                        <a href="2025-12-12/doc/lteots-2025-12-12/userguide_callbox_pro.html">Callbox Pro</a>
+                        <a href="2025-12-12/doc/lteots-2025-12-12/userguide_callbox_advanced.html">Callbox Advanced</a>
+                        <a href="2025-12-12/doc/lteots-2025-12-12/userguide_callbox_ultimate.html">Callbox Ultimate</a>
+                    </div>
+                </div>
+                <div class="doc-card">
+                    <h4>🔧 UE SIMBox</h4>
+                    <div class="doc-links">
+                        <a href="2025-12-12/doc/lteots-2025-12-12/userguide_ue_simbox.html">UE SIMBox Guide</a>
+                        <a href="2025-12-12/doc/lteots-2025-12-12/userguide_ue_simbox_e.html">UE SIMBox E Guide</a>
+                        <a href="2025-12-12/doc/lteots-2025-12-12/userguide_ue_simbox_mbs.html">UE SIMBox MBS</a>
+                    </div>
+                </div>
+                <div class="doc-card">
+                    <h4>📄 Config Examples</h4>
+                    <div class="doc-links">
+                        <a href="conf/enb.cfg">enb.cfg - eNodeB</a>
+                        <a href="conf/mme.cfg">mme.cfg - MME</a>
+                        <a href="conf/ue_db-ims.cfg">ue_db-ims.cfg</a>
+                        <a href="ltemme-linux/ltemme-linux-2024-12-13/config/ims.cfg">ims.cfg - IMS</a>
+                    </div>
+                </div>
+                <div class="doc-card">
+                    <h4>📝 Additional</h4>
+                    <div class="doc-links">
+                        <a href="2025-12-12/doc/installguide.html">Installation Guide</a>
+                        <a href="2025-12-12/doc/lteots-2025-12-12/lteots.html">LTE OTS Guide</a>
+                        <a href="2025-12-12/doc/lten3iwf-2025-12-12/lten3iwf.html">N3IWF Guide</a>
+                        <a href="2025-12-12/doc/trx_uhd-2025-12-12/trx_uhd.html">TRX UHD Guide</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <h2>Ready to Get Started?</h2>
+            <p>Contact us for licensing inquiries and technical support</p>
+            <a href="mailto:nuledsec@proton.me" class="contact-email">
+                📧 nuledsec@proton.me
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer class="footer">
-        <p>Amarisoft LTE Documentation | Last Updated: December 2025</p>
-        <p>For more information, visit <a href="https://www.amarisoft.com" target="_blank">amarisoft.com</a></p>
+        <div class="container">
+            <p>© 2025 Amarisoft LTE Solutions | Last Updated: December 2025</p>
+            <p>For official information, visit <a href="https://www.amarisoft.com" target="_blank">amarisoft.com</a></p>
+        </div>
     </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
