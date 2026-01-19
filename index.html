@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amarisoft LTE Documentation</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary-color: #0f172a;
+            --accent-color: #06b6d4;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #334155;
+            --text-light: #64748b;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--primary-color);
+            display: inline-block;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid var(--border-color);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .card p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .card-links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 0.4rem 0;
+            border-bottom: 1px solid var(--border-color);
+            transition: color 0.2s, padding-left 0.2s;
+        }
+
+        .card-links a:last-child {
+            border-bottom: none;
+        }
+
+        .card-links a:hover {
+            color: var(--primary-dark);
+            padding-left: 0.5rem;
+        }
+
+        .card-links a::before {
+            content: "→ ";
+            opacity: 0.5;
+        }
+
+        .version-badge {
+            display: inline-block;
+            background: var(--accent-color);
+            color: white;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            margin-left: 0.5rem;
+            vertical-align: middle;
+        }
+
+        .config-section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .config-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            list-style: none;
+        }
+
+        .config-list li a {
+            display: block;
+            padding: 0.8rem 1rem;
+            background: var(--bg-color);
+            border-radius: 8px;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .config-list li a:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: scale(1.02);
+        }
+
+        .config-list li a code {
+            font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>📡 Amarisoft LTE Documentation</h1>
+        <p>Complete documentation for Amarisoft LTE/5G software suite</p>
+    </header>
+
+    <main class="container">
+        <!-- Core Components -->
+        <h2 class="section-title">Core Components</h2>
+        <div class="grid">
+            <!-- LTE eNB -->
+            <div class="card">
+                <div class="card-icon">📶</div>
+                <h3>LTE eNodeB <span class="version-badge">2025-12-12</span></h3>
+                <p>LTE/NR base station software for eNodeB and gNodeB</p>
+                <div class="card-links">
+                    <a href="doc/lteenb/lteenb.html">Main Documentation</a>
+                    <a href="doc/lteenb/appnote_throughput.html">Throughput App Note</a>
+                    <a href="doc/lteenb/appnote_handover.html">Handover App Note</a>
+                    <a href="doc/lteenb/appnote_cpu.html">CPU Optimization</a>
+                    <a href="doc/lteenb/appnote_arm.html">ARM Platform</a>
+                    <a href="doc/lteenb/appnote_fr2.html">FR2 (mmWave)</a>
+                </div>
+            </div>
+
+            <!-- LTE MME -->
+            <div class="card">
+                <div class="card-icon">🌐</div>
+                <h3>LTE MME <span class="version-badge">2025-12-12</span></h3>
+                <p>Evolved Packet Core with MME, SGW, and PGW functions</p>
+                <div class="card-links">
+                    <a href="doc/ltemme/ltemme.html">Main Documentation</a>
+                    <a href="doc/ltemme/lteims.html">IMS Documentation</a>
+                    <a href="doc/ltemme/appnote_ims.html">IMS App Note</a>
+                    <a href="doc/ltemme/appnote_esim.html">eSIM App Note</a>
+                    <a href="doc/ltemme/appnote_throughput.html">Throughput App Note</a>
+                </div>
+            </div>
+
+            <!-- LTE UE -->
+            <div class="card">
+                <div class="card-icon">📱</div>
+                <h3>LTE UE Simulator <span class="version-badge">2025-12-12</span></h3>
+                <p>Software UE simulator for testing and development</p>
+                <div class="card-links">
+                    <a href="2025-12-12/doc/lteue-2025-12-12/lteue.html">Main Documentation</a>
+                    <a href="2025-12-12/doc/lteue-2025-12-12/appnote_uesim_fr2.html">FR2 UE Simulator</a>
+                </div>
+            </div>
+
+            <!-- TRX SDR -->
+            <div class="card">
+                <div class="card-icon">📻</div>
+                <h3>TRX SDR <span class="version-badge">2025-12-12</span></h3>
+                <p>Software Defined Radio driver and configuration</p>
+                <div class="card-links">
+                    <a href="doc/trx_sdr/trx_sdr.html">Main Documentation</a>
+                    <a href="doc/trx_sdr/trx_sdr100.html">SDR100 Documentation</a>
+                    <a href="doc/trx_sdr/trx_cpri.html">CPRI Documentation</a>
+                    <a href="doc/trx_sdr/appnote_calibration.html">Calibration App Note</a>
+                </div>
+            </div>
+
+            <!-- LTE Web Interface -->
+            <div class="card">
+                <div class="card-icon">🖥️</div>
+                <h3>Web Interface <span class="version-badge">2025-12-12</span></h3>
+                <p>Web-based management and monitoring interface</p>
+                <div class="card-links">
+                    <a href="doc/ltewww/ltewww.html">Main Documentation</a>
+                </div>
+            </div>
+
+            <!-- MBMS Gateway -->
+            <div class="card">
+                <div class="card-icon">📺</div>
+                <h3>MBMS Gateway <span class="version-badge">2025-12-12</span></h3>
+                <p>Multimedia Broadcast Multicast Service gateway</p>
+                <div class="card-links">
+                    <a href="doc/ltembmsgw/ltembmsgw.html">Main Documentation</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Callbox User Guides -->
+        <h2 class="section-title">Callbox User Guides</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="card-icon">📦</div>
+                <h3>Callbox Series</h3>
+                <p>Complete user guides for all Callbox models</p>
+                <div class="card-links">
+                    <a href="2025-12-12/doc/lteots-2025-12-12/userguide_callbox_mini.html">Callbox Mini</a>
+                    <a href="2025-12-12/doc/lteots-2025-12-12/userguide_callbox_classic.html">Callbox Classic</a>
+                    <a href="2025-12-12/doc/lteots-2025-12-12/userguide_callbox_pro.html">Callbox Pro</a>
+                    <a href="2025-12-12/doc/lteots-2025-12-12/userguide_callbox_advanced.html">Callbox Advanced</a>
+                    <a href="2025-12-12/doc/lteots-2025-12-12/userguide_callbox_extreme.html">Callbox Extreme</a>
+                    <a href="2025-12-12/doc/lteots-2025-12-12/userguide_callbox_ultimate.html">Callbox Ultimate</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🔧</div>
+                <h3>UE SIMBox</h3>
+                <p>User Equipment SIMBox documentation</p>
+                <div class="card-links">
+                    <a href="2025-12-12/doc/lteots-2025-12-12/userguide_ue_simbox.html">UE SIMBox Guide</a>
+                    <a href="2025-12-12/doc/lteots-2025-12-12/userguide_ue_simbox_e.html">UE SIMBox E Guide</a>
+                    <a href="2025-12-12/doc/lteots-2025-12-12/userguide_ue_simbox_mbs.html">UE SIMBox MBS Guide</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🧪</div>
+                <h3>OTS & N3IWF</h3>
+                <p>Over-The-Air Test System and N3IWF</p>
+                <div class="card-links">
+                    <a href="2025-12-12/doc/lteots-2025-12-12/lteots.html">LTE OTS Documentation</a>
+                    <a href="2025-12-12/doc/lten3iwf-2025-12-12/lten3iwf.html">N3IWF Documentation</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Configuration Files -->
+        <section class="config-section">
+            <h2 class="section-title">Configuration Examples</h2>
+            <ul class="config-list">
+                <li><a href="conf/enb.cfg"><code>enb.cfg</code> - eNodeB Configuration</a></li>
+                <li><a href="conf/mme.cfg"><code>mme.cfg</code> - MME Configuration</a></li>
+                <li><a href="conf/ue_db-ims.cfg"><code>ue_db-ims.cfg</code> - UE Database (IMS)</a></li>
+                <li><a href="ltemme-linux/ltemme-linux-2024-12-13/config/mme.cfg"><code>mme.cfg</code> - MME (Linux)</a></li>
+                <li><a href="ltemme-linux/ltemme-linux-2024-12-13/config/ims.cfg"><code>ims.cfg</code> - IMS Configuration</a></li>
+                <li><a href="ltemme-linux/ltemme-linux-2024-12-13/config/mme-ims.cfg"><code>mme-ims.cfg</code> - MME-IMS Config</a></li>
+            </ul>
+        </section>
+
+        <!-- Additional Resources -->
+        <h2 class="section-title">Additional Resources</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="card-icon">📖</div>
+                <h3>Install Guide</h3>
+                <p>Installation and setup instructions</p>
+                <div class="card-links">
+                    <a href="2025-12-12/doc/installguide.html">Installation Guide</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">📝</div>
+                <h3>Release Notes</h3>
+                <p>Latest changes and updates</p>
+                <div class="card-links">
+                    <a href="ltemme-linux/ltemme-linux-2024-12-13/ReleaseNotes-ltemme.txt">MME Release Notes</a>
+                    <a href="ltemme-linux/ltemme-linux-2024-12-13/ReleaseNotes-lteims.txt">IMS Release Notes</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">⚙️</div>
+                <h3>TRX Advanced</h3>
+                <p>Advanced transceiver documentation</p>
+                <div class="card-links">
+                    <a href="2025-12-12/doc/trx_sdr-2025-12-12/trx_cpri40.html">CPRI 40 Documentation</a>
+                    <a href="2025-12-12/doc/trx_uhd-2025-12-12/trx_uhd.html">TRX UHD Documentation</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>Amarisoft LTE Documentation | Last Updated: December 2025</p>
+        <p>For more information, visit <a href="https://www.amarisoft.com" target="_blank">amarisoft.com</a></p>
+    </footer>
+</body>
+</html>
