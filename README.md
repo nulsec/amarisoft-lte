@@ -319,8 +319,8 @@ To run the Amarisoft system, you need **at least 3 components**:
 
 | Plan | Duration | Price |
 |------|----------|-------|
-| 🔸 **Standard** | 1 Month | **$300** |
-| 🔸 **Professional** | 1 Year (3 licenses) | **$3,000** |
+| 🔸 **Standard** | 1 Month (1 licenses) | **$300** |
+| 🔸 **Professional** | 1 Year (1 licenses) | **$3,000** |
 
 > 📧 **License required for operation**
 
